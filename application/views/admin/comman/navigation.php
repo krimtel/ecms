@@ -17,7 +17,7 @@
         </button>
     </div>
     <!-- Collection of nav links, forms, and other content for toggling -->
-    <div id="navbarCollapse" class="collapse navbar-collapse" style="float:left;margin-top:5px;margin-bottom:5px;">
+    <div id="navbarCollapse" class="collapse navbar-collapse" data-hover="dropdown" data-animations="fadeIn fadeInLeft fadeInUp fadeInRight" style="float:left;margin-top:5px;margin-bottom:5px;">
 <ul class="nav navbar-nav menu-section1">
 	<li>
 		<a title="Home" class="" href="<?php echo base_url(); ?>dashboard"><i class="fa fa-home" aria-hidden="true"></i> HOME </a>
@@ -40,7 +40,7 @@
 	<li class="dropdown">
 			<a title="Widget" href="#" data-toggle="dropdown" > <i class="fa fa-files-o"></i> Widget <b class="caret"></b></a>
 			<ul class="dropdown-menu">
-				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/users">News/Notice </a></li>
+				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/news">News/Notice </a></li>
 				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/users">Events </a></li>
 			</ul>
 	</li>

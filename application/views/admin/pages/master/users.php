@@ -41,7 +41,7 @@
 					</div>
 					<div class="box-footer">
 						<button id="class_edit" type="button" class="btn pull-right btn-info" style="display:none;">Update</button>
-						<button id="class_create" type="button" class="btn pull-right btn-info">Submit</button>
+						<button id="class_create" type="button" class="btn pull-right btn-success">Submit</button>
 						<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 					</div>
 				</form>

@@ -70,7 +70,7 @@ class Admin_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('admin/pages/master/language',$data,TRUE);
 		$this->load->view('admin/comman/index',$data);
 	}
-	
+	/* Layout */
 	public function all_pages()
 	{
 		$data['title'] = 'eNam Admin';
@@ -123,6 +123,18 @@ class Admin_ctrl extends CI_Controller {
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
 		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
 		$data['main_contant'] = $this->load->view('admin/pages/layout/home_page',$data,TRUE);
+		$this->load->view('admin/comman/index',$data);
+	}
+	/*widget*/
+	
+	public function news()
+	{
+		$data['title'] = 'eNam Admin';
+		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
+		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
+		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
+		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
+		$data['main_contant'] = $this->load->view('admin/pages/widget/news',$data,TRUE);
 		$this->load->view('admin/comman/index',$data);
 	}
 }

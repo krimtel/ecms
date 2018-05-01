@@ -1,5 +1,3 @@
-
-	<link rel="stylesheet" href="<?php echo base_url();?>assest/admin/ckeditor/neo.css">
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 	<ol class="breadcrumb">
@@ -25,8 +23,13 @@
 			<form role="form" class="form-horizontal">
 			<div class="box-body">
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Title</label>
-					<div class="col-sm-9"><input type="text" class="form-control" placeholder="Enter new title"></div>
+					<label class="col-sm-3 control-label">Menu name</label>
+					<div class="col-sm-9"><input type="text" class="form-control" placeholder="Enter new menu" /></div>
+					<div class="col-sm-12"><input type="hidden" class="form-control" value=""></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Sort Order</label>
+					<div class="col-sm-9"><input type="text" class="form-control" placeholder="Enter sort order" /></div>
 					<div class="col-sm-12"><input type="hidden" class="form-control" value=""></div>
 				</div>
 				<div class="form-group">
@@ -40,12 +43,17 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-12">
-						<div id="editor">
-						</div>
+					<label class="col-sm-3 control-label">External link</label>
+					<div class="col-sm-9">
+						<select class="form-control" name="" id="">
+							<option value="0" selected>Please select external link</option>
+							<option value="1" >No</option>
+							<option value="2" >Yes</option>
+						</select>
+						<input type="text" class="form-control" placeholder="Enter external link" />
 					</div>
 				</div>
-            </div>
+				</div>
 			</form>
 			<div class="box-footer">
 				<button id="class_create" type="button" class="btn pull-right btn-info">Save</button>
@@ -54,7 +62,7 @@
 		</div>
 		</section>
 		
-		<section class="col-lg-6 connectedSortable">
+		<section class="col-lg-3 connectedSortable">
 		<div class="box box-primary">
 			<div class="box-header with-border">
 			  <h3 class="box-title">All Menus</h3>
@@ -65,7 +73,62 @@
 			</div>
 
 			<div class="box-body">
-				
+				<ul>
+					<li>Home</li>
+					<li>NAM
+						<ul>
+							<li>About us</li>
+							<li>Key stakeholders</li>
+							<li>Implementation Progress</li>
+							<li>Usefull Links</li>
+						</ul>
+					</li>
+					<li>Farmer
+						<ul>
+							<li>Approved Commodities</li>
+							<li>Commodity Quality Parameter</li>
+							<li>Enrolled mandis</li>
+						</ul>
+					</li>
+					<li>Trader</li>
+					<li>Statistics</li>
+				</ul>
+            </div>
+
+			
+		</div>
+		</section>
+		<section class="col-lg-3 connectedSortable">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+			  <h3 class="box-title">All Menus (Hindi)</h3>
+			  <div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+				  <i class="fa fa-minus"></i></button>
+			  </div>
+			</div>
+
+			<div class="box-body">
+				<ul>
+					<li>Home</li>
+					<li>NAM
+						<ul>
+							<li>About us</li>
+							<li>Key stakeholders</li>
+							<li>Implementation Progress</li>
+							<li>Usefull Links</li>
+						</ul>
+					</li>
+					<li>Farmer
+						<ul>
+							<li>Approved Commodities</li>
+							<li>Commodity Quality Parameter</li>
+							<li>Enrolled mandis</li>
+						</ul>
+					</li>
+					<li>Trader</li>
+					<li>Statistics</li>
+				</ul>
             </div>
 
 			
