@@ -13,4 +13,7 @@ class Test_ctrl extends CI_Controller {
 		
 	}
 	
+	function hello(){
+	}
+	
 }
