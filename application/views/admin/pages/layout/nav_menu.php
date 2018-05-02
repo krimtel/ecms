@@ -20,43 +20,63 @@
 				  <i class="fa fa-minus"></i></button>
 			  </div>
 			</div>
-			<form role="form" class="form-horizontal">
+			<form id="menu_create_form" role="form" class="form-horizontal" method="POST" action="<?php echo base_url();?>admin/Menu_ctrl/menu_create">
 			<div class="box-body">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Menu name</label>
-					<div class="col-sm-9"><input type="text" class="form-control" placeholder="Enter new menu" /></div>
-					<div class="col-sm-12"><input type="hidden" class="form-control" value=""></div>
+					<div class="col-sm-9"><input id="menu_name" name="menu_name" type="text" class="form-control" placeholder="Enter new menu" /></div>
+					<div class="col-sm-9"><input id="menu_id" type="text" class="form-control" value=""></div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Sort Order</label>
-					<div class="col-sm-9"><input type="text" class="form-control" placeholder="Enter sort order" /></div>
-					<div class="col-sm-12"><input type="hidden" class="form-control" value=""></div>
+					<div class="col-sm-9"><input id="menu_sort_order" name="menu_sort_order" type="text" class="form-control" placeholder="Enter sort order" /></div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Select Parent link</label>
 					<div class="col-sm-9">
-						<select class="form-control" name="" id="">
+						<select class="form-control" name="menu_parent_dropdown" id="menu_parent_dropdown">
 							<option value="0" selected>Please select Parent</option>
-							<option value="1" >About us</option>
-							<option value="2" >NAM</option>
+							<?php if(count($parent_menus) > 0){ 
+								foreach($parent_menus as $parent_menu){ ?>
+									<option value="<?php echo $parent_menu['id']; ?>"><?php echo $parent_menu['title']; ?></option>		
+							<?php }
+							} ?>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">External link</label>
+					<label class="col-sm-3 control-label">Menu link</label>
 					<div class="col-sm-9">
-						<select class="form-control" name="" id="">
+						<select class="form-control" name="menu_external_link" id="menu_external_link">
 							<option value="0" selected>Please select external link</option>
-							<option value="1" >No</option>
-							<option value="2" >Yes</option>
+							<option value="0">Cms</option>
+							<option value="1">External</option>
 						</select>
-						<input type="text" class="form-control" placeholder="Enter external link" />
 					</div>
 				</div>
+				<div class="form-group" id="menu_url_box" style="display:none;">
+					<label class="col-sm-3 control-label">Url</label>
+					<div class="col-sm-9">
+						<input type="text" id="menu_url_text" name="menu_url_text" class="form-control" placeholder="Enter external link" />
+					</div>
+				</div>
+				
+				<div class="form-group" id="menu_cms_url_box" style="display:none;">
+					<label class="col-sm-3 control-label">Select Page</label>
+					<div class="col-sm-9">
+						<select class="form-control" name="menu_cems_link_select" id="menu_cems_link_select">
+							<option value="0" selected>Please select external link</option>
+							<option value="0">Cms</option>
+							<option value="1">External</option>
+						</select>
+					</div>
+				</div>
+				
 				</div>
 			</form>
 			<div class="box-footer">
-				<button id="class_create" type="button" class="btn pull-right btn-info">Save</button>
+				<button id="menu_create" type="submit" class="btn pull-right btn-info">Save</button>
+				<button id="menu_update" type="button" class="btn pull-right btn-info" style="display: none;">Update</button>
 				<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 			</div>
 		</div>
@@ -73,8 +93,42 @@
 			</div>
 
 			<div class="box-body">
-			<?php foreach($menu as $key => $value) {
-	      			echo $value;
+			<?php foreach($menus as $menu) {
+	      			if($menu['lang_id'] == 1 || $menu['lang_id'] == ''){
+	      				if($menu['p_id'] == 0){
+	      					echo '<ul>';
+	      					if($menu['menu_name'] == ''){
+	      						echo '<li>'.$menu['title'].'</li>';
+	      					}
+	      					else{
+	      						echo '<li>'.$menu['menu_name'].'</li>';
+	      					}
+	      					$ic = 0;
+	      					foreach($menus as $m1){
+	      						if($m1['lang_id'] == 1 || $m1['lang_id'] == ''){
+		      						if($m1['p_id'] == $menu['id']){
+		      							if($ic == 0){
+		      								echo '<ul '.$ic.'>';
+		      							}
+		      							$ic = 1;
+		      							if($m1['menu_name'] == ''){
+		      								echo '<li>'.$m1['title'].'</li>';
+		      							}
+		      							else{
+		      								echo '<li>'.$m1['menu_name'].'</li>';
+		      							}
+		      							
+		      						}
+		      						else{
+		      							continue;
+		      						}
+	      						}
+	      					}
+	      					echo '</ul>';
+	      				}
+	      				echo '</ul>';
+	      			}
+	      			
 	      		}
 	      	?>
             </div>
@@ -93,26 +147,44 @@
 			</div>
 
 			<div class="box-body">
-				<ul>
-					<li>Home</li>
-					<li>NAM
-						<ul>
-							<li>About us</li>
-							<li>Key stakeholders</li>
-							<li>Implementation Progress</li>
-							<li>Usefull Links</li>
-						</ul>
-					</li>
-					<li>Farmer
-						<ul>
-							<li>Approved Commodities</li>
-							<li>Commodity Quality Parameter</li>
-							<li>Enrolled mandis</li>
-						</ul>
-					</li>
-					<li>Trader</li>
-					<li>Statistics</li>
-				</ul>
+				<?php foreach($menus as $menu) {
+	      			if($menu['lang_id'] == 2 || $menu['lang_id'] == ''){
+	      				if($menu['p_id'] == 0){
+	      					echo '<ul>';
+	      					if($menu['menu_name'] == ''){
+	      						echo '<li>'.$menu['title'].'</li>';
+	      					}
+	      					else{
+	      						echo '<li>'.$menu['menu_name'].'</li>';
+	      					}
+	      					$ic = 0;
+	      					foreach($menus as $m1){
+	      						if($m1['lang_id'] == 2 || $m1['lang_id'] == ''){
+		      						if($m1['p_id'] == $menu['id']){
+		      							if($ic == 0){
+		      								echo '<ul '.$ic.'>';
+		      							}
+		      							$ic = 1;
+		      							if($m1['menu_name'] == ''){
+		      								echo '<li>'.$m1['title'].'</li>';
+		      							}
+		      							else{
+		      								echo '<li>'.$m1['menu_name'].'</li>';
+		      							}
+		      							
+		      						}
+		      						else{
+		      							continue;
+		      						}
+	      						}
+	      					}
+	      					echo '</ul>';
+	      				}
+	      				echo '</ul>';
+	      			}
+	      			
+	      		}
+	      	?>
             </div>
 
 			
