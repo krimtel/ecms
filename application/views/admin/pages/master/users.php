@@ -25,24 +25,33 @@
 					<div class="box-body">
 						<div class="form-group">
 						  <label class="col-sm-3 control-label">Name</label>
-						  <div class="col-sm-9"><input type="text" id="" class="form-control" placeholder="Enter name"></div>
-						  <div class="col-sm-9"><input type="hidden" id="" class="form-control" value=""></div>
+						  <div class="col-sm-9">
+						  	<select class="form-control" name="users_list_drop_down" id="users_list_drop_down">
+						  		<option value="0">Select user</option>
+						  		<?php if(isset($users) && (count($users) > 0)){ 
+						  			foreach($users as $user){ ?>
+						  			<option value="<?php echo $user['id']; ?>"><?php echo $user['username']; ?></option>
+						  		<?php } } ?>
+						  	</select>
+						  </div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Select Language</label>
 							<div class="col-sm-9">
-								<select class="form-control" name="Language" id="">
+								<select class="form-control" name="users_language_drop_down" id="users_language_drop_down">
 									<option value="0" selected>Please select language</option>
-									<option value="1" selected>Hindi</option>
-									<option value="2" selected>Marathi</option>
+									<?php if(isset($languages) && (count($languages)>0)){ 
+										foreach($languages as $language){ ?>
+											<option value="<?php echo $language['l_id']; ?>"><?php echo $language['l_name']; ?></option>	 
+									<?php } } ?>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="box-footer">
-						<button id="class_edit" type="button" class="btn pull-right btn-info" style="display:none;">Update</button>
-						<button id="class_create" type="button" class="btn pull-right btn-success">Submit</button>
-						<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
+						<button id="users_language_update" type="button" class="btn pull-right btn-info" style="display:none;">Update</button>
+						<button id="users_language_create" type="button" class="btn pull-right btn-success">Submit</button>
+						<button id="users_language_reset" type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 					</div>
 				</form>
 			</div>
@@ -64,27 +73,21 @@
                   <th>Language</th>
                   <th>Edit/Delete</th>
                 </tr>
-                <tbody id="class_display">
-
-                		<tr>
-                  			<td>01</td>
-                  			<td>Rahul</td>
-                  			<td>Hindi</td>
-                  			<td>
-                  				<a class="class_edit btn btn-info btn-flat"><i class="fa fa-pencil"></i></a>
-                  				<a class="class_delete btn btn-info btn-flat"><i class="fa fa-trash"></i></a>
-                  			</td>
-                		</tr>
-						<tr>
-                  			<td>02</td>
-                  			<td>Narayan</td>
-                  			<td>Marathi</td>
-                  			<td>
-                  				<a class="class_edit btn btn-info btn-flat"><i class="fa fa-pencil"></i></a>
-                  				<a class="class_delete btn btn-info btn-flat"><i class="fa fa-trash"></i></a>
-                  			</td>
-                		</tr>
-
+                <tbody id="language_users_display">
+					<?php if(isset($users_lang) && (count($users_lang)>0)){
+						$c = 1;
+						foreach($users_lang as $user_lang){ ?> 
+							<tr>
+	                  			<td><?php echo $c; ?></td>
+	                  			<td><?php echo $user_lang['username']; ?></td>
+	                  			<td><?php echo $user_lang['l_name']; ?></td>
+	                  			<td>
+	                  				<a class="class_edit btn btn-info btn-flat user_edit" data-u_id="<?php echo $user_lang['id']; ?>" data-lang_id="<?php echo $user_lang['l_id']; ?>"><i class="fa fa-pencil"></i></a>
+	                  				<a class="class_delete btn btn-info btn-flat user_delete" data-u_id="<?php echo $user_lang['id']; ?>"><i class="fa fa-trash"></i></a>
+	                  			</td>
+                			</tr>	
+					<?php }
+					}?>
             	</tbody>
               </table>
             </div>

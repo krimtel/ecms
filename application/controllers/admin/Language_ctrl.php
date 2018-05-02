@@ -10,6 +10,9 @@ class Language_ctrl extends CI_Controller {
 		$this->load->database();
 		$this->load->model(array('admin/Language_model'));
 		$this->lang->load('admin_lang', 'english');
+		if (!$this->ion_auth->logged_in()){
+			redirect('admin/admin');
+		}
 	}
 	
 	public function index(){
@@ -41,8 +44,8 @@ class Language_ctrl extends CI_Controller {
 			echo json_encode(array('msg'=>$msg,'status'=>200));
 		}
 		else{
-			if($this->lang->line('language_update_faild')){
-				$msg  = $this->lang->line('language_update_faild');
+			if($this->lang->line('language_update_failed')){
+				$msg  = $this->lang->line('language_update_failed');
 			}
 			else{
 				$msg = 'Language updated failed.';
@@ -68,8 +71,8 @@ class Language_ctrl extends CI_Controller {
 			echo json_encode(array('data'=>$result,'msg'=>$msg,'status'=>200));
 		}
 		else{
-			if($this->lang->line('language_create_faild')){
-				$msg  = $this->lang->line('language_create_faild');
+			if($this->lang->line('language_create_failed')){
+				$msg  = $this->lang->line('language_create_failed');
 			}
 			else{
 				$msg = 'Language creation failed.';
@@ -95,8 +98,8 @@ class Language_ctrl extends CI_Controller {
 			echo json_encode(array('msg'=>$msg,'status'=>200));
 		}
 		else{
-			if($this->lang->line('language_delete_faild')){
-				$msg  = $this->lang->line('language_delete_faild');
+			if($this->lang->line('language_delete_failed')){
+				$msg  = $this->lang->line('language_delete_failed');
 			}
 			else{
 				$msg = 'Language delete failed.';

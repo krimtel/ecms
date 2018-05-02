@@ -9,6 +9,9 @@ class Menu_ctrl extends CI_Controller {
 		$this->load->database();
 		$this->load->model('admin/Menu_model');
 		$this->load->library(array('session','ion_auth'));
+		if (!$this->ion_auth->logged_in()){
+			redirect('admin/admin');
+		}
 	}
 	
 	public function index($m_id = null){
@@ -44,7 +47,8 @@ class Menu_ctrl extends CI_Controller {
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
 		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
-		$data['main_contant'] = $this->load->view('admin/pages/menu',$data,TRUE);
+		$data['main_contant'] = $this->load->view('admin/pages/layout/nav_menu',$data,TRUE);
+		//$data['main_contant'] = $this->load->view('admin/pages/menu',$data,TRUE);
 		$this->load->view('admin/comman/index',$data);
 	}
 	

@@ -20,11 +20,11 @@ $route['admin/admin'] = 'admin/Auth/index';
 $route['admin/admin/menus'] = 'admin/Menu_ctrl';
 $route['admin/admin/menus/(:any)'] = 'admin/Menu_ctrl/index/$1';
 $route['admin/admin/dashboard'] = 'admin/Admin_ctrl/dashboard';
+$route['admin/admin/language'] = 'admin/Language_ctrl/index';
+$route['admin/admin/users'] = 'admin/Users_ctrl/index';
 $route['admin/admin/(:any)'] = 'admin/Admin_ctrl/$1';
-$route['admin/admin/users'] = 'admin/Admin_ctrl/$1';
-$route['admin/admin/language'] = 'admin/Admin_ctrl/$1';
+
 $route['admin/admin/all_pages'] = 'admin/Admin_ctrl/$1';
 $route['admin/admin/add_page'] = 'admin/Admin_ctrl/$1';
 $route['admin/admin/edit_page'] = 'admin/Admin_ctrl/$1';
-$route['admin/admin/nav_menu'] = 'admin/Admin_ctrl/$1';
 $route['admin/admin/home_page'] = 'admin/Admin_ctrl/$1';

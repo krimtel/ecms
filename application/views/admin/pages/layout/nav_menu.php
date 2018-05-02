@@ -73,26 +73,10 @@
 			</div>
 
 			<div class="box-body">
-				<ul>
-					<li>Home</li>
-					<li>NAM
-						<ul>
-							<li>About us</li>
-							<li>Key stakeholders</li>
-							<li>Implementation Progress</li>
-							<li>Usefull Links</li>
-						</ul>
-					</li>
-					<li>Farmer
-						<ul>
-							<li>Approved Commodities</li>
-							<li>Commodity Quality Parameter</li>
-							<li>Enrolled mandis</li>
-						</ul>
-					</li>
-					<li>Trader</li>
-					<li>Statistics</li>
-				</ul>
+			<?php foreach($menu as $key => $value) {
+	      			echo $value;
+	      		}
+	      	?>
             </div>
 
 			

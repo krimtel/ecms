@@ -24,14 +24,14 @@
 					<div class="box-body">
 						<div class="form-group">
 						  <label class="col-sm-3 control-label">New Language</label>
-						  <div class="col-sm-9"><input type="text" id="" class="form-control" placeholder="Enter new language"></div>
-						  <div class="col-sm-9"><input type="hidden" id="" class="form-control" value=""></div>
+						  <div class="col-sm-9"><input type="text" id="language_name" class="form-control" placeholder="Enter new language"></div>
+						  <div class="col-sm-9"><input type="hidden" id="language_id" class="form-control" value=""></div>
 						</div>
 					</div>
 					<div class="box-footer">
-						<button id="class_edit" type="button" class="btn pull-right btn-info" style="display:none;">Update</button>
-						<button id="class_create" type="button" class="btn pull-right btn-info">Submit</button>
-						<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
+						<button id="language_update" type="button" class="btn pull-right btn-info" style="display:none;">Update</button>
+						<button id="language_create" type="button" class="btn pull-right btn-info">Submit</button>
+						<button type="reset" id="language_reset" class="btn btn-default pull-right btn-space">Cancel</button>
 					</div>
 				</form>
 			</div>
@@ -53,24 +53,21 @@
                   <th>Edit/Delete</th>
                 </tr>
                 <tbody id="class_display">
-
+                	<?php if(isset($languages) && (count($languages) > 0)){
+                		$c = 1;
+                		foreach($languages as $language){ ?>
                 		<tr>
-                  			<td>01</td>
-                  			<td>Hindi</td>
-                  			<td>
-                  				<a class="class_edit btn btn-info btn-flat"><i class="fa fa-pencil"></i></a>
-                  				<a class="class_delete btn btn-info btn-flat"><i class="fa fa-trash"></i></a>
-                  			</td>
+	                		<td><?php echo $c; ?></td>
+	                		<td><?php echo $language['l_name']; ?></td>
+	                		<td>
+	                		<a class="class_edit btn btn-info btn-flat language_edit" data-l_id="<?php echo $language['l_id']; ?>" data-l_name="<?php echo $language['l_name']; ?>"><i class="fa fa-pencil"></i></a>
+	                		<a class="class_delete btn btn-info btn-flat language_delete" data-l_id="<?php echo $language['l_id']; ?>" data-l_name="<?php echo $language['l_name']; ?>"><i class="fa fa-trash"></i></a>
+	                		</td>
                 		</tr>
-						<tr>
-                  			<td>02</td>
-                  			<td>Marathi</td>
-                  			<td>
-                  				<a class="class_edit btn btn-info btn-flat"><i class="fa fa-pencil"></i></a>
-                  				<a class="class_delete btn btn-info btn-flat"><i class="fa fa-trash"></i></a>
-                  			</td>
-                		</tr>
-
+                	<?php $c++; } } else {
+                		
+                	}?>
+                	
             	</tbody>
               </table>
             </div>

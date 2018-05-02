@@ -7,6 +7,9 @@ class Admin_ctrl extends CI_Controller {
 		parent :: __construct();
 		$this->load->helper('url');
 		$this->load->library(array('session','ion_auth'));
+		if (!$this->ion_auth->logged_in()){
+			redirect('admin/admin');
+		}
 	}
 	public function index(){
 		$data['title'] = 'eNam Admin';
@@ -48,29 +51,7 @@ class Admin_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('admin/pages/page/edit',$data,TRUE);
 		$this->load->view('admin/comman/index',$data);
 	}*/
-	/*Master menu*/
-	public function users()
-	{
-		$data['title'] = 'eNam Admin';
-		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
-		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
-		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
-		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
-		$data['main_contant'] = $this->load->view('admin/pages/master/users',$data,TRUE);
-		$this->load->view('admin/comman/index',$data);
-	}
 	
-	public function language()
-	{
-		$data['title'] = 'eNam Admin';
-		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
-		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
-		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
-		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
-		$data['main_contant'] = $this->load->view('admin/pages/master/language',$data,TRUE);
-		$this->load->view('admin/comman/index',$data);
-	}
-	/* Layout */
 	public function all_pages()
 	{
 		$data['title'] = 'eNam Admin';
@@ -101,17 +82,6 @@ class Admin_ctrl extends CI_Controller {
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
 		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
 		$data['main_contant'] = $this->load->view('admin/pages/layout/edit_page',$data,TRUE);
-		$this->load->view('admin/comman/index',$data);
-	}
-	
-	public function nav_menu()
-	{
-		$data['title'] = 'eNam Admin';
-		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
-		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
-		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
-		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
-		$data['main_contant'] = $this->load->view('admin/pages/layout/nav_menu',$data,TRUE);
 		$this->load->view('admin/comman/index',$data);
 	}
 	
