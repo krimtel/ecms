@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Language_model extends CI_Model {
 	function __construct(){
 		parent :: __construct();
+		$this->load->helper(array('url','file'));
 		$this->load->database();
 	}
 	
@@ -41,6 +42,17 @@ class Language_model extends CI_Model {
 				'status' => 0
 				)
 			);
+		
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+		if(count($file_menu)){
+			$data['languages'] = $file_menu;
+		}
+		else{
+			$data['languages'] = $this->Language_model->get_all_language();
+			$json = json_encode($data['languages']);
+			$file = FCPATH . '/software_files/Language.txt';
+			file_put_contents ($file, $json);
+		}
 		return true;
 	}
 }
