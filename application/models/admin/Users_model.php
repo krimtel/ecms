@@ -11,13 +11,12 @@ class Users_model extends CI_Model {
 		$this->db->select('u.id,u.username,g.name,l.l_name,l.l_id');
 		$this->db->join('users_groups ug','ug.user_id = u.id');
 		$this->db->join('groups g','g.id = ug.group_id');
-		$this->db->join('users_language ul','ul.user_id = u.id');
-		$this->db->join('languages l','l.l_id = ul.lang_id');
+		$this->db->join('languages l','l.l_id = u.language');
 		if($u_id != null){
 			$this->db->where('u.id',$u_id);
 		}
-		$result = $this->db->get_Where('users u',array('ug.group_id'=>3,'ul.status'=>1,'u.active'=>1))->result_array();
-		return $result;
+		$result = $this->db->get_Where('users u',array('ug.group_id'=>3,'u.active'=>1))->result_array();
+		return $result;	
 	}
 	
 	function get_all_users(){
@@ -35,11 +34,9 @@ class Users_model extends CI_Model {
 	}
 	
 	function user_language_update($data){
-		$this->db->where('user_id',$data['u_id']);
-		$this->db->update('users_language',array(
-			'lang_id' => $data['lang_id'],
-			'updated_at' => $data['updated_at'],
-			'updated_by' => $data['user_id']
+		$this->db->where('id',$data['u_id']);
+		$this->db->update('users',array(
+			'language' => $data['lang_id']
 		));
 		return true;
 	}

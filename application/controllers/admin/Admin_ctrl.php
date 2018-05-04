@@ -5,7 +5,7 @@ class Admin_ctrl extends CI_Controller {
 
 	function __construct(){
 		parent :: __construct();
-		$this->load->helper('url');
+		$this->load->helper(array('url','file'));
 		$this->load->library(array('session','ion_auth'));
 		if (!$this->ion_auth->logged_in()){
 			redirect('admin/admin');
@@ -23,9 +23,18 @@ class Admin_ctrl extends CI_Controller {
 	
 	function dashboard(){
 		$data['title'] = 'eNam Admin';
+		$l_id = $this->session->userdata('language'); 
+		$languages = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+		
+		foreach($languages as $language){
+			if($language['l_id'] == $l_id){
+				$data['language'] = $language; 
+			}
+		}
+		
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
-		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
+		$data['navigation'] = $this->load->view('admin/comman/navigation',$data,TRUE);
 		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
 		$data['main_contant'] = $this->load->view('admin/pages/dashboard',$data,TRUE);
 		$this->load->view('admin/comman/index',$data);
@@ -95,16 +104,5 @@ class Admin_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('admin/pages/layout/home_page',$data,TRUE);
 		$this->load->view('admin/comman/index',$data);
 	}
-	/*widget*/
 	
-	public function news()
-	{
-		$data['title'] = 'eNam Admin';
-		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
-		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
-		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
-		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
-		$data['main_contant'] = $this->load->view('admin/pages/widget/news',$data,TRUE);
-		$this->load->view('admin/comman/index',$data);
-	}
 }

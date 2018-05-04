@@ -98,14 +98,20 @@ class Menu_ctrl extends CI_Controller {
 	}	
 	
 	function menu_create(){
-		
-		$this->form_validation->set_rules('menu_name','','required|min_length[3]|is_unique[menu.title]|xss_clean',
+		if($this->input->post('menu_id') == ''){
+			$this->form_validation->set_rules('menu_name','menu_name','required|min_length[3]|is_unique[menu.title]',
 				array(
 					'required'      => $this->lang->line('menu_name_error_required'),
 					'is_unique'     => $this->lang->line('menu_name_error_isunique')
 				));
-		
-		$this->form_validation->set_rules('menu_url_text','','required|valid_url|xss_clean',
+		}
+		else{
+			$this->form_validation->set_rules('menu_name','menu_name','required|min_length[3]',
+					array(
+							'required'      => $this->lang->line('menu_name_error_required')
+					));
+		}
+		$this->form_validation->set_rules('menu_url_text','','valid_url',
 				array(
 						'required'      => 'required',
 						'valid_url'     => 'its working'
@@ -114,7 +120,56 @@ class Menu_ctrl extends CI_Controller {
 			echo validation_errors(); die;
 		}
 		else{
-			echo "sdf";
+			$data['title'] = $this->input->post('menu_name');
+			$data['menu_slug'] = $this->input->post('menu_name');
+			$data['p_id'] = (int)$this->input->post('menu_parent_dropdown');
+			if($data['p_id'] != 0){
+				$data['external_link'] = (int)$this->input->post('menu_external_link');
+				$data['cms_url'] = $this->input->post('menu_url_text');
+			}
+			else{
+				$data['external_link'] = NULL;
+				$data['cms_url'] = NULL;
+			}
+			$data['sort'] = (int)$this->input->post('menu_sort_order');
+			$data['created_at'] = date('d-m-y h:i:s');
+			$data['created_by'] = $this->session->userdata('user_id');
+			$data['updated_by'] = $this->session->userdata('user_id');
+			$data['ip'] = $this->input->ip_address();
+			
+			if($this->input->post('menu_id') != ''){
+				$data['menu_id'] = (int)$this->input->post('menu_id');
+				$result = $this->Menu_model->menu_update($data);
+				if($result){
+					echo json_encode(array('msg'=>'menu updated successfully.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'some error found.','status'=>500));
+				}
+			die;
+			}
+			
+			$result = $this->Menu_model->menu_create($data);
+			if($result){
+				echo json_encode(array('msg'=>'menu created susseccfully.','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'some error found.','status'=>500));
+			}
+		}
+	}
+	
+	function menu_content(){
+		if ($this->ion_auth->is_admin()){
+			$data['m_id'] = (int)$this->input->post('m_id');
+			$data['lang_id'] = 1;
+			$result = $this->Menu_model->menu_content($data);
+			if(count($result) == 1){
+				echo json_encode(array('data'=>$result,'msg'=>'','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'','status'=>500));
+			}
 		}
 	}
 }

@@ -13,7 +13,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$(document).on('click','#menu_create',function(){
+	$(document).on('click','#menu_create,#menu_update',function(){
 		$('#menu_create_form').ajaxForm({
 		    dataType : 'json',
 		    beforeSubmit:function(e){
@@ -22,6 +22,8 @@ $(document).ready(function(){
 		    success:function(response){
 		  	  if(response.status == 200){
 		    	$('#loader').modal('toggle');
+		    	alert(response.msg);
+		    	location.reload();
 		      }
 		      else{
 			    alert(response.msg);
@@ -30,6 +32,70 @@ $(document).ready(function(){
 	  }).submit();
 	});
 	
+	$(document).on('click','.menu_list_item',function(){
+		var m_id = $(this).data('m_id');
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Menu_ctrl/menu_content',
+	        dataType: "json",
+	        data: {
+	        	'm_id'	: m_id
+	        },
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	$('#loader').modal('toggle');
+	        	if(response.status == 200){
+	        		$.each(response.data,function(key,value){
+	        			$('#menu_name').val(value.menu_name);
+	        			$('#menu_id').val(value.id);
+	        			$('#menu_sort_order').val(value.sort);
+	        			$('#menu_parent_dropdown').val(value.p_id);
+	        			if(value.p_id == '0'){
+	        				$('#menu_url_box').hide();
+	        				$('#menu_menu_link_box').hide();
+	        				$('#menu_cms_url_box').hide();
+	        			}
+	        			else{
+	        				$('#menu_menu_link_box').show();
+	        				$('#menu_cms_url_box').show();
+	        				$('#menu_external_link').val(value.external_link);
+		        			if(value.external_link == '0'){
+		        				$('#menu_cms_url_box').show();
+		        			}
+		        			else{
+		        				$('#menu_url_box').show();
+		        				$('#menu_url_text').val(value.cms_url);
+		        			}
+	        			}
+	        		});
+	        		$('#menu_create').hide();
+	        		$('#menu_update').show();
+	        	}
+	        	else{
+	        		alert(response.msg);
+	        	}
+	        }
+		});
+	});
+	
+	
+	$(document).on('change','#menu_parent_dropdown',function(){
+		var x = $(this).val();
+		if(x != 0){
+			$('#menu_menu_link_box').show();
+			$('#menu_url_box').show();
+			$('menu_cms_url_box').show();
+		}
+		else{
+			$('#menu_menu_link_box').hide();
+			$('#menu_url_box').hide();
+			$('#menu_cms_url_box').hide();
+		}
+	});
 	
 	////////////////////////////  language ////////////////////////////////////
 	$(document).on('click','.language_edit',function(){
@@ -288,4 +354,58 @@ $(document).ready(function(){
 	        }
 		});
 	});
+
+/////////////////////////////////////////////////////////////News///////////////////////////////////////////////////////////////////////
+	$(document).on('click','#news_create,#news_update',function(){
+		$('#news_form').ajaxForm({
+		    dataType : 'json',
+		    data : {
+		    	'news_desc' : CKEDITOR.instances.news_desc.getData()
+		    },
+		    beforeSubmit:function(e){
+				$('#loader').modal('show');
+		    },
+		    success:function(response){
+		  	  if(response.status == 200){
+		    	$('#loader').modal('toggle');
+		    	alert(response.msg);
+		    	location.reload();
+		      }
+		      else{
+			    alert(response.msg);
+		      }
+		    }
+	  }).submit();
+	});
+	
+	$(document).on('click','.news_edit',function(){
+		var n_id = $(this).data('news_id');
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/News_ctrl/get_news_content',
+	        dataType: "json",
+	        data: {
+	        	'n_id'	: n_id
+	        },
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	$('#loader').modal('toggle');
+	        	if(response.status == 200){
+	        		CKEDITOR.instances['news_desc'].setData(response.data[0].news_contect);
+	        		$('#news_id').val(response.data[0].id);
+	        		$('#news_order').val(response.data[0].sort);
+	        		$('#news_update').show();
+	        		$('#news_create').hide();
+	        	}
+	        	else{
+	        		
+	        	}
+	        }
+		});
+	});
+	
 });

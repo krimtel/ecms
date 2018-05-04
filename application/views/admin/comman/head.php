@@ -18,4 +18,8 @@
 
 <!--<link rel="stylesheet" type="text/css" href="<?php //echo base_url(); ?>assest/admin/css/sb-admin.css"/>-->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/admin/css/admin-custom-style.css"/>
+
+<script type="text/javascript" src="<?php echo base_url(); ?>assest/admin/js/jquery-2.2.3.min.js" /></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assest/admin/ckeditor/ckeditor.js" ></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assest/admin/ckeditor/sample.js" ></script>
 </head>

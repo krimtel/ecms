@@ -25,7 +25,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Menu name</label>
 					<div class="col-sm-9"><input id="menu_name" name="menu_name" type="text" class="form-control" placeholder="Enter new menu" /></div>
-					<div class="col-sm-9"><input id="menu_id" type="text" class="form-control" value=""></div>
+					<div class="col-sm-9"><input id="menu_id" name="menu_id" type="hidden" class="form-control" value=""></div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Sort Order</label>
@@ -44,11 +44,11 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" id="menu_menu_link_box" style="display:none;">
 					<label class="col-sm-3 control-label">Menu link</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="menu_external_link" id="menu_external_link">
-							<option value="0" selected>Please select external link</option>
+							<option value="-1" selected>Please select external link</option>
 							<option value="0">Cms</option>
 							<option value="1">External</option>
 						</select>
@@ -76,7 +76,7 @@
 			</form>
 			<div class="box-footer">
 				<button id="menu_create" type="submit" class="btn pull-right btn-info">Save</button>
-				<button id="menu_update" type="button" class="btn pull-right btn-info" style="display: none;">Update</button>
+				<button id="menu_update" type="submit" class="btn pull-right btn-info" style="display: none;">Update</button>
 				<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 			</div>
 		</div>
@@ -98,10 +98,10 @@
 	      				if($menu['p_id'] == 0){
 	      					echo '<ul>';
 	      					if($menu['menu_name'] == ''){
-	      						echo '<li>'.$menu['title'].'</li>';
+	      						echo '<li class="menu_list_item" data-m_id="'.$menu['id'].'">'.$menu['title'].'</li>';
 	      					}
 	      					else{
-	      						echo '<li>'.$menu['menu_name'].'</li>';
+	      						echo '<li class="menu_list_item" data-m_id="'.$menu['id'].'">'.$menu['menu_name'].'</li>';
 	      					}
 	      					$ic = 0;
 	      					foreach($menus as $m1){
@@ -112,10 +112,10 @@
 		      							}
 		      							$ic = 1;
 		      							if($m1['menu_name'] == ''){
-		      								echo '<li>'.$m1['title'].'</li>';
+		      								echo '<li class="menu_list_item" data-m_id="'.$m1['id'].'">'.$m1['title'].'</li>';
 		      							}
 		      							else{
-		      								echo '<li>'.$m1['menu_name'].'</li>';
+		      								echo '<li class="menu_list_item" data-m_id="'.$m1['id'].'">'.$m1['menu_name'].'</li>';
 		      							}
 		      							
 		      						}

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2018 at 01:12 PM
+-- Generation Time: May 04, 2018 at 01:52 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -96,6 +96,14 @@ CREATE TABLE `login_attempts` (
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `login_attempts`
+--
+
+INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
+(1, '::1', 'rahul', 1525433871),
+(2, '::1', 'rahul@gmail.com', 1525433914);
+
 -- --------------------------------------------------------
 
 --
@@ -108,14 +116,14 @@ CREATE TABLE `menu` (
   `title` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `p_id` bigint(255) NOT NULL,
   `sort` int(11) NOT NULL,
-  `external_link` tinyint(1) NOT NULL DEFAULT '0',
-  `cms_url` bigint(255) DEFAULT NULL,
+  `external_link` tinyint(1) DEFAULT '0',
+  `cms_url` varchar(500) DEFAULT NULL,
   `ip` varchar(200) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) UNSIGNED NOT NULL,
   `updated_at` datetime NOT NULL,
   `updated_by` int(11) UNSIGNED NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0'
+  `status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -123,10 +131,18 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `menu_slug`, `title`, `p_id`, `sort`, `external_link`, `cms_url`, `ip`, `created_at`, `created_by`, `updated_at`, `updated_by`, `status`) VALUES
-(1, 'Home', 'Home', 0, 1, 0, NULL, '', '0000-00-00 00:00:00', 1, '0000-00-00 00:00:00', 0, 1),
-(2, 'Home1', 'Home1', 1, 2, 0, NULL, '', '0000-00-00 00:00:00', 1, '0000-00-00 00:00:00', 0, 1),
-(3, 'Home2', 'Home2', 1, 3, 0, NULL, '', '0000-00-00 00:00:00', 1, '0000-00-00 00:00:00', 0, 1),
-(4, 'about', 'About', 0, 4, 0, NULL, '', '0000-00-00 00:00:00', 1, '0000-00-00 00:00:00', 0, 1);
+(1, 'HOME', 'HOME', 0, 1, NULL, NULL, '::1', '0000-00-00 00:00:00', 1, '2003-05-18 11:43:41', 3, 1),
+(2, 'NATIONAL AGRICULTURE MARKET', 'NATIONAL AGRICULTURE MARKET', 0, 2, NULL, NULL, '::1', '0000-00-00 00:00:00', 1, '2003-05-18 11:49:08', 3, 1),
+(3, ' ABOUT NAM', ' ABOUT NAM', 2, 3, 0, '', '::1', '0000-00-00 00:00:00', 1, '2003-05-18 11:50:19', 3, 1),
+(4, 'About', 'About', 0, 20, NULL, NULL, '::1', '0000-00-00 00:00:00', 1, '2003-05-18 11:56:44', 3, 1),
+(5, 'USEFUL LINKS', 'USEFUL LINKS', 2, 6, 0, '', '::1', '2003-05-18 07:27:37', 3, '2003-05-18 11:53:36', 3, 1),
+(6, 'APPROVED COMMODITIES', 'APPROVED COMMODITIES', 8, 9, 0, '', '::1', '2003-05-18 07:35:12', 3, '2003-05-18 11:54:32', 3, 1),
+(7, 'KEY STAKEHOLDERS', 'KEY STAKEHOLDERS', 2, 4, 0, '', '::1', '2003-05-18 07:39:26', 3, '2003-05-18 11:50:51', 3, 1),
+(8, 'FARMER', 'FARMER', 0, 8, NULL, NULL, '::1', '2003-05-18 07:46:41', 3, '2003-05-18 11:54:03', 3, 1),
+(9, 'IMPLEMENTATION PROGRESS', 'IMPLEMENTATION PROGRESS', 2, 5, 0, '', '::1', '2003-05-18 11:52:53', 3, '0000-00-00 00:00:00', 3, 1),
+(10, 'COMMODITY QUALITY PARAMETERS', 'COMMODITY QUALITY PARAMETERS', 8, 10, 0, '', '::1', '2003-05-18 11:55:23', 3, '0000-00-00 00:00:00', 3, 1),
+(11, 'ENROLLED MANDIS', 'ENROLLED MANDIS', 8, 11, 0, '', '::1', '2003-05-18 11:55:50', 3, '0000-00-00 00:00:00', 3, 1),
+(12, 'TRADER', 'TRADER', 0, 12, NULL, NULL, '::1', '2003-05-18 11:56:25', 3, '0000-00-00 00:00:00', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -152,12 +168,70 @@ CREATE TABLE `menu_item` (
 --
 
 INSERT INTO `menu_item` (`m_id`, `lang_id`, `menu_id`, `menu_name`, `created_at`, `created_by`, `updated_at`, `updated_by`, `ip`, `status`) VALUES
-(1, 1, 1, 'Home', '2018-04-23 00:00:00', 1, '0000-00-00 00:00:00', 0, 0, 1),
-(2, 2, 1, 'होम', '2018-04-23 00:00:00', 1, '0000-00-00 00:00:00', 0, 0, 1),
-(3, 1, 2, 'home 1', '2018-04-23 00:00:00', 1, '0000-00-00 00:00:00', 0, 0, 1),
+(1, 1, 1, 'HOME', '2018-04-23 00:00:00', 1, '2003-05-18 11:43:41', 3, 0, 1),
+(2, 2, 1, 'HOME', '2018-04-23 00:00:00', 1, '0000-00-00 00:00:00', 3, 0, 1),
+(3, 1, 2, 'NATIONAL AGRICULTURE MARKET', '2018-04-23 00:00:00', 1, '2003-05-18 11:49:08', 3, 0, 1),
 (4, 2, 2, 'होम 1', '2018-04-23 00:00:00', 1, '0000-00-00 00:00:00', 0, 0, 1),
-(5, 1, 3, 'home 2', '2018-04-23 00:00:00', 1, '0000-00-00 00:00:00', 0, 0, 1),
-(6, 2, 3, 'होम 2', '2018-04-23 00:00:00', 1, '0000-00-00 00:00:00', 0, 0, 1);
+(5, 1, 3, ' ABOUT NAM', '2018-04-23 00:00:00', 1, '2003-05-18 11:50:19', 3, 0, 1),
+(6, 2, 3, 'होम 2', '2018-04-23 00:00:00', 1, '0000-00-00 00:00:00', 0, 0, 1),
+(7, 1, 5, 'USEFUL LINKS', '2003-05-18 07:27:37', 3, '2003-05-18 11:53:36', 3, 0, 1),
+(8, 1, 6, 'APPROVED COMMODITIES', '2003-05-18 07:35:12', 3, '2003-05-18 11:54:32', 3, 0, 1),
+(9, 1, 7, 'KEY STAKEHOLDERS', '2003-05-18 07:39:26', 3, '2003-05-18 11:50:51', 3, 0, 1),
+(10, 1, 8, 'FARMER', '2003-05-18 07:46:41', 3, '2003-05-18 11:54:03', 3, 0, 1),
+(11, 1, 9, 'IMPLEMENTATION PROGRESS', '2003-05-18 11:52:53', 3, '0000-00-00 00:00:00', 3, 0, 1),
+(12, 1, 10, 'COMMODITY QUALITY PARAMETERS', '2003-05-18 11:55:23', 3, '0000-00-00 00:00:00', 3, 0, 1),
+(13, 1, 11, 'ENROLLED MANDIS', '2003-05-18 11:55:50', 3, '0000-00-00 00:00:00', 3, 0, 1),
+(14, 1, 12, 'TRADER', '2003-05-18 11:56:25', 3, '0000-00-00 00:00:00', 3, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `id` bigint(255) NOT NULL,
+  `news_contect` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(11) UNSIGNED NOT NULL,
+  `sort` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) UNSIGNED DEFAULT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '1',
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id`, `news_contect`, `created_at`, `created_by`, `sort`, `updated_at`, `updated_by`, `publish`, `status`) VALUES
+(1, '<p>sfdsf</p>', '2004-05-18 10:22:25', 3, 1, '2004-05-18 12:35:00', 3, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news_item`
+--
+
+CREATE TABLE `news_item` (
+  `id` bigint(255) NOT NULL,
+  `news_id` bigint(255) NOT NULL,
+  `lang_id` int(11) NOT NULL,
+  `news_contect` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(11) UNSIGNED NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) UNSIGNED DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `news_item`
+--
+
+INSERT INTO `news_item` (`id`, `news_id`, `lang_id`, `news_contect`, `created_at`, `created_by`, `updated_at`, `updated_by`, `status`) VALUES
+(1, 1, 1, '<p>sfdsf 123 4</p>', '2004-05-18 10:22:25', 3, '2004-05-18 12:35:00', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -276,18 +350,19 @@ CREATE TABLE `users` (
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL
+  `phone` varchar(20) DEFAULT NULL,
+  `language` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1525238095, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '::1', 'kayya@gmail.com', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'kayya@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1524482628, 1, 'chowa', 'yadav', 'kayya', '9770866241'),
-(3, '::1', 'parent@gmail.com', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'parent@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1523080625, 1, 'chowa', 'yadav', 'kayya', '9770866241'),
-(4, '::1', 'rahul', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'parent@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1523080625, 1, 'chowa', 'yadav', 'kayya', '9770866241');
+INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `language`) VALUES
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1525238095, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL),
+(2, '::1', 'kayya@gmail.com', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'kayya@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1525431987, 1, 'chowa', 'yadav', 'kayya', '9770866241', 1),
+(3, '::1', 'parent@gmail.com', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'krimtel@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1525263669, 1, 'chowa', 'yadav', 'kayya', '9770866241', NULL),
+(4, '::1', 'rahul@gmail.com', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'rahul@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1525433969, 1, 'chowa', 'yadav', 'kayya', '9770866241', 4);
 
 -- --------------------------------------------------------
 
@@ -310,32 +385,6 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (3, 2, 3),
 (4, 3, 2),
 (5, 4, 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users_language`
---
-
-CREATE TABLE `users_language` (
-  `id` bigint(255) NOT NULL,
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `lang_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` int(11) UNSIGNED DEFAULT NULL,
-  `ip` varchar(200) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users_language`
---
-
-INSERT INTO `users_language` (`id`, `user_id`, `lang_id`, `created_at`, `updated_at`, `updated_by`, `ip`, `status`) VALUES
-(1, 2, 1, '0000-00-00 00:00:00', '2001-05-18 03:34:55', 1, '', 1),
-(6, 4, 4, '2002-05-18 04:56:06', '2002-05-18 07:01:31', 1, '::1', 0),
-(7, 4, 4, '2002-05-18 04:58:32', '2002-05-18 07:01:31', 1, '::1', 1);
 
 -- --------------------------------------------------------
 
@@ -408,6 +457,24 @@ ALTER TABLE `menu_item`
   ADD KEY `created_by` (`created_by`);
 
 --
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `updated_by` (`updated_by`);
+
+--
+-- Indexes for table `news_item`
+--
+ALTER TABLE `news_item`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `news_id` (`news_id`),
+  ADD KEY `lang_id` (`lang_id`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `updated_by` (`updated_by`);
+
+--
 -- Indexes for table `pages`
 --
 ALTER TABLE `pages`
@@ -459,15 +526,6 @@ ALTER TABLE `users_groups`
   ADD KEY `fk_users_groups_groups1_idx` (`group_id`);
 
 --
--- Indexes for table `users_language`
---
-ALTER TABLE `users_language`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `lang_id` (`lang_id`),
-  ADD KEY `updated_by` (`updated_by`);
-
---
 -- Indexes for table `widgets`
 --
 ALTER TABLE `widgets`
@@ -492,17 +550,27 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `menu_item`
 --
 ALTER TABLE `menu_item`
-  MODIFY `m_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `m_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `news_item`
+--
+ALTER TABLE `news_item`
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `pages`
 --
@@ -539,11 +607,6 @@ ALTER TABLE `users`
 ALTER TABLE `users_groups`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `users_language`
---
-ALTER TABLE `users_language`
-  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
---
 -- AUTO_INCREMENT for table `widgets`
 --
 ALTER TABLE `widgets`
@@ -573,19 +636,19 @@ ALTER TABLE `menu_item`
   ADD CONSTRAINT `menu_item_ibfk_3` FOREIGN KEY (`lang_id`) REFERENCES `languages` (`l_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `news_item`
+--
+ALTER TABLE `news_item`
+  ADD CONSTRAINT `news_item_ibfk_1` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `news_item_ibfk_2` FOREIGN KEY (`lang_id`) REFERENCES `languages` (`l_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `news_item_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `users_groups`
 --
 ALTER TABLE `users_groups`
   ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `users_language`
---
-ALTER TABLE `users_language`
-  ADD CONSTRAINT `users_language_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `users_language_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `users_language_ibfk_3` FOREIGN KEY (`lang_id`) REFERENCES `languages` (`l_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `widgets`

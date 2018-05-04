@@ -33,7 +33,7 @@
 			<a title="Layout" href="#" data-toggle="dropdown" > <i class="fa fa-files-o"></i> Layout <b class="caret"></b></a>
 			<ul class="dropdown-menu">
 				<li><a title="Pages" href="<?php echo base_url(); ?>admin/admin/all_pages">Pages </a></li>
-				<li><a title="Menu" href="<?php echo base_url(); ?>admin/admin/nav_menu">Menu </a></li>
+				<li><a title="Menu" href="<?php echo base_url(); ?>admin/admin/menus">Menu </a></li>
 				<li><a title="Home-Page" href="<?php echo base_url(); ?>admin/admin/home_page">Home Page</a></li>
 			</ul>
 	</li>
@@ -61,8 +61,17 @@
             </div>
           </form>
         </li>
+        <li>
+        	<select id="user_language">
+        		<?php if(isset($language)){ ?>
+					<option id="<?php echo $language['l_id'];?>"><?php echo $language['l_name']; ?></option>        			
+        		<?php } else { ?>
+        			<option id="1">English</option>
+        		<?php }?>
+        	</select>
+        </li>
         <li class="nav-item" style="margin-top:5px;">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+          <a class="nav-link" data-toggle="modal" data-target="" href="<?php echo base_url();?>admin/Auth/logout">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>
       </ul>
