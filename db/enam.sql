@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2018 at 01:52 PM
+-- Generation Time: May 07, 2018 at 07:17 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -79,9 +79,55 @@ INSERT INTO `languages` (`l_id`, `l_name`, `created_at`, `updated_at`, `ip`, `la
 (1, 'English', '0000-00-00 00:00:00', '2001-05-18 09:50:17', '::1', 1, 1),
 (2, 'Hindi', '0000-00-00 00:00:00', '2001-05-18 09:49:49', '::1', 1, 1),
 (3, 'hello', '2001-05-18 10:04:03', '0000-00-00 00:00:00', '::1', 1, 1),
-(4, 'hello123', '2001-05-18 10:06:02', '2001-05-18 10:23:26', '::1', 1, 1),
-(5, 'hello 321', '2001-05-18 10:06:27', '2001-05-18 10:22:04', '::1', 1, 1),
-(6, 'हिंदी', '2001-05-18 03:35:25', '0000-00-00 00:00:00', '::1', 1, 1);
+(4, 'hello123', '2001-05-18 10:06:02', '2004-05-18 03:02:01', '::1', 1, 1),
+(5, 'hello 321', '2001-05-18 10:06:27', '2004-05-18 03:01:49', '::1', 1, 0),
+(6, 'हिंदी', '2001-05-18 03:35:25', '2004-05-18 03:01:39', '::1', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `layout`
+--
+
+CREATE TABLE `layout` (
+  `id` int(11) NOT NULL,
+  `layout_name` varchar(200) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `layout`
+--
+
+INSERT INTO `layout` (`id`, `layout_name`, `status`) VALUES
+(1, 'one column', 1),
+(2, 'two column', 1),
+(3, 'three column', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `layout_sections`
+--
+
+CREATE TABLE `layout_sections` (
+  `id` bigint(255) NOT NULL,
+  `layout_id` int(11) NOT NULL,
+  `section_name` varchar(200) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `layout_sections`
+--
+
+INSERT INTO `layout_sections` (`id`, `layout_id`, `section_name`, `status`) VALUES
+(1, 1, 'main_content', 1),
+(2, 2, 'left_content', 1),
+(3, 2, 'main_content', 1),
+(4, 3, 'left_content', 1),
+(5, 3, 'main_content', 1),
+(6, 3, 'right_content', 1);
 
 -- --------------------------------------------------------
 
@@ -95,14 +141,6 @@ CREATE TABLE `login_attempts` (
   `login` varchar(100) NOT NULL,
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `login_attempts`
---
-
-INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(1, '::1', 'rahul', 1525433871),
-(2, '::1', 'rahul@gmail.com', 1525433914);
 
 -- --------------------------------------------------------
 
@@ -197,7 +235,7 @@ CREATE TABLE `news` (
   `sort` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
   `updated_by` int(11) UNSIGNED DEFAULT NULL,
-  `publish` tinyint(1) NOT NULL DEFAULT '1',
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -206,7 +244,9 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`id`, `news_contect`, `created_at`, `created_by`, `sort`, `updated_at`, `updated_by`, `publish`, `status`) VALUES
-(1, '<p>sfdsf</p>', '2004-05-18 10:22:25', 3, 1, '2004-05-18 12:35:00', 3, 1, 1);
+(1, '<p>sfdsf</p>', '2004-05-18 10:22:25', 3, 1, '2005-05-18 09:47:37', 1, 1, 1),
+(3, '<p>welcome</p>', '2005-05-18 09:42:28', 1, 2, '0000-00-00 00:00:00', NULL, 1, 1),
+(4, '<p>welc</p>', '2005-05-18 09:45:30', 1, 4, '0000-00-00 00:00:00', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -231,7 +271,12 @@ CREATE TABLE `news_item` (
 --
 
 INSERT INTO `news_item` (`id`, `news_id`, `lang_id`, `news_contect`, `created_at`, `created_by`, `updated_at`, `updated_by`, `status`) VALUES
-(1, 1, 1, '<p>sfdsf 123 4</p>', '2004-05-18 10:22:25', 3, '2004-05-18 12:35:00', 3, 1);
+(1, 1, 1, '<p>sfdsf 123 4 23</p>', '2004-05-18 10:22:25', 3, '2005-05-18 09:47:37', 1, 1),
+(2, 1, 2, '<p>sfdsf 123 43 rahul</p>', '2005-05-18 09:00:39', 4, '2005-05-18 09:20:27', 4, 0),
+(7, 1, 2, '<p>sfdsf 123 4 hello welcome</p>', '2005-05-18 09:26:06', 4, '2005-05-18 09:27:19', 4, 1),
+(10, 3, 1, '<p>welcome</p>', '2005-05-18 09:42:28', 1, '0000-00-00 00:00:00', NULL, 1),
+(11, 4, 1, '<p>welc</p>', '2005-05-18 09:45:30', 1, '0000-00-00 00:00:00', NULL, 1),
+(18, 3, 2, '<p>welcome hello</p>', '2005-05-18 04:39:15', 4, '2005-05-18 04:40:25', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -241,11 +286,45 @@ INSERT INTO `news_item` (`id`, `news_id`, `lang_id`, `news_contect`, `created_at
 
 CREATE TABLE `pages` (
   `p_id` bigint(255) NOT NULL,
-  `page_title` varchar(200) NOT NULL,
-  `page_model` int(11) NOT NULL,
+  `page_layout` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `page_components`
+--
+
+CREATE TABLE `page_components` (
+  `id` bigint(255) NOT NULL,
+  `page_id` bigint(255) NOT NULL,
+  `section_id` bigint(255) NOT NULL,
+  `widget_id` bigint(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `page_item`
+--
+
+CREATE TABLE `page_item` (
+  `id` bigint(255) NOT NULL,
+  `lang_id` int(11) NOT NULL,
+  `page_id` bigint(255) NOT NULL,
+  `title` varchar(500) NOT NULL,
+  `meta_tag` text,
+  `keywords` text,
+  `created_at` datetime NOT NULL,
+  `created_by` int(11) UNSIGNED NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) UNSIGNED DEFAULT NULL,
+  `ip` varchar(200) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -359,10 +438,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `language`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1525238095, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL),
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1525587162, 1, 'Admin', 'istrator', 'ADMIN', '0', 1),
 (2, '::1', 'kayya@gmail.com', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'kayya@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1525431987, 1, 'chowa', 'yadav', 'kayya', '9770866241', 1),
 (3, '::1', 'parent@gmail.com', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'krimtel@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1525263669, 1, 'chowa', 'yadav', 'kayya', '9770866241', NULL),
-(4, '::1', 'rahul@gmail.com', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'rahul@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1525433969, 1, 'chowa', 'yadav', 'kayya', '9770866241', 4);
+(4, '::1', 'rahul@gmail.com', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'rahul@gmail.com', NULL, NULL, NULL, NULL, 1520933902, 1525530578, 1, 'chowa', 'yadav', 'kayya', '9770866241', 2);
 
 -- --------------------------------------------------------
 
@@ -381,7 +460,7 @@ CREATE TABLE `users_groups` (
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(1, 1, 1),
+(1, 1, 2),
 (3, 2, 3),
 (4, 3, 2),
 (5, 4, 3);
@@ -394,9 +473,7 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 
 CREATE TABLE `widgets` (
   `w_id` bigint(255) NOT NULL,
-  `module` varchar(200) NOT NULL,
-  `name` varchar(500) NOT NULL,
-  `show_pages` text NOT NULL,
+  `name` varchar(200) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) UNSIGNED NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1'
@@ -406,9 +483,36 @@ CREATE TABLE `widgets` (
 -- Dumping data for table `widgets`
 --
 
-INSERT INTO `widgets` (`w_id`, `module`, `name`, `show_pages`, `created_at`, `created_by`, `status`) VALUES
-(1, 'menu', 'main menu', 'ALL', '0000-00-00 00:00:00', 1, 1),
-(2, 'slider', 'main slider', 'home', '2018-04-11 00:00:00', 1, 1);
+INSERT INTO `widgets` (`w_id`, `name`, `created_at`, `created_by`, `status`) VALUES
+(1, 'home page main content', '0000-00-00 00:00:00', 1, 1),
+(2, '', '2018-04-11 00:00:00', 1, 1),
+(9, 'new', '2006-05-18 08:20:43', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `widget_item`
+--
+
+CREATE TABLE `widget_item` (
+  `id` bigint(255) NOT NULL,
+  `widget_id` bigint(255) NOT NULL,
+  `lang_id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(11) UNSIGNED NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) UNSIGNED DEFAULT NULL,
+  `ip` varchar(200) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `widget_item`
+--
+
+INSERT INTO `widget_item` (`id`, `widget_id`, `lang_id`, `content`, `created_at`, `created_by`, `updated_at`, `updated_by`, `ip`, `status`) VALUES
+(4, 9, 1, '<p>wel</p>\r\n', '2006-05-18 08:20:43', 1, '0000-00-00 00:00:00', NULL, '::1', 1);
 
 --
 -- Indexes for dumped tables
@@ -433,6 +537,19 @@ ALTER TABLE `groups`
 ALTER TABLE `languages`
   ADD PRIMARY KEY (`l_id`),
   ADD KEY `last_update_by` (`last_update_by`);
+
+--
+-- Indexes for table `layout`
+--
+ALTER TABLE `layout`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `layout_sections`
+--
+ALTER TABLE `layout_sections`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `layout_id` (`layout_id`);
 
 --
 -- Indexes for table `login_attempts`
@@ -479,8 +596,26 @@ ALTER TABLE `news_item`
 --
 ALTER TABLE `pages`
   ADD PRIMARY KEY (`p_id`),
-  ADD KEY `page_model` (`page_model`),
-  ADD KEY `created_by` (`created_by`);
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `page_layout` (`page_layout`);
+
+--
+-- Indexes for table `page_components`
+--
+ALTER TABLE `page_components`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `page_id` (`page_id`),
+  ADD KEY `section_id` (`section_id`),
+  ADD KEY `widget_id` (`widget_id`);
+
+--
+-- Indexes for table `page_item`
+--
+ALTER TABLE `page_item`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `updated_by` (`updated_by`),
+  ADD KEY `page_id` (`page_id`);
 
 --
 -- Indexes for table `post`
@@ -533,6 +668,16 @@ ALTER TABLE `widgets`
   ADD KEY `created_by` (`created_by`);
 
 --
+-- Indexes for table `widget_item`
+--
+ALTER TABLE `widget_item`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `widget_id` (`widget_id`),
+  ADD KEY `lang_id` (`lang_id`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `updated_by` (`updated_by`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -547,10 +692,20 @@ ALTER TABLE `groups`
 ALTER TABLE `languages`
   MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT for table `layout`
+--
+ALTER TABLE `layout`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `layout_sections`
+--
+ALTER TABLE `layout_sections`
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `menu`
 --
@@ -565,17 +720,27 @@ ALTER TABLE `menu_item`
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `news_item`
 --
 ALTER TABLE `news_item`
-  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
   MODIFY `p_id` bigint(255) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `page_components`
+--
+ALTER TABLE `page_components`
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `page_item`
+--
+ALTER TABLE `page_item`
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `post`
 --
@@ -610,7 +775,12 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `widgets`
 --
 ALTER TABLE `widgets`
-  MODIFY `w_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `w_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `widget_item`
+--
+ALTER TABLE `widget_item`
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
@@ -620,6 +790,12 @@ ALTER TABLE `widgets`
 --
 ALTER TABLE `languages`
   ADD CONSTRAINT `languages_ibfk_1` FOREIGN KEY (`last_update_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `layout_sections`
+--
+ALTER TABLE `layout_sections`
+  ADD CONSTRAINT `layout_sections_ibfk_1` FOREIGN KEY (`layout_id`) REFERENCES `layout` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `menu`
@@ -644,6 +820,20 @@ ALTER TABLE `news_item`
   ADD CONSTRAINT `news_item_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `pages`
+--
+ALTER TABLE `pages`
+  ADD CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`page_layout`) REFERENCES `layout` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `page_item`
+--
+ALTER TABLE `page_item`
+  ADD CONSTRAINT `page_item_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `pages` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `page_item_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `page_item_ibfk_3` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `users_groups`
 --
 ALTER TABLE `users_groups`
@@ -655,6 +845,15 @@ ALTER TABLE `users_groups`
 --
 ALTER TABLE `widgets`
   ADD CONSTRAINT `widgets_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `widget_item`
+--
+ALTER TABLE `widget_item`
+  ADD CONSTRAINT `widget_item_ibfk_1` FOREIGN KEY (`widget_id`) REFERENCES `widgets` (`w_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `widget_item_ibfk_2` FOREIGN KEY (`lang_id`) REFERENCES `languages` (`l_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `widget_item_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `widget_item_ibfk_4` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

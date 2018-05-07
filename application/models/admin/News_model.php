@@ -39,23 +39,58 @@ class News_model extends CI_Model {
 	}
 	
 	function news_update($data){
-		$this->db->trans_begin();
-			$this->db->where('id',$data['news_id']);
-			$this->db->update('news_item',array(
-				'news_contect' => $data['news_contect'],
-				'updated_at' => $data['created_at'],
-				'updated_by' => $data['user_id']
-			));
+		$group = $this->session->userdata('group_name');
+		
+		if($group != 'admin' && $group != 'developer'){
+			/// language admin section
+			$this->db->select('news_id');
+			$result = $this->db->get_where('news_item',array('id' => $data['news_id'],'status' => 1))->result_array();
 			
-			$this->db->query("update news set updated_at = '".$data['created_at']."',updated_by=".$data['user_id']." where id = (select news_id from news_item where id=".$data['news_id'].")");
+			$news = array();
+			if(count($result)>0){
+				$this->db->select('*');
+				$news = $this->db->get_where('news_item',array('lang_id'=>$data['lang_id'],'news_id' => $result[0]['news_id'],'status' => 1))->result_array();
+			}
 			
-		if ($this->db->trans_status() === FALSE){
-			$this->db->trans_rollback();
-			return false;
-		}
-		else {
-			$this->db->trans_commit();
+			if(count($news) > 0){
+				$this->db->where('id',$news[0]['id']);
+				$this->db->update('news_item',array(
+					'news_contect' => $data['news_contect'],
+					'updated_at' =>  $data['created_at'],
+					'updated_by' => $data['user_id']
+				));
+			}
+			else {
+				$this->db->insert('news_item',array(
+					'news_id' => $result[0]['news_id'],
+					'lang_id' => $data['lang_id'],
+					'news_contect' => $data['news_contect'],
+					'created_at' =>  $data['created_at'],
+					'created_by' => $data['user_id']
+				));
+			}
 			return true;
+		}
+		else{
+			/// admin section
+			$this->db->trans_begin();
+				$this->db->where('id',$data['news_id']);
+				$this->db->update('news_item',array(
+					'news_contect' => $data['news_contect'],
+					'updated_at' => $data['created_at'],
+					'updated_by' => $data['user_id']
+				));
+				
+				$this->db->query("update news set updated_at = '".$data['created_at']."',updated_by=".$data['user_id']." where id = (select news_id from news_item where id=".$data['news_id'].")");
+				
+			if ($this->db->trans_status() === FALSE){
+				$this->db->trans_rollback();
+				return false;
+			}
+			else {
+				$this->db->trans_commit();
+				return true;
+			}
 		}
 	}
 	
@@ -64,7 +99,7 @@ class News_model extends CI_Model {
 		$this->db->join('news_item ni','ni.news_id = n.id','left');
 		$this->db->join('languages l','l.l_id = ni.lang_id','left');
 		$this->db->order_by('n.sort,n.created_at,n.updated_at','ASC');
-		$result = $this->db->get_where('news n',array('n.status' => 1))->result_array();
+		$result = $this->db->get_where('news n',array('n.status' => 1,'ni.status'=>1))->result_array();
 		return $result;
 	}
 	
@@ -72,7 +107,27 @@ class News_model extends CI_Model {
 		$this->db->select('ni.*,n.sort');
 		$this->db->join('news n','n.id = ni.news_id');
 		$result = $this->db->get_where('news_item ni',array('ni.news_id'=>$data['news_id'],'ni.lang_id'=>$data['lang_id'],'ni.status'=>1))->result_array();
+		
+		if(count($result)>0){
+			
+		}else{
+			$this->db->select('ni.*,n.sort');
+			$this->db->join('news n','n.id = ni.news_id');
+			$result = $this->db->get_where('news_item ni',array('ni.news_id'=>$data['news_id'],'ni.lang_id'=>1,'ni.status'=>1))->result_array();
+		}
 		return $result;
+	}
+	
+	function news_publish($data){
+		$this->db->where('id',$data['n_id']);
+		$this->db->update('news',array('publish'=>$data['status']));
+		return true;
+	}
+	
+	function news_delete($data){
+		$this->db->where('id',$data['n_id']);
+		$this->db->update('news',array('status'=>0));
+		return true;
 	}
 }
 ?>

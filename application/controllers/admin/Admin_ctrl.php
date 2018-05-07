@@ -72,17 +72,6 @@ class Admin_ctrl extends CI_Controller {
 		$this->load->view('admin/comman/index',$data);
 	}
 	
-	public function add_page()
-	{
-		$data['title'] = 'eNam Admin';
-		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
-		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
-		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
-		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
-		$data['main_contant'] = $this->load->view('admin/pages/layout/add_page',$data,TRUE);
-		$this->load->view('admin/comman/index',$data);
-	}
-	
 	public function edit_page()
 	{
 		$data['title'] = 'eNam Admin';

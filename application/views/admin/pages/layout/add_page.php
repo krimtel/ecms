@@ -1,8 +1,3 @@
-<script src="<?php echo base_url();?>assest/admin/ckeditor/ckeditor.js"></script>
-<script src="<?php echo base_url();?>assest/admin/ckeditor/sample.js"></script>
-<script src="<?php echo base_url();?>assest/admin/ckeditor/sf.js"></script>
-
-	<link rel="stylesheet" href="<?php echo base_url();?>assest/admin/ckeditor/neo.css">
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 	<ol class="breadcrumb">
@@ -29,29 +24,86 @@
 			<div class="box-body">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Page Name</label>
-					<div class="col-sm-9"><input type="text" class="form-control" placeholder="Enter new language"></div>
+					<div class="col-sm-9"><input id="page_name" name="page_name" type="text" class="form-control" placeholder="Enter new language"></div>
 					<div class="col-sm-12"><input type="hidden" class="form-control" value=""></div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Select menu link</label>
+					<label class="col-sm-3 control-label">Select Layout</label>
 					<div class="col-sm-9">
-						<select class="form-control" name="Language" id="">
-							<option value="0" selected>Please select language</option>
-							<option value="1" >About us</option>
-							<option value="2" >NAM</option>
+						<select class="form-control" name="page_layout" id="page_layout">
+							<option value="0" selected>Please select layout</option>
+							<option value="1" >1 column</option>
+							<option value="2" >2 columns</option>
+							<option value="3" >3 columns</option>
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<div class="col-sm-12">
-						<div id="editor">
+				<!--  -->
+				<div class="form-group" id="1coumn" style="display: none;">
+					<label class="col-sm-3 control-label">Select Layout</label>
+					<div class="col-sm-9">
+						<label class="col-sm-2 control-label">Main content</label>
+							<select class="form-control col-sm-6" name="Language" id="">
+								<option value="0">select widget</option>
+							</select>
+					</div>
+				</div>
+				<div class="form-group" id="2coumn" style="display: none;">
+					<label class="col-sm-3 control-label">Select Layout</label>
+					<div class="col-sm-9">
+						<div class="row">
+							<label class="col-sm-2 control-label">Left content</label>
+							<select class="form-control col-sm-6" name="page_layout_dropdown" id="page_layout_dropdown">
+								<option value="0">select widget</option>
+							</select>
+							
+							<label class="col-sm-2 control-label">Main content</label>
+							<select class="form-control col-sm-6" name="Language" id="">
+								<option value="0">select widget</option>
+							</select>
 						</div>
+					</div>
+				</div>
+				<div class="form-group" id="3coumn" style="display: none;">
+					<label class="col-sm-3 control-label">Select Layout</label>
+					<div class="col-sm-9">
+						<div class="row">
+							<label class="col-sm-2 control-label">Left content</label>
+							<select class="form-control col-sm-6" name="Language" id="">
+								<option value="0">select widget</option>
+							</select>
+							
+							<label class="col-sm-2 control-label">Main content</label>
+							<select class="form-control col-sm-6" name="Language" id="">
+								<option value="0">select widget</option>
+							</select>
+							
+							<label class="col-sm-2 control-label">Right content</label>
+							<select class="form-control col-sm-6" name="Language" id="">
+								<option value="0">select widget</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<!--  -->
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Meta tags</label>
+					<div class="col-sm-9">
+						<textarea name="meta_tag" id="meta_tag" rows="5" cols="" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Key words</label>
+					<div class="col-sm-9">
+						<textarea rows="5" name="keyword" id="keyword" cols="" class="form-control"></textarea>
 					</div>
 				</div>
             </div>
 			</form>
 			<div class="box-footer">
-				<button id="class_create" type="button" class="btn pull-right btn-info">Save</button>
+				<button id="page_update" type="submit" class="btn pull-right btn-info">Update</button>
+				<button id="page_create" type="submit" class="btn pull-right btn-info">Save</button>
 				<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 			</div>
 		</div>
@@ -59,6 +111,3 @@
 		</div>
 		</section>
 </div>
-<script>
-	initSample();
-</script>

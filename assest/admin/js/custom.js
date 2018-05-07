@@ -378,7 +378,7 @@ $(document).ready(function(){
 	  }).submit();
 	});
 	
-	$(document).on('click','.news_edit',function(){
+	$(document).on('click','.news_edit,.news_tranlate',function(){
 		var n_id = $(this).data('news_id');
 		$.ajax({
 	        type: 'POST',
@@ -407,5 +407,108 @@ $(document).ready(function(){
 	        }
 		});
 	});
+
+	$(document).on('click','.news_published',function(){
+		var x = confirm('Are you sure.');
+		if(!x){
+			if($(this).prop('checked') == true){
+				$(this).prop('checked', false);
+			}
+			else{
+				$(this).prop('checked', true);
+			}
+		}
+		else{
+			var status = $(this).prop('checked');
+			var n_id = $(this).data('news_id');
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/News_ctrl/news_publish',
+		        dataType: "json",
+		        data: {
+		        	'n_id'	: n_id,
+		        	'status' : status
+		        },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){},
+		        success:function (response) {
+		        	console.log(response);
+		        	$('#loader').modal('toggle');
+		        }
+			});
+		}
+	});
 	
+	$(document).on('click','.news_delete',function(){
+		var x = confirm('Are you sure.'); 
+		if(x){
+			var n_id = $(this).data('news_id');
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/News_ctrl/news_delete',
+		        dataType: "json",
+		        data: {
+		        	'n_id'	: n_id
+		        },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){},
+		        success:function (response) {
+		        	console.log(response);
+		        	$('#loader').modal('toggle');
+		        	location.reload();
+		        }
+			});
+		}
+	});
+
+
+/////////////////////////////////////////////////////////////Widget///////////////////////////////////////////////////////////////////////
+	$(document).on('click','#widget_create,#widget_update',function(){
+		$('#news_form').ajaxForm({
+		    dataType : 'json',
+		    data : {
+		    	'widget_content' : CKEDITOR.instances.widget_content.getData()
+		    },
+		    beforeSubmit:function(e){
+				$('#loader').modal('show');
+		    },
+		    success:function(response){
+		  	  if(response.status == 200){
+		    	$('#loader').modal('toggle');
+		    	alert(response.msg);
+		    	location.reload();
+		      }
+		      else{
+			    alert(response.msg);
+		      }
+		    }
+	  }).submit();
+	});
+
+/////////////////////////////////////////////////////////////page///////////////////////////////////////////////////////////////////////
+	$(document).on('click','#page_create,#page_update',function(){
+		$('#news_form').ajaxForm({
+		    dataType : 'json',
+		    data : {
+		    	'widget_content' : CKEDITOR.instances.widget_content.getData()
+		    },
+		    beforeSubmit:function(e){
+				$('#loader').modal('show');
+		    },
+		    success:function(response){
+		  	  if(response.status == 200){
+		    	$('#loader').modal('toggle');
+		    	alert(response.msg);
+		    	location.reload();
+		      }
+		      else{
+			    alert(response.msg);
+		      }
+		    }
+	  }).submit();
+	});
 });

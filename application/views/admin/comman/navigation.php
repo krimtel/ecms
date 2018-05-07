@@ -42,6 +42,7 @@
 			<ul class="dropdown-menu">
 				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/news">News/Notice </a></li>
 				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/users">Events </a></li>
+				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/widgets">Widgets </a></li>
 			</ul>
 	</li>
 	</ul>

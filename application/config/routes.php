@@ -22,10 +22,11 @@ $route['admin/admin/menus/(:any)'] = 'admin/Menu_ctrl/index/$1';
 $route['admin/admin/dashboard'] = 'admin/Admin_ctrl/dashboard';
 $route['admin/admin/language'] = 'admin/Language_ctrl/index';
 $route['admin/admin/users'] = 'admin/Users_ctrl/index';
+$route['admin/admin/widgets'] = 'admin/Widget_ctrl/index';
 $route['admin/admin/news'] = 'admin/News_ctrl/index';
+$route['admin/admin/add_page'] = 'admin/Page_ctrl/index';
 $route['admin/admin/(:any)'] = 'admin/Admin_ctrl/$1';
 
 $route['admin/admin/all_pages'] = 'admin/Admin_ctrl/$1';
-$route['admin/admin/add_page'] = 'admin/Admin_ctrl/$1';
 $route['admin/admin/edit_page'] = 'admin/Admin_ctrl/$1';
 $route['admin/admin/home_page'] = 'admin/Admin_ctrl/$1';
