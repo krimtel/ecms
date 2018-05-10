@@ -15,6 +15,13 @@ class Language_ctrl extends CI_Controller {
 		}
 	}
 	
+	function file_update(){
+		$data['languages'] = $this->Language_model->get_all_language();
+		$json = json_encode($data['languages']);
+		$file = FCPATH . '/software_files/Language.txt';
+		file_put_contents ($file, $json);
+	}
+	
 	public function index(){
 		$data['title'] = 'eNam Admin';		
 		
@@ -46,6 +53,7 @@ class Language_ctrl extends CI_Controller {
 		
 		$result = $this->Language_model->language_edit($data);
 		if($result){
+			$this->file_update();
 			if($this->lang->line('language_update_success')){
 				$msg  = $this->lang->line('language_update_success');
 			}

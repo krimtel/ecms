@@ -53,7 +53,7 @@ class Widget_ctrl extends CI_Controller {
 				$data['widget_name'] = $this->input->post('widget_name');
 				$data['widget_content'] = $this->input->post('widget_content');
 				$result = $this->Widget_model->widget_create($data);
-				print_r($result); die;
+				echo json_encode($result);
 			}
 			else{
 				echo json_encode(array('msg'=>'Not authorized for creating widgets.','status'=>500));

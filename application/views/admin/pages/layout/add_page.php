@@ -1,3 +1,9 @@
+<?php 
+	$wiget_drop_Down = '';
+	foreach($widgets as $widget){
+		$wiget_drop_Down .= '<option value="'.$widget['w_id'].'">'.$widget['name'].'</option>'; 
+	}
+?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 	<ol class="breadcrumb">
@@ -20,7 +26,7 @@
 				  <i class="fa fa-minus"></i></button>
 			  </div>
 			</div>
-			<form role="form" class="form-horizontal">
+			<form id="page_add_form" name="f1" method="POST" role="form" class="form-horizontal" action="<?php echo base_url();?>admin/Page_ctrl/page_create">
 			<div class="box-body">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Page Name</label>
@@ -42,47 +48,69 @@
 				<div class="form-group" id="1coumn" style="display: none;">
 					<label class="col-sm-3 control-label">Select Layout</label>
 					<div class="col-sm-9">
-						<label class="col-sm-2 control-label">Main content</label>
-							<select class="form-control col-sm-6" name="Language" id="">
-								<option value="0">select widget</option>
-							</select>
+							<table class="table table-bordered">
+							<tr><th>Main</th></tr>
+							<tr>
+								<td>
+									<select class="form-control col-sm-6" name="one_col_maincontent[]" id="">
+										<option value="0">select widget</option>
+										<?php print_r($wiget_drop_Down); ?>
+									</select>
+									<div id="one_col_maincontent_box"></div>
+									<input type="button" id="one_col_main_addmore" value="Add more" class="btn btn-default">
+								</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 				<div class="form-group" id="2coumn" style="display: none;">
 					<label class="col-sm-3 control-label">Select Layout</label>
 					<div class="col-sm-9">
-						<div class="row">
-							<label class="col-sm-2 control-label">Left content</label>
-							<select class="form-control col-sm-6" name="page_layout_dropdown" id="page_layout_dropdown">
-								<option value="0">select widget</option>
-							</select>
-							
-							<label class="col-sm-2 control-label">Main content</label>
-							<select class="form-control col-sm-6" name="Language" id="">
-								<option value="0">select widget</option>
-							</select>
-						</div>
+						<table class="table table-bordered">
+							<tr><th>Left</th><th>Main</th></tr>
+							<tr>
+								<td>
+									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_leftcontent[]" id="">
+										<option value="0">select widget</option>
+									</select>
+									<input type="button" value="Add more" class="btn btn-default">
+								</td>
+								<td>
+									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_maincontent[]" id="">
+										<option value="0">select widget</option>
+									</select>
+									<input type="button" value="Add more" class="btn btn-default">
+								</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 				<div class="form-group" id="3coumn" style="display: none;">
 					<label class="col-sm-3 control-label">Select Layout</label>
 					<div class="col-sm-9">
-						<div class="row">
-							<label class="col-sm-2 control-label">Left content</label>
-							<select class="form-control col-sm-6" name="Language" id="">
-								<option value="0">select widget</option>
-							</select>
-							
-							<label class="col-sm-2 control-label">Main content</label>
-							<select class="form-control col-sm-6" name="Language" id="">
-								<option value="0">select widget</option>
-							</select>
-							
-							<label class="col-sm-2 control-label">Right content</label>
-							<select class="form-control col-sm-6" name="Language" id="">
-								<option value="0">select widget</option>
-							</select>
-						</div>
+						<table class="table table-bordered">
+							<tr><th>Left</th><th>Main</th><th>Right</th></tr>
+							<tr>
+								<td>
+									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_leftcontent[]" id="">
+										<option value="0">select widget</option>
+									</select>
+									<input type="button" value="Add more" class="btn btn-default">
+								</td>
+								<td>
+									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_maincontent[]" id="">
+										<option value="0">select widget</option>
+									</select>
+									<input type="button" value="Add more" class="btn btn-default">
+								</td>
+								<td>
+									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_maincontent[]" id="">
+										<option value="0">select widget</option>
+									</select>
+									<input type="button" value="Add more" class="btn btn-default">
+								</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 				<!--  -->
@@ -102,7 +130,7 @@
             </div>
 			</form>
 			<div class="box-footer">
-				<button id="page_update" type="submit" class="btn pull-right btn-info">Update</button>
+				<button id="page_update" type="submit" class="btn pull-right btn-info" style="display:none;">Update</button>
 				<button id="page_create" type="submit" class="btn pull-right btn-info">Save</button>
 				<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 			</div>

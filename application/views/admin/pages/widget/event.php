@@ -1,13 +1,12 @@
-<?php //print_r($this->session->all_userdata()); die;?>
 <?php $group = $this->session->userdata('group_name'); ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 	<ol class="breadcrumb">
         <li><a title="Home" href="<?php echo base_url();?>admin/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">News</li>
+        <li class="active">Events</li>
     </ol>   
 	<section class="content-header">
-      <h1 class="pull-left">News</h1>
+      <h1 class="pull-left">Events</h1>
     </section>
 	<!-- Main content -->
     <section class="content">
@@ -21,7 +20,7 @@
 		<?php } ?>
 		<div class="box box-primary">
 			<div class="box-header with-border">
-			  <h3 class="box-title">Add new news</h3>
+			  <h3 class="box-title">Add new Events</h3>
 			  <div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 				  <i class="fa fa-minus"></i></button>
@@ -30,12 +29,26 @@
 			<form name="f1" id="news_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/News_ctrl/news_create">
 			<div class="box-body">
 				<div class="form-group">
-					<label class="col-sm-3 control-label">News description</label>
+					<label class="col-sm-3 control-label">Event Photo</label>
 					<div class="col-sm-9">
-						<textarea id="news_desc" name="news_desc" class="form-control" rows="10"></textarea>
-						<input id="news_id" name="news_id" type="hidden" class="form-control" value="">
+						<input type="file" name="userfile" class="form-control">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Event Title</label>
+					<div class="col-sm-9">
+						<input type="text" name="event_title" id="event_title" class="form-control">
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Event description</label>
+					<div class="col-sm-9">
+						<textarea id="event_desc" name="event_desc" class="form-control" rows="10"></textarea>
+						<input id="event_id" name="event_id" type="hidden" class="form-control" value="">
 			            <script>
-			                CKEDITOR.replace('news_desc');
+			                CKEDITOR.replace('event_desc');
 			            </script>
 					</div>
 				</div>
@@ -43,7 +56,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Sort Order</label>
 					<div class="col-sm-9">
-						<input type="text" id="news_order" name="news_order" class="form-control" placeholder="Enter sort order" />
+						<input type="text" id="event_order" name="event_order" class="form-control" placeholder="Enter sort order" />
 					</div>
 				</div>
 				
@@ -64,7 +77,7 @@
 		<?php } ?>
 		<div class="box box-primary">
 			<div class="box-header with-border">
-			  <h3 class="box-title">All News</h3>
+			  <h3 class="box-title">All Events</h3>
 			  <div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 				  <i class="fa fa-minus"></i></button>
@@ -74,12 +87,12 @@
 			<div class="box-body">
 				<table class="table">
 					<tr>
-						<th>News</th>
-						<?php if($group != 'subadmin'){ ?>
+						<th>Event</th>
+						<?php if($group != 'subadmin') { ?>
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th>operations</th>
+						<th> operations </th>
 					</tr>
 					<tbody>
 						<?php if(isset($newses) && (count($newses) > 0)){ 

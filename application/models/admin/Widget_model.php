@@ -7,6 +7,12 @@ class Widget_model extends CI_Model {
 		$this->load->database();
 	}
 	
+	function all_widgets(){
+		$this->db->select('*');
+		$result = $this->db->get_where('widgets',array('status'=>1))->result_array();
+		return $result;
+	}
+	
 	function widget_create($data){
 		if(isset($data['widget_id'])){
 			

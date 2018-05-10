@@ -18,6 +18,7 @@
 <script src="<?php echo base_url(); ?>assest/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assest/js/wow.js" ></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assest/js/theme.js" ></script>
+<Script type="text/javascript" src="<?php echo base_url(); ?>assest/js/client.js"></Script>
 <!-- Latest compiled JavaScript -->
 
 </head>

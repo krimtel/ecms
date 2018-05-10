@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class News_ctrl extends CI_Controller {
+class Event_ctrl extends CI_Controller {
 
 	function __construct(){
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
 		$this->load->library(array('session','form_validation','ion_auth'));
 		$this->load->database();
-		$this->load->model(array('admin/Language_model','admin/News_model'));
+		$this->load->model(array('admin/Language_model','admin/News_model','admin/Event_model'));
 		$this->lang->load('admin_lang', 'english');
 		if (!$this->ion_auth->logged_in()){
 			redirect('admin/admin');
@@ -16,18 +16,20 @@ class News_ctrl extends CI_Controller {
 	}
 	
 	function file_update(){
-		$data['newses'] = $this->News_model->News_list();
+		$data['newses'] = $this->Event_model->Event_list();
 		$json = json_encode($data['newses']);
 		$file = FCPATH . '/software_files/News.txt';
 		file_put_contents ($file, $json);
 	}
+	
 	public function index(){
-		$data['title'] = 'eNam Admin';
+		$data['title'] = 'eNam Admin | Events';
 		$languages = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		foreach($languages as $language){
 			if($language['l_id'] == $this->session->userdata('language'))
 			$data['language'] = $language;
 		}
+		
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/News.txt'),true);
 		if(count($file_menu)){
 			$data['newses'] = $file_menu;
@@ -43,7 +45,7 @@ class News_ctrl extends CI_Controller {
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation',$data,TRUE);
 		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
-		$data['main_contant'] = $this->load->view('admin/pages/widget/news',$data,TRUE);
+		$data['main_contant'] = $this->load->view('admin/pages/widget/event',$data,TRUE);
 		$this->load->view('admin/comman/index',$data);
 	}
 	

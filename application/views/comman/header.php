@@ -39,15 +39,21 @@
 					</div>
 					<div class="header-right-list lang-box">
 						<span>LANGUAGES</span><br/>
-						<select onchange="location = this.options[this.selectedIndex].value;">
-							<option value="../home/index.html">English</option>
-							<option value="../home_hindi/index.html" label="हिन्दी">हिन्दी</option>
-							<option value="../home_gujarati/index.html" label="ગુજારી">ગુજારી</option>
-							<option value="../home_telugu/index.html" label="తెలుగు">తెలుగు</option>
-							<option value="../home_marathi/index.html" label="मराठी">मराठी</option>
-							<option value="../home_bengali/index.html" label="বাঙালি">বাঙালি</option>
-							<!--<option value="../home_tamil/index.html" label="தமிழ்">தமிழ்</option>-->
-							<option value="../home_oriya/index.html" label ="ଓଡ଼ିଆ">ଓଡ଼ିଆ</option>
+						<select id="language_selector">
+							<?php if($this->session->userdata('client_language') != ''){ 
+								$session_lang = $this->session->userdata('client_language'); 
+							} ?>
+							<?php foreach($languages as $language){ 
+								if($session_lang != ''){ ?>
+									<?php if($language['l_id'] == $session_lang){ ?>
+										<option value="<?php echo $language['l_id']; ?>" selected><?php echo $language['l_name']; ?></option>
+									<?php } else {?>
+									<option value="<?php echo $language['l_id']; ?>"><?php echo $language['l_name']; ?></option>
+									<?php } ?>
+								<?php } else { ?>
+									<option value="<?php echo $language['l_id']; ?>"><?php echo $language['l_name']; ?></option>
+								<?php } ?>
+							<?php } ?>
 						</select>
 					</div>
 				</div>

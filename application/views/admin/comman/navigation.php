@@ -41,7 +41,8 @@
 			<a title="Widget" href="#" data-toggle="dropdown" > <i class="fa fa-files-o"></i> Widget <b class="caret"></b></a>
 			<ul class="dropdown-menu">
 				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/news">News/Notice </a></li>
-				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/users">Events </a></li>
+				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/links">Quick links </a></li>
+				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/events">Events </a></li>
 				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/widgets">Widgets </a></li>
 			</ul>
 	</li>

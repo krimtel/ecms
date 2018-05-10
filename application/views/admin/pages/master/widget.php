@@ -42,7 +42,7 @@
 					</div>
 					<div class="box-footer">
 						<button id="widget_update" type="submit" class="btn pull-right btn-info" style="display:none;">Update</button>
-						<button id="widget_create" type="submit" class="btn pull-right btn-success">Submit</button>
+						<button id="widget_create" type="button" class="btn pull-right btn-success">Submit</button>
 						<button id="widget_reset" type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 					</div>
 				</form>
