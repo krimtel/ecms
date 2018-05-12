@@ -27,12 +27,14 @@
 				  <i class="fa fa-minus"></i></button>
 			  </div>
 			</div>
-			<form name="f1" id="news_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/News_ctrl/news_create">
+			<p class="text-danger"><?php echo $this->session->flashdata('message'); ?></p>
+			<form name="news_form" id="news_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/News_ctrl/news_create">
 			<div class="box-body">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">News description</label>
 					<div class="col-sm-9">
 						<textarea id="news_desc" name="news_desc" class="form-control" rows="10"></textarea>
+						<div class="text-danger" id="news_desc_error" style="display: none;"></div>
 						<input id="news_id" name="news_id" type="hidden" class="form-control" value="">
 			            <script>
 			                CKEDITOR.replace('news_desc');
@@ -40,20 +42,22 @@
 					</div>
 				</div>
 				
+				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Sort Order</label>
 					<div class="col-sm-9">
-						<input type="text" id="news_order" name="news_order" class="form-control" placeholder="Enter sort order" />
+						<input type="text" id="news_order" name="news_order" class="form-control" placeholder="Enter sort order" value="999"/>
 					</div>
 				</div>
+				<?php } ?>
 				
 			</div>
+				<div class="box-footer">
+					<button id="news_create" type="button" class="btn pull-right btn-info">Save</button>
+					<button id="news_update" type="button" class="btn pull-right btn-info" style="display: none;">Update</button>
+					<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
+				</div>
 			</form>
-			<div class="box-footer">
-				<button id="news_create" type="submit" class="btn pull-right btn-info">Save</button>
-				<button id="news_update" type="submit" class="btn pull-right btn-info" style="display: none;">Update</button>
-				<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
-			</div>
 		</div>
 		</section>
 		
@@ -82,11 +86,18 @@
 						<th>operations</th>
 					</tr>
 					<tbody>
-						<?php if(isset($newses) && (count($newses) > 0)){ 
+						<?php if(isset($newses) && (count($newses) > 0)){
 								foreach($newses as $news) { ?>
-								<?php if($news['lang_id'] == 1) { ?>
+								<?php if($news['lang_id'] == 1) {
+									$find = 0;
+									foreach($newses as $new){
+										if($new['news_id'] == $news['news_id'] && $new['lang_id'] == $this->session->userdata('language')){
+											$find = 1;
+										}
+									}
+								?>
 								<tr>
-									<td><?php echo $news['news_contect']; ?></td>
+									<td class="<?php if(!$find){ echo "find"; } ?>"><?php echo $news['news_contect']; ?></td>
 									<?php if($group != 'subadmin'){ ?>
 										<td><?php echo $news['sort']; ?></td>
 										<td>

@@ -26,12 +26,13 @@
 				  <i class="fa fa-minus"></i></button>
 			  </div>
 			</div>
-			<form name="f1" id="news_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/News_ctrl/news_create">
+			<form name="event_form" id="event_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/Event_ctrl/event_create">
 			<div class="box-body">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Event Photo</label>
 					<div class="col-sm-9">
-						<input type="file" name="userfile" class="form-control">
+						<input type="file" name="userFiles" id="userFiles" class="form-control">
+						<div class="text-danger" id="userfile_error" style="display:none;"></div>
 					</div>
 				</div>
 				
@@ -39,6 +40,7 @@
 					<label class="col-sm-3 control-label">Event Title</label>
 					<div class="col-sm-9">
 						<input type="text" name="event_title" id="event_title" class="form-control">
+						<div class="text-danger" id="event_title_error" style="display:none;"></div>
 					</div>
 				</div>
 			
@@ -46,6 +48,7 @@
 					<label class="col-sm-3 control-label">Event description</label>
 					<div class="col-sm-9">
 						<textarea id="event_desc" name="event_desc" class="form-control" rows="10"></textarea>
+						<div class="text-danger" id="event_desc_error" style="display:none;"></div>
 						<input id="event_id" name="event_id" type="hidden" class="form-control" value="">
 			            <script>
 			                CKEDITOR.replace('event_desc');
@@ -56,17 +59,19 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Sort Order</label>
 					<div class="col-sm-9">
-						<input type="text" id="event_order" name="event_order" class="form-control" placeholder="Enter sort order" />
+						<input type="text" id="event_order" name="event_order" class="form-control" placeholder="Enter sort order" value="999"/>
+						<div class="text-danger" id="event_order_error" style="display:none;"></div>
+						
 					</div>
 				</div>
 				
 			</div>
+				<div class="box-footer">
+					<button id="event_create" type="button" class="btn pull-right btn-info">Save</button>
+					<button id="event_update" type="button" class="btn pull-right btn-info" style="display: none;">Update</button>
+					<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
+				</div>
 			</form>
-			<div class="box-footer">
-				<button id="news_create" type="submit" class="btn pull-right btn-info">Save</button>
-				<button id="news_update" type="submit" class="btn pull-right btn-info" style="display: none;">Update</button>
-				<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
-			</div>
 		</div>
 		</section>
 		

@@ -51,10 +51,13 @@ class News_ctrl extends CI_Controller {
 		if($this->input->post('news_id') != ''){
 			$this->form_validation->set_rules('news_id','News Id','required|is_natural_no_zero');
 		}
+		if($this->ion_auth->is_admin()){
+			$this->form_validation->set_rules('news_order','News Order','required|is_natural');
+		}
 		$this->form_validation->set_rules('news_desc','News Contant','required|trim');
-		$this->form_validation->set_rules('news_order','News Order','required|is_natural');
 		if ($this->form_validation->run() == FALSE){
-			echo validation_errors(); die;
+			$this->session->set_flashdata('message', validation_errors());
+			redirect('admin/admin/news', 'refresh');
 		}
 		else{
 			$data['news_contect'] = $this->input->post('news_desc');

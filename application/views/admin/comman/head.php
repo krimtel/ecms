@@ -22,4 +22,6 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assest/admin/js/jquery-2.2.3.min.js" /></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assest/admin/ckeditor/ckeditor.js" ></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assest/admin/ckeditor/sample.js" ></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assest/admin/js/validate.min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assest/admin/js/validation.js" ></script>
 </head>

@@ -357,25 +357,40 @@ $(document).ready(function(){
 
 /////////////////////////////////////////////////////////////News///////////////////////////////////////////////////////////////////////
 	$(document).on('click','#news_create,#news_update',function(){
-		$('#news_form').ajaxForm({
-		    dataType : 'json',
-		    data : {
-		    	'news_desc' : CKEDITOR.instances.news_desc.getData()
-		    },
-		    beforeSubmit:function(e){
-				$('#loader').modal('show');
-		    },
-		    success:function(response){
-		  	  if(response.status == 200){
-		    	$('#loader').modal('toggle');
-		    	alert(response.msg);
-		    	location.reload();
-		      }
-		      else{
-			    alert(response.msg);
-		      }
-		    }
-	  }).submit();
+		var form_valid = true;
+		var news_desc = CKEDITOR.instances.news_desc.getData();
+		if(news_desc == ''){
+			$('#news_desc_error').html('news desc. is Required.').css('display','block');
+			form_valid = false;
+		}
+		else if(news_desc.length < 17){
+			$('#news_desc_error').html('news desc. atleast 10 charater.').css('display','block');
+			form_valid = false;
+		}
+		else{ 
+			$('#news_desc_error').css('display','none');
+		}
+		if(form_valid){
+			$('#news_form').ajaxForm({
+			    dataType : 'json',
+			    data : {
+			    	'news_desc' : CKEDITOR.instances.news_desc.getData()
+			    },
+			    beforeSubmit:function(e){
+					$('#loader').modal('show');
+			    },
+			    success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+		  }).submit();
+		}
 	});
 	
 	$(document).on('click','.news_edit,.news_tranlate',function(){
@@ -602,25 +617,40 @@ $(document).ready(function(){
 
 ///////////////////////////////////////////////////////////// Links ///////////////////////////////////////////////////////////////////////
 	$(document).on('click','#link_create,#link_update',function(){
-		$('#link_form').ajaxForm({
-			dataType : 'json',
-			data : {
-				'link_desc' : CKEDITOR.instances.link_desc.getData()
-			},
-			beforeSubmit:function(e){
-				$('#loader').modal('show');
-			},
-			success:function(response){
-				if(response.status == 200){
-					$('#loader').modal('toggle');
-					alert(response.msg);
-					location.reload();
+		var form_valid = true;
+		var link_desc = CKEDITOR.instances.link_desc.getData();
+		if(link_desc == ''){
+			$('#link_desc_error').html('Please enter link desc.').css('display','block');
+			form_valid = false;
+		}
+		else if(link_desc.length < 17){
+			$('#link_desc_error').html('Link desc atleast 10 charater.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#link_desc_error').css('display','none');
+		}
+		if(form_valid){
+			$('#link_form').ajaxForm({
+				dataType : 'json',
+				data : {
+					'link_desc' : CKEDITOR.instances.link_desc.getData()
+				},
+				beforeSubmit:function(e){
+					$('#loader').modal('show');
+				},
+				success:function(response){
+					if(response.status == 200){
+						$('#loader').modal('toggle');
+						alert(response.msg);
+						location.reload();
+					}
+					else{
+						alert(response.msg);
+					}
 				}
-				else{
-					alert(response.msg);
-				}
-			}
-		}).submit();
+			}).submit();
+		}
 	});
 
 	$(document).on('click','.link_edit,.link_tranlate',function(){
@@ -708,5 +738,77 @@ $(document).ready(function(){
 				}
 			});
 		}
+	});
+	
+//////////////////////////////////////////////////////event////////////////////////////////////////////
+	
+	$(document).on('click','#event_create',function(){
+		var form_valid = true;
+		
+		if($('#userFiles').val() == ''){
+			$('#userfile_error').html('Please select image for Event.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#userfile_error').css('display','none');
+		}
+		
+		if($('#event_title').val() == ''){
+			$('#event_title_error').html('Please enter Event Title.').css('display','block');
+			form_valid = false;
+		}
+		else if($('#event_title').val().length < 5){
+			$('#event_title_error').html('Please enter valid Event title.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#event_title_error').css('display','none');
+		}
+		
+		var event_desc = CKEDITOR.instances.event_desc.getData();
+		if(event_desc == ''){
+			$('#event_desc_error').html('Please enter event description.').css('display','block');
+			form_valid = false;
+		}
+		else if(event_desc.length < 17){
+			$('#event_desc_error').html('Event description atleast 10 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#event_desc_error').css('display','none');
+		}
+		
+		if(!$.isNumeric($('#event_order').val())){
+			$('#event_order_error').html('Event Order must be numaric.').css('display','block');
+			form_valid = false;
+		}
+		else if($('event_order').val() == ''){
+			$('#event_order_error').html('Event Order is required.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#event_order_error').css('display','none');
+		}
+   		if(form_valid){
+			$('#event_form').ajaxForm({
+			    dataType : 'json',
+			    data : {
+			    	'event_desc': CKEDITOR.instances.event_desc.getData()
+			    },
+			    beforeSubmit:function(e){
+					$('#loader').modal('show');
+			    },
+			    success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+		  }).submit();
+   		}
 	});
 });

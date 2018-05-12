@@ -27,12 +27,13 @@
 				  <i class="fa fa-minus"></i></button>
 			  </div>
 			</div>
-			<form name="f1" id="link_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/Links_ctrl/link_create">
+			<form name="link_form" id="link_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/Links_ctrl/link_create">
 			<div class="box-body">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Link content</label>
 					<div class="col-sm-9">
 						<textarea id="link_desc" name="link_desc" class="form-control" rows="10"></textarea>
+						<div class="text-danger" id="link_desc_error" style="display: none;"></div>
 						<input id="link_id" name="link_id" type="hidden" class="form-control" value="">
 			            <script>
 			                CKEDITOR.replace('link_desc');

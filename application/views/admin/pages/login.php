@@ -9,7 +9,7 @@
       
       <div class="offset-3 col-6 card card-body">
       	<p class="text-danger"><?php echo $this->session->flashdata('message'); ?></p>
-      	<form name="f1" method="POST" action="<?php echo base_url();?>admin/Auth/login"> 
+      	<form name="login_form" method="POST" action="<?php echo base_url();?>admin/Auth/login"> 
 		  <div class="form-group">
 		    <label for="formGroupExampleInput">Identity</label>
 		    <input type="text" name="identity" class="form-control" id="formGroupExampleInput" placeholder="Example input">

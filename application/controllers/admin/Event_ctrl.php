@@ -6,7 +6,7 @@ class Event_ctrl extends CI_Controller {
 	function __construct(){
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
-		$this->load->library(array('session','form_validation','ion_auth'));
+		$this->load->library(array('session','form_validation','ion_auth','upload'));
 		$this->load->database();
 		$this->load->model(array('admin/Language_model','admin/News_model','admin/Event_model'));
 		$this->lang->load('admin_lang', 'english');
@@ -49,48 +49,50 @@ class Event_ctrl extends CI_Controller {
 		$this->load->view('admin/comman/index',$data);
 	}
 	
-	function news_create(){
-		if($this->input->post('news_id') != ''){
-			$this->form_validation->set_rules('news_id','News Id','required|is_natural_no_zero');
-		}
-		$this->form_validation->set_rules('news_desc','News Contant','required|trim');
-		$this->form_validation->set_rules('news_order','News Order','required|is_natural');
-		if ($this->form_validation->run() == FALSE){
-			echo validation_errors(); die;
-		}
-		else{
-			$data['news_contect'] = $this->input->post('news_desc');
-			$data['sort'] = (int)$this->input->post('news_order');
-			$data['ip'] = $this->input->ip_address();
-			$data['created_at'] = date("d-m-y h:i:s");
-			$data['user_id'] = (int)$this->session->userdata('user_id');
-			$data['lang_id'] = (int)$this->session->userdata('language');
-			if($this->input->post('news_id') != ''){
-				$data['news_id'] = (int)$this->input->post('news_id');
-				$result = $this->News_model->news_update($data);
-				if($result){
-					$this->file_update();
-					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+	function event_create(){	
+		$data['event_title'] = $this->input->post('event_title');
+		$data['event_desc'] = $this->input->post('event_desc');
+		$data['event_id'] = $this->input->post('event_id');
+		$data['event_order'] = $this->input->post('event_order');
+		$data['created_at'] = date('d-m-Y h:i:s');
+		$data['created_by'] = $this->session->userdata('user_id');
+		
+		if($data['event_id'] == ''){
+			// event create
+			if(!empty($_FILES['userFiles']['name'])){
+				$file_name = $_FILES['userFiles']['name'];
+				$event_title = addslashes(preg_replace('/\s+/', '_', $data['event_title']));
+				$x = explode('.',$file_name);
+				$_FILES['userFile']['name'] = $event_title.'.'.end($x);
+				$_FILES['userFile']['type'] = $_FILES['userFiles']['type'];
+				$_FILES['userFile']['tmp_name'] = $_FILES['userFiles']['tmp_name'];
+				$_FILES['userFile']['error'] = $_FILES['userFiles']['error'];
+				$_FILES['userFile']['size'] = $_FILES['userFiles']['size'];
+					
+				
+				$uploadPath = 'Event_gallary';
+			
+				$config['overwrite'] = true;
+				$config['upload_path'] = $uploadPath;
+				$config['allowed_types'] = 'jpg|png|jpeg|JPEG|PNG|JPEG';
+					
+				$this->load->library('image_lib');
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+					
+				if($this->upload->do_upload('userFile')){
+					$upload_data = $this->upload->data(); 
+					$data['event_image'] = $upload_data['file_name'];
+					$this->Event_model->event_create($data);
 				}
 				else{
-					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+					$error = array('error' => $this->upload->display_errors());
+					print_r($error); die;
 				}
 			}
-			else{
-				if($this->ion_auth->is_admin()){
-					$result = $this->News_model->news_create($data);
-					if(count($result) > 0){
-						$this->file_update();
-						echo json_encode(array('data'=>$result,'msg'=>'news created successfully.','status'=>200));
-					}
-					else{
-						echo json_encode(array('msg'=>'news not created successfully.','status'=>500));
-					}
-				}
-				else{
-					echo json_encode(array('msg'=>'You Dont have permission.','status'=>500));
-				}
-			}
+		}
+		else {
+			// event update
 		}
 	}
 	
