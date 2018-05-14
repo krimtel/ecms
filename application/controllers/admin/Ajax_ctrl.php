@@ -33,4 +33,9 @@ class Ajax_ctrl extends CI_Controller {
 			echo json_encode(array('msg'=>'no record found.','status'=>500));
 		}
 	}
+	
+	
+	function get_all_users(){
+		
+	}
 }

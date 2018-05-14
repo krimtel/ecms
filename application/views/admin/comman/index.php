@@ -3,6 +3,8 @@
 <?php print_r($head); ?>
 <body class="fixed-nav sticky-footer" id="page-top">
 <input type="hidden" id="base_url" value="<?php echo base_url();?>">
+<?php $group = $this->session->userdata('group_name'); ?>
+<input type="hidden" id="u_group" value="<?php echo $group; ?>">
 <?php if(isset($header)){ print_r($header); } ?>
 <?php if(isset($navigation)){ print_r($navigation);} ?>
 

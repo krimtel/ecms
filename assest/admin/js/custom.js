@@ -1,5 +1,7 @@
 $(document).ready(function(){
 	var baseUrl = $('#base_url').val();
+	var uGroup = $('#u_group').val();
+	
 	//////////////////////////////menu ////////////////////////////////////
 	$(document).on('change','#menu_external_link',function(){
 		var x = $(this).val(); 
@@ -352,6 +354,81 @@ $(document).ready(function(){
 	        		alert(response.msg);
 	        	}
 	        }
+		});
+	});
+	
+	$(document).on('click','#new_user_register',function(){
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Users_ctrl/user_language_create',
+	        dataType: "json",
+	        data: {
+	        	'u_id'	: u_id,
+	        	'l_id' 	: l_id
+	        },
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	
+	        }
+		});
+		
+		$('#myModalLabel').html('User registration');
+		var x = '<form class="form-horizontal">'+
+					'<div class="form-group">'+
+						'<label for="inputEmail3" class="col-sm-2 control-label">First name</label>'+
+						'<div class="col-sm-10">'+
+							'<input type="email" class="form-control" id="u_reg_fname" placeholder="First Name">'+
+							'<div id="u_reg_fname_error" class="text-danger" style="display:none;"></div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="form-group">'+
+						'<label for="inputEmail3" class="col-sm-2 control-label">Last name</label>'+
+						'<div class="col-sm-10">'+
+							'<input type="email" class="form-control" id="u_reg_lname" placeholder="Last Name">'+
+							'<div id="u_reg_lname_error" class="text-danger" style="display:none;"></div>'+
+						'</div>'+
+					'</div>'+
+		  			'<div class="form-group">'+
+		  				'<label for="inputEmail3" class="col-sm-2 control-label">Email</label>'+
+		  				'<div class="col-sm-10">'+
+		  					'<input type="email" class="form-control" id="u_reg_email" placeholder="Email">'+
+		  					'<div id="u_reg_email_error" class="text-danger" style="display:none;"></div>'+
+		  				'</div>'+
+		  			'</div>'+
+		  			'<div class="form-group">'+
+		  				'<label for="inputPassword3" class="col-sm-2 control-label">Password</label>'+
+		  				'<div class="col-sm-10">'+
+		  					'<input type="password" class="form-control" id="u_reg_password" placeholder="Password">'+
+		  					'<div id="u_reg_password_error" class="text-danger" style="display:none;"></div>'+
+		  				'</div>'+
+		  			'</div>'+
+		  			'<div class="form-group">'+
+		  				'<label for="inputPassword3" class="col-sm-2 control-label">Contact no.</label>'+
+		  				'<div class="col-sm-10">'+
+		  					'<input type="text" class="form-control" id="u_reg_contact" placeholder="Contact no.">'+
+		  					'<div id="u_reg_contact_error" class="text-danger" style="display:none;"></div>'+
+		  				'</div>'+
+	  				'</div>'+
+	  				
+	  				'<div class="form-group">'+
+		  				'<label for="inputPassword3" class="col-sm-2 control-label">Language</label>'+
+		  				'<div class="col-sm-10">'+
+		  					'<select class="form-control" id="u_reg_language">'+
+		  						'<option value="1">English</option>'+
+		  					'</select>'+
+		  					'<div id="u_reg_contact_error" class="text-danger" style="display:none;"></div>'+
+		  				'</div>'+
+	  				'</div>'+
+			  	'</form>';
+		$('#loader .modal-body').html(x);
+		$('#loader .modal-footer').hide();
+		$('#loader').modal({
+			show : true,
+			backdrop : false,
+			keyboard: false
 		});
 	});
 
@@ -811,4 +888,160 @@ $(document).ready(function(){
 		  }).submit();
    		}
 	});
+	
+	
+	$(document).on('click','#event_update',function(){
+		var form_valid = true;
+		
+		if($('#event_title').val() == ''){
+			$('#event_title_error').html('Please enter Event Title.').css('display','block');
+			form_valid = false;
+		}
+		else if($('#event_title').val().length < 5){
+			$('#event_title_error').html('Please enter valid Event title.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#event_title_error').css('display','none');
+		}
+		
+		var event_desc = CKEDITOR.instances.event_desc.getData();
+		if(event_desc == ''){
+			$('#event_desc_error').html('Please enter event description.').css('display','block');
+			form_valid = false;
+		}
+		else if(event_desc.length < 17){
+			$('#event_desc_error').html('Event description atleast 10 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#event_desc_error').css('display','none');
+		}
+		
+		if(uGroup != 'subadmin'){
+			if(!$.isNumeric($('#event_order').val())){
+				$('#event_order_error').html('Event Order must be numaric.').css('display','block');
+				form_valid = false;
+			}
+			else if($('event_order').val() == ''){
+				$('#event_order_error').html('Event Order is required.').css('display','block');
+				form_valid = false;
+			}
+			else{
+				$('#event_order_error').css('display','none');
+			}
+		}
+   		if(form_valid){
+			$('#event_form').ajaxForm({
+			    dataType : 'json',
+			    data : {
+			    	'event_desc': CKEDITOR.instances.event_desc.getData()
+			    },
+			    beforeSubmit:function(e){
+					$('#loader').modal('show');
+			    },
+			    success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+		  }).submit();
+   		}
+	});
+	
+	
+	$(document).on('click','.event_edit,.event_tranlate',function(){
+		var e_id = $(this).data('event_id');
+		$.ajax({
+			type: 'POST',
+			url: baseUrl+'admin/Event_ctrl/get_event_content',
+			dataType: "json",
+			data: {
+				'e_id'	: e_id
+			},
+			beforeSend: function(){
+				$('#loader').modal({'show':true});	
+			},
+			complete: function(){},
+				success:function (response) {
+					console.log(response);
+					$('#loader').modal('toggle');
+					if(response.status == 200){
+						CKEDITOR.instances['event_desc'].setData(response.data[0].event_content);
+						$('#event_id').val(response.data[0].id);
+						$('#event_title').val(response.data[0].title);
+						$('#event_order').val(response.data[0].sort);
+						$('#event_update').show();
+						$('#event_create').hide();
+					}
+					else{
+						
+					}
+				}
+		});
+	});
+
+	$(document).on('click','.event_published',function(){
+		var x = confirm('Are you sure.');
+		if(!x){
+			if($(this).prop('checked') == true){
+				$(this).prop('checked', false);
+			}
+			else{
+				$(this).prop('checked', true);
+			}
+		}
+		else{
+			var status = $(this).prop('checked');
+			var e_id = $(this).data('event_id');
+			$.ajax({
+				type: 'POST',
+				url: baseUrl+'admin/Event_ctrl/event_publish',
+				dataType: "json",
+				data: {
+					'e_id'	: e_id,
+					'status' : status
+				},
+				beforeSend: function(){
+					$('#loader').modal({'show':true});	
+				},
+				complete: function(){},
+				success:function (response) {
+					console.log(response);
+					$('#loader').modal('toggle');
+				}
+			});
+		}
+	});
+
+	$(document).on('click','.event_delete',function(){
+		var x = confirm('Are you sure.'); 
+		if(x){
+			var e_id = $(this).data('event_id');
+			$.ajax({
+				type: 'POST',
+				url: baseUrl+'admin/Event_ctrl/event_delete',
+				dataType: "json",
+				data: {
+					'e_id'	: e_id
+				},
+				beforeSend: function(){
+					$('#loader').modal({'show':true});	
+				},
+				complete: function(){},
+				success:function (response) {
+					console.log(response);
+					$('#loader').modal('toggle');
+					//location.reload();
+				}
+			});
+		}
+	});
+	
+	
 });

@@ -28,6 +28,7 @@
 			</div>
 			<form name="event_form" id="event_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/Event_ctrl/event_create">
 			<div class="box-body">
+			<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Event Photo</label>
 					<div class="col-sm-9">
@@ -35,6 +36,7 @@
 						<div class="text-danger" id="userfile_error" style="display:none;"></div>
 					</div>
 				</div>
+			<?php } ?>
 				
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Event Title</label>
@@ -55,16 +57,15 @@
 			            </script>
 					</div>
 				</div>
-				
+				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Sort Order</label>
 					<div class="col-sm-9">
 						<input type="text" id="event_order" name="event_order" class="form-control" placeholder="Enter sort order" value="999"/>
 						<div class="text-danger" id="event_order_error" style="display:none;"></div>
-						
 					</div>
 				</div>
-				
+				<?php } ?>
 			</div>
 				<div class="box-footer">
 					<button id="event_create" type="button" class="btn pull-right btn-info">Save</button>
@@ -92,6 +93,7 @@
 			<div class="box-body">
 				<table class="table">
 					<tr>
+						<th>Image</th>
 						<th>Event</th>
 						<?php if($group != 'subadmin') { ?>
 							<th>Sort</th>
@@ -100,27 +102,28 @@
 						<th> operations </th>
 					</tr>
 					<tbody>
-						<?php if(isset($newses) && (count($newses) > 0)){ 
-								foreach($newses as $news) { ?>
-								<?php if($news['lang_id'] == 1) { ?>
+						<?php if(isset($events) && (count($events) > 0)){ 
+								foreach($events as $event) { ?>
+								<?php if($event['lang_id'] == 1) { ?>
 								<tr>
-									<td><?php echo $news['news_contect']; ?></td>
+									<td><img width="90" src="<?php echo base_url()."Event_gallary/".$event['event_image']; ?>"></td>
+									<td><?php echo $event['title']; ?></td>
 									<?php if($group != 'subadmin'){ ?>
-										<td><?php echo $news['sort']; ?></td>
+										<td><?php echo $event['sort']; ?></td>
 										<td>
-											<?php if($news['publish']){ ?>
-												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox" checked>										
+											<?php if($event['publish']){ ?>
+												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
 											<?php } else { ?>
-												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox">
+												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
 											<?php } ?>
 										</td>
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="news_tranlate" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a class="event_tranlate" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-heartbeat"></i></a>
 										<?php } else { ?>
-											<a class="news_edit" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	<a class="news_delete" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-trash"></i></a>
+											<a class="event_edit" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-pencil"></i></a> 
+									    	<a class="event_delete" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-trash"></i></a>
 										<?php } ?>
 									</td>
 								</tr>
@@ -160,27 +163,27 @@
 						<th>operations</th>
 					</tr>
 					<tbody>
-						<?php if(isset($newses) && (count($newses) > 0)){ 
-								foreach($newses as $news) { ?>
-								<?php if($news['lang_id'] == $this->session->userdata('language')) { ?>
+						<?php if(isset($events) && (count($events) > 0)){ 
+								foreach($events as $event) { ?>
+								<?php if($event['lang_id'] == $this->session->userdata('language')) { ?>
 								<tr>
-									<td><?php echo $news['news_contect']; ?></td>
+									<td><?php echo $event['event_content']; ?></td>
 									<?php if($group != 'subadmin'){ ?>
-										<td><?php echo $news['sort']; ?></td>
+										<td><?php echo $event['sort']; ?></td>
 										<td>
 											<?php if($news['publish']){ ?>
-												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox" checked>										
+												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
 											<?php } else { ?>
-												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox">
+												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
 											<?php } ?>
 										</td>
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="news_tranlate" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a class="event_tranlate" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-heartbeat"></i></a>
 										<?php } else { ?>
-											<a class="news_edit" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	<a class="news_delete" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-trash"></i></a>
+											<a class="event_edit" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-pencil"></i></a> 
+									    	<a class="event_delete" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-trash"></i></a>
 										<?php } ?>
 									</td>
 								</tr>

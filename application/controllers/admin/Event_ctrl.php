@@ -16,9 +16,9 @@ class Event_ctrl extends CI_Controller {
 	}
 	
 	function file_update(){
-		$data['newses'] = $this->Event_model->Event_list();
-		$json = json_encode($data['newses']);
-		$file = FCPATH . '/software_files/News.txt';
+		$data['events'] = $this->Event_model->Event_list();
+		$json = json_encode($data['events']);
+		$file = FCPATH . '/software_files/Event.txt';
 		file_put_contents ($file, $json);
 	}
 	
@@ -30,15 +30,15 @@ class Event_ctrl extends CI_Controller {
 			$data['language'] = $language;
 		}
 		
-		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/News.txt'),true);
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Event.txt'),true);
 		if(count($file_menu)){
-			$data['newses'] = $file_menu;
+			$data['events'] = $file_menu;
 		}
 		else{
-			$data['newses'] = $this->News_model->News_list();
-			$json = json_encode($data['newses']);
-			$file = FCPATH . '/software_files/News.txt';
-			file_put_contents ($file, $json, FILE_APPEND);
+			$data['events'] = $this->Event_model->Event_list();
+			$json = json_encode($data['events']);
+			$file = FCPATH . '/software_files/Event.txt';
+			file_put_contents ($file, $json);
 		}
 		
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
@@ -52,9 +52,9 @@ class Event_ctrl extends CI_Controller {
 	function event_create(){	
 		$data['event_title'] = $this->input->post('event_title');
 		$data['event_desc'] = $this->input->post('event_desc');
-		$data['event_id'] = $this->input->post('event_id');
-		$data['event_order'] = $this->input->post('event_order');
-		$data['created_at'] = date('d-m-Y h:i:s');
+		$data['event_id'] = (int)$this->input->post('event_id');
+		$data['event_order'] = (int)$this->input->post('event_order');
+		$data['created_at'] = date('d-m-y h:i:s');
 		$data['created_by'] = $this->session->userdata('user_id');
 		
 		if($data['event_id'] == ''){
@@ -83,7 +83,15 @@ class Event_ctrl extends CI_Controller {
 				if($this->upload->do_upload('userFile')){
 					$upload_data = $this->upload->data(); 
 					$data['event_image'] = $upload_data['file_name'];
-					$this->Event_model->event_create($data);
+					$result = $this->Event_model->event_create($data);
+					if($result){
+						$this->file_update();
+						echo json_encode(array('msg'=>'Event created successfully.','status'=>200));
+					}
+					else{
+						delete_files($uploadPath.$data['event_image']);
+						echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+					}
 				}
 				else{
 					$error = array('error' => $this->upload->display_errors());
@@ -93,29 +101,78 @@ class Event_ctrl extends CI_Controller {
 		}
 		else {
 			// event update
+			if(!empty($_FILES['userFiles']['name'])){
+				$file_name = $_FILES['userFiles']['name'];
+				$event_title = addslashes(preg_replace('/\s+/', '_', $data['event_title']));
+				$x = explode('.',$file_name);
+				$_FILES['userFile']['name'] = $event_title.'.'.end($x);
+				$_FILES['userFile']['type'] = $_FILES['userFiles']['type'];
+				$_FILES['userFile']['tmp_name'] = $_FILES['userFiles']['tmp_name'];
+				$_FILES['userFile']['error'] = $_FILES['userFiles']['error'];
+				$_FILES['userFile']['size'] = $_FILES['userFiles']['size'];
+					
+			
+				$uploadPath = 'Event_gallary';
+					
+				$config['overwrite'] = true;
+				$config['upload_path'] = $uploadPath;
+				$config['allowed_types'] = 'jpg|png|jpeg|JPEG|PNG|JPEG';
+					
+				$this->load->library('image_lib');
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+					
+				if($this->upload->do_upload('userFile')){
+					$upload_data = $this->upload->data();
+					$data['event_image'] = $upload_data['file_name'];
+					$result = $this->Event_model->event_update($data);
+					if($result){
+						$this->file_update();
+						echo json_encode(array('msg'=>'Event created successfully.','status'=>200));
+					}
+					else{
+						delete_files($uploadPath.$data['event_image']);
+						echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+					}
+				}
+				else{
+					$error = array('error' => $this->upload->display_errors());
+					print_r($error); die;
+				}
+			}
+			else{
+				$result = $this->Event_model->event_update($data);
+				if($result){
+					$this->file_update();
+					echo json_encode(array('msg'=>'event updated successfully.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+				}
+			}
 		}
 	}
 	
 	
-	function get_news_content(){
-		$data['news_id'] = (int) $this->input->post('n_id');
+	function get_event_content(){
+		$data['event_id'] = (int) $this->input->post('e_id');
 		$data['lang_id'] = (int) $this->session->userdata('language');
 		$data['ip'] = $this->input->ip_address();
 		$data['updated_at'] = date('d-m-y h:i:s');
 		$data['updated_by'] = (int) $this->session->userdata('user_id');
-		
-		$result = $this->News_model->get_news_content($data);
+	
+		$result = $this->Event_model->get_event_content($data);
 		if(count($result)>0){
-			echo json_encode(array('data'=>$result,'msg'=>'news content.','status'=>200));
+			echo json_encode(array('data'=>$result,'msg'=>'event content.','status'=>200));
 		}
 		else{
 			echo json_encode(array('msg'=>'no record found.','status'=>200));
 		}
 	}
 	
-	function news_publish(){
+	function event_publish(){
 		if($this->ion_auth->is_admin()){
-			$data['n_id'] = (int)$this->input->post('n_id');
+			$data['e_id'] = (int)$this->input->post('e_id');
 			$data['status'] = $this->input->post('status');
 			if($data['status'] == 'true'){
 				$data['status'] = 1;
@@ -123,8 +180,8 @@ class Event_ctrl extends CI_Controller {
 			else{
 				$data['status'] = 0;
 			}
-			
-			$result = $this->News_model->news_publish($data);
+				
+			$result = $this->Event_model->event_publish($data);
 			if($result){
 				$this->file_update();
 				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
@@ -154,4 +211,22 @@ class Event_ctrl extends CI_Controller {
 			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
 		}
 	}
+	
+	function event_delete(){
+		if($this->ion_auth->is_admin()){
+			$data['e_id'] = (int)$this->input->post('e_id');
+			$result = $this->Event_model->event_delete($data);
+			if($result){
+				$this->file_update();
+				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+			}
+		}
+		else{
+			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+		}
+	}
+	
 }

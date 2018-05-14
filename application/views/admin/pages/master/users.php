@@ -6,6 +6,9 @@
      </ol>   
 	<section class="content-header">
       <h1>Users</h1>
+      	<span class="pull-right">
+      		<a href="javascript:void(0);" class="btn btn-warning" id="new_user_register">register new users</a>
+      	</span>
     </section>
 	
 	<!-- Main content -->
