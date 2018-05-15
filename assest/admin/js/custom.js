@@ -559,28 +559,28 @@ $(document).ready(function(){
 
 
 /////////////////////////////////////////////////////////////Widget///////////////////////////////////////////////////////////////////////
-	$(document).on('click','#widget_create,#widget_update',function(){
-		$('#widget_form').ajaxForm({
-		    dataType : 'json',
-		    data : {
-		    	'widget_content' : CKEDITOR.instances.widget_content.getData()
-		    },
-		    beforeSubmit:function(e){
-				$('#loader').modal('show');
-		    },
-		    success:function(response){
-		    	console.log(response);
-		  	  if(response.status == 200){
-		    	$('#loader').modal('toggle');
-		    	alert(response.msg);
-		    	//location.reload();
-		      }
-		      else{
-			    alert(response.msg);
-		      }
-		    }
-	  }).submit();
-	});
+//	$(document).on('click','#widget_create,#widget_update',function(){
+//		$('#widget_form').ajaxForm({
+//		    dataType : 'json',
+//		    data : {
+//		    	'widget_content' : CKEDITOR.instances.widget_content.getData()
+//		    },
+//		    beforeSubmit:function(e){
+//				$('#loader').modal('show');
+//		    },
+//		    success:function(response){
+//		    	console.log(response);
+//		  	  if(response.status == 200){
+//		    	$('#loader').modal('toggle');
+//		    	alert(response.msg);
+//		    	//location.reload();
+//		      }
+//		      else{
+//			    alert(response.msg);
+//		      }
+//		    }
+//	  }).submit();
+//	});
 
 /////////////////////////////////////////////////////////////page///////////////////////////////////////////////////////////////////////
 	$(document).on('click','#page_create,#page_update',function(){
@@ -866,6 +866,9 @@ $(document).ready(function(){
 		else{
 			$('#event_order_error').css('display','none');
 		}
+		if($('#user_category').val()==''){
+			$('#event_category_error').html('Event Category is required').css('display','block');
+		}
    		if(form_valid){
 			$('#event_form').ajaxForm({
 			    dataType : 'json',
@@ -929,6 +932,14 @@ $(document).ready(function(){
 			}
 			else{
 				$('#event_order_error').css('display','none');
+			}
+			
+			if($('#event_category').val()==''){
+				$('#event_category_error').html('Event Category is required').css('display','block');
+				form_valid = false;
+			}
+			else{
+				$('#event_category_error').css('display','none');
 			}
 		}
    		if(form_valid){
@@ -1006,6 +1017,38 @@ $(document).ready(function(){
 				data: {
 					'e_id'	: e_id,
 					'status' : status
+				},
+				beforeSend: function(){
+					$('#loader').modal({'show':true});	
+				},
+				complete: function(){},
+				success:function (response) {
+					console.log(response);
+					$('#loader').modal('toggle');
+				}
+			});
+		}
+	});
+	$(document).on('click','.is_home',function(){
+		var x = confirm('Are you sure.');
+		if(!x){
+			if($(this).prop('checked') == true){
+				$(this).prop('checked', false);
+			}
+			else{
+				$(this).prop('checked', true);
+			}
+		}
+		else{
+			var status1 = $(this).prop('checked');
+			var e_id = $(this).data('event_id');
+			$.ajax({
+				type: 'POST',
+				url: baseUrl+'admin/Event_ctrl/event_is_home',
+				dataType: "json",
+				data: {
+					'e_id'	: e_id,
+					'status1' : status1
 				},
 				beforeSend: function(){
 					$('#loader').modal({'show':true});	

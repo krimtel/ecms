@@ -58,7 +58,10 @@
 					<button type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 				</div>
 			</form>
+			</form>
+			
 		</div>
+		
 		</section>
 		
 		<?php if($group == 'subadmin'){ ?>

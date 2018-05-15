@@ -10,5 +10,6 @@
 
 <?php if(isset($main_contant)){print_r($main_contant);} ?>
 <?php if(isset($footer)){ print_r($footer);} ?>
+
 </body>
 </html>

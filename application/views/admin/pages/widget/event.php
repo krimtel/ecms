@@ -45,7 +45,19 @@
 						<div class="text-danger" id="event_title_error" style="display:none;"></div>
 					</div>
 				</div>
-			
+				<?php if($group != 'subadmin'){ ?>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Please Select Category</label>
+			   <div class="col-sm-9">
+			   	<select class="col-sm-2 form-control" id="event_category" name="event_category">
+			   	<div class="text-danger" id="event_category_error" style="display:none;"></div>
+			   		<option value="national">Natonal Level </option>
+			   		<option value="state">State Level </option>
+			   		<option value="Event3_eNAM_GLIMPSES">Event3 eNAM GLIMPSES Level </option>
+			   	</select>
+			   </div>
+			   </div>
+			   <?php } ?>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Event description</label>
 					<div class="col-sm-9">
@@ -95,9 +107,11 @@
 					<tr>
 						<th>Image</th>
 						<th>Event</th>
+						<th>Category</th>
 						<?php if($group != 'subadmin') { ?>
 							<th>Sort</th>
 							<th>Publish</th>
+							<th>Is_Home</th>
 						<?php } ?>
 						<th> operations </th>
 					</tr>
@@ -108,6 +122,7 @@
 								<tr>
 									<td><img width="90" src="<?php echo base_url()."Event_gallary/".$event['event_image']; ?>"></td>
 									<td><?php echo $event['title']; ?></td>
+									<td><?php echo $event['event_category']; ?></td>
 									<?php if($group != 'subadmin'){ ?>
 										<td><?php echo $event['sort']; ?></td>
 										<td>
@@ -115,6 +130,13 @@
 												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
 											<?php } else { ?>
 												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
+											<?php } ?>
+										</td>
+										<td>
+										<?php if($event['is_home']){ ?>
+												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
+											<?php } else { ?>
+												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
 											<?php } ?>
 										</td>
 									<?php } ?>
@@ -175,6 +197,13 @@
 												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
 											<?php } else { ?>
 												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
+											<?php } ?>
+										</td>
+										<td>
+											<?php if($event['is_home']){ ?>
+												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
+											<?php } else { ?>
+												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
 											<?php } ?>
 										</td>
 									<?php } ?>

@@ -5,24 +5,28 @@
           <a href="#">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">My Dashboard</li>
-      </ol>
-      
+      </ol>  
       <div class="offset-3 col-6 card card-body">
       	<p class="text-danger"><?php echo $this->session->flashdata('message'); ?></p>
       	<form name="login_form" method="POST" action="<?php echo base_url();?>admin/Auth/login"> 
 		  <div class="form-group">
 		    <label for="formGroupExampleInput">Identity</label>
-		    <input type="text" name="identity" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+		    <input type="text" name="identity"  class="form-control" id="identity" autocomplete="off" placeholder="Example input">
+		    <div id="identity_err" class="text-danger" style="display:none;"></div>
+		    <?php echo form_error('identity'); ?>
 		  </div>
+		  
 		  <div class="form-group">
 		    <label for="formGroupExampleInput2">Password</label>
-		    <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+		    <input type="password" name="password" class="form-control" id="password" placeholder="Another input">
+		    <div id="password_err" class="text-danger" class="form-control" style="display: none;"></div>
+		     <?php echo form_error('password'); ?>
 		  </div>
+		  
 		  <div class="form-group">
 		    <input type="submit" class="btn btn-lg btn-light" value="login">
 		    <input type="reset" class="btn btn-lg btn-light" value="Cancel">
 		  </div>
-		</form>
-      
+		</form>   
       </div>
 </div>

@@ -25,12 +25,13 @@
 						<div class="form-group">
 						  <label class="col-sm-3 control-label">New Language</label>
 						  <div class="col-sm-9"><input type="text" id="language_name" class="form-control" placeholder="Enter new language"></div>
+						   <div id="language_response" class="response"></div>
 						  <div class="col-sm-9"><input type="hidden" id="language_id" class="form-control" value=""></div>
 						</div>
 					</div>
 					<div class="box-footer">
 						<button id="language_update" type="button" class="btn pull-right btn-info" style="display:none;">Update</button>
-						<button id="language_create" type="button" class="btn pull-right btn-info">Submit</button>
+						<button id="language_create" type="button" class="btn pull-right btn-info" disabled>Submit</button>
 						<button type="reset" id="language_reset" class="btn btn-default pull-right btn-space">Cancel</button>
 					</div>
 				</form>

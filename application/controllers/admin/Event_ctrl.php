@@ -56,7 +56,8 @@ class Event_ctrl extends CI_Controller {
 		$data['event_order'] = (int)$this->input->post('event_order');
 		$data['created_at'] = date('d-m-y h:i:s');
 		$data['created_by'] = $this->session->userdata('user_id');
-		
+		$data['event_category']=$this->input->post('event_category');
+		//print_r($this->input->post()); die;
 		if($data['event_id'] == ''){
 			// event create
 			if(!empty($_FILES['userFiles']['name'])){
@@ -104,6 +105,7 @@ class Event_ctrl extends CI_Controller {
 			if(!empty($_FILES['userFiles']['name'])){
 				$file_name = $_FILES['userFiles']['name'];
 				$event_title = addslashes(preg_replace('/\s+/', '_', $data['event_title']));
+				$event_category=addslashes(preg_replace('/\s+/', '_', $data['event_category']));
 				$x = explode('.',$file_name);
 				$_FILES['userFile']['name'] = $event_title.'.'.end($x);
 				$_FILES['userFile']['type'] = $_FILES['userFiles']['type'];
@@ -124,7 +126,9 @@ class Event_ctrl extends CI_Controller {
 					
 				if($this->upload->do_upload('userFile')){
 					$upload_data = $this->upload->data();
+					
 					$data['event_image'] = $upload_data['file_name'];
+					
 					$result = $this->Event_model->event_update($data);
 					if($result){
 						$this->file_update();
@@ -194,7 +198,31 @@ class Event_ctrl extends CI_Controller {
 			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
 		}
 	}
+	function event_is_home(){
+		if($this->ion_auth->is_admin()){
+			$data['e_id'] = (int)$this->input->post('e_id');
+			$data['status1'] = $this->input->post('status1');
+			if($data['status1'] == 'true'){
+				$data['status1'] = 1;
+			}
+			else{
+				$data['status1'] = 0;
+			}
 	
+			$result = $this->Event_model->is_home($data);
+			if($result){
+				//print_r($result); die;
+				$this->file_update();
+				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+			}
+		}
+		else{
+			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+		}
+	}
 	function news_delete(){
 		if($this->ion_auth->is_admin()){
 			$data['n_id'] = $this->input->post('n_id');

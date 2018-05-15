@@ -13,6 +13,7 @@ class Event_model extends CI_Model {
 		$val['title'] = $data['event_title'];
 		$val['event_content'] = $data['event_desc'];
 		$val['sort'] = $data['event_order'];
+		$val['event_category']=$data['event_category'];
 		$val['created_at'] = $data['created_at'];
 		$val['created_by'] = $data['created_by'];
 		//event_item table data
@@ -38,7 +39,7 @@ class Event_model extends CI_Model {
 	}
 	
 	function event_list(){
-		$this->db->select('ei.*,e.sort,e.event_image,e.publish');
+		$this->db->select('ei.*,e.sort,e.event_image,e.publish,e.event_category,e.is_home');
 		$this->db->join('event_item ei','ei.event_id = e.id','left');
 		$this->db->join('languages l','l.l_id = ei.lang_id','left');
 		$this->db->order_by('e.sort,e.created_at,e.updated_at','ASC');
@@ -47,7 +48,7 @@ class Event_model extends CI_Model {
 	}
 	
 	function get_event_content($data){
-		$this->db->select('ei.*,e.sort');
+		$this->db->select('ei.*,e.sort,e.event_category');
 		$this->db->join('events e','e.id = ei.event_id');
 		$result = $this->db->get_where('event_item ei',array('ei.event_id'=>$data['event_id'],'ei.lang_id'=>$data['lang_id'],'ei.status'=>1))->result_array();
 	
@@ -64,6 +65,11 @@ class Event_model extends CI_Model {
 	function event_publish($data){
 		$this->db->where('id',$data['e_id']);
 		$this->db->update('events',array('publish'=>$data['status']));
+		return true;
+	}
+	function is_home($data){
+		$this->db->where('id',$data['e_id']);
+		$this->db->update('events',array('is_home'=>$data['status1']));
 		return true;
 	}
 	
@@ -88,6 +94,7 @@ class Event_model extends CI_Model {
 					'event_image' => $data['event_image'],
 					'event_content' => $data['event_desc'],
 					'sort' => $data['event_order'],
+					'event_category'=>$data['event_category'],
 					'updated_at' => $data['created_at'],
 					'updated_by' => $data['created_by']
 				));
@@ -97,6 +104,7 @@ class Event_model extends CI_Model {
 					'title' => $data['event_title'],
 					'event_content' => $data['event_desc'],
 					'sort' => $data['event_order'],
+					'event_category' => $data['event_category'],
 					'updated_at' => $data['created_at'],
 					'updated_by' => $data['created_by']
 				));

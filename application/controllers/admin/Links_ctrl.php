@@ -22,6 +22,7 @@ class Links_ctrl extends CI_Controller {
 		file_put_contents ($file, $json);
 	}
 	public function index(){
+		
 		$data['title'] = 'eNam Admin';
 		$languages = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		foreach($languages as $language){
@@ -48,6 +49,7 @@ class Links_ctrl extends CI_Controller {
 	}
 	
 	function link_create(){
+		$this->form_validation->set_rules('link_desc', str_replace(':', '', $this->lang->line('link_link_desc_label')), 'required');
 		if($this->input->post('link_id') != ''){
 			$this->form_validation->set_rules('link_id','Link Id','required|is_natural_no_zero');
 		}
@@ -55,6 +57,7 @@ class Links_ctrl extends CI_Controller {
 		$this->form_validation->set_rules('link_order','Link Order','required|is_natural');
 		if ($this->form_validation->run() == FALSE){
 			echo validation_errors(); die;
+			$this->session->set_flashdata('message', validation_errors());
 		}
 		else{
 			$data['link_contect'] = $this->input->post('link_desc');
@@ -75,13 +78,19 @@ class Links_ctrl extends CI_Controller {
 				}
 			}
 			else{
-				$result = $this->Links_model->link_create($data);
-				if(count($result) > 0){
-					$this->file_update();
-					echo json_encode(array('data'=>$result,'msg'=>'link created successfully.','status'=>200));
+				if($this->ion_auth->is_admin())
+				{			
+					$result = $this->Links_model->link_create($data);
+					if(count($result) > 0){
+						$this->file_update();
+						echo json_encode(array('data'=>$result,'msg'=>'link created successfully.','status'=>200));
+					}
+					else{
+						echo json_encode(array('msg'=>'link not created successfully.','status'=>500));
+					}
 				}
 				else{
-					echo json_encode(array('msg'=>'link not created successfully.','status'=>500));
+					echo json_encode(array('msg'=>'You dont have permission for create links.','status'=>500));
 				}
 			}
 		}

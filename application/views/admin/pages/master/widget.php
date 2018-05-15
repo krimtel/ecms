@@ -21,12 +21,13 @@
 					  <i class="fa fa-minus"></i></button>
 					</div>
 				</div>
-				<form name="f1" id="widget_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/Widget_ctrl/widget_create">
+				<form name="widget_form" id="widget_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/Widget_ctrl/widget_create">
 					<div class="box-body">
+	 
 						<div class="form-group">
 						  <label class="col-sm-3 control-label">Name</label>
 						  <div class="col-sm-9">
-						  	<input type="text" class="form-control" name="widget_name" id="widget_name">
+						  	<input type="text" class="form-control" name="widget_name" id="widget_name" value="">
 						  </div>
 						</div>
 						<div class="form-group">
@@ -40,18 +41,19 @@
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
+					
+				</form>
+				<div class="box-footer">
 						<button id="widget_update" type="submit" class="btn pull-right btn-info" style="display:none;">Update</button>
 						<button id="widget_create" type="button" class="btn pull-right btn-success">Submit</button>
 						<button id="widget_reset" type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 					</div>
-				</form>
 			</div>
 		</section>
 		<section class="col-lg-6 connectedSortable">
 		<div class="box box-primary">
 			<div class="box-header with-border">
-			  <h3 class="box-title">All User List</h3>
+			  <h3 class="box-title">All Widget List</h3>
 			  <div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 				  <i class="fa fa-minus"></i></button>
@@ -60,26 +62,28 @@
 			<div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
-                  <th>S.No.</th>
-                  <th>Users</th>
-                  <th>Language</th>
+                  <th>Widget Name</th>
+                  <th>Content</th>
                   <th>Edit/Delete</th>
                 </tr>
                 <tbody id="language_users_display">
-					<?php if(isset($users_lang) && (count($users_lang)>0)){
-						$c = 1;
-						foreach($users_lang as $user_lang){ ?> 
+					<?php if(isset($widget) && (count($widget)>0)){
+						
+						foreach($widget as $widgets){ ?> 
 							<tr>
-	                  			<td><?php echo $c; ?></td>
-	                  			<td><?php echo $user_lang['username']; ?></td>
-	                  			<td><?php echo $user_lang['l_name']; ?></td>
+	                  			<td><?php echo $widgets['name']; ?></td>
+	                  			<td><?php echo $widgets['content']; ?></td>
 	                  			<td>
-	                  				<a class="class_edit btn btn-info btn-flat user_edit" data-u_id="<?php echo $user_lang['id']; ?>" data-lang_id="<?php echo $user_lang['l_id']; ?>"><i class="fa fa-pencil"></i></a>
-	                  				<a class="class_delete btn btn-info btn-flat user_delete" data-u_id="<?php echo $user_lang['id']; ?>"><i class="fa fa-trash"></i></a>
+	          
+	                  				<a class="btn btn-info btn-flat widget_edit" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-pencil"></i></a>
+	                  				<a class="btn btn-info btn-flat widget_delete" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-trash"></i></a>
+	                  				
 	                  			</td>
                 			</tr>	
-					<?php }
-					}?>
+					<?php
+						
+						}
+				}?>
             	</tbody>
               </table>
             </div>

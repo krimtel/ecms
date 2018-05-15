@@ -48,6 +48,8 @@ class News_ctrl extends CI_Controller {
 	}
 	
 	function news_create(){
+		$this->form_validation->set_rules('news_desc', str_replace(':', '', $this->lang->line('news_news_desc_label')), 'required');
+	
 		if($this->input->post('news_id') != ''){
 			$this->form_validation->set_rules('news_id','News Id','required|is_natural_no_zero');
 		}

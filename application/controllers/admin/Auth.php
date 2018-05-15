@@ -14,20 +14,27 @@ class Auth extends CI_Controller
 		$this->load->database();
 		$this->load->library(array('ion_auth', 'form_validation'));
 		$this->load->helper(array('url', 'language'));
-
-		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
-
+		$this->load->library('javascript');
+		$this->load->library('javascript/jquery');
 		$this->lang->load('auth');
+		
 	}
 
-	/**
+	/**	
 	 * Redirect if needed, otherwise display the user list
 	 */
-	public function index()
-	{
-		if (!$this->ion_auth->logged_in())
-		{
-			// redirect them to the login page
+	public function index() {
+// 		$this->form_validation->set_rules('password', 'password', 'required|min_length[3]');
+// 		$this->form_validation->set_rules('identity', 'Identity', 'required');
+		
+// 		if ($this->form_validation->run() == FALSE){
+// 			//$this->load->view('admin/pages/login');
+// 		}
+// 		else {
+// 			$this->load->view('admin/common/pages/formsuccess');
+// 		}
+		
+		if (!$this->ion_auth->logged_in()){	
 			$data['title'] = 'eNam Admin';
 			$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 			$data['header'] = $this->load->view('admin/comman/header','',TRUE);
@@ -35,7 +42,6 @@ class Auth extends CI_Controller
 			$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
 			$data['main_contant'] = $this->load->view('admin/pages/login',$data,TRUE);
 			$this->load->view('admin/comman/index',$data);
-			
 		}
 		else if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
 		{
@@ -77,19 +83,9 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
 		$this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
 
-		$identity = 'ben.edmunds@gmail.com';
+		//$identity = 'ben.edmunds@gmail.com';
 		if ($this->ion_auth->is_max_login_attempts_exceeded($this->input->post('identity'))){
 				$this->session->set_flashdata('message', 'You have too many login attempts');
-				
-				$data['title'] = 'eNam Admin';
-				$data['head'] = $this->load->view('admin/comman/head','',TRUE);
-				$data['header'] = $this->load->view('admin/comman/header','',TRUE);
-				$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
-				$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
-				$data['main_contant'] = $this->load->view('admin/pages/login',$data,TRUE);
-				$this->load->view('admin/comman/index',$data);
-			//redirect('admin/admin','refresh');
-			die;
 		}
 		
 		if ($this->form_validation->run() === TRUE)
@@ -99,7 +95,7 @@ class Auth extends CI_Controller
 			$remember = (bool)$this->input->post('remember');
 
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
-			{
+			{		
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());

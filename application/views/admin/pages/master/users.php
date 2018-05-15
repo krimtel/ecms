@@ -38,7 +38,7 @@
 						  	</select>
 						  </div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="users_language_drop_down_box" style="display: none;">
 							<label class="col-sm-3 control-label">Select Language</label>
 							<div class="col-sm-9">
 								<select class="form-control" name="users_language_drop_down" id="users_language_drop_down">

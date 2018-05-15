@@ -15,6 +15,7 @@ class Language_model extends CI_Model {
 	}
 	
 	function language_edit($data){
+		
 		$this->db->where('l_id',$data['id']);
 		$this->db->update('languages',array(
 				'l_name'=>$data['name'],
@@ -43,12 +44,25 @@ class Language_model extends CI_Model {
 				)
 			);
 		
-		$data['languages'] = $this->Language_model->get_all_language();
-		$json = json_encode($data['languages']);
-		$file = FCPATH . '/software_files/Language.txt';
-		file_put_contents ($file, $json);
+		
+			$data['languages'] = $this->Language_model->get_all_language();
+			$json = json_encode($data['languages']);
+			$file = FCPATH . '/software_files/Language.txt';
+			file_put_contents ($file, $json);
 		
 		return true;
+	}
+	
+	function language_check($data){
+		$this->db->select('*');
+		$result = $this->db->get_where('languages',array('l_name'=>$data['str']))->result_array();
+		if(count($result) == 1){
+			return false;
+		}
+		else{
+			return true;
+		}
+		
 	}
 }
 ?>

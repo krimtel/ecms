@@ -41,12 +41,14 @@
 					</div>
 				</div>
 				
+				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Sort Order</label>
 					<div class="col-sm-9">
 						<input type="text" id="link_order" name="link_order" class="form-control" placeholder="Enter sort order" />
 					</div>
 				</div>
+				<?php } ?>
 				
 			</div>
 			</form>
