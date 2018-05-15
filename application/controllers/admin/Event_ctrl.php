@@ -54,7 +54,7 @@ class Event_ctrl extends CI_Controller {
 		$data['event_desc'] = $this->input->post('event_desc');
 		$data['event_id'] = (int)$this->input->post('event_id');
 		$data['event_order'] = (int)$this->input->post('event_order');
-		$data['created_at'] = date('d-m-y h:i:s');
+		$data['created_at'] = date('Y-m-d h:i:s');
 		$data['created_by'] = $this->session->userdata('user_id');
 		$data['event_category']=$this->input->post('event_category');
 		//print_r($this->input->post()); die;
@@ -162,7 +162,7 @@ class Event_ctrl extends CI_Controller {
 		$data['event_id'] = (int) $this->input->post('e_id');
 		$data['lang_id'] = (int) $this->session->userdata('language');
 		$data['ip'] = $this->input->ip_address();
-		$data['updated_at'] = date('d-m-y h:i:s');
+		$data['updated_at'] = date('Y-m-d h:i:s');
 		$data['updated_by'] = (int) $this->session->userdata('user_id');
 	
 		$result = $this->Event_model->get_event_content($data);

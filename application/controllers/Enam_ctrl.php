@@ -7,7 +7,7 @@ class Enam_ctrl extends CI_Controller {
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
 		$this->load->database();
-		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Widget_model','Enam_model'));
+		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Widget_model','Enam_model','admin/Event_model'));
 		$this->load->library(array('session'));
 	}
 	
@@ -39,6 +39,8 @@ class Enam_ctrl extends CI_Controller {
 		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
 		$data['newses'] = $this->Enam_model->all_news();
 		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		$data['events'] = $this->Event_model->home_list_events();
+		//print_r($this->session->all_userdata()); die;
 		$data['main_contant'] = $this->load->view('pages/dashboard',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}

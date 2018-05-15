@@ -145,5 +145,19 @@ class Event_model extends CI_Model {
 		}
 		
 	}
+	
+	function home_list_events(){
+		$lang = $this->session->userdata('client_language');
+		if($lang == ''){
+			$lang = 1;
+		}
+		$this->db->select("ei.*,e.event_image,e.event_category,DATE_FORMAT(`e`.`created_at`,'%e %M, %Y') as created_at");
+		$this->db->join('events e','e.id = ei.event_id');
+		$this->db->order_by('e.sort,e.created_at,e.updated_at','ASC');
+		$result = $this->db->get_where('event_item ei',array('ei.status' => 1,'e.status' => 1,'e.publish' => 1,'ei.lang_id' => $lang,'e.is_home' => 1))->result_array();
+		//print_r($this->db->last_query()); die;
+		return  $result;
+		
+	}
 }
 ?>

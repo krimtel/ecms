@@ -21,7 +21,10 @@
 			</div>
 		</div>
 		<div class="col-lg-4 col-sm-4 home-n wow fadeInRight" data-wow-delay="0.5s">
-			<?php print_r($home_notice); ?>
+			<?php
+				///  news section
+				print_r($home_notice); 
+			?>
 		</div>
 	</div>
 </div>
@@ -52,47 +55,35 @@
 		</div>
 	</div>
 </section>
+
+
 <section class="content-section" style="padding:30px 0;background-color:#fff;float:left;width:100%;">
 	<div class="container-fuild" style="padding-left:2%;padding-right:2%;">
 		<div class="row">
 			<div class="col-lg-9 col-sm-9 wow fadeInUp" data-wow-delay="0.5s">
             	<h3 class="events-title"><span>eNAM Events</span></h3>
-				<div class="col-md-4 enam-events-box">
-					<img alt="Event1" src="<?php echo base_url(); ?>assest/images/home/event1.jpg" />
-					<span>NATIONAL EVENTS</span>
-					<h3>Press Conference on Launch of New Features chaired by Central Agriculture Minister at Krishi Bhawan , New Delhi.</h3>
-					<p>New Features launched are as follows:</p>
-					<ul class="events-point">
-						<li>Business Intelligence Dashboard for better Analysis.</li>
-						<li>Grievance Redressal Portal.</li>
-						<li>UPI Integration.</li>
-						<li>Enhancement on Mobile App.</li>
-					</ul>
-					<p>A. Gate Entry</p>
-					<p>B. Payment Gateway</p>
-					<ul class="events-point">
-						<li>Farmer DB integration</li>
-						<li>Website with eLearning Module</li>
-						<li>Integration with ReMS</li>
-					</ul>
-					<p class="p-date">Published on Feb 22 2018</p>
-				</div>
-				<div class="col-md-4 enam-events-box">
-					<img alt="Event2" src="<?php echo base_url(); ?>assest/images/home/event2.jpg" />
-					<span>STATE EVENTS</span>
-					<h3>Maharashtra CM reviews progress of eNAM </h3>
-					<p>Hon'ble CM of Maharashtra reviews progress of eNAM in the State  along with Hon'ble Minister, cooperation and Marketing, MD SFAC and senior officers of Government of Maharashtra at Mumbai on 13th Jan 2018.</p>
-					<p class="p-date">Published on Jan 31 2018</p>
-				</div>
-				<div class="col-md-4 enam-events-box">
-					<img alt="Event3" src="<?php echo base_url(); ?>assest/images/home/event4.jpg" />
-					<span>eNAM GLIMPSES</span>
-					<h3>Training Programme in Kurnool APMC, Andhra Pradesh</h3>
-					<p class="p-date">Published on Feb 02 2018</p>
-				</div>
+				
+				<?php if((count($events) > 0) && (isset($events))){ ?>
+					<?php foreach($events as $event){ ?>
+					<div class="col-md-4 enam-events-box">
+						<img alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>\Event_gallary/<?php echo $event['event_image']; ?>" />
+						<span><?php echo $event['event_category']; ?></span>
+						<?php $event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];?>
+						<h3><?php echo $event_title; ?></h3>
+						<?php $event_content = strlen($event['event_content']) > 200 ? substr($event['title'],0,200)."..." : $event['event_content'];?>
+						<div><?php echo $event_content; ?></div>
+						<p class="p-date">Published on <?php echo $event['created_at']; ?></p>
+					</div>
+					<?php } ?>
+				<?php } else { ?>
+					<div class="well text-danger">No events Found.</div>
+				<?php }?>
 			</div>
 			<div class="col-lg-3 col-sm-3 home-q wow fadeInRight" data-wow-delay="0.5s">
-				<?php print_r($quickLinks); ?>
+				<?php
+					/// quick links
+					print_r($quickLinks); 
+				?>
 			</div>
 		</div>
 	</div>
