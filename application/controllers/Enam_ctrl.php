@@ -44,6 +44,36 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/dashboard',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
+	
+	public function layout_page(){
+		$data['title'] = 'eNam';
+		$data['head'] = $this->load->view('comman/head','',TRUE);
+		
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+		if(count($file_menu)){
+			$data['languages'] = $file_menu;
+		}
+		else{
+			$data['languages'] = $this->Language_model->get_all_language();
+			$json = json_encode($data['languages']);
+			$file = FCPATH . '/software_files/Language.txt';
+			file_put_contents ($file, $json);
+		}
+		
+		$data['header'] = $this->load->view('comman/header',$data,TRUE);
+		$data['navigation'] = $this->load->view('comman/navigation','',TRUE);
+		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
+		$data['footer'] = $this->load->view('comman/footer','',TRUE);
+		$data['slider'] = $this->load->view('pages/comman/slider','',TRUE);
+		$data['links'] = $this->Enam_model->all_links();
+		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
+		$data['newses'] = $this->Enam_model->all_news();
+		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		$data['events'] = $this->Event_model->home_list_events();
+		//print_r($this->session->all_userdata()); die;
+		$data['main_contant'] = $this->load->view('pages/layout-page',$data,TRUE);
+		$this->load->view('comman/index',$data);
+	}
 	/*Register*/
 	public function register()
 	{

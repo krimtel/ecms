@@ -1,10 +1,10 @@
 <nav class="menu-section">
 	<div class="container-fuild" style="position: fixed;margin-top:75px;
     width: 100%;
-    height: 50px;
+    height: 40px;
     z-index: 99;">
-		 <nav class="navbar navbar-default navbar-static-top gcolor" role="navigation" style="padding:0px 2%;margin:0;">
-            <div class="navbar-header" style="height:40px;">
+		 <nav class="navbar navbar-default navbar-static-top gcolor" role="navigation" style="padding:0px 3%;margin:0;">
+            <div class="navbar-header navbar-toggle" style="height:40px;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>

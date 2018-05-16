@@ -12,7 +12,7 @@ $route['nam/(:any)'] = 'Enam_ctrl/$1';
 // $route['elarning/(:any)'] = 'Enam_ctrl/$1';
 // $route['contactus/(:any)'] = 'Enam_ctrl/$1';
 // $route['logistic/(:any)'] = 'Enam_ctrl/$1';
-// $route['training/(:any)'] = 'Enam_ctrl/$1';
+ $route['layout_page/(:any)'] = 'Enam_ctrl/$1';
 
 ////////////////////admin/////////
 
