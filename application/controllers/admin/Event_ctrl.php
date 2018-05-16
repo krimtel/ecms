@@ -164,7 +164,6 @@ class Event_ctrl extends CI_Controller {
 		$data['ip'] = $this->input->ip_address();
 		$data['updated_at'] = date('Y-m-d h:i:s');
 		$data['updated_by'] = (int) $this->session->userdata('user_id');
-	
 		$result = $this->Event_model->get_event_content($data);
 		if(count($result)>0){
 			echo json_encode(array('data'=>$result,'msg'=>'event content.','status'=>200));

@@ -43,6 +43,7 @@
 				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/news">News/Notice </a></li>
 				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/links">Quick links </a></li>
 				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/events">Events </a></li>
+				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/slider">Slider </a></li>
 				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/widgets">Widgets </a></li>
 			</ul>
 	</li>

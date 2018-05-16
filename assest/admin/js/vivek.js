@@ -269,6 +269,50 @@ $(document).ready(function(){
 
 	});
 	
+	$(document).on('click','#slider_create',function(){
+		 var form_valid = true;
+		 var alt_tag=$(this).data('slider_alt');
+		 
+		 if($('#userFiles').val() == ''){
+				$('#userfile_error').html('Please select image for slider.').css('display','block');
+				form_valid = false;
+			}
+		 else{
+				$('#userfile_error').css('display','none');
+			}
+		 if($('#slider_alt').val() == ''){
+			 $('#alt_error').html('please Fill Alt Tag');
+		 }
+		 else{
+			 $('#alt_error').css('display','none');
+		 }
+		 if($('#slider_order').val()==''){
+			 $('#slider_order_error').html("please Fill Slider Sort Order");
+		 }
+		 else{
+			 $('#slider_order_error').css('display','none');
+		 }
+		if(form_valid){
+			$('#slider_form').ajaxForm({
+				dataType : 'json',
+				data : 'alt_tag',
+				beforeSubmit:function(e){
+					$('#loader').modal('show');
+			    },
+			    success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+			}).submit();
+		}
+		 
+	});
 	
 });
 
