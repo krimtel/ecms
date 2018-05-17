@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'Enam_ctrl';
-$route['404_override'] = '';
+$route['404_override'] = 'Enam_ctrl/hooks_fun';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['nam/(:any)'] = 'Enam_ctrl/$1';

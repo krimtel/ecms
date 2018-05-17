@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	var baseUrl = $('#base_url').val();
-	
+	var uGroup = $('#u_group').val();
 //$.validator.setDefaults({
 //	submitHandler: function() {
 //		form.submit();
@@ -269,6 +269,9 @@ $(document).ready(function(){
 
 	});
 	
+	
+	//////////////////////////////// Slider Create //////////////////////////////////////
+	
 	$(document).on('click','#slider_create',function(){
 		 var form_valid = true;
 		 var alt_tag=$(this).data('slider_alt');
@@ -280,14 +283,18 @@ $(document).ready(function(){
 		 else{
 				$('#userfile_error').css('display','none');
 			}
+		 
 		 if($('#slider_alt').val() == ''){
-			 $('#alt_error').html('please Fill Alt Tag');
+			 $('#slider_alt_error').html('please Fill Alt Tag').css('display','block');
+			 form_valid = false;
 		 }
 		 else{
-			 $('#alt_error').css('display','none');
+			 $('#slider_alt_error').css('display','none');
 		 }
+		 
 		 if($('#slider_order').val()==''){
-			 $('#slider_order_error').html("please Fill Slider Sort Order");
+			 $('#slider_order_error').html("please Fill Slider Sort Order").css('display','block');
+			 form_valid = false;
 		 }
 		 else{
 			 $('#slider_order_error').css('display','none');
@@ -311,7 +318,191 @@ $(document).ready(function(){
 			    }
 			}).submit();
 		}
-		 
+	});
+	
+	
+	$(document).on('click','#slider_update',function(){
+		var form_valid = true;
+		
+		if($('#slider_alt').val() == ''){
+			$('#slider_alt_error').html('Please enter Slider Tag.').css('display','block');
+			form_valid = false;
+		}
+		else if($('#slider_alt').val().length < 5){
+			$('#slider_alt_error').html('Please enter valid Event tag.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#slider_alt_error').css('display','none');
+		}
+
+		if(uGroup != 'subadmin'){
+			if(!$.isNumeric($('#slider_order').val())){
+				$('#slider_order_error').html('Slider Order must be numaric.').css('display','block');
+				form_valid = false;
+			}
+			else if($('slider_order').val() == ''){
+				$('#slider_order_error').html('Slider Order is required.').css('display','block');
+				form_valid = false;
+			}
+			else{
+				$('#slider_order_error').css('display','none');
+			}
+			
+		}
+		alert(form_valid);
+   		if(form_valid){
+			$('#slider_form').ajaxForm({
+			    dataType : 'json',
+			    data : {},
+			    beforeSubmit:function(e){
+					$('#loader').modal('show');
+			    },
+			    success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+		  }).submit();
+   		}
+	});
+	
+	function readURL(input) {
+
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+
+		    reader.onload = function(e) {
+		      $('#image_upload_preview').attr('src', e.target.result);
+		    }
+		    reader.readAsDataURL(input.files[0]);
+		  }
+		}
+	
+	$(document).on('change','#userFiles',function(e){
+		 readURL(this);
+	});
+	
+	
+	$(document).on('click','.slider_edit',function(){
+		var s_id = $(this).data('slider_id');
+		$.ajax({
+			type: 'POST',
+			url: baseUrl+'admin/Slider_ctrl/get_slider_content',
+			dataType: "json",
+			data: {
+				's_id'	: s_id
+			},
+			beforeSend: function(){
+				$('#loader').modal({'show':true});	
+			},
+			complete: function(){},
+				success:function (response) {
+					console.log(response);
+					$('#loader').modal('toggle');
+					if(response.status == 200){
+						$('#image_upload_preview').attr('src',baseUrl+'Slider_gallary/'+response.data.slider_image);
+						
+						$('#slider_id').val(response.data.s_id);
+						$('#slider_alt').val(response.data.alt_tag);
+						$('#slider_order').val(response.data.sort);
+						$('#slider_update').show();
+						$('#slider_create').hide();
+					}
+					else{
+						
+					}
+				}
+		});
+	});
+	
+	
+	$(document).on('click','.slider_published',function(){
+		var x = confirm('Are you sure.');
+		if(!x){
+			if($(this).prop('checked') == true){
+				$(this).prop('checked', false);
+			}
+			else{
+				$(this).prop('checked', true);
+			}
+		}
+		else{
+			var status = $(this).prop('checked');
+			var s_id = $(this).data('slider_id');
+			$.ajax({
+				type: 'POST',
+				url: baseUrl+'admin/Slider_ctrl/slider_publish',
+				dataType: "json",
+				data: {
+					's_id'	: s_id,
+					'status' : status
+				},
+				beforeSend: function(){
+					$('#loader').modal({'show':true});	
+				},
+				complete: function(){},
+				success:function (response) {
+					console.log(response);
+					$('#loader').modal('toggle');
+				}
+			});
+		}
+	});
+	
+	$(document).on('click','.slider_delete',function(){
+		var x = confirm('Are you sure.'); 
+		if(x){
+			var s_id = $(this).data('slider_id');
+			$.ajax({
+				type: 'POST',
+				url: baseUrl+'admin/Slider_ctrl/slider_delete',
+				dataType: "json",
+				data: {
+					's_id'	: s_id
+				},
+				beforeSend: function(){
+					$('#loader').modal({'show':true});	
+				},
+				complete: function(){},
+				success:function (response) {
+					console.log(response);
+					$('#loader').modal('toggle');
+					location.reload();
+				}
+			});
+		}
+	});
+	
+	$(document).on('click','.slider_tranlate',function(){
+		$('#loader #myModalLabel').html('vivek');
+		$('#loader .modal-footer').html('<input type="button" class="btn btn-primary" id="slider_update" value="update">');
+		var x = '<form class="form-horizontal">'+
+			  		'<div class="form-group">'+
+			  			'<label for="inputEmail3" class="col-sm-2 control-label">Email</label>'+
+			  			'<div class="col-sm-10">'+
+			  				'<input type="email" class="form-control" id="inputEmail3" placeholder="Email">'+
+			  			'</div>'+
+			  		'</div>'+
+			  		'<div class="form-group">'+
+			  			'<label for="inputPassword3" class="col-sm-2 control-label">Password</label>'+
+			  			'<div class="col-sm-10">'+
+			  				'<input type="password" class="form-control" id="inputPassword3" placeholder="Password">'+
+			  			'</div>'+
+			  		'</div>'+
+			  	'</div>'+
+			  '</form>';
+		$('#loader .modal-body').html(x);
+		$('#loader').modal({
+			show : true,
+			keyboard : false,
+			backdrop : false
+		});
 	});
 	
 });

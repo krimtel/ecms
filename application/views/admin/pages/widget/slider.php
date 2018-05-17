@@ -13,11 +13,8 @@
       <div class="row">
         <!-- Left col -->
         
-        <?php if($group == 'subadmin'){ ?>
-			<section class="col-lg-4 connectedSortable">
-		<?php } else { ?>
-			<section class="col-lg-6 connectedSortable">
-		<?php } ?>
+        <?php if($group != 'subadmin'){ ?>
+		<section class="col-lg-6 connectedSortable">
 		<div class="box box-primary">
 			<div class="box-header with-border">
 			  <h3 class="box-title">Add new Slider</h3>
@@ -32,6 +29,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Slider Photo</label>
 					<div class="col-sm-9">
+						<div><img width="40" id="image_upload_preview" /></div>
 						<input type="file" name="userFiles" id="userFiles" class="form-control">
 						<div class="text-danger" id="userfile_error" style="display:none;"></div>
 					</div>
@@ -42,7 +40,7 @@
 					<label class="col-sm-3 control-label">Alt Tag</label>
 					<div class="col-sm-9">
 						<input type="text" name="slider_alt" id="slider_alt" class="form-control">
-						<div class="text-danger" id="alt_error" style="display:none;"></div>
+						<div class="text-danger" id="slider_alt_error" style="display:none;"></div>
 					</div>
 				</div>
 				
@@ -77,9 +75,9 @@
 			</form>
 		</div>
 		</section>
-		
+		<?php } ?>
 		<?php if($group == 'subadmin'){ ?>
-			
+			<section class="col-lg-6 connectedSortable">
 		<?php }else { ?>
 			<section class="col-lg-6 connectedSortable">
 		<?php } ?>
@@ -93,6 +91,7 @@
 			</div>
 
 			<div class="box-body">
+				<?php if((isset($sliders)) && (count($sliders) > 0)){ ?>
 				<table class="table">
 					<tr>
 						<th>Image</th>
@@ -104,23 +103,92 @@
 						<th> operations </th>
 					</tr>
 						<tbody>
-							<?php //if(isset($slider) && count(($slider) > 0)){
-									foreach($slider as $slider){?>
-									<?php if($slider['lang_id'] == 1)?>
-									<tr>
-										<td> <?php echo $slider['alt_tag']?></td>
-									</tr>
-				<?php	
-									 }
-				
-				?>
+							<?php foreach($sliders as $slider){?>
+								<?php if($slider['lang_id'] == 1){?>
+								<tr>
+									<td><img alt="" width="50" src="<?php echo base_url();?>Slider_gallary/1/<?php echo $slider['slider_image'];?>" /></td>
+									<td> <?php echo $slider['alt_tag']?></td>
+									<?php if($group != 'subadmin'){ ?>
+										<td> <?php echo $slider['sort']?></td>
+										<?php if($slider['publish'] == '1') {?>
+											<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" checked /></td>
+										<?php } else {?>
+											<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" /></td>
+										<?php } ?>
+									<?php } ?>
+									<td>
+									<?php if($group == 'subadmin'){ ?>
+										<a href="javascript:void(0);" class="slider_tranlate" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
+									<?php } else { ?>
+										<a href="javascript:void(0);" class="slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
+										<a href="javascript:void(0);" class="slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
+									<?php } ?>
+										
+									</td>
+								</tr>
+						<?php } } ?>
 						</tbody>
 				</table>
+				<?php }else {?> 
+					<div>No slider found.</div>
+				<?php }?>
             </div>
+		</div>
+		</section>
+		
+		<?php if($group == 'subadmin'){ ?>
+			<section class="col-lg-6 connectedSortable">
+		<?php }else { ?>
+			<section class="col-lg-6 connectedSortable">
+		<?php } ?>
+		<div class="box box-primary">
+			<div class="box-header with-border">
+			  <h3 class="box-title">All Sliders (<?php echo $language['l_name']; ?>)</h3>
+			  <div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+				  <i class="fa fa-minus"></i></button>
+			  </div>
+			</div>
 
-			
+			<div class="box-body">
+				<?php if((isset($sliders)) && (count($sliders) > 0)){ ?>
+				<table class="table">
+					<tr>
+						<th>Image</th>
+						<th>Alt Tag</th>
+						<?php if($group != 'subadmin') { ?>
+							<th>Sort</th>
+							<th>Publish</th>
+						<?php } ?>
+						<th> operations </th>
+					</tr>
+						<tbody>
+							<?php foreach($sliders as $slider){?>
+								<?php if($slider['lang_id'] == $this->session->userdata('language')){ ?>
+								<tr>
+									<td><img alt="" width="50" src="<?php echo base_url();?>Slider_gallary/<?php echo $slider['slider_image'];?>" /></td>
+									<td> <?php echo $slider['alt_tag']?></td>
+									<td> <?php echo $slider['sort']?></td>
+									<?php if($slider['publish'] == '1') {?>
+										<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" checked /></td>
+									<?php } else {?>
+										<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" /></td>
+									<?php } ?>
+									<td>
+										<a href="javascript:void(0);" class="slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
+										<a href="javascript:void(0);" class="slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
+									</td>
+								</tr>
+						<?php } } ?>
+						</tbody>
+				</table>
+				<?php }else {?> 
+					<div>No slider found.</div>
+				<?php }?>
+            </div>
 		</div>
 		</section>
+		
 		</div>
-		</section>
+	</section>
 </div>

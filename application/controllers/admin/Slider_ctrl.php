@@ -16,9 +16,17 @@ class Slider_ctrl extends CI_Controller {
 	}
 	
 	function file_update(){
-		$data['events'] = $this->Event_model->Event_list();
+		$data['events'] = $this->Slider_model->slider_list();
 		$json = json_encode($data['events']);
-		$file = FCPATH . '/software_files/Event.txt';
+		$file = FCPATH . '/software_files/Slider.txt';
+		file_put_contents ($file, $json);
+		$this->file_update_client();
+	}
+	
+	function file_update_client(){
+		$data['events'] = $this->Slider_model->slider_list_client();
+		$json = json_encode($data['events']);
+		$file = FCPATH . '/software_files/Slider_client.txt';
 		file_put_contents ($file, $json);
 	}
 	
@@ -30,14 +38,14 @@ class Slider_ctrl extends CI_Controller {
 			$data['language'] = $language;
 		}
 		
-		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Event.txt'),true);
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider.txt'),true);
 		if(count($file_menu)){
-			$data['events'] = $file_menu;
+			$data['sliders'] = $file_menu;
 		}
 		else{
-			$data['events'] = $this->Event_model->Event_list();
-			$json = json_encode($data['events']);
-			$file = FCPATH . '/software_files/Event.txt';
+			$data['sliders'] = $this->Slider_model->slider_list();
+			$json = json_encode($data['sliders']);
+			$file = FCPATH . '/software_files/Slider.txt';
 			file_put_contents ($file, $json);
 		}
 		
@@ -45,7 +53,6 @@ class Slider_ctrl extends CI_Controller {
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation',$data,TRUE);
 		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
-		$data['slider'] = $this->load->Slider_model->get_slider($data);
 		$data['main_contant'] = $this->load->view('admin/pages/widget/slider',$data,TRUE);
 		$this->load->view('admin/comman/index',$data);
 	}
@@ -74,8 +81,13 @@ class Slider_ctrl extends CI_Controller {
 				$_FILES['userFile']['size'] = $_FILES['userFiles']['size'];
 					
 	
-				$uploadPath = 'Slider_gallary';
-					
+				if(is_dir('Slider_gallary/'.$this->session->userdata('language'))){
+					$uploadPath = 'Slider_gallary/'.$this->session->userdata('language');
+				}
+				else{
+					mkdir('Slider_gallary/'.$this->session->userdata('language'));
+					$uploadPath = 'Slider_gallary/'.$this->session->userdata('language');
+				}	
 				$config['overwrite'] = true;
 				$config['upload_path'] = $uploadPath;
 				$config['allowed_types'] = 'jpg|png|jpeg|JPEG|PNG|JPEG';
@@ -103,21 +115,20 @@ class Slider_ctrl extends CI_Controller {
 				}
 			}
 		}
-		/*else {
-			// event update
+		else {
+			// slider update
 			if(!empty($_FILES['userFiles']['name'])){
 				$file_name = $_FILES['userFiles']['name'];
-				$event_title = addslashes(preg_replace('/\s+/', '_', $data['event_title']));
-				$event_category=addslashes(preg_replace('/\s+/', '_', $data['event_category']));
+				$slider_tag = addslashes(preg_replace('/\s+/', '_', $data['alt_tag']));
 				$x = explode('.',$file_name);
-				$_FILES['userFile']['name'] = $event_title.'.'.end($x);
+				$_FILES['userFile']['name'] = $slider_tag.'.'.end($x);
 				$_FILES['userFile']['type'] = $_FILES['userFiles']['type'];
 				$_FILES['userFile']['tmp_name'] = $_FILES['userFiles']['tmp_name'];
 				$_FILES['userFile']['error'] = $_FILES['userFiles']['error'];
 				$_FILES['userFile']['size'] = $_FILES['userFiles']['size'];
 					
 					
-				$uploadPath = 'Event_gallary';
+				$uploadPath = 'Slider_gallary';
 					
 				$config['overwrite'] = true;
 				$config['upload_path'] = $uploadPath;
@@ -130,15 +141,15 @@ class Slider_ctrl extends CI_Controller {
 				if($this->upload->do_upload('userFile')){
 					$upload_data = $this->upload->data();
 						
-					$data['event_image'] = $upload_data['file_name'];
+					$data['slider_image'] = $upload_data['file_name'];
 						
-					$result = $this->Event_model->event_update($data);
+					$result = $this->Slider_model->slider_update($data);
 					if($result){
 						$this->file_update();
-						echo json_encode(array('msg'=>'Event created successfully.','status'=>200));
+						echo json_encode(array('msg'=>'Slider created successfully.','status'=>200));
 					}
 					else{
-						delete_files($uploadPath.$data['event_image']);
+						delete_files($uploadPath.$data['slider_image']);
 						echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
 					}
 				}
@@ -148,18 +159,88 @@ class Slider_ctrl extends CI_Controller {
 				}
 			}
 			else{
-				$result = $this->Event_model->event_update($data);
+				$result = $this->Slider_model->slider_update($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'event updated successfully.','status'=>200));
+					echo json_encode(array('msg'=>'slider updated successfully.','status'=>200));
 				}
 				else{
 					echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
 				}
 			}
-		}*/
+		}
 	} 
-	function get_slider(){
+	
+	function get_slider_content(){
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider.txt'),true);
+		if(count($file_menu)){
+			$data['sliders'] = $file_menu;
+		}
+		else{
+			$data['sliders'] = $this->Slider_model->slider_list();
+			$json = json_encode($data['sliders']);
+			$file = FCPATH . '/software_files/Slider.txt';
+			file_put_contents ($file, $json);
+		}
+		
+		if(count($data['sliders']) > 0){
+			foreach($data['sliders'] as $slider){
+				if($slider['s_id'] == $this->input->post('s_id')){
+					echo json_encode(array('data'=>$slider,'msg'=>'sldier detail.','status'=>200));
+				}
+				else{
+					continue;
+				}
+			}
+		}
+		else{
+			echo json_encode(array('msg'=>'no record found.','status'=>500));
+		}
+	}
+	
+	function slider_publish(){
+		if($this->ion_auth->is_admin()){
+			$data['s_id'] = (int)$this->input->post('s_id');
+			$data['status'] = $this->input->post('status');
+			if($data['status'] == 'true'){
+				$data['status'] = 1;
+			}
+			else{
+				$data['status'] = 0;
+			}
+	
+			$result = $this->Slider_model->slider_publish($data);
+			if($result){
+				$this->file_update();
+				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+			}
+		}
+		else{
+			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+		}
+	}
+	
+	function slider_delete(){
+		if($this->ion_auth->is_admin()){
+			$data['s_id'] = (int)$this->input->post('s_id');
+			$result = $this->Slider_model->slider_delete($data);
+			if($result){
+				$this->file_update();
+				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+			}
+		}
+		else{
+			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+		}
+	}
+	function get_images(){
 		
 	}
+	
 }

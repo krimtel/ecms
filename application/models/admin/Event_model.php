@@ -67,6 +67,7 @@ class Event_model extends CI_Model {
 		$this->db->update('events',array('publish'=>$data['status']));
 		return true;
 	}
+	
 	function is_home($data){
 		$this->db->where('id',$data['e_id']);
 		$this->db->update('events',array('is_home'=>$data['status1']));

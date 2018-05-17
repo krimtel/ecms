@@ -197,6 +197,7 @@ class Event_ctrl extends CI_Controller {
 			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
 		}
 	}
+	
 	function event_is_home(){
 		if($this->ion_auth->is_admin()){
 			$data['e_id'] = (int)$this->input->post('e_id');

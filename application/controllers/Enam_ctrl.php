@@ -12,7 +12,7 @@ class Enam_ctrl extends CI_Controller {
 	}
 	
 	function hooks_fun(){
-		echo "testing hooks";
+		$this->load->view('error');
 	}
 	
 	public function index(){
@@ -34,7 +34,18 @@ class Enam_ctrl extends CI_Controller {
 		$data['navigation'] = $this->load->view('comman/navigation','',TRUE);
 		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
 		$data['footer'] = $this->load->view('comman/footer','',TRUE);
-		$data['slider'] = $this->load->view('pages/comman/slider','',TRUE);
+		
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider_client.txt'),true);
+		if(count($file_menu)){
+			$data['sliders'] = $file_menu;
+		}
+		else{
+			$data['sliders'] = $this->Slider_model->slider_list_client();
+			$json = json_encode($data['sliders']);
+			$file = FCPATH . '/software_files/Slider_client.txt';
+			file_put_contents ($file, $json);
+		}
+		$data['slider'] = $this->load->view('pages/comman/slider',$data,TRUE);
 		$data['links'] = $this->Enam_model->all_links();
 		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
 		$data['newses'] = $this->Enam_model->all_news();
