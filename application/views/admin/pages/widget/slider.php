@@ -135,7 +135,7 @@
             </div>
 		</div>
 		</section>
-		
+		<?php if($group == 'subadmin'){ ?>
 		<?php if($group == 'subadmin'){ ?>
 			<section class="col-lg-6 connectedSortable">
 		<?php }else { ?>
@@ -166,7 +166,7 @@
 							<?php foreach($sliders as $slider){?>
 								<?php if($slider['lang_id'] == $this->session->userdata('language')){ ?>
 								<tr>
-									<td><img alt="" width="50" src="<?php echo base_url();?>Slider_gallary/<?php echo $slider['slider_image'];?>" /></td>
+									<td><img alt="" width="50" src="<?php echo base_url();?>Slider_gallary/<?php echo $this->session->userdata('language');?>/<?php echo $slider['slider_image'];?>" /></td>
 									<td> <?php echo $slider['alt_tag']?></td>
 									<td> <?php echo $slider['sort']?></td>
 									<?php if($slider['publish'] == '1') {?>
@@ -188,7 +188,7 @@
             </div>
 		</div>
 		</section>
-		
+		<?php } ?>
 		</div>
 	</section>
 </div>

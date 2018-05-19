@@ -35,7 +35,13 @@ class Ajax_ctrl extends CI_Controller {
 	}
 	
 	
-	function get_all_users(){
-		
+	function get_all_language(){
+		$result = $this->Language_model->get_all_language();
+		if(count($result) > 0){
+			echo json_encode(array('data'=>$result,'msg'=>'all languages.','status'=>200));
+		}
+		else{
+			echo json_encode(array('msg'=>'no record found.','status'=>500));
+		}
 	}
 }

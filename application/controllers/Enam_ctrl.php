@@ -7,7 +7,7 @@ class Enam_ctrl extends CI_Controller {
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
 		$this->load->database();
-		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Widget_model','Enam_model','admin/Event_model'));
+		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Slider_model','admin/Widget_model','Enam_model','admin/Event_model'));
 		$this->load->library(array('session'));
 	}
 	

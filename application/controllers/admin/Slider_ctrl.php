@@ -127,8 +127,15 @@ class Slider_ctrl extends CI_Controller {
 				$_FILES['userFile']['error'] = $_FILES['userFiles']['error'];
 				$_FILES['userFile']['size'] = $_FILES['userFiles']['size'];
 					
-					
-				$uploadPath = 'Slider_gallary';
+				
+				if(is_dir('Slider_gallary/'.$this->session->userdata('language'))){
+					$uploadPath = 'Slider_gallary/'.$this->session->userdata('language');
+				}
+				else{
+					mkdir('Slider_gallary/'.$this->session->userdata('language'));
+					$uploadPath = 'Slider_gallary/'.$this->session->userdata('language');
+				}
+				
 					
 				$config['overwrite'] = true;
 				$config['upload_path'] = $uploadPath;
@@ -172,26 +179,17 @@ class Slider_ctrl extends CI_Controller {
 	} 
 	
 	function get_slider_content(){
-		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider.txt'),true);
-		if(count($file_menu)){
-			$data['sliders'] = $file_menu;
-		}
-		else{
-			$data['sliders'] = $this->Slider_model->slider_list();
-			$json = json_encode($data['sliders']);
-			$file = FCPATH . '/software_files/Slider.txt';
-			file_put_contents ($file, $json);
-		}
+		$data['s_id'] = (int)$this->input->post('s_id');
 		
-		if(count($data['sliders']) > 0){
-			foreach($data['sliders'] as $slider){
-				if($slider['s_id'] == $this->input->post('s_id')){
-					echo json_encode(array('data'=>$slider,'msg'=>'sldier detail.','status'=>200));
-				}
-				else{
-					continue;
-				}
-			}
+		$this->db->select('slider_id');
+		$result = $this->db->get_where('slider_item',array('s_id'=>$data['s_id']))->result_array();
+		
+		$this->db->select('si.*,s.sort');
+		$this->db->join('slider s','s.sid = si.slider_id');
+		$result1 = $this->db->get_where('slider_item si',array('si.slider_id'=>$result[0]['slider_id'],'si.lang_id'=>$this->session->userdata('language'),'si.status'=>1))->result_array();
+		
+		if(count($result1) > 0){
+			echo json_encode(array('data'=>$result1,'msg'=>'slider content.','status'=>200));
 		}
 		else{
 			echo json_encode(array('msg'=>'no record found.','status'=>500));
@@ -208,7 +206,7 @@ class Slider_ctrl extends CI_Controller {
 			else{
 				$data['status'] = 0;
 			}
-	
+			
 			$result = $this->Slider_model->slider_publish($data);
 			if($result){
 				$this->file_update();
@@ -241,6 +239,67 @@ class Slider_ctrl extends CI_Controller {
 	}
 	function get_images(){
 		
+	}
+	
+	function slider_update_subadmin(){	
+		$data['slider_tag_popup'] = $this->input->post('slider_tag_popup');
+		$data['s_id'] = (int)$this->input->post('slider_id_popup');
+		if(!empty($_FILES['file']['name'])){
+			$file_name = $_FILES['file']['name'];
+			$slider_tag = addslashes(preg_replace('/\s+/', '_', $data['slider_tag_popup']));
+			$x = explode('.',$file_name);
+			$_FILES['userFile']['name'] = $slider_tag.'.'.end($x);
+			$_FILES['userFile']['type'] = $_FILES['file']['type'];
+			$_FILES['userFile']['tmp_name'] = $_FILES['file']['tmp_name'];
+			$_FILES['userFile']['error'] = $_FILES['file']['error'];
+			$_FILES['userFile']['size'] = $_FILES['file']['size'];
+				
+		
+			if(is_dir('Slider_gallary/'.$this->session->userdata('language'))){
+				$uploadPath = 'Slider_gallary/'.$this->session->userdata('language');
+			}
+			else{
+				mkdir('Slider_gallary/'.$this->session->userdata('language'));
+				$uploadPath = 'Slider_gallary/'.$this->session->userdata('language');
+			}
+			$config['overwrite'] = true;
+			$config['upload_path'] = $uploadPath;
+			$config['allowed_types'] = 'jpg|png|jpeg|JPEG|PNG|JPEG';
+				
+			$this->load->library('image_lib');
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+				
+			if($this->upload->do_upload('userFile')){
+				$upload_data = $this->upload->data();
+				$data['slider_image'] = $upload_data['file_name'];
+				
+				$result = $this->Slider_model->slider_create_subadmin($data);
+				if($result){
+					$this->file_update();
+					echo json_encode(array('msg'=>'Slider created successfully.','status'=>200));
+				}
+				else{
+					delete_files($uploadPath.$data['slider_image']);
+					echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+				}
+			}
+			else{
+				$error = array('error' => $this->upload->display_errors());
+				print_r($error); die;
+			}
+		}
+		else{
+			$result = $this->Slider_model->slider_create_subadmin($data);
+			if($result){
+				$this->file_update();
+				echo json_encode(array('msg'=>'Slider updated successfully.','status'=>200));
+			}
+			else{
+				delete_files($uploadPath.$data['slider_image']);
+				echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+			}
+		}
 	}
 	
 }

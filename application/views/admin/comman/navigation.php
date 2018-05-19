@@ -1,3 +1,4 @@
+<?php $group = $this->session->userdata('group_name'); ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
 	<a class="navbar-brand" title="Government of India" href="<?php echo base_url(); ?>"> <img style="width:45px;" alt="India" src="<?php echo base_url(); ?>assest/admin/logo.png" /></a>
 					
@@ -22,6 +23,7 @@
 	<li>
 		<a title="Home" class="" href="<?php echo base_url(); ?>dashboard"><i class="fa fa-home" aria-hidden="true"></i> HOME </a>
 	</li>
+	<?php if($group != 'subadmin'){ ?>
 	<li class="dropdown">
 			<a title="Master" href="#" data-toggle="dropdown" > <i class="fa fa-files-o"></i> MASTER <b class="caret"></b></a>
 			<ul class="dropdown-menu">
@@ -29,6 +31,7 @@
 				<li><a title="Language" href="<?php echo base_url(); ?>admin/admin/language">Language</a></li>
 			</ul>
 	</li>
+	<?php } ?>
 	<li class="dropdown">
 			<a title="Layout" href="#" data-toggle="dropdown" > <i class="fa fa-files-o"></i> Layout <b class="caret"></b></a>
 			<ul class="dropdown-menu">

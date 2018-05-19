@@ -54,12 +54,6 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group" id="menu_url_box" style="display:none;">
-					<label class="col-sm-3 control-label">Url</label>
-					<div class="col-sm-9">
-						<input type="text" id="menu_url_text" name="menu_url_text" class="form-control" placeholder="Enter external link" />
-					</div>
-				</div>
 				
 				<div class="form-group" id="menu_cms_url_box" style="display:none;">
 					<label class="col-sm-3 control-label">Select Page</label>
@@ -72,7 +66,14 @@
 					</div>
 				</div>
 				
+				<div class="form-group" id="menu_url_box" style="display:none;">
+					<label class="col-sm-3 control-label">Url</label>
+					<div class="col-sm-9">
+						<input type="text" id="menu_url_text" name="menu_url_text" class="form-control" placeholder="Enter external link" />
+					</div>
 				</div>
+				
+			</div>
 			</form>
 			<div class="box-footer">
 				<button id="menu_create" type="submit" class="btn pull-right btn-info">Save</button>
@@ -132,8 +133,6 @@
 	      		}
 	      	?>
             </div>
-
-			
 		</div>
 		</section>
 		<section class="col-lg-3 connectedSortable">
@@ -170,8 +169,7 @@
 		      							}
 		      							else{
 		      								echo '<li>'.$m1['menu_name'].'</li>';
-		      							}
-		      							
+		      							}					
 		      						}
 		      						else{
 		      							continue;
@@ -182,12 +180,9 @@
 	      				}
 	      				echo '</ul>';
 	      			}
-	      			
 	      		}
 	      	?>
-            </div>
-
-			
+            </div>			
 		</div>
 		</section>
 		</div>

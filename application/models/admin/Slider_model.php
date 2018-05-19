@@ -54,9 +54,13 @@ class Slider_model extends CI_Model {
 	
 	function slider_update($data){
 		$this->db->trans_begin();
+		
 		$this->db->select('slider_id');
 		$result = $this->db->get_where('slider_item',array('s_id'=>$data['sid'],'lang_id'=>(int)$this->session->userdata('language'),'status'=>1))->result_array();
-	
+		
+		$this->db->select('s_id');
+		$result1 = $this->db->get_where('slider_item',array('slider_id'=>$result[0]['slider_id'],'lang_id'=>(int)$this->session->userdata('language'),'status'=>1))->result_array();
+		
 		if(count($result) > 0){
 			$this->db->where(array('sid'=>$result[0]['slider_id']));
 			if(isset($data['slider_image'])){
@@ -77,7 +81,7 @@ class Slider_model extends CI_Model {
 			}
 				
 			if(isset($data['slider_image'])){
-				$this->db->where(array('s_id'=>$data['sid'],'lang_id'=>$this->session->userdata('language')));
+				$this->db->where(array('s_id'=>$result1[0]['s_id']));
 				$this->db->update('slider_item',array(
 						'alt_tag' => $data['alt_tag'],
 						'slider_image' => $data['slider_image'],
@@ -86,7 +90,7 @@ class Slider_model extends CI_Model {
 				));
 			}
 			else{ 
-				$this->db->where(array('s_id'=>$data['sid'],'lang_id'=>$this->session->userdata('language')));
+				$this->db->where(array('s_id'=>$result1[0]['s_id']));
 				$this->db->update('slider_item',array(
 						'alt_tag' => $data['alt_tag'],
 						'updated_at' => $data['created_at'],
@@ -121,15 +125,70 @@ class Slider_model extends CI_Model {
 	}
 	
 	function slider_publish($data){
-		$this->db->where('sid',$data['s_id']);
+		$result = $this->db->get_where('slider_item',array('s_id'=>$data['s_id'],'status'=>1))->result_array();
+		
+		$this->db->where('sid',(int)$result[0]['slider_id']);
 		$this->db->update('slider',array('publish'=>$data['status']));
 		return true;
 	}
 	
 	function slider_delete($data){
-		$this->db->where('sid',$data['s_id']);
+		$result = $this->db->get_where('slider_item',array('s_id'=>$data['s_id'],'status'=>1))->result_array();
+		
+		$this->db->where('sid',(int)$result[0]['slider_id']);
 		$this->db->update('slider',array('status'=>0));
 		return true;
+	}
+	
+	
+	function slider_create_subadmin($data){
+		$this->db->select('slider_id');
+		$result = $this->db->get_where('slider_item',array('s_id'=>$data['s_id']))->result_array();
+		//print_r($this->db->last_query()); die;
+		$this->db->select('*');
+		$result1 = $this->db->get_where('slider_item',array('slider_id'=>$result[0]['slider_id'],'lang_id'=>$this->session->userdata('language'),'status'=>1))->result_array();
+		
+		if(count($result1) > 0){
+			// update
+			if((isset($data['slider_image']))){
+				$this->db->where('s_id',$result1[0]['s_id']);
+				$this->db->update('slider_item',array(
+						'alt_tag' => $data['slider_tag_popup'],
+						'updated_at' =>date('y-m-d h:i:s'),
+						'slider_image' => $data['slider_image'],
+						'updated_by' =>$this->session->userdata('user_id')
+				));
+			}
+			else{
+				$this->db->where('s_id',$result1[0]['s_id']);
+				$this->db->update('slider_item',array(
+						'alt_tag' => $data['slider_tag_popup'],
+						'updated_at' =>date('y-m-d h:i:s'),
+						'updated_by' =>$this->session->userdata('user_id')
+				));
+			}
+			return true;	
+		}
+		else{
+			//create
+			if((isset($data['slider_image']))){
+				$val['lang_id'] = (int)$this->session->userdata('language');
+				$val['slider_id'] = (int)$result[0]['slider_id'];
+				$val['alt_tag'] = $data['slider_tag_popup'];
+				$val['slider_image'] = $data['slider_image'];
+				$val['created_at'] = date('y-m-d h:i:s');
+				$val['created_by'] = $this->session->userdata('user_id');
+			}
+			else{
+				$val['lang_id'] = (int)$this->session->userdata('language');
+				$val['slider_id'] = (int)$result[0]['slider_id'];
+				$val['alt_tag'] = $data['slider_tag_popup'];
+				$val['created_at'] = date('y-m-d h:i:s');
+				$val['created_by'] = $this->session->userdata('user_id');
+			}
+			$this->db->insert('slider_item',$val);
+			return true;
+		}
 	}
 	
 }

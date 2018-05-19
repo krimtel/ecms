@@ -6,11 +6,11 @@ $(document).ready(function(){
 	$(document).on('change','#menu_external_link',function(){
 		var x = $(this).val(); 
 		if(x == 0){
-			$('#menu_url_box').hide();
+			//$('#menu_url_box').hide();
 			$('#menu_cms_url_box').show();
 		}
 		else{
-			$('#menu_url_box').show();
+			//$('#menu_url_box').show();
 			$('#menu_cms_url_box').hide();
 		}
 	});
@@ -358,78 +358,174 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click','#new_user_register',function(){
+		lang = [];
 		$.ajax({
 	        type: 'POST',
-	        url: baseUrl+'admin/Users_ctrl/user_language_create',
+	        url: baseUrl+'admin/Ajax_ctrl/get_all_language',
 	        dataType: "json",
-	        data: {
-	        	'u_id'	: u_id,
-	        	'l_id' 	: l_id
-	        },
-	        beforeSend: function(){
-	        	$('#loader').modal({'show':true});	
-	        },
+	        data: {},
+	        beforeSend: function(){},
 	        complete: function(){},
 	        success:function (response) {
-	        	
+	        	console.log(response);
+	        	$('#myModalLabel').html('User registration');
+	    		var x = '<form class="form-horizontal">'+
+	    					'<div class="form-group">'+
+	    						'<label for="inputEmail3" class="col-sm-2 control-label">First name</label>'+
+	    						'<div class="col-sm-10">'+
+	    							'<input type="email" class="form-control" id="u_reg_fname" placeholder="First Name">'+
+	    							'<div id="u_reg_fname_error" class="text-danger" style="display:none;"></div>'+
+	    						'</div>'+
+	    					'</div>'+
+	    					'<div class="form-group">'+
+	    						'<label for="inputEmail3" class="col-sm-2 control-label">Last name</label>'+
+	    						'<div class="col-sm-10">'+
+	    							'<input type="email" class="form-control" id="u_reg_lname" placeholder="Last Name">'+
+	    							'<div id="u_reg_lname_error" class="text-danger" style="display:none;"></div>'+
+	    						'</div>'+
+	    					'</div>'+
+	    		  			'<div class="form-group">'+
+	    		  				'<label for="inputEmail3" class="col-sm-2 control-label">Email</label>'+
+	    		  				'<div class="col-sm-10">'+
+	    		  					'<input type="email" class="form-control" id="u_reg_email" placeholder="Email">'+
+	    		  					'<div id="u_reg_email_error" class="text-danger" style="display:none;"></div>'+
+	    		  				'</div>'+
+	    		  			'</div>'+
+	    		  			'<div class="form-group">'+
+	    		  				'<label for="inputPassword3" class="col-sm-2 control-label">Password</label>'+
+	    		  				'<div class="col-sm-10">'+
+	    		  					'<input type="password" class="form-control" id="u_reg_password" placeholder="Password">'+
+	    		  					'<div id="u_reg_password_error" class="text-danger" style="display:none;"></div>'+
+	    		  				'</div>'+
+	    		  			'</div>'+
+	    		  			'<div class="form-group">'+
+	    		  				'<label for="inputPassword3" class="col-sm-2 control-label">Contact no.</label>'+
+	    		  				'<div class="col-sm-10">'+
+	    		  					'<input type="text" class="form-control" id="u_reg_contact" placeholder="Contact no.">'+
+	    		  					'<div id="u_reg_contact_error" class="text-danger" style="display:none;"></div>'+
+	    		  				'</div>'+
+	    	  				'</div>'+
+	    	  				
+	    	  				'<div class="form-group">'+
+	    		  				'<label for="inputPassword3" class="col-sm-2 control-label">Language</label>'+
+	    		  				'<div class="col-sm-10">'+
+	    		  				'<select class="form-control" id="u_reg_language">'+
+	    		  						'<option value="0">select language</option>';
+	    								$.each(response.data,function(key,value){
+	    									x = x +'<option value="'+ value.l_id +'">'+ value.l_name +'</option>';
+	    								});
+	    		  					x = x +'</select>'+
+	    		  					'<div id="u_reg_language_error" class="text-danger" style="display:none;"></div>'+
+	    		  				'</div>'+
+	    	  				'</div>'+
+	    	  				
+	    	  				'<div class="form-group">'+
+	    		  				'<div class="col-sm-offset-2 col-sm-10">'+
+	    		  					'<input type="button" class="btn btn-info" id="u_reg_submit" value="Submit"/>&nbsp;'+
+	    		  					'<input type="reset" class="btn btn-danger" id="u_reg_reset" value="Cancel"/>'+
+	    		  				'</div>'+
+    		  				'</div>'+
+	    			  	'</form>';
+	    		$('#loader .modal-body').html(x);
+	    		$('#loader .modal-footer').hide();
+	    		$('#loader').modal({
+	    			show : true,
+	    			backdrop : false,
+	    			keyboard: false
+	    		});
 	        }
 		});
+	});
+	
+	$(document).on('click','#u_reg_submit',function(){
+		var u_fname = $('#u_reg_fname').val();
+		var u_lname = $('#u_reg_lname').val();
+		var u_email = $('#u_reg_email').val();
+		var u_password = $('#u_reg_password').val();
+		var u_contact = $('#u_reg_contact').val();
+		var form_valid = true;
+		if(u_fname == ''){
+			$('#u_reg_fname_error').html('First name should not empty.').css('display','block');
+			form_valid = false;
+		}
+		else if(u_fname.length < 4){
+			$('#u_reg_fname_error').html('First name should be greater then 3 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_fname_error').css('display','none');
+		}
 		
-		$('#myModalLabel').html('User registration');
-		var x = '<form class="form-horizontal">'+
-					'<div class="form-group">'+
-						'<label for="inputEmail3" class="col-sm-2 control-label">First name</label>'+
-						'<div class="col-sm-10">'+
-							'<input type="email" class="form-control" id="u_reg_fname" placeholder="First Name">'+
-							'<div id="u_reg_fname_error" class="text-danger" style="display:none;"></div>'+
-						'</div>'+
-					'</div>'+
-					'<div class="form-group">'+
-						'<label for="inputEmail3" class="col-sm-2 control-label">Last name</label>'+
-						'<div class="col-sm-10">'+
-							'<input type="email" class="form-control" id="u_reg_lname" placeholder="Last Name">'+
-							'<div id="u_reg_lname_error" class="text-danger" style="display:none;"></div>'+
-						'</div>'+
-					'</div>'+
-		  			'<div class="form-group">'+
-		  				'<label for="inputEmail3" class="col-sm-2 control-label">Email</label>'+
-		  				'<div class="col-sm-10">'+
-		  					'<input type="email" class="form-control" id="u_reg_email" placeholder="Email">'+
-		  					'<div id="u_reg_email_error" class="text-danger" style="display:none;"></div>'+
-		  				'</div>'+
-		  			'</div>'+
-		  			'<div class="form-group">'+
-		  				'<label for="inputPassword3" class="col-sm-2 control-label">Password</label>'+
-		  				'<div class="col-sm-10">'+
-		  					'<input type="password" class="form-control" id="u_reg_password" placeholder="Password">'+
-		  					'<div id="u_reg_password_error" class="text-danger" style="display:none;"></div>'+
-		  				'</div>'+
-		  			'</div>'+
-		  			'<div class="form-group">'+
-		  				'<label for="inputPassword3" class="col-sm-2 control-label">Contact no.</label>'+
-		  				'<div class="col-sm-10">'+
-		  					'<input type="text" class="form-control" id="u_reg_contact" placeholder="Contact no.">'+
-		  					'<div id="u_reg_contact_error" class="text-danger" style="display:none;"></div>'+
-		  				'</div>'+
-	  				'</div>'+
-	  				
-	  				'<div class="form-group">'+
-		  				'<label for="inputPassword3" class="col-sm-2 control-label">Language</label>'+
-		  				'<div class="col-sm-10">'+
-		  					'<select class="form-control" id="u_reg_language">'+
-		  						'<option value="1">English</option>'+
-		  					'</select>'+
-		  					'<div id="u_reg_contact_error" class="text-danger" style="display:none;"></div>'+
-		  				'</div>'+
-	  				'</div>'+
-			  	'</form>';
-		$('#loader .modal-body').html(x);
-		$('#loader .modal-footer').hide();
-		$('#loader').modal({
-			show : true,
-			backdrop : false,
-			keyboard: false
-		});
+		if(u_lname == ''){
+			$('#u_reg_lname_error').html('Last name should not empty.').css('display','block');
+			form_valid = false;
+		}
+		else if(u_lname.length < 4){
+			$('#u_reg_lname_error').html('Last name should be greater then 3 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_lname_error').css('display','none');
+		}
+		
+		if(u_email == ''){
+			$('#u_reg_email_error').html('Email should not empty.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_email_error').css('display','none');
+		}
+		
+		if(u_password == ''){
+			$('#u_reg_password_error').html('Password should not empty.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_password_error').css('display','none');
+		}
+		
+		if(u_contact == ''){
+			$('#u_reg_contact_error').html('Contact no. should not empty.').css('display','block');
+			form_valid = false;
+		}
+		else if(u_contact.length < 4){
+			$('#u_reg_contact_error').html('Contact no. should be greater then 3 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_contact_error').css('display','none');
+		}
+		
+		if($('#u_reg_language').val() == 0){
+			$('#u_reg_language_error').html('Please select language.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_language_error').css('display','none');
+		}
+		
+		if(form_valid){
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/Users_ctrl/create_user',
+		        dataType: "json",
+		        data: {
+		        	'fname' : u_fname,
+		        	'lname' : u_lname,
+		        	'email' : u_email,
+		        	'password' : u_password,
+		        	'u_contact' : u_contact,
+		        	'u_lang' : $('#u_reg_language').val()
+		        },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){},
+		        success:function (response) {
+		        	
+		        }
+			});
+		}
 	});
 
 /////////////////////////////////////////////////////////////News///////////////////////////////////////////////////////////////////////

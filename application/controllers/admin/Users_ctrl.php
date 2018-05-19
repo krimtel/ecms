@@ -6,7 +6,7 @@ class Users_ctrl extends CI_Controller {
 	function __construct(){
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
-		$this->load->library(array('session','ion_auth'));
+		$this->load->library(array('session','ion_auth','form_validation'));
 		$this->load->database();
 		$this->load->model(array('admin/Language_model','admin/Users_model'));
 		$this->lang->load('admin_lang', 'english');
@@ -128,6 +128,23 @@ class Users_ctrl extends CI_Controller {
 				$msg = 'User created failed.';
 			}
 			echo json_encode(array('msg'=>$msg,'status'=>500));			
+		}
+	}
+	
+	function create_user(){
+		if($this->ion_auth->is_admin()){
+			$identity = $this->input->post('email');
+			$email = $this->input->post('email');
+			$password = $this->input->post('password');
+			$additional_data = array(
+					'first_name' => $this->input->post('fname'),
+					'last_name' => $this->input->post('lname'),
+					'phone' => $this->input->post('u_contact'),
+					'language' => $this->input->post('u_lang')
+			);
+			
+			$result = $this->ion_auth->register($identity, $password, $email, $additional_data);
+			
 		}
 	}
 }

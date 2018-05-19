@@ -15,6 +15,13 @@ class Menu_ctrl extends CI_Controller {
 		}
 	}
 	
+	function file_update(){ 
+		$data['menus'] = $this->Menu_model->menu_list();
+		$json = json_encode($data['menus']);
+		$file = FCPATH . '/software_files/Menu.txt';
+		file_put_contents ($file, $json);
+	}
+	
 	public function index($m_id = null){
 		//$this->output->enable_profiler(TRUE);
 		
@@ -141,6 +148,7 @@ class Menu_ctrl extends CI_Controller {
 				$data['menu_id'] = (int)$this->input->post('menu_id');
 				$result = $this->Menu_model->menu_update($data);
 				if($result){
+					$this->file_update();
 					echo json_encode(array('msg'=>'menu updated successfully.','status'=>200));
 				}
 				else{
@@ -151,6 +159,7 @@ class Menu_ctrl extends CI_Controller {
 			
 			$result = $this->Menu_model->menu_create($data);
 			if($result){
+				$this->file_update();
 				echo json_encode(array('msg'=>'menu created susseccfully.','status'=>200));
 			}
 			else{
@@ -165,6 +174,7 @@ class Menu_ctrl extends CI_Controller {
 			$data['lang_id'] = 1;
 			$result = $this->Menu_model->menu_content($data);
 			if(count($result) == 1){
+				$this->file_update();
 				echo json_encode(array('data'=>$result,'msg'=>'','status'=>200));
 			}
 			else{
