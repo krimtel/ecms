@@ -60,13 +60,14 @@
 					<div class="col-sm-9">
 						<select class="form-control" name="menu_cems_link_select" id="menu_cems_link_select">
 							<option value="0" selected>Please select external link</option>
-							<option value="0">Cms</option>
-							<option value="1">External</option>
+							<?php foreach($cms_pages as $cms_page){ ?>
+								<option value="<?php echo $cms_page['p_id'];?>"><?php echo $cms_page['page_name']; ?></option>
+							<?php } ?>
 						</select>
 					</div>
 				</div>
 				
-				<div class="form-group" id="menu_url_box" style="display:none;">
+				<div class="form-group" id="menu_url_box">
 					<label class="col-sm-3 control-label">Url</label>
 					<div class="col-sm-9">
 						<input type="text" id="menu_url_text" name="menu_url_text" class="form-control" placeholder="Enter external link" />

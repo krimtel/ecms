@@ -72,14 +72,18 @@
 								<td>
 									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_leftcontent[]" id="">
 										<option value="0">select widget</option>
+										<?php print_r($wiget_drop_Down); ?>
 									</select>
-									<input type="button" value="Add more" class="btn btn-default">
+									<div id="two_col_leftcontent_box"></div>
+									<input type="button" id="two_col_leftcontent_addmore" value="Add more" class="btn btn-default">
 								</td>
 								<td>
-									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_maincontent[]" id="">
+									<select class="form-control col-sm-6" class="two_col_maincontent" name="two_col_maincontent[]" id="">
 										<option value="0">select widget</option>
+										<?php print_r($wiget_drop_Down); ?>
 									</select>
-									<input type="button" value="Add more" class="btn btn-default">
+									<div id="two_col_maincontent_box"></div>
+									<input type="button" id="two_col_maincontent_addmore" value="Add more" class="btn btn-default">
 								</td>
 							</tr>
 						</table>
@@ -92,22 +96,28 @@
 							<tr><th>Left</th><th>Main</th><th>Right</th></tr>
 							<tr>
 								<td>
-									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_leftcontent[]" id="">
+									<select class="form-control col-sm-6" class="three_col_leftcontent" name="three_col_leftcontent[]" id="">
 										<option value="0">select widget</option>
+										<?php print_r($wiget_drop_Down); ?>
 									</select>
-									<input type="button" value="Add more" class="btn btn-default">
+									<div id="three_col_leftcontent_box"></div>
+									<input type="button" id="three_col_leftcontent_addmore" value="Add more" class="btn btn-default">
 								</td>
 								<td>
-									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_maincontent[]" id="">
+									<select class="form-control col-sm-6" class="three_col_maincontent" name="three_col_maincontent[]" id="">
 										<option value="0">select widget</option>
+										<?php print_r($wiget_drop_Down); ?>
 									</select>
-									<input type="button" value="Add more" class="btn btn-default">
+									<div id="three_col_maincontent_box"></div>
+									<input type="button" id="three_col_maincontent_addmore" value="Add more" class="btn btn-default">
 								</td>
 								<td>
-									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_maincontent[]" id="">
+									<select class="form-control col-sm-6" class="three_col_rightcontent" name="three_col_rightcontent[]" id="">
 										<option value="0">select widget</option>
+										<?php print_r($wiget_drop_Down); ?>
 									</select>
-									<input type="button" value="Add more" class="btn btn-default">
+									<div id="three_col_rightcontent_box"></div>
+									<input type="button" id="three_col_rightcontent_addmore" value="Add more" class="btn btn-default">
 								</td>
 							</tr>
 						</table>

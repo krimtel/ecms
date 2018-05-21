@@ -748,14 +748,40 @@ $(document).ready(function(){
 				'<option value="0">select widget</option>'+
 				x +
 				'</select>';
-	        	//$(that).closest('td').append(dropdown);
 	        	$('#one_col_maincontent_box').prepend(dropdown);
-	        //$(this).closest('.one_col_maincontent').append(dropdown);
 	        }
 		});
 	});
 	
-	$(document).on('click','#2_col_add',function(){
+	$(document).on('click','#two_col_leftcontent_addmore',function(){
+		var that = this;
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+	        dataType: "json",
+	        data: {},
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	$('#loader').modal('toggle');
+	        	var x = '';
+	        	$.each(response.data,function(key,value){
+	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+	        	});
+	        	var dropdown = '<select class="form-control col-sm-6" name="two_col_leftcontent[]" id="">'+
+				'<option value="0">select widget</option>'+
+				x +
+				'</select>';
+	        	$('#two_col_leftcontent_box').prepend(dropdown);
+	        }
+		});
+	});
+	
+	$(document).on('click','#two_col_maincontent_addmore',function(){
+		var that = this;
 		$.ajax({
 	        type: 'POST',
 	        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
@@ -776,16 +802,91 @@ $(document).ready(function(){
 				'<option value="0">select widget</option>'+
 				x +
 				'</select>';
-	        $('#2coumn').append(dropdown);
+	        	$('#two_col_maincontent_box').prepend(dropdown);
 	        }
 		});
-		
 	});
-	$(document).on('click','#3_col_add',function(){
-		var x = '<select class="form-control col-sm-6" name="one_col_maincontent[]" id="">'+
-					'<option value="0">select widget</option>'+
+	
+	
+	$(document).on('click','#three_col_leftcontent_addmore',function(){
+		var that = this;
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+	        dataType: "json",
+	        data: {},
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	$('#loader').modal('toggle');
+	        	var x = '';
+	        	$.each(response.data,function(key,value){
+	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+	        	});
+	        	var dropdown = '<select class="form-control col-sm-6" name="three_col_leftcontent[]" id="">'+
+				'<option value="0">select widget</option>'+
+				x +
 				'</select>';
-		$('#3coumn').append(x);
+	        	$('#three_col_leftcontent_box').prepend(dropdown);
+	        }
+		});
+	});
+	
+	$(document).on('click','#three_col_maincontent_addmore',function(){
+		var that = this;
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+	        dataType: "json",
+	        data: {},
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	$('#loader').modal('toggle');
+	        	var x = '';
+	        	$.each(response.data,function(key,value){
+	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+	        	});
+	        	var dropdown = '<select class="form-control col-sm-6" name="three_col_maincontent[]" id="">'+
+				'<option value="0">select widget</option>'+
+				x +
+				'</select>';
+	        	$('#three_col_maincontent_box').prepend(dropdown);
+	        }
+		});
+	});
+	
+	$(document).on('click','#three_col_rightcontent_addmore',function(){
+		var that = this;
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+	        dataType: "json",
+	        data: {},
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	$('#loader').modal('toggle');
+	        	var x = '';
+	        	$.each(response.data,function(key,value){
+	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+	        	});
+	        	var dropdown = '<select class="form-control col-sm-6" name="three_col_rightcontent[]" id="">'+
+				'<option value="0">select widget</option>'+
+					x +
+				'</select>';
+	        	$('#three_col_rightcontent_box').prepend(dropdown);
+	        }
+		});
 	});
 
 ///////////////////////////////////////////////////////////// Links ///////////////////////////////////////////////////////////////////////
@@ -1180,6 +1281,32 @@ $(document).ready(function(){
 				}
 			});
 		}
+	});
+	
+/////////////////////////////////////////// static page /////////////////////////////////////
+	
+	$(document).on('click','.static_page',function(){
+		var sp_id = $(this).data('sp_id');
+		$.ajax({
+			type: 'POST',
+			url: baseUrl+'admin/Static_ctrl/page_update',
+			dataType: "json",
+			data: {
+				'sp_id'	: sp_id
+			},
+			beforeSend: function(){
+				$('#loader').modal({'show':true});	
+			},
+			complete: function(){},
+			success:function (response) {
+				console.log(response);
+				if(response.status == 200){
+					CKEDITOR.instances['static_page_desc'].setData(response.data[0].page_body);
+					$('#loader').modal('toggle');
+					//location.reload();
+				}
+			}
+		});
 	});
 	
 	

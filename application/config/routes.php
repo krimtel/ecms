@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'Enam_ctrl';
-$route['404_override'] = 'Enam_ctrl/hooks_fun';
+$route['404_override'] = 'Url_ctrl/index';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['nam/(:any)'] = 'Enam_ctrl/$1';
@@ -13,6 +13,7 @@ $route['nam/(:any)'] = 'Enam_ctrl/$1';
 // $route['contactus/(:any)'] = 'Enam_ctrl/$1';
 // $route['logistic/(:any)'] = 'Enam_ctrl/$1';
  $route['layout_page/(:any)'] = 'Enam_ctrl/$1';
+ 
 
 ////////////////////admin/////////
 
@@ -27,6 +28,7 @@ $route['admin/admin/news'] = 'admin/News_ctrl/index';
 $route['admin/admin/links'] = 'admin/Links_ctrl/index';
 $route['admin/admin/events'] = 'admin/Event_ctrl/index';
 $route['admin/admin/slider'] = 'admin/Slider_ctrl/index';
+$route['admin/admin/Static_pages'] = 'admin/Static_ctrl/index';
 $route['admin/admin/add_page'] = 'admin/Page_ctrl/index';
 $route['admin/admin/(:any)'] = 'admin/Admin_ctrl/$1';
 

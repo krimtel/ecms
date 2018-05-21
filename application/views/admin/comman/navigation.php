@@ -50,6 +50,9 @@
 				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/widgets">Widgets </a></li>
 			</ul>
 	</li>
+	<li>
+		<a title="Cms Pages" href="<?php echo base_url();?>admin/admin/Static_pages"> <i class="fa fa-files-o"></i> Cms Pages</a>
+	</li>
 	</ul>
 	</div>
 

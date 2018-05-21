@@ -7,7 +7,7 @@ class Menu_ctrl extends CI_Controller {
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
 		$this->load->database();
-		$this->load->model('admin/Menu_model');
+		$this->load->model(array('admin/Menu_model','admin/Page_model'));
 		$this->load->library(array('session','ion_auth','form_validation','MY_form_validation'));
 		$this->lang->load('admin_lang', 'english');
 		if (!$this->ion_auth->logged_in()){
@@ -42,6 +42,7 @@ class Menu_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Menu.txt';
 			file_put_contents ($file, $json, FILE_APPEND);
 		}
+		$data['cms_pages'] = $this->Page_model->get_all_pages();
 		$data['parent_menus'] = $result = $this->Menu_model->get_all_parents_menu(0);
 		$data['head'] = $this->load->view('admin/comman/head',$data,TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
@@ -118,11 +119,11 @@ class Menu_ctrl extends CI_Controller {
 							'required'      => $this->lang->line('menu_name_error_required')
 					));
 		}
-		$this->form_validation->set_rules('menu_url_text','','valid_url',
-				array(
-						'required'      => 'required',
-						'valid_url'     => 'its working'
-				));
+// 		$this->form_validation->set_rules('menu_url_text','slf','valid_url',
+// 				array(
+// 						'required'      => 'required',
+// 						'valid_url'     => 'its working'
+// 				));
 		if ($this->form_validation->run() == FALSE){
 			echo validation_errors(); die;
 		}
@@ -130,6 +131,7 @@ class Menu_ctrl extends CI_Controller {
 			$data['title'] = $this->input->post('menu_name');
 			$data['menu_slug'] = $this->input->post('menu_name');
 			$data['p_id'] = (int)$this->input->post('menu_parent_dropdown');
+			
 			if($data['p_id'] != 0){
 				$data['external_link'] = (int)$this->input->post('menu_external_link');
 				$data['cms_url'] = $this->input->post('menu_url_text');
