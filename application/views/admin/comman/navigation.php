@@ -29,6 +29,9 @@
 			<ul class="dropdown-menu">
 				<li><a title="Users" href="<?php echo base_url(); ?>admin/admin/users" >Users</a></li>
 				<li><a title="Language" href="<?php echo base_url(); ?>admin/admin/language">Language</a></li>
+								<?php if($group=='admin'){?>
+				<li><a title="Language" href="<?php echo base_url(); ?>admin/admin/video">Video Catagory</a></li>
+								<?php }?>				
 			</ul>
 	</li>
 	<?php } ?>

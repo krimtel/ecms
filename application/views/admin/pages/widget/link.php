@@ -87,9 +87,17 @@
 					<tbody>
 						<?php if(isset($links) && (count($links) > 0)){ 
 								foreach($links as $link) { ?>
-								<?php if($link['lang_id'] == 1) { ?>
+								<?php if($link['lang_id'] == 1) {
+									$find=0;
+									foreach($links as $lin){
+										if($lin['link_id'] == $link['link_id']  && $lin['lang_id'] == $this->session->userdata('language')){
+											$find = 1;
+										}
+									}
+									?>
 								<tr>
-									<td><?php echo $link['link_contect']; ?></td>
+									<td class="<?php if(!$find){ echo "find"; } ?>"><?php echo $link['link_contect']; ?></td>
+									
 									<?php if($group != 'subadmin'){ ?>
 										<td><?php echo $link['sort']; ?></td>
 										<td>

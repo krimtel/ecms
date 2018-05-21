@@ -504,7 +504,7 @@ $(document).ready(function(){
 							  			'<div class="col-sm-10">'+
 							  				'<img width="30" src="'+baseUrl+'/Slider_gallary/'+ response.data[0].lang_id +'/'+ response.data[0].slider_image +'" id="image_preview_popup">'+
 							  				'<input type="file" name="file" id="slider_photo_popup" class="form-control">'+
-							  				'<input type="text" name="slider_id_popup" class="form-control" id="slider_id_popup" value="'+ slider_id +'">'+
+							  				'<input type="hidden" name="slider_id_popup" class="form-control" id="slider_id_popup" value="'+ slider_id +'">'+
 							  				'<div class="text-danger" id="slider_photo_popup_error" style="display:none;"></div>'+
 							  			'</div>'+
 							  		'</div>'+

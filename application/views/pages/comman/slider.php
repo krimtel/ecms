@@ -14,7 +14,7 @@
 	foreach ($sliders as $slider){ ?>
 		<?php if($slider['lang_id'] == $language){ ?>
 		<div class="item <?php if($c== 1){ echo "active";} ?>">
-			<img src="<?php echo base_url(); ?>Slider_gallary/<?php  if($this->session->userdata('client_language')){ echo $this->session->userdata('client_language'); } else { echo '1';}?>/<?php echo $slider['slider_image'];?>" alt="img1" style="width:100%;" />
+			<img src="<?php echo base_url(); ?>Slider_gallary/<?php  if($this->session->userdata('client_language')){ echo $this->session->userdata('client_language'); } else { echo '1';}?>/<?php echo $slider['slider_image'];?>" alt="img1"/ >
 		</div>
 	<?php $c++;} } ?>
       

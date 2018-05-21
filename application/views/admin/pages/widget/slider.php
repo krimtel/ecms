@@ -17,7 +17,7 @@
 		<section class="col-lg-6 connectedSortable">
 		<div class="box box-primary">
 			<div class="box-header with-border">
-			  <h3 class="box-title">Add new Slider</h3>
+			  <h3 class="box-title">Add New Slider</h3>
 			  <div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 				  <i class="fa fa-minus"></i></button>
@@ -94,8 +94,8 @@
 				<?php if((isset($sliders)) && (count($sliders) > 0)){ ?>
 				<table class="table">
 					<tr>
-						<th>Image</th>
 						<th>Alt Tag</th>
+						<th>Image</th>
 						<?php if($group != 'subadmin') { ?>
 							<th>Sort</th>
 							<th>Publish</th>
@@ -103,15 +103,25 @@
 						<th> operations </th>
 					</tr>
 						<tbody>
-							<?php foreach($sliders as $slider){?>
-								<?php if($slider['lang_id'] == 1){?>
+							<?php 
+							if(isset($sliders) && count($sliders) > 0){
+							foreach($sliders as $slider){?>
+								<?php if($slider['lang_id'] == 1){
+									$find = 0;
+									foreach($sliders as $slide){
+										if($slide['slider_id'] == $slider['slider_id'] && $slide['lang_id'] == $this->session->userdata('language')){
+											$find = 1;
+										}
+									}
+									?>
 								<tr>
+									<td class="<?php if(!$find){ echo "find"; } ?>"><?php echo $slider['alt_tag']; ?></td>
 									<td><img alt="" width="50" src="<?php echo base_url();?>Slider_gallary/1/<?php echo $slider['slider_image'];?>" /></td>
-									<td> <?php echo $slider['alt_tag']?></td>
-									<?php if($group != 'subadmin'){ ?>
+									<?php if($group == 'admin'){ ?>
 										<td> <?php echo $slider['sort']?></td>
+										
 										<?php if($slider['publish'] == '1') {?>
-											<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" checked /></td>
+											<td><input  class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" checked /></td>
 										<?php } else {?>
 											<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" /></td>
 										<?php } ?>
@@ -121,12 +131,13 @@
 										<a href="javascript:void(0);" class="slider_tranlate" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
 									<?php } else { ?>
 										<a href="javascript:void(0);" class="slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
+										<?php if($group == 'admin'){ ?>
 										<a href="javascript:void(0);" class="slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
-									<?php } ?>
+									<?php } } ?>
 										
 									</td>
 								</tr>
-						<?php } } ?>
+						<?php } } } ?>
 						</tbody>
 				</table>
 				<?php }else {?> 
@@ -160,10 +171,12 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th> operations </th>
+						<th>Operations </th>
 					</tr>
 						<tbody>
-							<?php foreach($sliders as $slider){?>
+							<?php 
+							if(isset($sliders)  && count($sliders) > 0){
+							foreach($sliders as $slider){?>
 								<?php if($slider['lang_id'] == $this->session->userdata('language')){ ?>
 								<tr>
 									<td><img alt="" width="50" src="<?php echo base_url();?>Slider_gallary/<?php echo $this->session->userdata('language');?>/<?php echo $slider['slider_image'];?>" /></td>
@@ -179,7 +192,7 @@
 										<a href="javascript:void(0);" class="slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
 									</td>
 								</tr>
-						<?php } } ?>
+						<?php } } }?>
 						</tbody>
 				</table>
 				<?php }else {?> 
