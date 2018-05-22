@@ -58,42 +58,42 @@ class Widget_model extends CI_Model {
 	}
 	
 	function widget_update($data){
-// 		$group = $this->session->userdata('group_name');
-// 		$ip=$data['ip'];
+		$group = $this->session->userdata('group_name');
+		$ip=$data['ip'];
 		
-// 		if($group != 'admin' && $group != 'developer'){
-// 			$this->db->select('widget_id');
-// 			$result = $this->db->get_where('widget_item',array('id' => $data['widget_id'],'status' => 1))->result_array();
-// 			$widget=array();
-// 			if(count($result>0)){
-// 				$this->db->select('*');
-// 				$widget = $this->db->get_where('widget_item',array('lang_id'=>$data['lang_id'],'widget_id' => $result[0]['widget_id'],'status' => 1))->result_array();
-// 			}
-// 			if(count($widget) > 0){
-// 				$this->db->where('id',$widget[0]['id']);
-// 				$this->db->update('widget_item',array(
-// 						'content' => $data['content'],
-// 						'updated_at' =>  $data['created_at'],
-// 						'updated_by' => $data['user_id'],
-// 						'ip'=>$data['ip']
-// 				));
-// 			}
-// 			else {
-// 				$this->db->insert('widget_item',array(
-// 						'widget_id' => $result[0]['widget_id'],
-// 						'lang_id' => $data['lang_id'],
-// 						'content' => $data['content'],
-// 						'created_at' =>  $data['created_at'],
-// 						'created_by' => $data['user_id'],
-// 						'ip'=>$data['ip']
-// 				));
-// 			}
-// 			return false;
-// 		}
-// 		else {
-// 			$this->db->trans_commit();
-// 			return true;
-// 		}
+		if($group != 'admin' && $group != 'developer'){
+			$this->db->select('widget_id');
+			$result = $this->db->get_where('widget_item',array('id' => $data['widget_id'],'status' => 1))->result_array();
+			$widget=array();
+			if(count($result>0)){
+				$this->db->select('*');
+				$widget = $this->db->get_where('widget_item',array('lang_id'=>$data['lang_id'],'widget_id' => $result[0]['widget_id'],'status' => 1))->result_array();
+			}
+			if(count($widget) > 0){
+				$this->db->where('id',$widget[0]['id']);
+				$this->db->update('widget_item',array(
+						'content' => $data['content'],
+						'updated_at' =>  $data['created_at'],
+						'updated_by' => $data['user_id'],
+						'ip'=>$data['ip']
+				));
+			}
+			else {
+				$this->db->insert('widget_item',array(
+						'widget_id' => $result[0]['widget_id'],
+						'lang_id' => $data['lang_id'],
+						'content' => $data['content'],
+						'created_at' =>  $data['created_at'],
+						'created_by' => $data['user_id'],
+						'ip'=>$data['ip']
+				));
+			}
+			return false;
+		}
+		else {
+			$this->db->trans_commit();
+			return true;
+		}
 		
 		$this->db->where('w_id', $post['widget_id']);
 		$dbdata = array(

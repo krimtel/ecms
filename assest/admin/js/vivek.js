@@ -611,6 +611,95 @@ $(document).ready(function(){
 		  }).submit();
 		}
 	});
+//////////////////////////////////////////////////////Videos///////////////////////////////////////////////////////////////////////////////////	
+	$(document).on('click','#video_create',function(){
+		 var form_valid = true;
+		 var v_url=$(this).data('v_url');
+		 
+		 if($('#v_url').val() == ''){
+				$('#v_url_error').html('Please Enter Url For Video.').css('display','block');
+				form_valid = false;
+			}
+		 else{
+				$('#v_url_error').css('display','none');
+			}
+		 
+		 if($('#v_title').val() == ''){
+			 $('#v_title_error').html('please Fill Video Title').css('display','block');
+			 form_valid = false;
+		 }
+		 else{
+			 $('#v_title_error').css('display','none');
+		 }
+		 
+		 if($('#v_desc').val() == ''){
+			 $('#v_desc_error').html('please Fill Video Description').css('display','block');
+			 form_valid = false;
+		 }
+		 else{
+			 $('#v_desc_error').css('display','none');
+		 }
+		 
+		 if($('#v_order').val()==''){
+			 $('#v_order_error').html("please Fill Video Sort Order").css('display','block');
+			 form_valid = false;
+		 }
+		 else{
+			 $('#v_order').css('display','none');
+		 }
+		if(form_valid){
+			$('#video_form').ajaxForm({
+				dataType : 'json',
+				data : 'v_url',
+				beforeSubmit:function(e){
+					$('#loader').modal('show');
+			    },
+			    success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+			}).submit();
+		}
+	});	
+
+	$(document).on('click','.video_published',function(){
+	var x = confirm('Are you sure.');
+	if(!x){
+		if($(this).prop('checked') == true){
+			$(this).prop('checked', false);
+		}
+		else{
+			$(this).prop('checked', true);
+		}
+	}
+	else{
+		var status = $(this).prop('checked');
+		var v_id = $(this).data('video_id');
+		$.ajax({
+			type: 'POST',
+			url: baseUrl+'admin/Video_ctrl/video_publish',
+			dataType: "json",
+			data: {
+				'v_id'	: v_id,
+				'status' : status
+			},
+			beforeSend: function(){
+				$('#loader').modal({'show':true});	
+			},
+			complete: function(){},
+			success:function (response) {
+				console.log(response);
+				$('#loader').modal('toggle');
+			}
+		});
+	}
+});
 	
 });
 
