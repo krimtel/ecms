@@ -29,31 +29,31 @@
 			<form id="page_add_form" name="f1" method="POST" role="form" class="form-horizontal" action="<?php echo base_url();?>admin/Page_ctrl/page_create">
 			<div class="box-body">
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Page Name</label>
+					<label class="col-sm-2 control-label">Page Name</label>
 					<div class="col-sm-9"><input id="page_name" name="page_name" type="text" class="form-control" placeholder="Enter new language"></div>
 					<div class="col-sm-12"><input type="hidden" class="form-control" value=""></div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Select Layout</label>
+					<label class="col-sm-2 control-label">Select Layout</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="page_layout" id="page_layout">
 							<option value="0" selected>Please select layout</option>
-							<option value="1" >1 column</option>
-							<option value="2" >2 columns</option>
-							<option value="3" >3 columns</option>
+							<option value="1" >1 column (No Sidebar)</option>
+							<option value="2" >2 columns (Left Sidebar)</option>
+							<option value="3" >3 columns (Both Sidebar)</option>
 						</select>
 					</div>
 				</div>
 				<!--  -->
 				<div class="form-group" id="1coumn" style="display: none;">
-					<label class="col-sm-3 control-label">Select Layout</label>
+					<label class="col-sm-2 control-label">Select Layout</label>
 					<div class="col-sm-9">
 							<table class="table table-bordered">
 							<tr><th>Main</th></tr>
 							<tr>
 								<td>
 									<select class="form-control col-sm-6" name="one_col_maincontent[]" id="">
-										<option value="0">select widget</option>
+										<option value="0">Select widget</option>
 										<?php print_r($wiget_drop_Down); ?>
 									</select>
 									<div id="one_col_maincontent_box"></div>
@@ -64,14 +64,14 @@
 					</div>
 				</div>
 				<div class="form-group" id="2coumn" style="display: none;">
-					<label class="col-sm-3 control-label">Select Layout</label>
+					<label class="col-sm-2 control-label">Select Layout</label>
 					<div class="col-sm-9">
 						<table class="table table-bordered">
 							<tr><th>Left</th><th>Main</th></tr>
 							<tr>
 								<td>
 									<select class="form-control col-sm-6" class="two_col_leftcontent" name="two_col_leftcontent[]" id="">
-										<option value="0">select widget</option>
+										<option value="0">Select widget</option>
 										<?php print_r($wiget_drop_Down); ?>
 									</select>
 									<div id="two_col_leftcontent_box"></div>
@@ -79,7 +79,7 @@
 								</td>
 								<td>
 									<select class="form-control col-sm-6" class="two_col_maincontent" name="two_col_maincontent[]" id="">
-										<option value="0">select widget</option>
+										<option value="0">Select widget</option>
 										<?php print_r($wiget_drop_Down); ?>
 									</select>
 									<div id="two_col_maincontent_box"></div>
@@ -90,14 +90,14 @@
 					</div>
 				</div>
 				<div class="form-group" id="3coumn" style="display: none;">
-					<label class="col-sm-3 control-label">Select Layout</label>
+					<label class="col-sm-2 control-label">Select Layout</label>
 					<div class="col-sm-9">
 						<table class="table table-bordered">
 							<tr><th>Left</th><th>Main</th><th>Right</th></tr>
 							<tr>
 								<td>
 									<select class="form-control col-sm-6" class="three_col_leftcontent" name="three_col_leftcontent[]" id="">
-										<option value="0">select widget</option>
+										<option value="0">Select widget</option>
 										<?php print_r($wiget_drop_Down); ?>
 									</select>
 									<div id="three_col_leftcontent_box"></div>
@@ -105,7 +105,7 @@
 								</td>
 								<td>
 									<select class="form-control col-sm-6" class="three_col_maincontent" name="three_col_maincontent[]" id="">
-										<option value="0">select widget</option>
+										<option value="0">Select widget</option>
 										<?php print_r($wiget_drop_Down); ?>
 									</select>
 									<div id="three_col_maincontent_box"></div>
@@ -113,7 +113,7 @@
 								</td>
 								<td>
 									<select class="form-control col-sm-6" class="three_col_rightcontent" name="three_col_rightcontent[]" id="">
-										<option value="0">select widget</option>
+										<option value="0">Select widget</option>
 										<?php print_r($wiget_drop_Down); ?>
 									</select>
 									<div id="three_col_rightcontent_box"></div>
@@ -126,13 +126,13 @@
 				<!--  -->
 				
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Meta tags</label>
+					<label class="col-sm-2 control-label">Meta tags</label>
 					<div class="col-sm-9">
 						<textarea name="meta_tag" id="meta_tag" rows="5" cols="" class="form-control"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Key words</label>
+					<label class="col-sm-2 control-label">Key words</label>
 					<div class="col-sm-9">
 						<textarea rows="5" name="keyword" id="keyword" cols="" class="form-control"></textarea>
 					</div>

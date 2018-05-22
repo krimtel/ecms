@@ -5,10 +5,9 @@
         <li class="active">Add User</li>
      </ol>   
 	<section class="content-header">
-      <h1>Users</h1>
-      	<span class="pull-right">
-      		<a href="javascript:void(0);" class="btn btn-warning" id="new_user_register">register new users</a>
-      	</span>
+      <h1 class="pull-left">User</h1>
+      <a href="javascript:void(0);" class="btn btn-warning pull-right" id="new_user_register" title="Register New User">Register New User</a>
+
     </section>
 	
 	<!-- Main content -->

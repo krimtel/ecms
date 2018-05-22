@@ -20,7 +20,7 @@
 		<?php } ?>
 		<div class="box box-primary">
 			<div class="box-header with-border">
-			  <h3 class="box-title">Add new Events</h3>
+			  <h3 class="box-title">Add new events</h3>
 			  <div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 				  <i class="fa fa-minus"></i></button>
@@ -30,40 +30,40 @@
 			<div class="box-body">
 			<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Event Photo</label>
-					<div class="col-sm-9">
-						<input type="file" name="userFiles" id="userFiles" class="form-control">
+					<label class="col-sm-2 control-label">Event Photo</label>
+					<div class="col-sm-10">
+						<input type="file" name="userFiles" id="userFiles" class="form-control" />
 						<div class="text-danger" id="userfile_error" style="display:none;"></div>
 					</div>
 				</div>
 			<?php } ?>
 				
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Event Title</label>
-					<div class="col-sm-9">
-						<input type="text" name="event_title" id="event_title" class="form-control">
+					<label class="col-sm-2 control-label">Event Title</label>
+					<div class="col-sm-10">
+						<input type="text" name="event_title" id="event_title" class="form-control" placeholder="Enter title" />
 						<div class="text-danger" id="event_title_error" style="display:none;"></div>
 					</div>
 				</div>
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Please Select Category</label>
-			   <div class="col-sm-9">
-			   	<select class="col-sm-2 form-control" id="event_category" name="event_category">
-			   	<div class="text-danger" id="event_category_error" style="display:none;"></div>
-			   		<option value="national">Natonal Level </option>
-			   		<option value="state">State Level </option>
-			   		<option value="Event3_eNAM_GLIMPSES">Event3 eNAM GLIMPSES Level </option>
-			   	</select>
-			   </div>
+					<label class="col-sm-2 control-label">Please Select Category</label>
+				   <div class="col-sm-10">
+					<select class="col-sm-2 form-control" id="event_category" name="event_category">
+						<option value="national">Natonal Level </option>
+						<option value="state">State Level </option>
+						<option value="Event3_eNAM_GLIMPSES">Event3 eNAM GLIMPSES Level </option>
+					</select>
+					<div class="text-danger" id="event_category_error" style="display:none;"></div>
+				   </div>
 			   </div>
 			   <?php } ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Event description</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Event description</label>
+					<div class="col-sm-10">
 						<textarea id="event_desc" name="event_desc" class="form-control" rows="10"></textarea>
 						<div class="text-danger" id="event_desc_error" style="display:none;"></div>
-						<input id="event_id" name="event_id" type="hidden" class="form-control" value="">
+						<input id="event_id" name="event_id" type="hidden" class="form-control" value="" />
 			            <script>
 			                CKEDITOR.replace('event_desc');
 			            </script>
@@ -71,9 +71,9 @@
 				</div>
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Sort Order</label>
-					<div class="col-sm-9">
-						<input type="text" id="event_order" name="event_order" class="form-control" placeholder="Enter sort order" value="999"/>
+					<label class="col-sm-2 control-label">Sort Order</label>
+					<div class="col-sm-10">
+						<input type="text" id="event_order" name="event_order" class="form-control" placeholder="Enter sort order" value="" />
 						<div class="text-danger" id="event_order_error" style="display:none;"></div>
 					</div>
 				</div>
@@ -111,9 +111,9 @@
 						<?php if($group != 'subadmin') { ?>
 							<th>Sort</th>
 							<th>Publish</th>
-							<th>Is_Home</th>
+							<th>Show Homepage</th>
 						<?php } ?>
-						<th> operations </th>
+						<th>Action</th>
 					</tr>
 					<tbody>
 						<?php if(isset($events) && (count($events) > 0)){ 
@@ -135,25 +135,25 @@
 										<td><?php echo $event['sort']; ?></td>
 										<td>
 											<?php if($event['publish']){ ?>
-												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
+												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked />										
 											<?php } else { ?>
-												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
+												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
 										<td>
 										<?php if($event['is_home']){ ?>
-												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
+												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked />										
 											<?php } else { ?>
-												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
+												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="event_tranlate" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a class="btn btn-info btn-flat event_tranlate" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-heartbeat"></i></a>
 										<?php } else { ?>
-											<a class="event_edit" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	<a class="event_delete" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-trash"></i></a>
+											<a class="btn btn-info btn-flat event_edit" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-pencil"></i></a> 
+									    	<a class="btn btn-info btn-flat event_delete" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-trash"></i></a>
 										<?php } ?>
 									</td>
 								</tr>
@@ -190,7 +190,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th>operations</th>
+						<th>Action</th>
 					</tr>
 					<tbody>
 						<?php if(isset($events) && (count($events) > 0)){ 
@@ -202,16 +202,16 @@
 										<td><?php echo $event['sort']; ?></td>
 										<td>
 											<?php if($news['publish']){ ?>
-												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
+												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked />										
 											<?php } else { ?>
-												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
+												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
 										<td>
 											<?php if($event['is_home']){ ?>
-												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
+												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked />										
 											<?php } else { ?>
-												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
+												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
 									<?php } ?>

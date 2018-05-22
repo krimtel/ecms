@@ -17,7 +17,6 @@
   </div>
 </div>
 
-
 <script src="<?php echo base_url(); ?>assest/admin/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assest/admin/bootstrap/js/jquery.form.js"></script>
 <script src="<?php echo base_url(); ?>assest/admin/bootstrap/js/jquery-ui.min.js"></script>

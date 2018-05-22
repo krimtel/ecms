@@ -25,10 +25,10 @@
 	</li>
 	<?php if($group != 'subadmin'){ ?>
 	<li class="dropdown">
-			<a title="Master" href="#" data-toggle="dropdown" > <i class="fa fa-files-o"></i> MASTER <b class="caret"></b></a>
+			<a title="Master" href="#" data-toggle="dropdown" > <i class="fa fa-th"></i> MASTER <b class="caret"></b></a>
 			<ul class="dropdown-menu">
-				<li><a title="Users" href="<?php echo base_url(); ?>admin/admin/users" >Users</a></li>
-				<li><a title="Language" href="<?php echo base_url(); ?>admin/admin/language">Language</a></li>
+				<li><a title="Users" href="<?php echo base_url(); ?>admin/admin/users" ><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
+				<li><a title="Language" href="<?php echo base_url(); ?>admin/admin/language"><i class="fa fa-language" aria-hidden="true"></i> Language</a></li>
 								<?php if($group=='admin'){?>
 				<li><a title="Language" href="<?php echo base_url(); ?>admin/admin/video">Video Catagory</a></li>
 								<?php }?>				
@@ -38,19 +38,19 @@
 	<li class="dropdown">
 			<a title="Layout" href="#" data-toggle="dropdown" > <i class="fa fa-files-o"></i> Layout <b class="caret"></b></a>
 			<ul class="dropdown-menu">
-				<li><a title="Pages" href="<?php echo base_url(); ?>admin/admin/all_pages">Pages </a></li>
-				<li><a title="Menu" href="<?php echo base_url(); ?>admin/admin/menus">Menu </a></li>
-				<li><a title="Home-Page" href="<?php echo base_url(); ?>admin/admin/home_page">Home Page</a></li>
+				<li><a title="Pages" href="<?php echo base_url(); ?>admin/admin/all_pages"> <i class="fa fa-clone" aria-hidden="true" ></i> Pages </a></li>
+				<li><a title="Menu" href="<?php echo base_url(); ?>admin/admin/menus"> <i class="fa fa-ellipsis-h" aria-hidden="true" ></i> Menu </a></li>
+				<li><a title="Home-Page" href="<?php echo base_url(); ?>admin/admin/home_page"> <i class="fa fa-home" aria-hidden="true" ></i> Home Page</a></li>
 			</ul>
 	</li>
 	<li class="dropdown">
-			<a title="Widget" href="#" data-toggle="dropdown" > <i class="fa fa-files-o"></i> Widget <b class="caret"></b></a>
+			<a title="Widget" href="#" data-toggle="dropdown" > <i class="fa fa-th-large" aria-hidden="true" ></i> Widget <b class="caret"></b></a>
 			<ul class="dropdown-menu">
-				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/news">News/Notice </a></li>
-				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/links">Quick links </a></li>
-				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/events">Events </a></li>
-				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/slider">Slider </a></li>
-				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/widgets">Widgets </a></li>
+				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/news"><i class="fa fa-file" aria-hidden="true" ></i> News/Notice </a></li>
+				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/links"><i class="fa fa-link" aria-hidden="true" ></i> Quick Links </a></li>
+				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/events"><i class="fa fa-calendar" aria-hidden="true" ></i> Events </a></li>
+				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/slider"><i class="fa fa-image" aria-hidden="true" ></i> Slider </a></li>
+				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/widgets"><i class="fa fa-delicious" aria-hidden="true" ></i> Widgets </a></li>
 			</ul>
 	</li>
 	<li>
@@ -74,7 +74,7 @@
           </form>
         </li>
         <li>
-        	<select id="user_language">
+        	<select id="user_language" class="form-control">
         		<?php if(isset($language)){ ?>
 					<option id="<?php echo $language['l_id'];?>"><?php echo $language['l_name']; ?></option>        			
         		<?php } else { ?>
@@ -82,7 +82,7 @@
         		<?php }?>
         	</select>
         </li>
-        <li class="nav-item" style="margin-top:5px;">
+        <li class="nav-item" style="margin-top:5px;margin-left:5px;">
           <a class="nav-link" data-toggle="modal" data-target="" href="<?php echo base_url();?>admin/Auth/logout">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>

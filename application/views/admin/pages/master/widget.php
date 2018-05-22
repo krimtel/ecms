@@ -25,16 +25,16 @@
 					<div class="box-body">
 	 
 						<div class="form-group">
-						  <label class="col-sm-3 control-label">Name</label>
-						  <div class="col-sm-9">
-						  	<input type="text" class="form-control" name="widget_name" id="widget_name" value="">
+						  <label class="col-sm-2 control-label">Name</label>
+						  <div class="col-sm-10">
+						  	<input type="text" class="form-control" name="widget_name" id="widget_name" placeholder="Enter name" value="" />
 						  </div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Content</label>
-							<div class="col-sm-9">
+							<label class="col-sm-2 control-label">Content</label>
+							<div class="col-sm-10">
 								<textarea id="widget_content" name="widget_content" class="form-control" rows="10"></textarea>
-								<input id="widget_id" name="widget_id" type="hidden" class="form-control" value="">
+								<input id="widget_id" name="widget_id" type="hidden" class="form-control" value="" />
 			            		<script>
 			                		CKEDITOR.replace('widget_content');
 			            		</script>
@@ -75,8 +75,8 @@
 	                  			<td><?php echo $widgets['content']; ?></td>
 	                  			<td>
 	          
-	                  				<a class="btn btn-info btn-flat widget_edit" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-pencil"></i></a>
-	                  				<a class="btn btn-info btn-flat widget_delete" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-trash"></i></a>
+	                  				<a title="Edit" class="btn btn-info btn-flat widget_edit" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-pencil"></i></a>
+	                  				<a title="Delete" class="btn btn-info btn-flat widget_delete" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-trash"></i></a>
 	                  				
 	                  			</td>
                 			</tr>	

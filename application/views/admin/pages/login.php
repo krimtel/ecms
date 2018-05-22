@@ -11,21 +11,21 @@
       	<form name="login_form" method="POST" action="<?php echo base_url();?>admin/Auth/login"> 
 		  <div class="form-group">
 		    <label for="formGroupExampleInput">Identity</label>
-		    <input type="text" name="identity"  class="form-control" id="identity" autocomplete="off" placeholder="Example input">
+		    <input type="text" name="identity"  class="form-control" id="identity" autocomplete="off" placeholder="Enter email id" />
 		    <div id="identity_err" class="text-danger" style="display:none;"></div>
 		    <?php echo form_error('identity'); ?>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="formGroupExampleInput2">Password</label>
-		    <input type="password" name="password" class="form-control" id="password" placeholder="Another input">
+		    <input type="password" name="password" class="form-control" id="password" placeholder="Password" />
 		    <div id="password_err" class="text-danger" class="form-control" style="display: none;"></div>
 		     <?php echo form_error('password'); ?>
 		  </div>
 		  
 		  <div class="form-group">
-		    <input type="submit" class="btn btn-lg btn-light" value="login">
-		    <input type="reset" class="btn btn-lg btn-light" value="Cancel">
+		    <input type="submit" class="btn btn-success btn-space" value="Login" />
+		    <input type="reset" class="btn btn-light" value="Cancel" />
 		  </div>
 		</form>   
       </div>

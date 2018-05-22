@@ -4,10 +4,10 @@
     <!-- Content Header (Page header) -->
 	<ol class="breadcrumb">
         <li><a title="Home" href="<?php echo base_url();?>admin/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">News</li>
+        <li class="active">Links</li>
     </ol>   
 	<section class="content-header">
-      <h1 class="pull-left">News</h1>
+      <h1 class="pull-left">Links</h1>
     </section>
 	<!-- Main content -->
     <section class="content">
@@ -21,7 +21,7 @@
 		<?php } ?>
 		<div class="box box-primary">
 			<div class="box-header with-border">
-			  <h3 class="box-title">Add new Links</h3>
+			  <h3 class="box-title">Add new links</h3>
 			  <div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 				  <i class="fa fa-minus"></i></button>
@@ -30,11 +30,11 @@
 			<form name="link_form" id="link_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/Links_ctrl/link_create">
 			<div class="box-body">
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Link content</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Link content</label>
+					<div class="col-sm-10">
 						<textarea id="link_desc" name="link_desc" class="form-control" rows="10"></textarea>
 						<div class="text-danger" id="link_desc_error" style="display: none;"></div>
-						<input id="link_id" name="link_id" type="hidden" class="form-control" value="">
+						<input id="link_id" name="link_id" type="hidden" class="form-control" value="" />
 			            <script>
 			                CKEDITOR.replace('link_desc');
 			            </script>
@@ -43,8 +43,8 @@
 				
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Sort Order</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Sort Order</label>
+					<div class="col-sm-10">
 						<input type="text" id="link_order" name="link_order" class="form-control" placeholder="Enter sort order" />
 					</div>
 				</div>
@@ -82,7 +82,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th>operations</th>
+						<th>Action</th>
 					</tr>
 					<tbody>
 						<?php if(isset($links) && (count($links) > 0)){ 
@@ -102,18 +102,18 @@
 										<td><?php echo $link['sort']; ?></td>
 										<td>
 											<?php if($link['publish']){ ?>
-												<input class="link_published" data-link_id="<?php echo $link['link_id']?>" type="checkbox" checked>										
+												<input class="link_published" data-link_id="<?php echo $link['link_id']?>" type="checkbox" checked />										
 											<?php } else { ?>
-												<input class="link_published" data-link_id="<?php echo $link['link_id']?>" type="checkbox">
+												<input class="link_published" data-link_id="<?php echo $link['link_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="link_tranlate" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a class="btn btn-info btn-flat link_tranlate" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-heartbeat"></i></a>
 										<?php } else { ?>
-											<a class="link_edit" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	<a class="link_delete" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-trash"></i></a>
+											<a class="btn btn-info btn-flat link_edit" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-pencil"></i></a> 
+									    	<a class="btn btn-info btn-flat link_delete" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-trash"></i></a>
 										<?php } ?>
 									</td>
 								</tr>
@@ -150,7 +150,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th>operations</th>
+						<th>Action</th>
 					</tr>
 					<tbody>
 						<?php if(isset($links) && (count($links) > 0)){ 
@@ -162,18 +162,18 @@
 										<td><?php echo $link['sort']; ?></td>
 										<td>
 											<?php if($link['publish']){ ?>
-												<input class="link_published" data-link_id="<?php echo $link['link_id']?>" type="checkbox" checked>										
+												<input class="link_published" data-link_id="<?php echo $link['link_id']?>" type="checkbox" checked />										
 											<?php } else { ?>
-												<input class="link_published" data-link_id="<?php echo $link['link_id']?>" type="checkbox">
+												<input class="link_published" data-link_id="<?php echo $link['link_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="link_tranlate" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a title="" class="link_tranlate" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-heartbeat"></i></a>
 										<?php } else { ?>
-											<a class="link_edit" data-news_id="<?php echo $link['link_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	<a class="link_delete" data-news_id="<?php echo $link['link_id']?>"><i class="fa fa-trash"></i></a>
+											<a title="Edit" class="link_edit" data-news_id="<?php echo $link['link_id']?>"><i class="fa fa-pencil"></i></a> 
+									    	<a title="Delete" class="link_delete" data-news_id="<?php echo $link['link_id']?>"><i class="fa fa-trash"></i></a>
 										<?php } ?>
 									</td>
 								</tr>

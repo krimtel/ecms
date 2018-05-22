@@ -31,11 +31,11 @@
 			<form name="news_form" id="news_form" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data" action="<?php echo base_url();?>admin/News_ctrl/news_create">
 			<div class="box-body">
 				<div class="form-group">
-					<label class="col-sm-3 control-label">News description</label>
-					<div class="col-sm-9">
-						<textarea id="news_desc" name="news_desc" class="form-control" rows="10"></textarea>
+					<label class="col-sm-2 control-label">News Description</label>
+					<div class="col-sm-10">
+						<textarea id="news_desc" name="news_desc" class="form-control" rows="10" placeholder="Enter description"></textarea>
 						<div class="text-danger" id="news_desc_error" style="display: none;"></div>
-						<input id="news_id" name="news_id" type="hidden" class="form-control" value="">
+						<input id="news_id" name="news_id" type="hidden" class="form-control" value="" />
 			            <script>
 			                CKEDITOR.replace('news_desc');
 			            </script>
@@ -44,9 +44,9 @@
 				
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Sort Order</label>
-					<div class="col-sm-9">
-						<input type="text" id="news_order" name="news_order" class="form-control" placeholder="Enter sort order" value="999"/>
+					<label class="col-sm-2 control-label">Sort Order</label>
+					<div class="col-sm-10">
+						<input type="text" id="news_order" name="news_order" class="form-control" placeholder="Enter sort order" value="" />
 					</div>
 				</div>
 				<?php } ?>
@@ -86,7 +86,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th>operations</th>
+						<th>Action</th>
 					</tr>
 					<tbody>
 						<?php if(isset($newses) && (count($newses) > 0)){
@@ -105,18 +105,18 @@
 										<td><?php echo $news['sort']; ?></td>
 										<td>
 											<?php if($news['publish']){ ?>
-												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox" checked>										
+												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox" checked />										
 											<?php } else { ?>
-												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox">
+												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="news_tranlate" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a class="btn btn-info btn-flat news_tranlate" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-heartbeat"></i></a>
 										<?php } else { ?>
-											<a class="news_edit" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	<a class="news_delete" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-trash"></i></a>
+											<a class="btn btn-info btn-flat news_edit" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-pencil"></i></a> 
+									    	<a class="btn btn-info btn-flat news_delete" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-trash"></i></a>
 										<?php } ?>
 									</td>
 								</tr>
@@ -153,7 +153,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th>operations</th>
+						<th>Action</th>
 					</tr>
 					<tbody>
 						<?php if(isset($newses) && (count($newses) > 0)){ 
@@ -165,18 +165,18 @@
 										<td><?php echo $news['sort']; ?></td>
 										<td>
 											<?php if($news['publish']){ ?>
-												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox" checked>										
+												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox" checked />										
 											<?php } else { ?>
-												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox">
+												<input class="news_published" data-news_id="<?php echo $news['news_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="news_tranlate" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a title="" class="btn btn-info btn-flat news_tranlate" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-heartbeat"></i></a>
 										<?php } else { ?>
-											<a class="news_edit" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	<a class="news_delete" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-trash"></i></a>
+											<a title="Edit" class="btn btn-info btn-flat news_edit" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-pencil"></i></a> 
+									    	<a title="Delete" class="btn btn-info btn-flat news_delete" data-news_id="<?php echo $news['news_id']?>"><i class="fa fa-trash"></i></a>
 										<?php } ?>
 									</td>
 								</tr>
