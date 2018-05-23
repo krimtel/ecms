@@ -35,7 +35,7 @@ class Video_model extends CI_Model {
 		else{
 			$this->db->trans_commit();
 			return true;
-			print_r($this->db->last_query());
+			//print_r($this->db->last_query());
 		}
 	}
 
@@ -43,13 +43,14 @@ class Video_model extends CI_Model {
 	function Video_list(){
 		$this->db->select('vi.*,v.sort,v.publish');
 		$this->db->join('video v','v.v_id=vi.video_id');
-		$this->db>order_by('v.sort,v.created_at','ASC');
+		$this->db->order_by('v.sort,v.created_at,v.updated_at','ASC');
 		$result=$this->db->get_where('video_item vi',array('v.status'=>1, 'vi.status'=>1))->result_array();
+		
 		return $result;
 	}
 	
-	function video_publish(){
-	    $this->db->where('vid',$data['v_id']);
+	function video_publish($data){
+	    $this->db->where('v_id',$data['v_id']);
 	    $this->db->update('video',array('publish'=>$data['status']));
 	    return true;
 	}
@@ -58,5 +59,50 @@ class Video_model extends CI_Model {
 	    $this->db->where('v_id',$data['v_id']);
 	    $this->db->update('video',array('status'=>0));
 	    return true;
+	}
+	function get_video_data($data){
+		$this->db->select('vi.*,v.sort');
+		$this->db->join('video v','v.v_id = vi.video_id');
+		$result = $this->db->get_where('video_item vi',array('vi.video_id'=>$data['v_id'],'vi.lang_id'=>$data['lang_id'],'vi.status'=>1))->result_array();
+		
+		if(count($result)>0){
+				
+		}else{
+			$this->db->select('vi*,v.sort');
+			$this->db->join('video v','v.v_id = vi.video_id');
+			$result = $this->db->get_where('video_item vi',array('vi.video_id'=>$data['v_id'],'vi.lang_id'=>1,'ni.status'=>1))->result_array();
+		}
+		return $result;
+	}
+	
+	function video_update($data){
+		$val1['v_url']  =  $data('v_url');
+		$val1['v_title']  =  $data('v_tile');
+		$val1['v_content']  =  $data('v_content');
+		$val1['sort']  =  $data('sort');
+		$val1['updated_at']  =  $data('updated_at');
+		$val1['updated_by']  =  $data('updated_by');
+		$val1['v_id']  =  $data('v_id');
+		
+		$this->db->trans_begin();
+		$this->db->where('video_id',$data['v_id']);
+		$this->db->update('video_item',array(
+				'v_content' => $data['v_content'],
+				'updated_at' => $data['updated_at'],
+				'updated_by' => $data['updated_by'],
+				'v_url' => $data['v_url']
+		));
+		
+		$this->db->query("update video set updated_at = '".$data['updated_at']."',updated_by=".$data['updated_by'].",sort=".$data['sort'].","v_title=".$data['v_title'].
+				where id = (select news_id from news_item where id=".$data['news_id'].")");
+		
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			return false;
+		}
+		else {
+			$this->db->trans_commit();
+			return true;
+		}
 	}
 }

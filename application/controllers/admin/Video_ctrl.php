@@ -57,8 +57,6 @@ class Video_ctrl extends CI_Controller {
 		$data['v_order'] = (int)$this->input->post('v_order');
 		$data['created_at'] = date('Y-m-d h:i:s');
 		$data['created_by'] = $this->session->userdata('user_id');
-		$data['event_category']=$this->input->post('event_category');
-		
 		$result = $this->Video_model->video_create($data);
 		if($result){
 			$this->file_update();
@@ -71,15 +69,15 @@ class Video_ctrl extends CI_Controller {
 	
 	function video_publish(){
 		if($this->ion_auth->is_admin()){
-			$data[v_id] = $data->input->post['video_id'];
-			$data[status]= $data->input->post['status'];
+			$data['v_id'] = (int)$this->input->post('v_id');
+			$data['status']= $this->input->post('status');
+			
 			if($data['status'] == 'true'){
 			    $data['status'] = 1;
 			}
 			else{
 			    $data['status'] = 0;
 			}
-			
 			$result = $this->Video_model->video_publish($data);
 			if($result){
 			    $this->file_update();
@@ -110,6 +108,40 @@ class Video_ctrl extends CI_Controller {
 	    else{
 	        echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
 	    }
+	}
+	function get_video_data(){
+		$data['v_id'] = (int) $this->input->post('v_id');
+		$data['lang_id'] = (int) $this->session->userdata('language');
+		$data['ip'] = $this->input->ip_address();
+		$data['updated_at'] = date('d-m-y h:i:s');
+		$data['updated_by'] = (int) $this->session->userdata('user_id');
+		$result = $this->Video_model->get_video_data($data);
+		if(count($result)>0){
+			echo json_encode(array('data'=>$result,'msg'=>'news content.','status'=>200));
+		}
+		else{
+			echo json_encode(array('msg'=>'no record found.','status'=>200));
+		}
+	}
+	function update_video(){
+		$data['v_id'] = (int)$this->input->post('v_id');
+		$data['lang_id'] = (int) $this->session->userdata('language');
+		$data['updated_at'] = date('d-m-y h:i:s');
+		$data['updated_by'] = (int) $this->session->userdata('user_id');
+		$data['ip'] = $this->input->ip_address();
+		$data['v_content'] = $this->input->post('v_desc');
+		$data['sort'] = $this->input->post('v_sort');
+		$data['v_url'] = $this->input->post('v_url');
+		$data['v_title'] = $this->input->post('v_title');
+		$result=$this->Video_model->video_update($data);
+		if($result){
+			$this->file_update();
+			echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+		}
+		else{
+			echo json_encode(array('msg'=>'something wrong.','status'=>500));
+		}
+	
 	}
 	
 }

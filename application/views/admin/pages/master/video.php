@@ -115,14 +115,15 @@
 											
 											<td><?php echo $video['sort'];?></td>
 											<td><?php if($video['publish']){ ?>
-											<input class="video_published" data-news_id="<?php echo $video['video_id']?>" type="checkbox" checked>										
+											<input class="video_published" data-video_id="<?php echo $video['video_id']?>" type="checkbox" checked>										
 											<?php } else { ?>
-												<input class="video_published" data-news_id="<?php echo $video['video_id']?>" type="checkbox">
+												<input class="video_published" data-video_id="<?php echo $video['video_id']?>" type="checkbox">
 											<?php } ?>
 										</td>
 									<?php } ?>
-											<td><a class="video_edit" data-news_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	<a class="video_delete" data-news_id="<?php echo $video['video_id']?>"><i class="fa fa-trash"></i></a></td>
+											<td><a class="video_edit" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a> 
+									    	<a class="video_delete" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-trash"></i></a></td>
+									    
 										</tr>	
 							
 							<?php 		}

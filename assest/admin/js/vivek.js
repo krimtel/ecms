@@ -614,6 +614,7 @@ $(document).ready(function(){
 //////////////////////////////////////////////////////Videos///////////////////////////////////////////////////////////////////////////////////	
 	$(document).on('click','#video_create',function(){
 		 var form_valid = true;
+		var v_desc= CKEDITOR.instances.v_desc.getData();
 		 var v_url=$(this).data('v_url');
 		 
 		 if($('#v_url').val() == ''){
@@ -632,7 +633,7 @@ $(document).ready(function(){
 			 $('#v_title_error').css('display','none');
 		 }
 		 
-		 if($('#v_desc').val() == ''){
+		 if($('v_desc') == ''){
 			 $('#v_desc_error').html('please Fill Video Description').css('display','block');
 			 form_valid = false;
 		 }
@@ -650,7 +651,9 @@ $(document).ready(function(){
 		if(form_valid){
 			$('#video_form').ajaxForm({
 				dataType : 'json',
-				data : 'v_url',
+				data: {
+					'v_desc'	: v_desc,
+				},
 				beforeSubmit:function(e){
 					$('#loader').modal('show');
 			    },
@@ -703,7 +706,7 @@ $(document).ready(function(){
 	$(document).on('click','.video_delete',function(){
 		var x = confirm('Are you sure.'); 
 		if(x){
-			var v_id = $(this).data('v_id');
+			var v_id = $(this).data('video_id');
 			$.ajax({
 				type: 'POST',
 				url: baseUrl+'admin/Video_ctrl/video_delete',
@@ -724,7 +727,71 @@ $(document).ready(function(){
 		}
 	});
 	
+	$(document).on('click','.video_edit',function(){
+		var v_id= $(this).data('video_id');
+		$.ajax({
+			type: 'post',
+			url: baseUrl+'admin/Video_ctrl/get_video_data',
+			dataType: "json",
+			data:{
+				'v_id'  :  v_id
+			},
+			beforeSend: function(){
+				$('#loader').modal({'show': true});
+			},
+			complete: function(){},
+			success: function (response){
+				console.log(response);
+	        	$('#loader').modal('toggle');
+	        	if(response.status == 200){
+	        		CKEDITOR.instances['v_desc'].setData(response.data[0].v_content);
+	        		$('#video_id').val(response.data[0].v_id);
+	        		$('#v_order').val(response.data[0].sort);
+	        		$('#v_url').val(response.data[0].v_url);
+	        		$('#v_title').val(response.data[0].v_title);
+	        		$('#video_update').show();
+	        		$('#video_create').hide();
+	        	}
+	        	else{
+	        		
+	        	}
+			}
+		});
+	});
 	
+	$(document).on('click','#video_update',function(){
+		var v_id = $(this).data('video_id');
+		var v_url=$(this).data('v_url');
+		var v_desc=$(this).data('v_desc');
+		var v_title=$(this).data('v_title');
+		var v_sort=$(this).data('v_order');
+		$.ajax({
+			type : 'post',
+			url : baseUrl+'admin/Video_ctrl/update_video',
+			dataType : "json",
+			data: {
+				'v_id' : v_id,
+				'v_url' : v_url,
+				'v_desc': v_desc,
+				'v_title':v_title,
+				'v_sort':v_sort
+			},
+			beforeSend: function(){
+				$('#loader').modal({'show': true});
+			},
+			complete: function(){},
+			success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+			}).submit();
+	});
 });
 
 
