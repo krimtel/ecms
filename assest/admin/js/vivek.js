@@ -700,6 +700,30 @@ $(document).ready(function(){
 		});
 	}
 });
+	$(document).on('click','.video_delete',function(){
+		var x = confirm('Are you sure.'); 
+		if(x){
+			var v_id = $(this).data('v_id');
+			$.ajax({
+				type: 'POST',
+				url: baseUrl+'admin/Video_ctrl/video_delete',
+				dataType: "json",
+				data: {
+					'v_id'	: v_id
+				},
+				beforeSend: function(){
+					$('#loader').modal({'show':true});	
+				},
+				complete: function(){},
+				success:function (response) {
+					console.log(response);
+					$('#loader').modal('toggle');
+					location.reload();
+				}
+			});
+		}
+	});
+	
 	
 });
 

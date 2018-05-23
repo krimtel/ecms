@@ -73,8 +73,43 @@ class Video_ctrl extends CI_Controller {
 		if($this->ion_auth->is_admin()){
 			$data[v_id] = $data->input->post['video_id'];
 			$data[status]= $data->input->post['status'];
+			if($data['status'] == 'true'){
+			    $data['status'] = 1;
+			}
+			else{
+			    $data['status'] = 0;
+			}
 			
+			$result = $this->Video_model->video_publish($data);
+			if($result){
+			    $this->file_update();
+			    echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			}
+			else{
+			    echo json_encode(array('msg'=>'something wrong.','status'=>500));
+			}
 		}
+		else{
+		    echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+		}
+		
+	}
+	
+	function video_delete(){
+	    if($this->ion_auth->is_admin()){
+	        $data['v_id'] = $this->input->post('v_id');
+	        $result = $this->Video_model->video_delete($data);
+	        if($result){
+	            $this->file_update();
+	            echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+	        }
+	        else{
+	            echo json_encode(array('msg'=>'something wrong.','status'=>500));
+	        }
+	    }
+	    else{
+	        echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+	    }
 	}
 	
 }

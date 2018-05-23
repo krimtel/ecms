@@ -47,4 +47,16 @@ class Video_model extends CI_Model {
 		$result=$this->db->get_where('video_item vi',array('v.status'=>1, 'vi.status'=>1))->result_array();
 		return $result;
 	}
+	
+	function video_publish(){
+	    $this->db->where('vid',$data['v_id']);
+	    $this->db->update('video',array('publish'=>$data['status']));
+	    return true;
+	}
+	
+	function video_delete($data){
+	    $this->db->where('v_id',$data['v_id']);
+	    $this->db->update('video',array('status'=>0));
+	    return true;
+	}
 }
