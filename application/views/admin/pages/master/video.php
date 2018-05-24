@@ -47,6 +47,18 @@
 				</div>
 				
 				<div class="form-group">
+				<label class="col-sm-3 control-label">Select Category</label>
+				  <div class="col-sm-9">
+				  	<select id="v_category" name="v_category" class="form-control">
+				  		<option value="0">please select video category</option>
+					  	<?php foreach($p_categories as $p_category){ ?>
+					  		<option value="<?php echo $p_category['v_id'];?>"><?php echo $p_category['category_name']." =>"; ?></option>
+					  	<?php }?>
+				  		
+				  	</select>
+				  </div>
+				</div>
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Video Content</label>
 					<div class="col-sm-9">
 						<textarea id="v_desc" name="v_desc" class="form-control" rows="10"></textarea>

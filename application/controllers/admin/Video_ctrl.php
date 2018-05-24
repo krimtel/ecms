@@ -29,7 +29,6 @@ class Video_ctrl extends CI_Controller {
 			if($language['l_id'] == $this->session->userdata('language'))
 				$data['language'] = $language;
 		}
-
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Video.txt'),true);
 		if(count($file_menu)){
 			$data['videos'] = $file_menu;
@@ -40,7 +39,7 @@ class Video_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Video.txt';
 			file_put_contents ($file, $json);
 		}
-		
+		$data['p_categories'] = $this->Video_model->get_cat_list();
 		$data['head'] = $this->load->view('admin/comman/head',$data,TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation',$data,TRUE);
@@ -142,7 +141,65 @@ class Video_ctrl extends CI_Controller {
 		else{
 			echo json_encode(array('msg'=>'something wrong.','status'=>500));
 		}
+	}
 	
+	function video_cat(){
+		$data['title'] = 'eNam Admin';
+		$data['p_categories'] = $this->Video_model->get_p_cat_list();
+		$data['categories'] = $this->Video_model->category_list();
+		
+		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
+		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
+		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
+		$data['footer'] = $this->load->view('admin/comman/footer','',TRUE);
+		$data['main_contant'] = $this->load->view('admin/pages/master/video_cat',$data,TRUE);
+		$this->load->view('admin/comman/index',$data);
+	}
+	
+	function category_create(){
+		$data['cat_id'] = $this->input->post('v_cat_id');
+		if($data['cat_id'] == ''){
+		///   new category create
+			$data['category_name'] = $this->input->post('v_category_name');
+			$data['p_id'] = $this->input->post('v_category_parent_drop_down');
+			$data['created_at'] = date('y-m-d h:i:s');
+			$data['created_by'] = $this->session->userdata('user_id');
+			$data['ip'] = $this->input->ip_address();
+			$result = $this->Video_model->category_create($data);
+			if($result){
+				echo json_encode(array('status'=>200));
+			}
+			else{
+				echo json_encode(array('status'=>500));
+			}
+		}
+		else{
+		///  category update
+			$data['category_name'] = $this->input->post('v_category_name');
+			$data['p_id'] = $this->input->post('v_category_parent_drop_down');
+			$data['updated_at'] = date('y-m-d h:i:s');
+			$data['updated_by'] = $this->session->userdata('user_id');
+			$data['ip'] = $this->input->ip_address();
+			$result = $this->Video_model->category_update($data);
+			if($result){
+				echo json_encode(array('status'=>200));
+			}
+			else{
+				echo json_encode(array('status'=>500));
+			}
+		}
+		
+	}
+	
+	function category_detail(){
+		$data['v_id'] = $this->input->post('vc_id');
+		$result = $this->Video_model->category_detail($data);
+		if(count($result)>0){
+			echo json_encode(array('data'=>$result,'status'=>200));
+		}
+		else{
+			echo json_encode(array('status'=>500));
+		}
 	}
 	
 }

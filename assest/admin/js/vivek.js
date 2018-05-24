@@ -792,6 +792,55 @@ $(document).ready(function(){
 			    }
 			}).submit();
 	});
+	
+///////////////////////////////video_category ////////////////////	
+
+	
+	$(document).on('click','#v_category_create,#v_category_update',function(){
+		$('#video_cat_form').ajaxForm({
+		    dataType : 'json',
+		    data : {
+		    },
+		    beforeSubmit:function(e){
+				$('#loader').modal('show');
+		    },
+		    success:function(response){
+		    	console.log(response);
+		  	  if(response.status == 200){
+		    	$('#loader').modal('toggle');
+		    	alert(response.msg);
+		    	//location.reload();
+		      }
+		      else{
+			    alert(response.msg);
+		      }
+		    }
+	  }).submit();
+	});
+	
+	$(document).on('click','.v_cat_list_item',function(){
+		var vc_id = $(this).data('vc_id'); 
+		$.ajax({
+			type : 'post',
+			url : baseUrl+'admin/Video_ctrl/category_detail',
+			dataType : "json",
+			data: {
+				'vc_id' : vc_id
+			},
+			beforeSend: function(){
+				$('#loader').modal({'show': true});
+			},
+			complete: function(){},
+			success:function(response){
+				if(response.status==200){
+					$('#v_cat_id').val(response.data[0].v_id)
+					$('#v_category_name').val(response.data[0].category_name);
+					$('#v_category_parent_drop_down').val(response.data[0].p_id);
+				}
+				$('#loader').modal('toggle');
+			}
+		});
+	});
 });
 
 
