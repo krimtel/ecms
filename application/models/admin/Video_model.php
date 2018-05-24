@@ -110,9 +110,10 @@ class Video_model extends CI_Model {
 		return $result = $this->db->get_where('video_category',array('status'=>1,'p_id'=>0))->result_array();
 	}
 	function get_cat_list(){
-		$this->db->select('e1.* ,e2.category_name');
-		$this->db->join('video_category e1','e1.p_id=e2.v_id' ,'left');
-		return $result=$this->db->get_where('video_category e2',array('e1.status' => 1))->result_array();
+		$this->db->select('e1.* ,e2.category_name as p_name');
+		$this->db->join('video_category e2','e2.v_id=e1.p_id' ,'left');
+		$result = $this->db->get_where('video_category e1',array('e1.status' => 1))->result_array();
+		return $result; 
 	}
 	
 	function category_create($data){

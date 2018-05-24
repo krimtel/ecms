@@ -52,7 +52,11 @@
 				  	<select id="v_category" name="v_category" class="form-control">
 				  		<option value="0">please select video category</option>
 					  	<?php foreach($p_categories as $p_category){ ?>
-					  		<option value="<?php echo $p_category['v_id'];?>"><?php echo $p_category['category_name']." =>"; ?></option>
+					  		<?php if($p_category['p_id'] == 0){?>
+					  			<option value="<?php echo $p_category['v_id'];?>"><?php echo $p_category['category_name']; ?></option>
+					  		<?php } else { ?>
+					  			<option value="<?php echo $p_category['v_id'];?>"><?php echo $p_category['p_name'].' -> '.$p_category['category_name']; ?></option>
+					  		<?php } ?>
 					  	<?php }?>
 				  		
 				  	</select>
