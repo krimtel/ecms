@@ -29,6 +29,7 @@ $route['admin/admin/news'] = 'admin/News_ctrl/index';
 $route['admin/admin/links'] = 'admin/Links_ctrl/index';
 $route['admin/admin/events'] = 'admin/Event_ctrl/index';
 $route['admin/admin/slider'] = 'admin/Slider_ctrl/index';
+$route['admin/admin/videos'] = 'admin/video_sa_ctrl/index';
 $route['admin/admin/Static_pages'] = 'admin/Static_ctrl/index';
 $route['admin/admin/add_page'] = 'admin/Page_ctrl/index';
 $route['admin/admin/(:any)'] = 'admin/Admin_ctrl/$1';

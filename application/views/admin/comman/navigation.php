@@ -47,10 +47,11 @@
 			<a title="Widget" href="#" data-toggle="dropdown" > <i class="fa fa-th-large" aria-hidden="true" ></i> Widget <b class="caret"></b></a>
 			<ul class="dropdown-menu">
 				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/news"><i class="fa fa-file" aria-hidden="true" ></i> News/Notice </a></li>
-				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/links"><i class="fa fa-link" aria-hidden="true" ></i> Quick Links </a></li>
+				<li><a title="News/Links" href="<?php echo base_url(); ?>admin/admin/links"><i class="fa fa-link" aria-hidden="true" ></i> Quick Links </a></li>
 				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/events"><i class="fa fa-calendar" aria-hidden="true" ></i> Events </a></li>
-				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/slider"><i class="fa fa-image" aria-hidden="true" ></i> Slider </a></li>
-				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/widgets"><i class="fa fa-delicious" aria-hidden="true" ></i> Widgets </a></li>
+				<li><a title="Sliders" href="<?php echo base_url(); ?>admin/admin/slider"><i class="fa fa-image" aria-hidden="true" ></i> Slider </a></li>
+				<li><a title="Widgets" href="<?php echo base_url(); ?>admin/admin/widgets"><i class="fa fa-delicious" aria-hidden="true" ></i> Widgets </a></li>
+				<li><a title="Videos" href="<?php echo base_url(); ?>admin/admin/videos"><i class="fa fa-delicious" aria-hidden="true" ></i> Videos </a></li>
 			</ul>
 	</li>
 	<li>

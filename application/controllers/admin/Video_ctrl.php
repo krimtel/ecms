@@ -133,6 +133,7 @@ class Video_ctrl extends CI_Controller {
 		$data['sort'] = $this->input->post('v_sort');
 		$data['v_url'] = $this->input->post('v_url');
 		$data['v_title'] = $this->input->post('v_title');
+		//print_r($data); die;
 		$result=$this->Video_model->video_update($data);
 		if($result){
 			$this->file_update();

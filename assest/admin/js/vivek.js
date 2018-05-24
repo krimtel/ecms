@@ -760,11 +760,11 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click','#video_update',function(){
-		var v_id = $(this).data('video_id');
-		var v_url=$(this).data('v_url');
-		var v_desc=$(this).data('v_desc');
-		var v_title=$(this).data('v_title');
-		var v_sort=$(this).data('v_order');
+		var v_id=$('#video_id').val();
+		var v_url=$('#v_url').val();
+		var v_desc=CKEDITOR.instances.v_desc.getData();
+		var v_title=$('#v_title').val();
+		var v_sort=$('#v_order').val();
 		$.ajax({
 			type : 'post',
 			url : baseUrl+'admin/Video_ctrl/update_video',

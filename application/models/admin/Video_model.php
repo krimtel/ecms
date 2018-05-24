@@ -76,13 +76,13 @@ class Video_model extends CI_Model {
 	}
 	
 	function video_update($data){
-		$val1['v_url']  =  $data('v_url');
-		$val1['v_title']  =  $data('v_tile');
-		$val1['v_content']  =  $data('v_content');
-		$val1['sort']  =  $data('sort');
-		$val1['updated_at']  =  $data('updated_at');
-		$val1['updated_by']  =  $data('updated_by');
-		$val1['v_id']  =  $data('v_id');
+		$val1['v_url']  =  $data['v_url'];
+		$val1['v_title']  =  $data['v_title'];
+		$val1['v_content']  =  $data['v_content'];
+		$val1['sort']  =  $data['sort'];
+		$val1['updated_at']  =  $data['updated_at'];
+		$val1['updated_by']  =  $data['updated_by'];
+		$val1['v_id']  =  $data['v_id'];
 		
 		$this->db->trans_begin();
 		$this->db->where('video_id',$data['v_id']);
@@ -92,10 +92,10 @@ class Video_model extends CI_Model {
 				'updated_by' => $data['updated_by'],
 				'v_url' => $data['v_url']
 		));
-		
-		$this->db->query("update video set updated_at = '".$data['updated_at']."',updated_by=".$data['updated_by'].",sort=".$data['sort'].","v_title=".$data['v_title'].
-				where id = (select news_id from news_item where id=".$data['news_id'].")");
-		
+
+		$this->db->query("update video set updated_at = '".$data['updated_at']."',updated_by='".$data['updated_by']."',sort='".$data['sort']."',v_title='".$data['v_title']."'
+				where v_id = (select video_id from video_item where v_id=".$data['v_id'].")");
+	//	print_r($this->db->last_query()); die;
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;
