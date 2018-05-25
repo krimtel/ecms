@@ -40,7 +40,6 @@ class News_model extends CI_Model {
 	
 	function news_update($data){
 		$group = $this->session->userdata('group_name');
-		
 		if($group != 'admin' && $group != 'developer'){
 			/// language admin section
 			$this->db->select('news_id');

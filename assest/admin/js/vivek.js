@@ -648,6 +648,18 @@ $(document).ready(function(){
 		 else{
 			 $('#v_order').css('display','none');
 		 }
+		 
+//		 if($('#v_category').val=='please_select_video_category'){
+//			 ($('#v_category').val()=='');
+//		 }
+		 if($('#v_category').val()=='0'){
+			 $('#v_category_error').html("please select video category").css('display','block');
+			 form_valid = false;
+		 }
+		 else{
+			 $('#v_category').css('display','none');
+		 }
+		 
 		if(form_valid){
 			$('#video_form').ajaxForm({
 				dataType : 'json',
@@ -727,7 +739,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$(document).on('click','.video_edit',function(){
+	$(document).on('click','.video_edit,.video_tranlate',function(){
 		var v_id= $(this).data('video_id');
 		$.ajax({
 			type: 'post',
@@ -749,6 +761,7 @@ $(document).ready(function(){
 	        		$('#v_order').val(response.data[0].sort);
 	        		$('#v_url').val(response.data[0].v_url);
 	        		$('#v_title').val(response.data[0].v_title);
+	        		$('#v_category').val(response.data[0].category_id);
 	        		$('#video_update').show();
 	        		$('#video_create').hide();
 	        	}
@@ -765,6 +778,7 @@ $(document).ready(function(){
 		var v_desc=CKEDITOR.instances.v_desc.getData();
 		var v_title=$('#v_title').val();
 		var v_sort=$('#v_order').val();
+		var v_category=$('#v_category').val();
 		$.ajax({
 			type : 'post',
 			url : baseUrl+'admin/Video_ctrl/update_video',
@@ -774,7 +788,8 @@ $(document).ready(function(){
 				'v_url' : v_url,
 				'v_desc': v_desc,
 				'v_title':v_title,
-				'v_sort':v_sort
+				'v_sort':v_sort,
+				'v_category':v_category
 			},
 			beforeSend: function(){
 				$('#loader').modal({'show': true});

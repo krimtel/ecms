@@ -45,7 +45,7 @@
 						<div class="text-danger" id="v_title_error" style="display:none;"></div>
 					</div>
 				</div>
-				
+				<?php if($group != 'subadmin') { ?>
 				<div class="form-group">
 				<label class="col-sm-3 control-label">Select Category</label>
 				  <div class="col-sm-9">
@@ -53,15 +53,16 @@
 				  		<option value="0">please select video category</option>
 					  	<?php foreach($p_categories as $p_category){ ?>
 					  		<?php if($p_category['p_id'] == 0){?>
-					  			<option value="<?php echo $p_category['v_id'];?>"><?php echo $p_category['category_name']; ?></option>
+					  			<option value="<?php echo $p_category['p_id'];?>"><?php echo $p_category['category_name']; ?></option>
 					  		<?php } else { ?>
-					  			<option value="<?php echo $p_category['v_id'];?>"><?php echo $p_category['p_name'].' -> '.$p_category['category_name']; ?></option>
+					  			<option value="<?php echo $p_category['p_id'];?>"><?php echo $p_category['p_name'].' -> '.$p_category['category_name']; ?></option>
 					  		<?php } ?>
 					  	<?php }?>
-				  		
 				  	</select>
+				  	<div class="text-danger" id="v_category_error" style="display:none;"></div>
 				  </div>
 				</div>
+				<?php }?>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Video Content</label>
 					<div class="col-sm-9">
@@ -111,12 +112,12 @@
 					<tr>
 						<th>Video</th>
 						<th>Title</th>
+						<th>Content</th>
 						<?php if($group != 'subadmin') { ?>
 							<th>Sort</th>
 							<th>Publish</th>
-							<th> operations </th>
-						<?php } ?>
-						
+							<?php } ?>
+							<th> Operations </th>
 					</tr>
 					<tbody>
 						<?php if(isset($videos) && (count($videos) > 0)){
@@ -126,20 +127,23 @@
 										<tr>
 											<td><?php echo $video['v_url'];?></td>
 											<td><?php echo $video['v_title'];?></td>
-											
+											<td><?php echo $video['v_title'];?></td>
 											<?php if($group != 'subadmin'){ ?>
 											
 											<td><?php echo $video['sort'];?></td>
 											<td><?php if($video['publish']){ ?>
-											<input class="video_published" data-video_id="<?php echo $video['video_id']?>" type="checkbox" checked>										
+	                                      <input class="video_published" data-video_id="<?php echo $video['video_id']?>" type="checkbox" checked>										
 											<?php } else { ?>
 												<input class="video_published" data-video_id="<?php echo $video['video_id']?>" type="checkbox">
 											<?php } ?>
 										</td>
-									<?php } ?>
 											<td><a class="video_edit" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	<a class="video_delete" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-trash"></i></a></td>
-									    
+                                           <a class="video_delete" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-trash"></i></a></td>
+                                           <?php }
+                                           else{ ?>
+                                           	<td><a class="video_tranlate" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a>
+                                          <?php }
+                                           ?>
 										</tr>	
 							
 							<?php 		}
@@ -162,7 +166,7 @@
 		<div class="box box-primary">
 			<div class="box-header with-border">
 			<?php if(isset($language)){ ?>
-			  	<h3 class="box-title">All Menus (<?php echo $language['l_name']; ?>)</h3>
+			  	<h3 class="box-title">All Videos (<?php echo $language['l_name']; ?>)</h3>
 			<?php } ?>
 			  <div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -174,18 +178,18 @@
 				<table class="table">
 					<tr>
 						<th>Video</th>
-						<?php if($group != 'subadmin'){ ?>
-							<th>Sort</th>
-							<th>Publish</th>
-						<?php } ?>
-						<th>Operations</th>
+						<th>Title</th>
+						<th>Content</th>
+						<th>Operation</th>
 					</tr>
 					<tbody>
-						<?php if(isset($events) && (count($events) > 0)){ 
-								foreach($events as $event) { ?>
-								<?php if($event['lang_id'] == $this->session->userdata('language')) { ?>
+						<?php if(isset($videos) && (count($video) > 0)){ 
+								foreach($videos as $video) { ?>
+								<?php if($video['lang_id'] == $this->session->userdata('language')) { ?>
 								<tr>
-									<td><?php echo $event['event_content']; ?></td>
+									<td><?php echo $video['v_url']; ?></td>
+									<td><?php echo $video['v_title']; ?></td>
+									<td><?php echo $video['v_content']; ?></td>
 									<?php if($group != 'subadmin'){ ?>
 										<td><?php echo $event['sort']; ?></td>
 										<td>
@@ -195,21 +199,13 @@
 												<input class="event_published" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
 											<?php } ?>
 										</td>
-										<td>
-											<?php if($event['is_home']){ ?>
-												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox" checked>										
-											<?php } else { ?>
-												<input class="is_home" data-event_id="<?php echo $event['event_id']?>" type="checkbox">
-											<?php } ?>
-										</td>
+									
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="event_tranlate" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-heartbeat"></i></a>
-										<?php } else { ?>
-											<a class="event_edit" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-pencil"></i></a> 
-									    	
-										<?php } ?>
+											<td><a class="video_tranlate" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a>
+										<?php }  ?>
+											
 									</td>
 								</tr>
 						<?php } } }?>
@@ -223,4 +219,3 @@
 		</div>
 		</section>
 </div>
-

@@ -54,6 +54,8 @@ class Video_ctrl extends CI_Controller {
 		$data['v_desc'] = $this->input->post('v_desc');
 		$data['v_id'] = (int)$this->input->post('v_id');
 		$data['v_order'] = (int)$this->input->post('v_order');
+		$data['category_id'] = $this->input->post('v_category');
+		
 		$data['created_at'] = date('Y-m-d h:i:s');
 		$data['created_by'] = $this->session->userdata('user_id');
 		$result = $this->Video_model->video_create($data);
@@ -132,7 +134,8 @@ class Video_ctrl extends CI_Controller {
 		$data['sort'] = $this->input->post('v_sort');
 		$data['v_url'] = $this->input->post('v_url');
 		$data['v_title'] = $this->input->post('v_title');
-		//print_r($data); die;
+		$data['category_id'] = $this->input->post('v_category');
+		//print_r($data['v_id']); die;
 		$result=$this->Video_model->video_update($data);
 		if($result){
 			$this->file_update();
