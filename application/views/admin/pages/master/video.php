@@ -116,6 +116,7 @@
 						<?php if($group != 'subadmin') { ?>
 							<th>Sort</th>
 							<th>Publish</th>
+							<th>Is Home</th>
 							<?php } ?>
 							<th> Operations </th>
 					</tr>
@@ -127,7 +128,7 @@
 										<tr>
 											<td><?php echo $video['v_url'];?></td>
 											<td><?php echo $video['v_title'];?></td>
-											<td><?php echo $video['v_title'];?></td>
+											<td><?php echo $video['v_content'];?></td>
 											<?php if($group != 'subadmin'){ ?>
 											
 											<td><?php echo $video['sort'];?></td>
@@ -135,6 +136,13 @@
 	                                      <input class="video_published" data-video_id="<?php echo $video['video_id']?>" type="checkbox" checked>										
 											<?php } else { ?>
 												<input class="video_published" data-video_id="<?php echo $video['video_id']?>" type="checkbox">
+											<?php } ?>
+										</td>
+										<td>
+											<?php if($video['is_home']){ ?>
+												<input class="video_is_home" data-video_id="<?php echo $video['video_id']?>" type="checkbox" checked />										
+											<?php } else { ?>
+												<input class="video_is_home" data-video_id="<?php echo $video['video_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
 											<td><a class="video_edit" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a> 

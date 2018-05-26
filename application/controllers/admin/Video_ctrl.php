@@ -146,6 +146,25 @@ class Video_ctrl extends CI_Controller {
 		}
 	}
 	
+	function video_is_home(){
+		$data['v_id'] =  (int)$this->input->post('v_id');
+		$data['status1'] =      $this->input->post('status1');
+		if($data['status1'] ==  'true'){
+			$data['status1'] =   1;
+		}
+		else{
+			$data['status1'] =  0;
+		}
+		$result=$this->Video_model->video_is_home($data);
+		if($result){
+			$this->file_update();
+			echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+		}
+		else{
+			echo json_encode(array('msg'=>'something wrong.','status'=>500));
+		}
+	}
+//////////////////////////////////////////////////////video category//////////////////////////////////////////////////////////////////////////	
 	function video_cat(){
 		$data['title'] = 'eNam Admin';
 		$data['p_categories'] = $this->Video_model->get_p_cat_list();

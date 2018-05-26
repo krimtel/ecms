@@ -773,6 +773,21 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click','#video_update',function(){
+		 if($('#v_title').val() == ''){
+			 $('#v_title_error').html('please Fill Video Title').css('display','block');
+			 form_valid = false;
+		 }
+		 else{
+			 $('#v_title_error').css('display','none');
+		 }
+		 
+		 if($('v_desc') == ''){
+			 $('#v_desc_error').html('please Fill Video Description').css('display','block');
+			 form_valid = false;
+		 }
+		 else{
+			 $('#v_desc_error').css('display','none');
+		 }
 		var v_id=$('#video_id').val();
 		var v_url=$('#v_url').val();
 		var v_desc=CKEDITOR.instances.v_desc.getData();
@@ -808,10 +823,27 @@ $(document).ready(function(){
 			}).submit();
 	});
 	
-///////////////////////////////video_category ////////////////////	
+////////////////////////////////////////////////////////////video_category /////////////////////////////////////////////////////////////	
 
-	
 	$(document).on('click','#v_category_create,#v_category_update',function(){
+		
+		var form_valid = true;
+		if($('#v_category_name').val() == ''){
+			$('#v_category_name_error').html('Please Enter Video Category.').css('display','block');
+			form_valid = false;
+		}
+	 else{
+			$('#v_category_name_error').css('display','none');
+		}
+		
+		if($('#v_category_parent_drop_down').val() == '0'){
+			$('#v_category_parent_drop_down_error').html('Please Enter Parent Video Category.').css('display','block');
+			form_valid = false;
+		}
+	 else{
+			$('#v_category_parent_drop_down_error').css('display','none');
+		}
+		
 		$('#video_cat_form').ajaxForm({
 		    dataType : 'json',
 		    data : {
@@ -855,6 +887,38 @@ $(document).ready(function(){
 				$('#loader').modal('toggle');
 			}
 		});
+	});
+	
+	$(document).on('click','.video_is_home',function(){
+		var x = confirm('Are You Sure');
+		if(!x){
+			if($(this).prop('checked')==true){
+				$(this).prop('checked',false);
+			}
+			else{
+				$this.prop('checked',true);
+			}
+		}
+		else{
+			var status1=$(this).prop('checked');
+			var v_id=$(this).data('video_id');
+			$.ajax({
+				type  :		'post',
+				url   :      baseUrl+'admin/video_ctrl/video_is_home',
+				data  :      {
+					'status1' :  status1,
+					'v_id'    :  v_id
+				},
+				beforesend : function(){
+					$('#loader').modal({'show' : true});
+				},
+				complete: function(){},
+				success: function(response){
+					console.log(response);
+					$('loader').model('toggle');
+				}
+			});
+		}
 	});
 });
 

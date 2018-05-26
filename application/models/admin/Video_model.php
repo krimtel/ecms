@@ -9,7 +9,9 @@ class Video_model extends CI_Model {
 	
 	function video_create($data){
 		//video table data
-		
+		$group = $this->session->userdata('group_name');
+		if($group == 'admin'){
+			
 		$val['v_title'] = $data['v_title'];
 		$val['sort']=$data['v_order'];
 		$val['v_url'] = $data['v_url'];
@@ -38,11 +40,15 @@ class Video_model extends CI_Model {
 			return true;
 			
 		}
+		}
+		else{
+			echo "you are not authorized.";
+		}
 	}
 
 	
 	function Video_list(){
-		$this->db->select('vi.*,v.sort,v.v_url,v.publish');
+		$this->db->select('vi.*,v.sort,v.v_url,v.publish,v.	is_home');
 		$this->db->join('video v','v.v_id=vi.video_id');
 		$this->db->order_by('v.sort,v.created_at,v.updated_at','ASC');
 		$result=$this->db->get_where('video_item vi',array('v.status'=>1, 'vi.status'=>1))->result_array();
@@ -53,6 +59,13 @@ class Video_model extends CI_Model {
 	    $this->db->where('v_id',$data['v_id']);
 	    $this->db->update('video',array('publish'=>$data['status']));
 	    return true;
+	}
+	 
+	function video_is_home($data){
+		$this->db->where('v_id',$data['v_id']);
+		$this->db->update('video',array('is_home'=>$data['status1']));
+		
+		return true;
 	}
 	
 	function video_delete($data){
