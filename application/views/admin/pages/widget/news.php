@@ -46,7 +46,8 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Sort Order</label>
 					<div class="col-sm-10">
-						<input type="text" id="news_order" name="news_order" class="form-control" placeholder="Enter sort order" value="" />
+						<input type="text" id="news_order" name="news_order" class="form-control" placeholder="Enter sort order" value="999" />
+						<div id="news_order_error" class="text-danger" style="display:none;"></div>
 					</div>
 				</div>
 				<?php } ?>

@@ -51,12 +51,13 @@ class News_ctrl extends CI_Controller {
 		$this->form_validation->set_rules('news_desc', str_replace(':', '', $this->lang->line('news_news_desc_label')), 'required');
 	
 		if($this->input->post('news_id') != ''){
-			$this->form_validation->set_rules('news_id','News Id','required|is_natural_no_zero');
+			$this->form_validation->set_rules('news_id','News Id','required|integer|is_natural_no_zero');
 		}
 		if($this->ion_auth->is_admin()){
-			$this->form_validation->set_rules('news_order','News Order','required|is_natural');
+			$this->form_validation->set_rules('news_order','News Order','required|is_natural|integer');
 		}
 		$this->form_validation->set_rules('news_desc','News Contant','required|trim');
+		
 		if ($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('message', validation_errors());
 			redirect('admin/admin/news', 'refresh');
@@ -116,22 +117,31 @@ class News_ctrl extends CI_Controller {
 	
 	function news_publish(){
 		if($this->ion_auth->is_admin()){
-			$data['n_id'] = (int)$this->input->post('n_id');
-			$data['status'] = $this->input->post('status');
-			if($data['status'] == 'true'){
-				$data['status'] = 1;
-			}
-			else{
-				$data['status'] = 0;
-			}
+			$this->form_validation->set_rules('n_id', 'News Id', 'required|trim|integer|is_natural_no_zero');
+			$this->form_validation->set_rules('status', 'News Status', 'required|trim|integer|is_natural');
 			
-			$result = $this->News_model->news_publish($data);
-			if($result){
-				$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			if ($this->form_validation->run() == FALSE){
+				$this->session->set_flashdata('message',validation_errors());
+				echo validation_errors();
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				$data['n_id'] = (int)$this->input->post('n_id');
+				$data['status'] = $this->input->post('status');
+				if($data['status'] == 'true'){
+					$data['status'] = 1;
+				}
+				else{
+					$data['status'] = 0;
+				}
+				
+				$result = $this->News_model->news_publish($data);
+				if($result){
+					$this->file_update();
+					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				}
 			}
 		}
 		else{
@@ -141,14 +151,21 @@ class News_ctrl extends CI_Controller {
 	
 	function news_delete(){
 		if($this->ion_auth->is_admin()){
-			$data['n_id'] = $this->input->post('n_id');
-			$result = $this->News_model->news_delete($data);
-			if($result){
-				$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			$this->form_validation->set_rules('n_id', 'News Id', 'required|trim|integer|is_natural_no_zero');
+			if ($this->form_validation->run() == FALSE){
+				$this->session->set_flashdata('message',validation_errors());
+				echo validation_errors();
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				$data['n_id'] = $this->input->post('n_id');
+				$result = $this->News_model->news_delete($data);
+				if($result){
+					$this->file_update();
+					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				}
 			}
 		}
 		else{

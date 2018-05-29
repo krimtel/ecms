@@ -193,36 +193,49 @@ class Video_ctrl extends CI_Controller {
 	}
 	
 	function category_create(){
-		$data['cat_id'] = $this->input->post('v_cat_id');
-		if($data['cat_id'] == ''){
-		///   new category create
-			$data['category_name'] = $this->input->post('v_category_name');
-			$data['p_id'] = $this->input->post('v_category_parent_drop_down');
-			$data['created_at'] = date('y-m-d h:i:s');
-			$data['created_by'] = $this->session->userdata('user_id');
-			$data['ip'] = $this->input->ip_address();
-			$result = $this->Video_model->category_create($data);
-			if($result){
-				echo json_encode(array('status'=>200));
+		if($this->ion_auth->is_admin()){
+			$this->form_validation->set_rules('v_category_name', 'Category name', 'required|trim|min_length[3]');
+			$this->form_validation->set_rules('v_category_parent_drop_down', 'Category parent category', 'required|trim|integer|is_natural');
+			if ($this->form_validation->run() == FALSE){
+				$this->session->set_flashdata('message',validation_errors());
+				echo validation_errors();
 			}
 			else{
-				echo json_encode(array('status'=>500));
+				$data['cat_id'] = $this->input->post('v_cat_id');
+				if($data['cat_id'] == ''){
+				///   new category create
+					$data['category_name'] = $this->input->post('v_category_name');
+					$data['p_id'] = $this->input->post('v_category_parent_drop_down');
+					$data['created_at'] = date('y-m-d h:i:s');
+					$data['created_by'] = $this->session->userdata('user_id');
+					$data['ip'] = $this->input->ip_address();
+					$result = $this->Video_model->category_create($data);
+					if($result){
+						echo json_encode(array('msg'=>'video category created successfully.','status'=>200));
+					}
+					else{
+						echo json_encode(array('msg'=>'Viedo category not created.','status'=>500));
+					}
+				}
+				else{
+				///  category update
+					$data['category_name'] = $this->input->post('v_category_name');
+					$data['p_id'] = $this->input->post('v_category_parent_drop_down');
+					$data['updated_at'] = date('y-m-d h:i:s');
+					$data['updated_by'] = $this->session->userdata('user_id');
+					$data['ip'] = $this->input->ip_address();
+					$result = $this->Video_model->category_update($data);
+					if($result){
+						echo json_encode(array('msg'=>'video category updated successfully.','status'=>200));
+					}
+					else{
+						echo json_encode(array('msg'=>'Viedo category not updated.','status'=>500));
+					}
+				}
 			}
 		}
 		else{
-		///  category update
-			$data['category_name'] = $this->input->post('v_category_name');
-			$data['p_id'] = $this->input->post('v_category_parent_drop_down');
-			$data['updated_at'] = date('y-m-d h:i:s');
-			$data['updated_by'] = $this->session->userdata('user_id');
-			$data['ip'] = $this->input->ip_address();
-			$result = $this->Video_model->category_update($data);
-			if($result){
-				echo json_encode(array('status'=>200));
-			}
-			else{
-				echo json_encode(array('status'=>500));
-			}
+			echo json_encode(array('msg'=>'You are not Authorized.','status'=>500));
 		}
 		
 	}

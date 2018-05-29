@@ -788,6 +788,14 @@ $(document).ready(function(){
 		else{ 
 			$('#news_desc_error').css('display','none');
 		}
+		
+		if($('#news_order').val() == ''){
+			$('#news_order_error').html('News order is required.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#news_order_error').css('display','none');
+		}
 		if(form_valid){
 			$('#news_form').ajaxForm({
 			    dataType : 'json',

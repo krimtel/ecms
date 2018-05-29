@@ -66,11 +66,8 @@
               <?php foreach($categories as $category){
 	      				if($category['p_id'] == 0){
 	      					echo '<ul>';
-	      					if($category['category_name'] == ''){
-	      						echo '<li class="v_cat_list_item" data-vc_id="'.$category['v_id'].'">'.$category['category_name'].'</li>';
-	      					}
-	      					else{
-	      						echo '<li class="v_cat_list_item" data-vc_id="'.$category['v_id'].'">'.$category['category_name'].'</li>';
+	      					if($category['category_name'] != ''){
+	      						echo '<li class="v_cat_list_item" data-vc_id="'.$category['v_id'].'">'.$category['category_name'].'</li><span><a href="javascript:void(0);" class="video_cat_delte" data-vid="'.$category['v_id'].'"><i class="fa fa-trash"></i></a></span>';
 	      					}
 	      					$ic = 0;
 	      					foreach($categories as $m1){
@@ -79,11 +76,8 @@
 	      								echo '<ul '.$ic.'>';
 	      							}
 	      							$ic = 1;
-	      							if($m1['category_name'] == ''){
-	      								echo '<li class="v_cat_list_item" data-vc_id="'.$m1['v_id'].'">'.$m1['category_name'].'</li>';
-	      							}
-	      							else{
-	      								echo '<li class="v_cat_list_item" data-vc_id="'.$m1['v_id'].'">'.$m1['category_name'].'</li>';
+	      							if($m1['category_name'] != ''){
+	      								echo '<li class="v_cat_list_item" data-vc_id="'.$m1['v_id'].'">'.$m1['category_name'].'</li><span><a href="javascript:void(0);" class="video_cat_delte" data-vid="'.$category['v_id'].'"><i class="fa fa-trash"></i></a></span>';
 	      							}
 	      						}
 	      						else{
