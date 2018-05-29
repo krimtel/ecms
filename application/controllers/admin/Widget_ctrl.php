@@ -26,41 +26,44 @@ class Widget_ctrl extends CI_Controller {
 	}
 	
 	function widget_create(){
-		$this->form_validation->set_rules('widget_content', str_replace(':', '', $this->lang->line('widget_widget_content_label')), 'required');
-		$this->form_validation->set_rules('widget_title', str_replace(':', '', $this->lang->line('widget_widget_title_label')), 'required');
-		$this->form_validation->set_rules('widget_name', str_replace(':', '', $this->lang->line('widget_widget_name_label')), 'required');
-		$this->form_validation->set_rules('widget_content','Widget Content','required|trim');
+		$this->form_validation->set_rules('widget_id', str_replace(':', '', $this->lang->line('widget_widget_content_label')), 'required|trim|integer|is_natural_no_zero');
+		$this->form_validation->set_rules('widget_content', str_replace(':', '', $this->lang->line('widget_widget_content_label')), 'required|trim|min_length[3]');
+		$this->form_validation->set_rules('widget_title', str_replace(':', '', $this->lang->line('widget_widget_title_label')), 'required|trim|min_length[3]');
+		$this->form_validation->set_rules('widget_name', str_replace(':', '', $this->lang->line('widget_widget_name_label')), 'required|trim|min_length[3]');
 		
 		if ($this->form_validation->run() == FALSE){
-			echo validation_errors(); die;
-		}
-		$data['created_at'] = date('d-m-y h:i:s');
-		$data['created_by'] = $this->session->userdata('user_id');
-		$data['lang_id'] = $this->session->userdata('language');
-		$data['ip'] = $this->input->ip_address();
-		if($this->input->post('widget_id')){
-			$data['widget_id'] = (int)$this->input->post('widget_id'); 
-			$data['widget_title'] = $this->input->post('widget_title');
-			$data['widget_name'] = $this->input->post('widget_name');
-			$data['widget_content'] = $this->input->post('widget_content');
-			$result = $this->Widget_model->widget_update($data);
-			if($result){
-				echo json_encode(array('msg'=>'widget updated successfully.','status'=>200));
-			}
-			else{
-				echo json_encode(array('msg'=>'Something gonna wrong.','status'=>500));
-			}
+			$this->session->set_flashdata('message',validation_errors());
+			echo validation_errors(); 
 		}
 		else{
-			if($this->ion_auth->is_admin()){
+			$data['created_at'] = date('d-m-y h:i:s');
+			$data['created_by'] = $this->session->userdata('user_id');
+			$data['lang_id'] = $this->session->userdata('language');
+			$data['ip'] = $this->input->ip_address();
+			if($this->input->post('widget_id')){
+				$data['widget_id'] = (int)$this->input->post('widget_id'); 
 				$data['widget_title'] = $this->input->post('widget_title');
 				$data['widget_name'] = $this->input->post('widget_name');
 				$data['widget_content'] = $this->input->post('widget_content');
-				$result = $this->Widget_model->widget_create($data);
-				echo json_encode(array('data'=>$result,'msg'=>'widget created successfully.','status'=>200));
+				$result = $this->Widget_model->widget_update($data);
+				if($result){
+					echo json_encode(array('msg'=>'widget updated successfully.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'Something gonna wrong.','status'=>500));
+				}
 			}
 			else{
-				echo json_encode(array('msg'=>'Not authorized for creating widgets.','status'=>500));
+				if($this->ion_auth->is_admin()){
+					$data['widget_title'] = $this->input->post('widget_title');
+					$data['widget_name'] = $this->input->post('widget_name');
+					$data['widget_content'] = $this->input->post('widget_content');
+					$result = $this->Widget_model->widget_create($data);
+					echo json_encode(array('data'=>$result,'msg'=>'widget created successfully.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'Not authorized for creating widgets.','status'=>500));
+				}
 			}
 		}
 	}

@@ -45,7 +45,8 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Sort Order</label>
 					<div class="col-sm-10">
-						<input type="text" id="link_order" name="link_order" class="form-control" placeholder="Enter sort order" />
+						<input type="text" id="link_order" name="link_order" class="form-control" value="999" placeholder="Enter sort order" />
+						<div class="text-danger" id="link_order_error" style="display: none;"></div>
 					</div>
 				</div>
 				<?php } ?>

@@ -1359,6 +1359,15 @@ $(document).ready(function(){
 		else{
 			$('#link_desc_error').css('display','none');
 		}
+		
+		if($('#link_order').val() == ''){
+			$('#link_order_error').html('Link order is required.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#link_order_error').css('display','none');
+		}
+		
 		if(form_valid){
 			$('#link_form').ajaxForm({
 				dataType : 'json',
