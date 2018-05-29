@@ -23,8 +23,6 @@ class Menu_ctrl extends CI_Controller {
 	}
 	
 	public function index($m_id = null){
-		//$this->output->enable_profiler(TRUE);
-		
 		if($m_id != null){
 			$data['title'] = 'Menu Edit';
 		}
@@ -124,6 +122,7 @@ class Menu_ctrl extends CI_Controller {
 // 						'required'      => 'required',
 // 						'valid_url'     => 'its working'
 // 				));
+		
 		if ($this->form_validation->run() == FALSE){
 			echo validation_errors(); die;
 		}
@@ -132,18 +131,25 @@ class Menu_ctrl extends CI_Controller {
 			$data['menu_slug'] = $this->input->post('menu_name');
 			$data['p_id'] = (int)$this->input->post('menu_parent_dropdown');
 			
-			if($data['p_id'] != 0){
+// 			if($data['p_id'] != 0){
 				$data['external_link'] = (int)$this->input->post('menu_external_link');
 				$data['cms_url'] = $this->input->post('menu_url_text');
-			}
-			else{
-				$data['external_link'] = NULL;
-				$data['cms_url'] = NULL;
-			}
+				
+				$page_id = $this->input->post('menu_cems_link_select');
+				if($page_id != 0){
+					$data['page_id'] = $page_id;	
+				}
+				else {
+					$data['page_id'] = null;
+				}
+// 			}
+// 			else{
+// 				$data['external_link'] = NULL;
+// 				$data['cms_url'] = NULL;
+// 			}
 			$data['sort'] = (int)$this->input->post('menu_sort_order');
 			$data['created_at'] = date('d-m-y h:i:s');
-			$data['created_by'] = $this->session->userdata('user_id');
-			$data['updated_by'] = $this->session->userdata('user_id');
+			$data['created_by'] = (int)$this->session->userdata('user_id');
 			$data['ip'] = $this->input->ip_address();
 			
 			if($this->input->post('menu_id') != ''){
@@ -156,16 +162,16 @@ class Menu_ctrl extends CI_Controller {
 				else{
 					echo json_encode(array('msg'=>'some error found.','status'=>500));
 				}
-			die;
 			}
-			
-			$result = $this->Menu_model->menu_create($data);
-			if($result){
-				$this->file_update();
-				echo json_encode(array('msg'=>'menu created susseccfully.','status'=>200));
-			}
-			else{
-				echo json_encode(array('msg'=>'some error found.','status'=>500));
+			else {
+				$result = $this->Menu_model->menu_create($data);
+				if($result){
+					$this->file_update();
+					echo json_encode(array('msg'=>'menu created susseccfully.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'some error found.','status'=>500));
+				}
 			}
 		}
 	}

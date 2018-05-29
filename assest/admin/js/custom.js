@@ -16,23 +16,63 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click','#menu_create,#menu_update',function(){
-		$('#menu_create_form').ajaxForm({
-		    dataType : 'json',
-		    beforeSubmit:function(e){
-				$('#loader').modal('show');
-		    },
-		    success:function(response){
-		  	  if(response.status == 200){
-		    	$('#loader').modal('toggle');
-		    	alert(response.msg);
-		    	location.reload();
-		      }
-		      else{
-			    alert(response.msg);
-		      }
-		    }
-	  }).submit();
+		var form_valid = true;
+		if($('#menu_name').val() == ''){
+			$('#menu_name_error').html('Please Enter menu name.').css('display','block');
+			form_valid = false;
+		}
+		else if($('#menu_name').val().length < 4){
+			$('#menu_name_error').html('Menu name should atleast 3 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#menu_name_error').css('display','none');
+		}
+		
+		if($('#menu_sort_order').val() == ''){
+			$('#menu_sort_order_error').html('Please Enter Menu Sort Order.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#menu_sort_order_error').css('display','none');
+		}
+		
+		if($('#menu_url_text').val() == ''){
+			$('#menu_url_text_error').html('Please Enter Menu Url.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#menu_sort_order_error').css('display','none');
+		}
+		
+		if($('#menu_external_link').val() == '-1'){
+			$('#menu_external_link_error').html('Please Select link Behaviour.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#menu_external_link_error').css('display','none');
+		}
+		
+		if(form_valid){
+			$('#menu_create_form').ajaxForm({
+			    dataType : 'json',
+			    beforeSubmit:function(e){
+					$('#loader').modal('show');
+			    },
+			    success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+		  }).submit();
+		}
 	});
+	
 	
 	$(document).on('click','.menu_list_item',function(){
 		var m_id = $(this).data('m_id');
@@ -56,23 +96,8 @@ $(document).ready(function(){
 	        			$('#menu_id').val(value.id);
 	        			$('#menu_sort_order').val(value.sort);
 	        			$('#menu_parent_dropdown').val(value.p_id);
-	        			if(value.p_id == '0'){
-	        				$('#menu_url_box').hide();
-	        				$('#menu_menu_link_box').hide();
-	        				$('#menu_cms_url_box').hide();
-	        			}
-	        			else{
-	        				$('#menu_menu_link_box').show();
-	        				$('#menu_cms_url_box').show();
-	        				$('#menu_external_link').val(value.external_link);
-		        			if(value.external_link == '0'){
-		        				$('#menu_cms_url_box').show();
-		        			}
-		        			else{
-		        				$('#menu_url_box').show();
-		        				$('#menu_url_text').val(value.cms_url);
-		        			}
-	        			}
+	        			$('#menu_external_link').val(value.external_link);
+	        			$('#menu_url_text').val(value.cms_url);
 	        		});
 	        		$('#menu_create').hide();
 	        		$('#menu_update').show();
@@ -86,17 +111,46 @@ $(document).ready(function(){
 	
 	
 	$(document).on('change','#menu_parent_dropdown',function(){
-		var x = $(this).val();
-		if(x != 0){
-			$('#menu_menu_link_box').show();
-			$('#menu_url_box').show();
-			$('menu_cms_url_box').show();
+//		var x = $(this).val();
+//		if(x != 0){
+//			$('#menu_menu_link_box').show();
+//			$('#menu_url_box').show();
+//			$('menu_cms_url_box').show();
+//		}
+//		else{
+//			$('#menu_menu_link_box').hide();
+//			$('#menu_url_box').hide();
+//			$('#menu_cms_url_box').hide();
+//		}
+	});
+	
+	$(document).on('keyup','#menu_url_text',function(){
+		var text = $(this).val();
+		if(text == ''){
+			return false;
 		}
-		else{
-			$('#menu_menu_link_box').hide();
-			$('#menu_url_box').hide();
-			$('#menu_cms_url_box').hide();
-		}
+		$.ajax({
+			type: 'POST',
+			url: baseUrl+'admin/Ajax_ctrl/menu_url_check',
+			dataType: "json",
+			data: {
+				'text'	: text
+			},
+			beforeSend: function(){
+				$('#menu_create').attr("disabled", "disabled");
+				$('#menu_update').attr("disabled", "disabled");
+			},
+			success:function (response) {
+				if(response.status == 500){
+					$('#menu_url_text_error').html('This url is already exist, try new one.').css('display','block');
+				}
+				else{
+					$('#menu_url_text_error').css('display','none');
+					$('#menu_create').removeAttr("disabled");
+					$('#menu_update').removeAttr("disabled");
+				}
+			}
+		});
 	});
 	
 	////////////////////////////  language ////////////////////////////////////
@@ -187,33 +241,35 @@ $(document).ready(function(){
 	});
 	///language create close
 	$(document).on('click','.language_delete',function(){
-		
-		var l_id = $(this).data('l_id');
-		var that = this;
-		$.ajax({
-	        type: 'POST',
-	        url: baseUrl+'admin/Language_ctrl/language_delete',
-	        dataType: "json",
-	        data: {
-	        	'id'	: l_id
-	        },
-	        beforeSend: function(){
-	        	$('#loader').modal({'show':true});	
-	        },
-	        complete: function(){
-				
-			},
-	        success:function (response) {
-	        	$('#loader').modal('toggle');
-	        	if(response.status == 200){
-	        		$(that).closest('tr').hide('slow');
-	        		alert(response.msg);
-	        	}
-	        	else{
-	        		alert(response.msg);
-	        	}
-	        }
-		});
+		x = confirm('Are you sure.');
+		if(x){
+			var l_id = $(this).data('l_id');
+			var that = this;
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/Language_ctrl/language_delete',
+		        dataType: "json",
+		        data: {
+		        	'id'	: l_id
+		        },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){
+					
+				},
+		        success:function (response) {
+		        	$('#loader').modal('toggle');
+		        	if(response.status == 200){
+		        		$(that).closest('tr').hide('slow');
+		        		alert(response.msg);
+		        	}
+		        	else{
+		        		alert(response.msg);
+		        	}
+		        }
+			});
+		}
 	});
 	///language delete close
 	
@@ -276,10 +332,101 @@ $(document).ready(function(){
 	});
 	///users language update close
 	$(document).on('click','.user_edit',function(){
-		$('#users_list_drop_down').val($(this).data('u_id'));
-		$('#users_language_drop_down').val($(this).data('lang_id'));
-		$('#users_language_update').show();
-		$('#users_language_create').hide();
+		var u_id = $(this).data('u_id');
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Users_ctrl/user_detail',
+	        dataType: "json",
+	        data: {
+	        	'u_id' : u_id
+	        },
+	        beforeSend: function(){},
+	        complete: function(){},
+	        success:function (output) {
+	        	if(output.status == 200){
+	        		lang = [];
+	        		$.ajax({
+	        	        type: 'POST',
+	        	        url: baseUrl+'admin/Ajax_ctrl/get_all_language',
+	        	        dataType: "json",
+	        	        data: {},
+	        	        beforeSend: function(){},
+	        	        complete: function(){},
+	        	        success:function (response) {
+	        	        	console.log(response);
+	        	        	$('#myModalLabel').html('User registration');
+	        	    		var x = '<form class="form-horizontal">'+
+	        	    					'<div class="form-group">'+
+	        	    						'<label for="inputEmail3" class="col-sm-2 control-label">First name</label>'+
+	        	    						'<div class="col-sm-10">'+
+	        	    							'<input type="email" class="form-control" id="u_reg_fname" value="'+ output.data[0].first_name +'" placeholder="First Name">'+
+	        	    							'<input type="hidden" id="u_reg_id" value="'+ output.data[0].id +'"'+
+	        	    							'<div id="u_reg_fname_error" class="text-danger" style="display:none;"></div>'+
+	        	    						'</div>'+
+	        	    					'</div>'+
+	        	    					'<div class="form-group">'+
+	        	    						'<label for="inputEmail3" class="col-sm-2 control-label">Last name</label>'+
+	        	    						'<div class="col-sm-10">'+
+	        	    							'<input type="email" class="form-control" id="u_reg_lname" value="'+ output.data[0].last_name +'" placeholder="Last Name">'+
+	        	    							'<div id="u_reg_lname_error" class="text-danger" style="display:none;"></div>'+
+	        	    						'</div>'+
+	        	    					'</div>'+
+	        	    		  			'<div class="form-group">'+
+	        	    		  				'<label for="inputEmail3" class="col-sm-2 control-label">Email</label>'+
+	        	    		  				'<div class="col-sm-10">'+
+	        	    		  					'<input type="email" class="form-control" id="u_reg_email" value="'+ output.data[0].email +'" placeholder="Email">'+
+	        	    		  					'<div id="u_reg_email_error" class="text-danger" style="display:none;"></div>'+
+	        	    		  				'</div>'+
+	        	    		  			'</div>'+
+	        	    		  			'<div class="form-group">'+
+	        	    		  				'<label for="inputPassword3" class="col-sm-2 control-label">Contact no.</label>'+
+	        	    		  				'<div class="col-sm-10">'+
+	        	    		  					'<input type="text" class="form-control" id="u_reg_contact" value="'+ output.data[0].phone +'" placeholder="Contact no.">'+
+	        	    		  					'<div id="u_reg_contact_error" class="text-danger" style="display:none;"></div>'+
+	        	    		  				'</div>'+
+	        	    	  				'</div>'+
+	        	    	  				
+	        	    	  				'<div class="form-group">'+
+	        	    		  				'<label for="inputPassword3" class="col-sm-2 control-label">Language</label>'+
+	        	    		  				'<div class="col-sm-10">'+
+	        	    		  				'<select class="form-control" id="u_reg_language">'+
+	        	    		  						'<option value="0">select language</option>';
+	        	    								$.each(response.data,function(key,value){
+	        	    									if(value.l_id == output.data[0].language){
+	        	    										x = x +'<option value="'+ value.l_id +'" selected>'+ value.l_name +'</option>';
+	        	    									}
+	        	    									else{
+	        	    										x = x +'<option value="'+ value.l_id +'">'+ value.l_name +'</option>';
+	        	    									}
+	        	    								});
+	        	    		  					x = x +'</select>'+
+	        	    		  					'<div id="u_reg_language_error" class="text-danger" style="display:none;"></div>'+
+	        	    		  				'</div>'+
+	        	    	  				'</div>'+
+	        	    	  				
+	        	    	  				'<div class="form-group">'+
+	        	    		  				'<div class="col-sm-offset-2 col-sm-10">'+
+	        	    		  					'<input type="button" class="btn btn-info" id="u_reg_update" value="Update"/>&nbsp;'+
+	        	    		  					'<input type="reset" class="btn btn-danger" id="u_reg_reset" value="Cancel"/>'+
+	        	    		  				'</div>'+
+	            		  				'</div>'+
+	        	    			  	'</form>';
+	        	    		$('#loader .modal-body').html(x);
+	        	    		$('#loader .modal-footer').hide();
+	        	    		$('#loader').modal({
+	        	    			show : true,
+	        	    			backdrop : false,
+	        	    			keyboard: false
+	        	    		});
+	        	        }
+	        		});
+	        	}
+	        	else{
+	        		alert(output.msg); 
+	        	}
+	        }
+		});
+		
 	});
 	
 	$(document).on('click','#users_language_reset',function(){
@@ -522,7 +669,105 @@ $(document).ready(function(){
 		        },
 		        complete: function(){},
 		        success:function (response) {
-		        	
+		        	$('#loader').modal('toggle');
+		        	if(response.status == 200){
+		        		location.reload();
+		        	}
+		        	else{
+		        		alert(response.msg);	
+		        		location.reload();
+		        	}
+		        }
+			});
+		}
+	});
+	
+	
+	$(document).on('click','#u_reg_update',function(){
+		var u_fname = $('#u_reg_fname').val();
+		var u_lname = $('#u_reg_lname').val();
+		var u_email = $('#u_reg_email').val();
+		var u_contact = $('#u_reg_contact').val();
+		var form_valid = true;
+		if(u_fname == ''){
+			$('#u_reg_fname_error').html('First name should not empty.').css('display','block');
+			form_valid = false;
+		}
+		else if(u_fname.length < 4){
+			$('#u_reg_fname_error').html('First name should be greater then 3 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_fname_error').css('display','none');
+		}
+		
+		if(u_lname == ''){
+			$('#u_reg_lname_error').html('Last name should not empty.').css('display','block');
+			form_valid = false;
+		}
+		else if(u_lname.length < 4){
+			$('#u_reg_lname_error').html('Last name should be greater then 3 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_lname_error').css('display','none');
+		}
+		
+		if(u_email == ''){
+			$('#u_reg_email_error').html('Email should not empty.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_email_error').css('display','none');
+		}
+		
+		if(u_contact == ''){
+			$('#u_reg_contact_error').html('Contact no. should not empty.').css('display','block');
+			form_valid = false;
+		}
+		else if(u_contact.length < 4){
+			$('#u_reg_contact_error').html('Contact no. should be greater then 3 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_contact_error').css('display','none');
+		}
+		
+		if($('#u_reg_language').val() == 0){
+			$('#u_reg_language_error').html('Please select language.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#u_reg_language_error').css('display','none');
+		}
+		
+		if(form_valid){
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/Users_ctrl/update_user',
+		        dataType: "json",
+		        data: {
+		        	'u_id' : $('#u_reg_id').val(),
+		        	'fname' : u_fname,
+		        	'lname' : u_lname,
+		        	'email' : u_email,
+		        	'u_contact' : u_contact,
+		        	'u_lang' : $('#u_reg_language').val()
+		        },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){},
+		        success:function (response) {
+		        	$('#loader').modal('toggle');
+		        	if(response.status == 200){
+		        		alert(response.msg);
+		        		location.reload();
+		        	}
+		        	else{
+		        		alert(response.msg);	
+		        		location.reload();
+		        	}
 		        }
 			});
 		}
@@ -655,29 +900,82 @@ $(document).ready(function(){
 
 
 /////////////////////////////////////////////////////////////Widget///////////////////////////////////////////////////////////////////////
-//	$(document).on('click','#widget_create,#widget_update',function(){
-//		$('#widget_form').ajaxForm({
-//		    dataType : 'json',
-//		    data : {
-//		    	'widget_content' : CKEDITOR.instances.widget_content.getData()
-//		    },
-//		    beforeSubmit:function(e){
-//				$('#loader').modal('show');
-//		    },
-//		    success:function(response){
-//		    	console.log(response);
-//		  	  if(response.status == 200){
-//		    	$('#loader').modal('toggle');
-//		    	alert(response.msg);
-//		    	//location.reload();
-//		      }
-//		      else{
-//			    alert(response.msg);
-//		      }
-//		    }
-//	  }).submit();
-//	});
+	$(document).on('click','#widget_create,#widget_update',function(){
+		$('#widget_form').ajaxForm({
+		    dataType : 'json',
+		    data : {
+		    	'widget_content' : CKEDITOR.instances.widget_content.getData()
+		    },
+		    beforeSubmit:function(e){
+				$('#loader').modal('show');
+		    },
+		    success:function(response){
+		    	console.log(response);
+		  	  if(response.status == 200){
+		    	$('#loader').modal('toggle');
+		    	alert(response.msg);
+		    	location.reload();
+		      }
+		      else{
+			    alert(response.msg);
+		      }
+		    }
+	  }).submit();
+	});
 
+	$(document).on('click','.widget_edit',function(){
+		var w_id = $(this).data('widget_id');
+		$.ajax({
+			type: 'POST',
+	        url: baseUrl+'admin/Widget_ctrl/widget_content',
+			dataType : 'json',
+			data : {
+				'widget_id' : w_id,
+			},
+			beforeSubmit : function(e){
+				$('#loader').modal('show');
+			} ,
+			 success:function(response){
+				 $('#loader').modal('toggle');
+			  	  if(response.status == 200){
+			    	CKEDITOR.instances['widget_content'].setData(response.data[0].content);
+			    	$('#widget_id').val(response.data[0].id);
+			    	$('#widget_title').val(response.data[0].w_title);
+			    	$('#widget_name').val(response.data[0].name);
+			    	$('#widget_update').show();
+			    	$('#widget_create').hide();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+		});
+	});
+	
+	$(document).on('click','.widget_delete',function(){
+		var x = confirm('Are you sure.'); 
+		if(x){
+			var w_id = $(this).data('widget_id');
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/Widget_ctrl/widget_delete',
+		        dataType: "json",
+		        data: {
+		        	'w_id'	: w_id
+		        },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){},
+		        success:function (response) {
+		        	console.log(response);
+		        	$('#loader').modal('toggle');
+		        	location.reload();
+		        }
+			});
+		}
+
+	});
 /////////////////////////////////////////////////////////////page///////////////////////////////////////////////////////////////////////
 	$(document).on('click','#page_create,#page_update',function(){
 		$('#page_add_form').ajaxForm({
@@ -707,16 +1005,145 @@ $(document).ready(function(){
 			$('#1coumn').show();
 			$('#2coumn').hide();
 			$('#3coumn').hide();
+			
+			var page_id = $('#page_id').val();	
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+		        dataType: "json",
+		        data: {
+			        'page_id' : page_id
+			       },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){},
+		        success:function (response) {
+		        	$.each(response.data2,function(k,v){
+		        		var x = '';
+		        		$.each(response.data,function(key,value){
+			        		if(value.w_id == v.widget_id){
+			        			x = x + '<option value="'+ value.w_id +'" selected>'+ value.name +'</option>';
+			        		}
+			        		else{
+			        			x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+			        		}
+			        	});
+			        	
+						if(v.section == 'main_body'){
+							var dropdown = '<select class="form-control col-sm-6" name="one_col_maincontent[]" id="">'+
+							'<option value="0">select widget</option>'+
+							x +
+							'</select>';
+							$('#one_col_maincontent_box').prepend(dropdown);
+						}
+			        });
+		        	$('#loader').modal('toggle');
+		        }
+			});
 		}
 		else if(layout_id == 2){
 			$('#1coumn').hide();
 			$('#2coumn').show();
 			$('#3coumn').hide();
+			
+			var page_id = $('#page_id').val();	
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+		        dataType: "json",
+		        data: {
+			        'page_id' : page_id
+			       },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){},
+		        success:function (response) {
+		        	$.each(response.data2,function(k,v){
+		        		var x = '';
+		        		$.each(response.data,function(key,value){
+			        		if(value.w_id == v.widget_id){
+			        			x = x + '<option value="'+ value.w_id +'" selected>'+ value.name +'</option>';
+			        		}
+			        		else{
+			        			x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+			        		}
+			        	});
+			        	
+						if(v.section == 'left_col'){
+							var dropdown = '<select class="form-control col-sm-6" name="two_col_leftcontent[]" id="">'+
+							'<option value="0">select widget</option>'+
+							x +
+							'</select>';
+			        		$('#two_col_leftcontent_box').prepend(dropdown);
+						}
+						else{
+							var dropdown = '<select class="form-control col-sm-6" name="two_col_maincontent[]" id="">'+
+							'<option value="0">select widget</option>'+
+							x +
+							'</select>';
+							$('#two_col_maincontent_box').prepend(dropdown);
+						}
+			        });
+		        	$('#loader').modal('toggle');
+		        }
+			});
 		}
 		else if(layout_id == 3){
 			$('#1coumn').hide();
 			$('#2coumn').hide();
 			$('#3coumn').show();
+			
+			var page_id = $('#page_id').val();	
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+		        dataType: "json",
+		        data: {
+			        'page_id' : page_id
+			       },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){},
+		        success:function (response) {
+		        	$.each(response.data2,function(k,v){
+		        		var x = '';
+		        		$.each(response.data,function(key,value){
+			        		if(value.w_id == v.widget_id){
+			        			x = x + '<option value="'+ value.w_id +'" selected>'+ value.name +'</option>';
+			        		}
+			        		else{
+			        			x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+			        		}
+			        	});
+			        	
+						if(v.section == 'left_col'){
+							var dropdown = '<select class="form-control col-sm-6" name="three_col_leftcontent[]" id="">'+
+							'<option value="0">select widget</option>'+
+							x +
+							'</select>';
+			        		$('#three_col_leftcontent_box').prepend(dropdown);
+						}
+						else if(v.section == 'main_body'){
+							var dropdown = '<select class="form-control col-sm-6" name="three_col_maincontent[]" id="">'+
+							'<option value="0">select widget</option>'+
+							x +
+							'</select>';
+							$('#three_col_maincontent_box').prepend(dropdown);
+						}
+						else{
+							var dropdown = '<select class="form-control col-sm-6" name="three_col_rightcontent[]" id="">'+
+							'<option value="0">select widget</option>'+
+							x +
+							'</select>';
+							$('#three_col_rightcontent_box').prepend(dropdown);
+						}
+			        });
+		        	$('#loader').modal('toggle');
+		        }
+			});
 		}
 		else{
 			$('#1coumn').hide();
@@ -887,6 +1314,26 @@ $(document).ready(function(){
 	        	$('#three_col_rightcontent_box').prepend(dropdown);
 	        }
 		});
+	});
+	
+	$(document).on('click','.page_edit',function(){
+		var p_id = $(this).data('p_id');
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Page_ctrl/page_create',
+	        dataType: "json",
+	        data: {
+	        	'page_id' : p_id
+	        },
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        }
+		});
+		
 	});
 
 ///////////////////////////////////////////////////////////// Links ///////////////////////////////////////////////////////////////////////
@@ -1308,6 +1755,5 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
 	
 });

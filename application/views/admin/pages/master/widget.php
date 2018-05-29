@@ -31,8 +31,14 @@
 						  </div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">Content</label>
-							<div class="col-sm-10">
+						  <label class="col-sm-3 control-label">Title</label>
+						  <div class="col-sm-9">
+						  	<input type="text" class="form-control" name="widget_title" id="widget_title" value="">
+						  </div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Content</label>
+							<div class="col-sm-9">
 								<textarea id="widget_content" name="widget_content" class="form-control" rows="10"></textarea>
 								<input id="widget_id" name="widget_id" type="hidden" class="form-control" value="" />
 			            		<script>
@@ -44,7 +50,7 @@
 					
 				</form>
 				<div class="box-footer">
-						<button id="widget_update" type="submit" class="btn pull-right btn-info" style="display:none;">Update</button>
+						<button id="widget_update" type="button" class="btn pull-right btn-info" style="display:none;">Update</button>
 						<button id="widget_create" type="button" class="btn pull-right btn-success">Submit</button>
 						<button id="widget_reset" type="reset" class="btn btn-default pull-right btn-space">Cancel</button>
 					</div>

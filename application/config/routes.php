@@ -32,8 +32,10 @@ $route['admin/admin/events'] = 'admin/Event_ctrl/index';
 $route['admin/admin/slider'] = 'admin/Slider_ctrl/index';
 $route['admin/admin/Static_pages'] = 'admin/Static_ctrl/index';
 $route['admin/admin/add_page'] = 'admin/Page_ctrl/index';
+$route['admin/admin/add_page/(:num)'] = 'admin/Page_ctrl/index/$1';
+$route['admin/admin/all_pages'] = 'admin/Page_ctrl/all_pages';
 $route['admin/admin/(:any)'] = 'admin/Admin_ctrl/$1';
 
-$route['admin/admin/all_pages'] = 'admin/Admin_ctrl/$1';
+
 $route['admin/admin/edit_page'] = 'admin/Admin_ctrl/$1';
 $route['admin/admin/home_page'] = 'admin/Admin_ctrl/$1';

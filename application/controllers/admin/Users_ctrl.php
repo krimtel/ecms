@@ -19,8 +19,7 @@ class Users_ctrl extends CI_Controller {
 		$data['title'] = 'eNam Admin';
 		$data['users_lang'] = $this->Users_model->get_all_lang_users();
 		$data['users'] = $this->Users_model->get_all_users();
-		
-		
+// 		print_r($data['users']); die;
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		if(count($file_menu)){
 			$data['languages'] = $file_menu;
@@ -144,7 +143,98 @@ class Users_ctrl extends CI_Controller {
 			);
 			
 			$result = $this->ion_auth->register($identity, $password, $email, $additional_data);
+			if($result){
+				echo json_encode(array('msg'=>'user created successfully.','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'Error occured.','status'=>500));
+			}	
+		}
+		else{
+			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
+		}
+	}
+	
+	function user_detail(){
+		if($this->ion_auth->is_admin()){
+			$this->form_validation->set_rules('u_id', 'User id', 'required|trim|integer|is_natural_no_zero');
+			if ($this->form_validation->run() == FALSE){
+				$this->session->set_flashdata('message',validation_errors());
+				echo validation_errors();
+			}
+			else{
+				$user_id = $this->input->post('u_id');
+				$this->db->select('id,first_name,last_name,email,phone,language');
+				$result = $this->db->get_where('users',array('active'=>1,'id'=>$user_id))->result_array();
+				if(count($result)>0){
+					echo json_encode(array('data'=>$result,'msg'=>'user detail.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'no record found.','status'=>500));
+				}
+			}
+		}
+		else{
+			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
+		}
+	}
+	
+	function update_user(){
+		if($this->ion_auth->is_admin()){
+			$this->form_validation->set_rules('u_id', 'user id', 'required|trim|integer|is_natural_no_zero');
+			$this->form_validation->set_rules('u_lang', 'user language', 'required|trim|integer|is_natural_no_zero');
+			$this->form_validation->set_rules('fname', 'First Name', 'required|trim|min_length[3]');
+			$this->form_validation->set_rules('lname', 'Last Name', 'required|trim|min_length[3]');
+			$this->form_validation->set_rules('u_contact', 'contact number', 'required|trim|min_length[10]|max_length[10]');
+			$this->form_validation->set_rules('email', 'Email id', 'required|trim|valid_email');
 			
+			if ($this->form_validation->run() == FALSE){
+				$this->session->set_flashdata('message',validation_errors());
+				echo validation_errors();
+			}
+			else{
+				$id = (int)$this->input->post('u_id');
+				$fname = $this->input->post('fname');
+				$lname = $this->input->post('lname');
+				$email = $this->input->post('email');
+				$phone = $this->input->post('u_contact');
+				$language = (int)$this->input->post('u_lang');
+					
+				$this->db->where('id',$id);
+				$this->db->update('users',array(
+						'first_name' => $fname,
+						'last_name' => $lname,
+						'phone' => $phone,
+						'email' => $email,
+						'language' => $language
+				));
+					
+				//////////update log table
+				$this->db->insert('logg',array(
+						'user_id' => $this->session->userdata('user_id'),
+						'event_id' => 7,
+						'created_at' => date('y-m-d h:i:s'),
+						'remark' => $id
+				));
+					
+				if($this->db->affected_rows()){
+					if ($this->db->trans_status() === FALSE) {
+						$this->db->trans_rollback();
+						return false;
+					}
+					else {
+						$this->db->trans_commit();
+						$file = FCPATH . '/software_files/Logg.txt';
+						$msg = date('d-m-y h:i:s').' || user '.$this->session->userdata('identity').' Update user detail user id => '.$id.PHP_EOL;
+						file_put_contents ($file, $msg,FILE_APPEND);
+						
+						echo json_encode(array('msg'=>'User updated successfully.','status'=>200));
+					}
+				}
+				else{
+					echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
+				}
+			}
 		}
 	}
 }

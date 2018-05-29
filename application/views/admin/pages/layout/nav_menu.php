@@ -24,12 +24,18 @@
 			<div class="box-body">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Menu name</label>
-					<div class="col-sm-9"><input id="menu_name" name="menu_name" type="text" class="form-control" placeholder="Enter new menu" /></div>
+					<div class="col-sm-9">
+						<input id="menu_name" name="menu_name" type="text" class="form-control" placeholder="Enter new menu" />
+						<div class="text-danger" id="menu_name_error" style="display:none;"></div>
+					</div>
 					<div class="col-sm-9"><input id="menu_id" name="menu_id" type="hidden" class="form-control" value=""></div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Sort Order</label>
-					<div class="col-sm-9"><input id="menu_sort_order" name="menu_sort_order" type="text" class="form-control" placeholder="Enter sort order" /></div>
+					<div class="col-sm-9">
+						<input id="menu_sort_order" name="menu_sort_order" type="number" class="form-control" placeholder="Enter sort order" />
+						<div class="text-danger" id="menu_sort_order_error" style="display:none;"></div>
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Select Parent link</label>
@@ -44,7 +50,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group" id="menu_menu_link_box" style="display:none;">
+				<div class="form-group" id="menu_menu_link_box">
 					<label class="col-sm-3 control-label">Menu link</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="menu_external_link" id="menu_external_link">
@@ -52,6 +58,7 @@
 							<option value="0">Cms</option>
 							<option value="1">External</option>
 						</select>
+						<div class="text-danger" id="menu_external_link_error" style="display:none;"></div>
 					</div>
 				</div>
 				
@@ -59,7 +66,7 @@
 					<label class="col-sm-3 control-label">Select Page</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="menu_cems_link_select" id="menu_cems_link_select">
-							<option value="0" selected>Please select external link</option>
+							<option value="0" selected>Please select page</option>
 							<?php foreach($cms_pages as $cms_page){ ?>
 								<option value="<?php echo $cms_page['p_id'];?>"><?php echo $cms_page['page_name']; ?></option>
 							<?php } ?>
@@ -71,6 +78,7 @@
 					<label class="col-sm-3 control-label">Url</label>
 					<div class="col-sm-9">
 						<input type="text" id="menu_url_text" name="menu_url_text" class="form-control" placeholder="Enter external link" />
+						<div class="text-danger" id="menu_url_text_error" style="display:none;"></div>
 					</div>
 				</div>
 				

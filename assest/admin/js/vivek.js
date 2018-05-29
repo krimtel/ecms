@@ -131,6 +131,9 @@ $(document).ready(function(){
 	
 	$(document).on('keyup','#language_name',function(){
 		var language = $("#language_name").val().trim();
+		if($("#language_name").val() == ''){
+			$("#language_response").html('Language name not empty.'); 
+		}
 		var pattern =  new RegExp("^[a-zA-Z ]*$");
 		var that = this;
 		if(pattern.test(language)) {
@@ -151,9 +154,11 @@ $(document).ready(function(){
 		                if(response.status == 200){
 		                	$(that).removeClass('txt_error');
 		                	$("#language_create").attr("disabled", false);
+		                	$("#language_response").html('');
 		                }else {
 		                    $(that).addClass('txt_error');
 		                    $("#language_create").attr("disabled", "disabled");
+		                    $("#language_response").html("<span class='exists'>"+ response.msg +"</span>");
 		                }
 		                
 		             }
@@ -185,88 +190,6 @@ $(document).ready(function(){
 			}
 		});
 		
-	});
-	
-//////////////////////////////////////////////////Widget_Update////////////////////////////////////////////////////////////////////////////////
-	$(document).on('click','#widget_create,.widget_edit',function(){
-		var w_id = $(this).data('widget_id');
-		$.ajax({
-			type: 'POST',
-	        url: baseUrl+'admin/Widget_ctrl/widget_content',
-			dataType : 'json',
-			data : {
-				'widget_id' : w_id,
-			},
-			beforeSubmit : function(e){
-				$('#loader').modal('show');
-			} ,
-			 success:function(response){
-				 console.log(response);
-				 $('#loader').modal('toggle');
-			  	  if(response.status == 200){
-			    	CKEDITOR.instances['widget_content'].setData(response.data[0].content);
-			    	$('#widget_id').val(response.data[0].id);
-			    	$('#widget_name').val(response.data[0].name);
-			    	$('#widget_update').show();
-			    	$('#widget_create').hide();
-			      }
-			      else{
-				    //alert(response.msg);
-			      }
-			    }
-		});
-	});
-
-	
-	
-//	$(document).on('click','#widget_create,#widget_update',function(){
-//		$('#widget_form').ajaxForm({
-//		    dataType : 'json',
-//		    data : {
-//		    	'widget_content' : CKEDITOR.instances.widget_content.getData()
-//		    },
-//		    beforeSubmit:function(e){
-//				$('#loader').modal('show');
-//		    },
-//		    success:function(response){
-//		    	console.log(response);
-//		  	  if(response.status == 200){
-//		    	$('#loader').modal('toggle');
-//		    	alert(response.msg);
-//		    	//location.reload();
-//		      }
-//		      else{
-//			    alert(response.msg);
-//		      }
-//		    }
-//	  }).submit();
-//	});
-//	
-	
-
-	$(document).on('click','.widget_delete',function(){
-		var x = confirm('Are you sure.'); 
-		if(x){
-			var w_id = $(this).data('widget_id');
-			$.ajax({
-		        type: 'POST',
-		        url: baseUrl+'admin/Widget_ctrl/widget_delete',
-		        dataType: "json",
-		        data: {
-		        	'w_id'	: w_id
-		        },
-		        beforeSend: function(){
-		        	$('#loader').modal({'show':true});	
-		        },
-		        complete: function(){},
-		        success:function (response) {
-		        	console.log(response);
-		        	$('#loader').modal('toggle');
-		        	location.reload();
-		        }
-			});
-		}
-
 	});
 	
 	

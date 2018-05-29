@@ -81,14 +81,14 @@
 						foreach($users_lang as $user_lang){ ?> 
 							<tr>
 	                  			<td><?php echo $c; ?></td>
-	                  			<td><?php echo $user_lang['username']; ?></td>
+	                  			<td><?php echo $user_lang['first_name'].' '.$user_lang['last_name']; ?></td>
 	                  			<td><?php echo $user_lang['l_name']; ?></td>
 	                  			<td>
 	                  				<a class="class_edit btn btn-info btn-flat user_edit" data-u_id="<?php echo $user_lang['id']; ?>" data-lang_id="<?php echo $user_lang['l_id']; ?>"><i class="fa fa-pencil"></i></a>
 	                  				<a class="class_delete btn btn-info btn-flat user_delete" data-u_id="<?php echo $user_lang['id']; ?>"><i class="fa fa-trash"></i></a>
 	                  			</td>
                 			</tr>	
-					<?php }
+					<?php $c = $c + 1; }
 					}?>
             	</tbody>
               </table>

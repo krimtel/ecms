@@ -17,7 +17,7 @@ class Menu_model extends CI_Model {
 	}
 	
 	function menu_list(){
-		$this->db->select('m.id,m.title,m.p_id, mi.m_id, mi.menu_name, mi.lang_id,l.l_name,mi.url');
+		$this->db->select('m.id,m.title,m.p_id, mi.m_id, mi.menu_name, mi.lang_id,l.l_name,m.cms_url');
 		$this->db->join('menu_item mi','mi.menu_id = m.id','left');
 		$this->db->join('languages l','l.l_id = mi.lang_id','left');
 		$this->db->order_by('m.sort','ASC');
@@ -41,29 +41,27 @@ class Menu_model extends CI_Model {
 	function menu_create($data){
 		$this->db->trans_begin();
 			$this->db->insert('menu',$data);
+			
 			$m_id = $this->db->insert_id();
 		
-			$value['lang_id'] = 1;
+			$value['lang_id'] = $this->session->userdata('language');
 			$value['menu_id'] = $m_id;
 			$value['menu_name'] = $data['title'];
 			$value['created_at'] = $data['created_at'];
 			$value['created_by'] = $data['created_by'];
-			$value['updated_by'] = $data['updated_by'];
 			$value['ip'] = $data['ip'];
 			
 			$this->db->insert('menu_item',$value);
-			
-			$data['menus'] = $this->menu_list();
-			$json = json_encode($data['menus']);
-			$file = FCPATH . '/software_files/Menu.txt';
-			
-		
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
 			return false;
 		}
 		else {
 			$this->db->trans_commit();
+			
+			$data['menus'] = $this->menu_list();
+			$json = json_encode($data['menus']);
+			$file = FCPATH . '/software_files/Menu.txt';
 			file_put_contents ($file, $json);
 			return true;
 		}
@@ -71,7 +69,6 @@ class Menu_model extends CI_Model {
 	
 	function menu_update($data){
 		$this->db->trans_begin();
-		
 		$this->db->where('id',$data['menu_id']);
 		$this->db->update('menu',array(
 			'menu_slug' => $data['menu_slug'],
@@ -82,10 +79,10 @@ class Menu_model extends CI_Model {
 			'cms_url' => $data['cms_url'],
 			'ip' => $data['ip'],
 			'updated_at' => $data['created_at'],
-			'updated_by' => $data['updated_by'],
+			'updated_by' => $data['created_by'],
 		));
 		
-		$this->db->query("update menu_item set menu_name = '".$data['title']."',ip = '".$data['ip']."',updated_at = '".$data['created_at']."',updated_by = ".$data['updated_by']." 
+		$this->db->query("update menu_item set menu_name = '".$data['title']."',ip = '".$data['ip']."',updated_at = '".$data['created_at']."',updated_by = ".$data['created_by']." 
 				where menu_id = ".$data['menu_id']." AND lang_id = 1 AND status = 1");
 	
 		if ($this->db->trans_status() === FALSE) {

@@ -38,25 +38,19 @@
                   <th>Page name</th>
                   <th>Action</th>
                 </tr>
-                <tbody >
-
+                <tbody>
+					<?php
+					$c = 1;
+					foreach($pages as $page){ ?>
                 		<tr>
-                  			<td>01</td>
-                  			<td>About Us</td>
+                  			<td><?php echo $c;?></td>
+                  			<td><?php echo $page['page_name']; ?></td>
                   			<td>
-                  				<a title="Edit" href="<?php echo base_url();?>admin/admin/edit_page" class="class_edit btn btn-info btn-flat"><i class="fa fa-pencil"></i></a>
+                  				<a title="Edit" href="<?php echo base_url();?>admin/admin/add_page/<?php echo$page['p_id'];?>" class="page_edit btn btn-info btn-flat"><i class="fa fa-pencil"></i></a>
                   				<a title="Delete" class="class_delete btn btn-info btn-flat"><i class="fa fa-trash"></i></a>
                   			</td>
                 		</tr>
-						<tr>
-                  			<td>02</td>
-                  			<td>NAM</td>
-                  			<td>
-                  				<a class="class_edit btn btn-info btn-flat"><i class="fa fa-pencil"></i></a>
-                  				<a class="class_delete btn btn-info btn-flat"><i class="fa fa-trash"></i></a>
-                  			</td>
-                		</tr>
-
+                	<?php $c = $c++; } ?>
             	</tbody>
               </table>
             </div>

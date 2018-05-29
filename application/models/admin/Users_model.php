@@ -8,7 +8,7 @@ class Users_model extends CI_Model {
 	}
 	
 	function get_all_lang_users($u_id = null){
-		$this->db->select('u.id,u.username,g.name,l.l_name,l.l_id');
+		$this->db->select('u.id,u.username,g.name,l.l_name,l.l_id,u.first_name,u.last_name');
 		$this->db->join('users_groups ug','ug.user_id = u.id');
 		$this->db->join('groups g','g.id = ug.group_id');
 		$this->db->join('languages l','l.l_id = u.language');
@@ -48,11 +48,9 @@ class Users_model extends CI_Model {
 	}
 	
 	function user_language_delete($data){
-		$this->db->where('user_id',$data['user_id']);
-		$this->db->update('users_language',array(
-				'updated_at' => $data['updated_at'],
-				'status' => 0,
-				'updated_by' => $data['updated_by']
+		$this->db->where('id',$data['user_id']);
+		$this->db->update('users',array(
+				'active' => 0
 		));
 		return true;
 	}
