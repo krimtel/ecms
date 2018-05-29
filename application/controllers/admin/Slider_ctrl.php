@@ -58,7 +58,7 @@ class Slider_ctrl extends CI_Controller {
 	}
 	function slider_create(){
 		$this->form_validation->set_rules('slider_id', 'Slider id', 'trim|integer|is_natural_no_zero');
-		$this->form_validation->set_rules('slider_alt', 'Slider Alt Tag', 'required|trim|min_lengeth[3]');
+		$this->form_validation->set_rules('slider_alt', 'Slider Alt Tag', 'required|trim|min_length[3]');
 		$this->form_validation->set_rules('slider_order', 'Slider Order', 'required|trim|integer|is_natural_no_zero');
 		
 		if ($this->form_validation->run() == FALSE){
@@ -181,8 +181,8 @@ class Slider_ctrl extends CI_Controller {
 				}
 			}
 		}
-	} 
-	
+	    
+	}
 	function get_slider_content(){
 		$this->form_validation->set_rules('s_id', 'Slider id', 'required|trim|integer|is_natural_no_zero');
 		
@@ -340,5 +340,5 @@ class Slider_ctrl extends CI_Controller {
 			}
 		}
 	}
-	
+
 }

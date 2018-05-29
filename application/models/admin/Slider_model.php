@@ -25,7 +25,7 @@ class Slider_model extends CI_Model {
 		$this->db->insert('slider',$val);
 		$val2['slider_id'] = $this->db->insert_id();
 		$this->db->insert('slider_item',$val2);
-		
+		//print_r($this->db->last_query()); die;
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;

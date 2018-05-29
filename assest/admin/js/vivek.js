@@ -252,7 +252,7 @@ $(document).ready(function(){
 			form_valid = false;
 		}
 		else if($('#slider_alt').val().length < 5){
-			$('#slider_alt_error').html('Please enter valid Event tag.').css('display','block');
+			$('#slider_alt_error').html('Please Enter Valid Event tag.').css('display','block');
 			form_valid = false;
 		}
 		else{
@@ -261,7 +261,7 @@ $(document).ready(function(){
 
 		if(uGroup != 'subadmin'){
 			if(!$.isNumeric($('#slider_order').val())){
-				$('#slider_order_error').html('Slider Order must be numaric.').css('display','block');
+				$('#slider_order_error').html('Slider Order Must Be Numaric.').css('display','block');
 				form_valid = false;
 			}
 			else if($('slider_order').val() == ''){
@@ -572,9 +572,7 @@ $(document).ready(function(){
 			 $('#v_order').css('display','none');
 		 }
 		 
-//		 if($('#v_category').val=='please_select_video_category'){
-//			 ($('#v_category').val()=='');
-//		 }
+
 		 if($('#v_category').val()=='0'){
 			 $('#v_category_error').html("please select video category").css('display','block');
 			 form_valid = false;
@@ -696,6 +694,15 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click','#video_update',function(){
+		var form_valid = true;
+		 if($('#v_url').val() == ''){
+				$('#v_url_error').html('Please Enter Url For Video.').css('display','block');
+				form_valid = false;
+			}
+		 else{
+				$('#v_url_error').css('display','none');
+			}
+		 
 		 if($('#v_title').val() == ''){
 			 $('#v_title_error').html('please Fill Video Title').css('display','block');
 			 form_valid = false;
@@ -711,39 +718,57 @@ $(document).ready(function(){
 		 else{
 			 $('#v_desc_error').css('display','none');
 		 }
-		var v_id=$('#video_id').val();
-		var v_url=$('#v_url').val();
-		var v_desc=CKEDITOR.instances.v_desc.getData();
-		var v_title=$('#v_title').val();
-		var v_sort=$('#v_order').val();
-		var v_category=$('#v_category').val();
-		$.ajax({
-			type : 'post',
-			url : baseUrl+'admin/Video_ctrl/update_video',
-			dataType : "json",
-			data: {
-				'v_id' : v_id,
-				'v_url' : v_url,
-				'v_desc': v_desc,
-				'v_title':v_title,
-				'v_sort':v_sort,
-				'v_category':v_category
-			},
-			beforeSend: function(){
-				$('#loader').modal({'show': true});
-			},
-			complete: function(){},
-			success:function(response){
-			  	  if(response.status == 200){
-			    	$('#loader').modal('toggle');
-			    	alert(response.msg);
-			    	location.reload();
-			      }
-			      else{
-				    alert(response.msg);
-			      }
-			    }
-			}).submit();
+		 
+		 if($('#v_order').val()==''){
+			 $('#v_order_error').html("please Fill Video Sort Order").css('display','block');
+			 form_valid = false;
+		 }
+		 else{
+			 $('#v_order').css('display','none');
+		 }
+		 if($('#v_category').val()=='0'){
+			 $('#v_category_error').html("please select video category").css('display','block');
+			 form_valid = false;
+		 }
+		 else{
+			 $('#v_category').css('display','none');
+		 }
+		 
+			 if(form_valid){
+			var v_id=$('#video_id').val();
+			var v_url=$('#v_url').val();
+			var v_desc=CKEDITOR.instances.v_desc.getData();
+			var v_title=$('#v_title').val();
+			var v_sort=$('#v_order').val();
+			var v_category=$('#v_category').val();
+			$.ajax({
+				type : 'post',
+				url : baseUrl+'admin/Video_ctrl/update_video',
+				dataType : "json",
+				data: {
+					'v_id' : v_id,
+					'v_url' : v_url,
+					'v_desc': v_desc,
+					'v_title':v_title,
+					'v_sort':v_sort,
+					'v_category':v_category
+				},
+				beforeSend: function(){
+					$('#loader').modal({'show': true});
+				},
+				complete: function(){},
+				success:function(response){
+				  	  if(response.status == 200){
+				    	$('#loader').modal('toggle');
+				    	alert(response.msg);
+				    	location.reload();
+				      }
+				      else{
+					    alert(response.msg);
+				      }
+				    }
+				});
+		 }
 	});
 	
 ////////////////////////////////////////////////////////////video_category /////////////////////////////////////////////////////////////	

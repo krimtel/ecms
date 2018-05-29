@@ -78,7 +78,7 @@ class Video_model extends CI_Model {
 		$this->db->join('video v','v.v_id = vi.video_id');
 		$result = $this->db->get_where('video_item vi',array('vi.video_id'=>$data['v_id'],'vi.lang_id'=>$data['lang_id'],'vi.status'=>1))->result_array();
 		
-		if(count($result)>0){
+		if(count($result) > 0){
 				
 		}else{
 			$this->db->select('vi.*,v.sort');
@@ -89,6 +89,7 @@ class Video_model extends CI_Model {
 	}
 	
 	function video_update($data){
+	    
 		$group = $this->session->userdata('group_name');
 		if($group != 'admin' && $group != 'developer'){
 			/// language admin section

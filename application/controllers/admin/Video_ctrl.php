@@ -51,7 +51,7 @@ class Video_ctrl extends CI_Controller {
 	function video_create(){
 		$this->form_validation->set_rules('v_url', 'video url', 'required|trim');
 		$this->form_validation->set_rules('v_title', 'video title', 'required|trim|min_length[3]');
-		$this->form_validation->set_rules('v_desc', 'video desc', 'required|trim');
+		$this->form_validation->set_rules('v_desc', 'video desc', 'required|trim|min_length[3]');
 		$this->form_validation->set_rules('v_order', 'video order', 'required|trim|integer|is_natural');
 		$this->form_validation->set_rules('v_category', 'video category', 'required|integer|is_natural_no_zero');
 		
@@ -60,85 +60,120 @@ class Video_ctrl extends CI_Controller {
 			echo validation_errors();
 		}
 		else{
-			
-		}
-		die;
-		$data['v_url'] = $this->input->post('v_url');
-		$data['v_title'] = $this->input->post('v_title');
-		$data['v_desc'] = $this->input->post('v_desc');
-		$data['v_id'] = (int)$this->input->post('v_id');
-		$data['v_order'] = (int)$this->input->post('v_order');
-		$data['category_id'] = $this->input->post('v_category');
-		
-		$data['created_at'] = date('Y-m-d h:i:s');
-		$data['created_by'] = $this->session->userdata('user_id');
-		$result = $this->Video_model->video_create($data);
-		if($result){
-			$this->file_update();
-			echo json_encode(array('msg'=>'operation successfull.','status'=>200));
-		}
-		else{
-			echo json_encode(array('msg'=>'something wrong.','status'=>500));
+		    $data['v_url'] = $this->input->post('v_url');
+		    $data['v_title'] = $this->input->post('v_title');
+		    $data['v_desc'] = $this->input->post('v_desc');
+		    $data['v_id'] = (int)$this->input->post('v_id');
+		    $data['v_order'] = (int)$this->input->post('v_order');
+		    $data['category_id'] = $this->input->post('v_category');
+		    
+		    $data['created_at'] = date('Y-m-d h:i:s');
+		    $data['created_by'] = $this->session->userdata('user_id');
+		    $result = $this->Video_model->video_create($data);
+		    if($result){
+		        $this->file_update();
+		        echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+		    }
+		    else{
+		        echo json_encode(array('msg'=>'something wrong.','status'=>500));
+		    }
 		}
 	}
 	
 	function video_publish(){
-		if($this->ion_auth->is_admin()){
-			$data['v_id'] = (int)$this->input->post('v_id');
-			$data['status']= $this->input->post('status');
+	   if($this->ion_auth->is_admin()){
+		    $this->form_validation->set_rules('v_id', 'video id', 'required|trim|integer|is_natural');
+		    $this->form_validation->set_rules('status', 'video status', 'required|trim');
+	    
+			if ($this->form_validation->run() == FALSE){
+				$this->session->set_flashdata('message',validation_errors());
+				echo validation_errors();
+			}
+			else{
+				$data['v_id'] = (int)$this->input->post('v_id');
+				$data['status']= $this->input->post('status');
 			
-			if($data['status'] == 'true'){
-			    $data['status'] = 1;
+				if($data['status'] == 'true'){
+					$data['status'] = 1;
+				}
+				else{
+					$data['status'] = 0;
+				}
+				$result = $this->Video_model->video_publish($data);
+				if($result){
+					$this->file_update();
+					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				}
 			}
-			else{
-			    $data['status'] = 0;
-			}
-			$result = $this->Video_model->video_publish($data);
-			if($result){
-			    $this->file_update();
-			    echo json_encode(array('msg'=>'operation successfull.','status'=>200));
-			}
-			else{
-			    echo json_encode(array('msg'=>'something wrong.','status'=>500));
-			}
-		}
+	    }
 		else{
 		    echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
 		}
-		
 	}
 	
 	function video_delete(){
 	    if($this->ion_auth->is_admin()){
-	        $data['v_id'] = $this->input->post('v_id');
-	        $result = $this->Video_model->video_delete($data);
-	        if($result){
-	            $this->file_update();
-	            echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+	        $this->form_validation->set_rules('v_id', 'video id', 'required|trim|integer|is_natural');
+	       // $this->form_validation->set_rules('status', 'video status', 'required|trim');
+	        
+	        if ($this->form_validation->run() == FALSE){
+	            $this->session->set_flashdata('message',validation_errors());
+	            echo validation_errors();
 	        }
 	        else{
+	           $data['v_id'] = $this->input->post('v_id');
+	            $result = $this->Video_model->video_delete($data);
+	            if($result){
+	                $this->file_update();
+	               echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+	           }
+	           else{
 	            echo json_encode(array('msg'=>'something wrong.','status'=>500));
-	        }
-	    }
-	    else{
-	        echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
-	    }
+	            }
+	       }
+	  }
 	}
 	function get_video_data(){
-		$data['v_id'] = (int) $this->input->post('v_id');
-		$data['lang_id'] = (int) $this->session->userdata('language');
-		$data['ip'] = $this->input->ip_address();
-		$data['updated_at'] = date('d-m-y h:i:s');
-		$data['updated_by'] = (int) $this->session->userdata('user_id');
-		$result = $this->Video_model->get_video_data($data);
-		if(count($result)>0){
-			echo json_encode(array('data'=>$result,'msg'=>'news content.','status'=>200));
-		}
-		else{
-			echo json_encode(array('msg'=>'no record found.','status'=>200));
-		}
+	    $this->form_validation->set_rules('v_id', 'video id', 'required|trim|integer|is_natural');
+	   // $this->form_validation->set_rules('status', 'video status', 'required|trim');
+	    
+	    if ($this->form_validation->run() == FALSE){
+	        $this->session->set_flashdata('message',validation_errors());
+	        echo validation_errors();
+	    }
+	    else{
+		  $data['v_id'] = (int) $this->input->post('v_id');
+		  $data['lang_id'] = (int) $this->session->userdata('language');
+		  $data['ip'] = $this->input->ip_address();
+		  $data['updated_at'] = date('d-m-y h:i:s');
+		  $data['updated_by'] = (int) $this->session->userdata('user_id');
+		  $result = $this->Video_model->get_video_data($data);
+		  if(count($result)>0){
+			 echo json_encode(array('data'=>$result,'msg'=>'news content.','status'=>200));
+		  }
+		  else{
+			 echo json_encode(array('msg'=>'no record found.','status'=>500));
+		  }
+	    }
 	}
 	function update_video(){
+	    $this->form_validation->set_rules('video_id', 'video id', 'required|trim|integer|is_natural');
+	    $this->form_validation->set_rules('v_url', 'video url', 'required|trim');
+	    $this->form_validation->set_rules('v_title', 'video title', 'required|trim|min_length[3]');
+	    $this->form_validation->set_rules('v_desc', 'video desc', 'required|trim');
+	    $this->form_validation->set_rules('v_order', 'video order', 'required|trim|integer|is_natural');
+	    $this->form_validation->set_rules('v_category', 'video category', 'required|integer|is_natural_no_zero');
+	    
+	    if ($this->form_validation->run() == FALSE){
+	        $this->session->set_flashdata('message',validation_errors());
+	        echo validation_errors();
+	    }
+	    else{
+	        
+	    } die;
 		$data['v_id'] = (int)$this->input->post('v_id');
 		$data['lang_id'] = (int) $this->session->userdata('language');
 		$data['updated_at'] = date('d-m-y h:i:s');
@@ -161,22 +196,31 @@ class Video_ctrl extends CI_Controller {
 	}
 	
 	function video_is_home(){
-		$data['v_id'] =  (int)$this->input->post('v_id');
-		$data['status1'] =      $this->input->post('status1');
-		if($data['status1'] ==  'true'){
+	    $this->form_validation->set_rules('v_id', 'video id', 'required|trim|integer|is_natural');
+	    $this->form_validation->set_rules('status', 'video status', 'required|trim');
+	    
+	    if ($this->form_validation->run() == FALSE){
+	        $this->session->set_flashdata('message',validation_errors());
+	        echo validation_errors();
+	    }
+	    else{
+		  $data['v_id'] =  (int)$this->input->post('v_id');
+		  $data['status1'] =      $this->input->post('status1');
+		  if($data['status1'] ==  'true'){
 			$data['status1'] =   1;
-		}
-		else{
+		  }
+		  else{
 			$data['status1'] =  0;
-		}
-		$result=$this->Video_model->video_is_home($data);
-		if($result){
+		  }
+		  $result=$this->Video_model->video_is_home($data);
+		  if($result){
 			$this->file_update();
 			echo json_encode(array('msg'=>'operation successfull.','status'=>200));
-		}
-		else{
+		  }
+		  else{
 			echo json_encode(array('msg'=>'something wrong.','status'=>500));
-		}
+		  }
+	    }
 	}
 //////////////////////////////////////////////////////video category//////////////////////////////////////////////////////////////////////////	
 	function video_cat(){
@@ -195,6 +239,7 @@ class Video_ctrl extends CI_Controller {
 	function category_create(){
 		if($this->ion_auth->is_admin()){
 			$this->form_validation->set_rules('v_category_name', 'Category name', 'required|trim|min_length[3]');
+			$this->form_validation->set_rules('v_cat_id', 'Category id', 'trim|integer|is_natural');
 			$this->form_validation->set_rules('v_category_parent_drop_down', 'Category parent category', 'required|trim|integer|is_natural');
 			if ($this->form_validation->run() == FALSE){
 				$this->session->set_flashdata('message',validation_errors());
@@ -237,18 +282,24 @@ class Video_ctrl extends CI_Controller {
 		else{
 			echo json_encode(array('msg'=>'You are not Authorized.','status'=>500));
 		}
-		
 	}
+	
 	
 	function category_detail(){
-		$data['v_id'] = $this->input->post('vc_id');
-		$result = $this->Video_model->category_detail($data);
-		if(count($result)>0){
-			echo json_encode(array('data'=>$result,'status'=>200));
-		}
-		else{
-			echo json_encode(array('status'=>500));
-		}
+	    $this->form_validation->set_rules('vc_id', 'category id', 'required|trim|integer|is_natural');
+	    if ($this->form_validation->run() == FALSE){
+	        $this->session->set_flashdata('message',validation_errors());
+	        echo validation_errors();
+	    }
+	    else{
+		    $data['v_id'] = $this->input->post('vc_id');
+	  	    $result = $this->Video_model->category_detail($data);
+		    if(count($result)>0){
+			 echo json_encode(array('data'=>$result,'status'=>200));
+		  }
+		  else{
+			 echo json_encode(array('status'=>500));
+		  }
 	}
-	
+   }
 }

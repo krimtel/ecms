@@ -50,6 +50,17 @@ class Event_ctrl extends CI_Controller {
 	}
 	
 	function event_create(){	
+	    $this->form_validation->set_rules('userFiles', 'Event Photo', 'required|trim');
+	    $this->form_validation->set_rules('event_title', 'Event Title', 'required|trim');
+	    $this->form_validation->set_rules('event_category', 'Event Category', 'required|trim');
+	    $this->form_validation->set_rules('event_desc', 'Event Description', 'required|trim');
+	    $this->form_validation->set_rules('event_order', 'Event Order', 'required|trim');
+	    
+	    if ($this->form_validation->run() == FALSE){
+	        $this->session->set_flashdata('message',validation_errors());
+	        echo validation_errors();
+	    }
+	    else{
 		$data['event_title'] = $this->input->post('event_title');
 		$data['event_desc'] = $this->input->post('event_desc');
 		$data['event_id'] = (int)$this->input->post('event_id');
@@ -156,46 +167,64 @@ class Event_ctrl extends CI_Controller {
 			}
 		}
 	}
+	}
 	
 	
 	function get_event_content(){
+	    $this->form_validation->set_rules('e_id', 'Event Id', 'required|trim|integer|is_natural');
 		$data['event_id'] = (int) $this->input->post('e_id');
 		$data['lang_id'] = (int) $this->session->userdata('language');
 		$data['ip'] = $this->input->ip_address();
 		$data['updated_at'] = date('Y-m-d h:i:s');
-		$data['updated_by'] = (int) $this->session->userdata('user_id');
-		$result = $this->Event_model->get_event_content($data);
-		if(count($result)>0){
+		
+		if ($this->form_validation->run() == FALSE){
+		    $this->session->set_flashdata('message',validation_errors());
+		    echo validation_errors();
+		}
+		else{
+		    $data['updated_by'] = (int) $this->session->userdata('user_id');
+	       	$result = $this->Event_model->get_event_content($data);
+		    if(count($result)>0){
 			echo json_encode(array('data'=>$result,'msg'=>'event content.','status'=>200));
 		}
 		else{
 			echo json_encode(array('msg'=>'no record found.','status'=>200));
 		}
 	}
+	   }
 	
 	function event_publish(){
 		if($this->ion_auth->is_admin()){
-			$data['e_id'] = (int)$this->input->post('e_id');
-			$data['status'] = $this->input->post('status');
-			if($data['status'] == 'true'){
+		    $this->form_validation->set_rules('e_id', 'Event Id', 'required|trim|integer|is_natural');
+		    $this->form_validation->set_rules('status', 'Status', 'required');
+		    if ($this->form_validation->run() == FALSE){
+		        $this->session->set_flashdata('message',validation_errors());
+		        echo validation_errors();
+		    }
+		    else{
+			 $data['e_id'] = (int)$this->input->post('e_id');
+			 $data['status'] = $this->input->post('status');
+			 if($data['status'] == 'true'){
 				$data['status'] = 1;
-			}
-			else{
+			 }
+			 else{
 				$data['status'] = 0;
-			}
+			 }
 				
-			$result = $this->Event_model->event_publish($data);
-			if($result){
-				$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			 $result = $this->Event_model->event_publish($data);
+			 if($result){
+			 	$this->file_update();
+			   	echo json_encode(array('msg'=>'operation successfull.','status'=>200));
 			}
 			else{
 				echo json_encode(array('msg'=>'something wrong.','status'=>500));
 			}
 		}
+		}
 		else{
 			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
 		}
+		
 	}
 	
 	function event_is_home(){
