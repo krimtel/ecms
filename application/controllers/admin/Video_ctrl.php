@@ -49,6 +49,20 @@ class Video_ctrl extends CI_Controller {
 	}
 	
 	function video_create(){
+		$this->form_validation->set_rules('v_url', 'video url', 'required|trim');
+		$this->form_validation->set_rules('v_title', 'video title', 'required|trim|min_length[3]');
+		$this->form_validation->set_rules('v_desc', 'video desc', 'required|trim');
+		$this->form_validation->set_rules('v_order', 'video order', 'required|trim|integer|is_natural');
+		$this->form_validation->set_rules('v_category', 'video category', 'required|integer|is_natural_no_zero');
+		
+		if ($this->form_validation->run() == FALSE){
+			$this->session->set_flashdata('message',validation_errors());
+			echo validation_errors();
+		}
+		else{
+			
+		}
+		die;
 		$data['v_url'] = $this->input->post('v_url');
 		$data['v_title'] = $this->input->post('v_title');
 		$data['v_desc'] = $this->input->post('v_desc');

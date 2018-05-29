@@ -32,7 +32,7 @@
 						  		<option value="0">Select user</option>
 						  		<?php if(isset($users) && (count($users) > 0)){ 
 						  			foreach($users as $user){ ?>
-						  			<option value="<?php echo $user['id']; ?>"><?php echo $user['username']; ?></option>
+						  			<option value="<?php echo $user['id']; ?>"><?php echo $user['first_name'].' '.$user['last_name']; ?></option>
 						  		<?php } } ?>
 						  	</select>
 						  </div>

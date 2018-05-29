@@ -20,7 +20,7 @@ class Users_model extends CI_Model {
 	}
 	
 	function get_all_users(){
-		$this->db->select('u.id,u.username');
+		$this->db->select('u.id,u.username,u.first_name,u.last_name');
 		$this->db->join('users_groups ug','ug.user_id = u.id');
 		$this->db->join('groups g','g.id = ug.group_id');
 		$result = $this->db->get_Where('users u',array('ug.group_id'=>3,'u.active'=>1))->result_array();
@@ -28,8 +28,8 @@ class Users_model extends CI_Model {
 	}
 	
 	function get_user_language($u_id){
-		$this->db->select('*');
-		$result = $this->db->get_where('users_language',array('user_id'=>$u_id,'status'=>1))->result_array();
+		$this->db->select('id,language as lang_id');
+		$result = $this->db->get_where('users',array('id'=>$u_id,'active'=>1))->result_array();
 		return $result;
 	}
 	

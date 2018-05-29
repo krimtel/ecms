@@ -19,7 +19,7 @@ class Users_ctrl extends CI_Controller {
 		$data['title'] = 'eNam Admin';
 		$data['users_lang'] = $this->Users_model->get_all_lang_users();
 		$data['users'] = $this->Users_model->get_all_users();
-// 		print_r($data['users']); die;
+
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		if(count($file_menu)){
 			$data['languages'] = $file_menu;

@@ -14,3 +14,6 @@
 28-05-18 01:50:49 || user admin@admin.com Update user detail user id =>4
 28-05-18 01:57:34 || user admin@admin.com Update user detail user id => 1
 28-05-18 02:00:59 || user admin@admin.com Update user detail user id => 4
+29-05-18 08:03:30 || user ram@gmail.com Update user detail user id => 2
+29-05-18 08:03:39 || user ram@gmail.com Update user detail user id => 2
+29-05-18 08:11:30 || user ram@gmail.com Update user detail user id => 4
