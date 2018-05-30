@@ -32,8 +32,7 @@ class Enam_ctrl extends CI_Controller {
 		}
 		
 		$data['header'] = $this->load->view('comman/header',$data,TRUE);
-		$data['menus'] = $this->Menu_model->menu_list();
-// 		print_r($data['menus']); die;
+		$data['menus'] = $this->Enam_model->all_menus();
 		$data['navigation'] = $this->load->view('comman/navigation',$data,TRUE);
 		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
 		$data['footer'] = $this->load->view('comman/footer','',TRUE);
@@ -54,7 +53,6 @@ class Enam_ctrl extends CI_Controller {
 		$data['newses'] = $this->Enam_model->all_news();
 		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
 		$data['events'] = $this->Event_model->home_list_events();
-		//print_r($this->session->all_userdata()); die;
 		$data['main_contant'] = $this->load->view('pages/dashboard',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
