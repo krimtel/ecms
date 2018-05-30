@@ -26,18 +26,18 @@
 	                			}
 	                			if($f){
 	                				echo '<li class="dropdown">';
-	                				echo '<a href="'.$menu['cms_url'].'" class="dropdown-toggle" data-toggle="dropdown" title="'.$menu['title'].'">'.$menu['title'].'<b class="caret"></b></a>';
+	                				echo '<a href="'.$menu['cms_url'].'" class="dropdown-toggle" data-toggle="dropdown" title="'.$menu['title'].'">'.$menu['menu_name'].'<b class="caret"></b></a>';
 	                				echo '<ul class="dropdown-menu">';
 	                					foreach($menus as $innermenu){ 
 	                						if($innermenu['p_id'] == $menu['id']){
-	                							echo '<li><a href="'.$innermenu['cms_url'].'" title="'.$innermenu['title'].'"> '.$innermenu['title'].'</a></li>';
+	                							echo '<li><a href="'.$innermenu['cms_url'].'" title="'.$innermenu['title'].'"> '.$innermenu['menu_name'].'</a></li>';
 	                						}
 	                					}
 	                				echo '</ul>';
 	                				echo '</li>';
 	                			}
 	                			else{
-	                				echo '<li><a class="" title="'.$menu['title'].'" href="'.$menu['cms_url'].'">'.$menu['title'].'</a></li>';
+	                				echo '<li><a class="" title="'.$menu['title'].'" href="'.$menu['cms_url'].'">'.$menu['menu_name'].'</a></li>';
 	                			}
                 			}
                 	 } ?>
