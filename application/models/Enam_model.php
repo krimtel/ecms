@@ -19,6 +19,19 @@ class Enam_model extends CI_Model {
 		return $result;
 	}
 	
+	function all_menus(){
+		$l_id = $this->session->userdata('client_language');
+		
+		if($l_id == ''){
+			$l_id = 1;
+		}
+		$this->db->select('*');
+		$this->db->join('menu_item mi','mi.menu_id = m.id');
+		$this->db->order_by('m.sort,m.created_at,m.updated_at','ASC');
+		$result = $this->db->get_where('menu m',array('lang_id'=>$l_id,'m.status'=>1,'mi.status'=>1))->result_array();
+		return $result;
+	}
+	
 	function all_links(){
 		$l_id = $this->session->userdata('client_language');
 		if($l_id == ''){
