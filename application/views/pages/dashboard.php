@@ -3,11 +3,6 @@
 </div>
 <div class="container-fuild left-right-space" style="float:left;min-height:450px;width:100%;">
 	<div class="content-section">
-		<div class="marquee-section">
-			<div class="col-md-12" style="margin-bottom:10px;">
-				<iframe src="http://agmarknet.nic.in/agnew/namticker.aspx" style="width:100%;height:73px;border:none;"></iframe>
-			</div>
-		</div>
 		<div class="col-sm-5 wow fadeInLeft" data-wow-delay="0.5s" style="margin-top:15px;">
 			<img alt="Map" src="<?php echo base_url(); ?>assest/images/home/map.jpg" />
 		</div>

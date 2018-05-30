@@ -986,25 +986,86 @@ $(document).ready(function(){
 	});
 /////////////////////////////////////////////////////////////page///////////////////////////////////////////////////////////////////////
 	$(document).on('click','#page_create,#page_update',function(){
-		$('#page_add_form').ajaxForm({
-		    dataType : 'json',
-		    data : {
-		    	//'widget_content' : CKEDITOR.instances.widget_content.getData()
-		    },
-		    beforeSubmit:function(e){
-				$('#loader').modal('show');
-		    },
-		    success:function(response){
-		  	  if(response.status == 200){
-		    	$('#loader').modal('toggle');
-		    	alert(response.msg);
-		    	location.reload();
-		      }
-		      else{
-			    alert(response.msg);
-		      }
-		    }
-	  }).submit();
+		var form_valid = true;
+		if($('#page_name').val() == ''){
+			$('#page_name_error').html('Page name is Required').css('display','block');
+			form_valid = false;
+		}
+		else if($('#page_name').val().length < 3){
+			$('#page_name_error').html('Page name Atleast greater then 3 character.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#page_name_error').css('display','none');
+		}
+		
+		if($('#page_layout').val() == 0){
+			$('#page_layout_error').html('Please Select Page Layout.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#page_layout_error').css('display','none');
+		}
+		
+		if($('#meta_tag').val() == ''){
+			$('#meta_tag_error').html('Please Enter Page Meta.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#meta_tag_error').css('display','none');
+		}
+		
+		if($('#keyword').val() == ''){
+			$('#keyword_error').html('Please Enter Page Keyword.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#keyword_error').css('display','none');
+		}
+		
+		if(form_valid){
+			$('#page_add_form').ajaxForm({
+			    dataType : 'json',
+			    data : { },
+			    beforeSubmit:function(e){
+					$('#loader').modal('show');
+			    },
+			    success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+		  }).submit();
+		}
+	});
+	
+	
+	$(document).on('keyup','#page_name',function(){
+		var text = $(this).val();
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Ajax_ctrl/Check_page_name',
+	        dataType: "json",
+	        data: {
+		        'text' : text
+		       },
+	        beforeSend: function(){},
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	if(response.status == 500){
+	        		$('#page_create').attr('disabled','disabled');
+	        	}
+	        	else {
+	        		$('#page_create').removeAttr('disabled','disabled');
+	        	}
+	        }
+		});
 	});
 	
 	$(document).on('change','#page_layout',function(){

@@ -62,7 +62,7 @@
 					</div>
 				</div>
 				
-				<div class="form-group" id="menu_cms_url_box" style="display:none;">
+				<div class="form-group" id="menu_cms_url_box" style="">
 					<label class="col-sm-3 control-label">Select Page</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="menu_cems_link_select" id="menu_cems_link_select">

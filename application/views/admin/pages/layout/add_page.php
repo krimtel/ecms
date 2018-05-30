@@ -33,6 +33,7 @@
 					<label class="col-sm-2 control-label">Page Name</label>
 					<div class="col-sm-9">
 						<input id="page_name" name="page_name" type="text" class="form-control" placeholder="Enter new language" value="<?php if(isset($page_details)){ echo $page_details['0']['page_name']; }?>">
+						<div class="text-danger" id="page_name_error" style="display:none;"></div>
 					</div>
 					<div class="col-sm-12">
 						<input type="hidden" id="page_id" name="page_id" class="form-control" value="<?php if(isset($page_details)){echo $page_details[0]['p_id'];}?>">
@@ -54,6 +55,7 @@
 							<option value="3" >3 columns (Both Sidebar)</option>
 						<?php } ?>
 						</select>
+						<div class="text-danger" id="page_layout_error" style="display: none;"></div>
 					</div>
 				</div>
 				<!--  -->
@@ -116,17 +118,15 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Meta tags</label>
 					<div class="col-sm-9">
-						<textarea name="meta_tag" id="meta_tag" rows="5" cols="" class="form-control">
-							<?php if(isset($page_details)){echo $page_details[0]['meta_tag'];}?>
-						</textarea>
+						<textarea name="meta_tag" id="meta_tag" rows="5" cols="" class="form-control"><?php if(isset($page_details)){echo $page_details[0]['meta_tag'];}?></textarea>
+						<div class="text-danger" id="meta_tag_error" style="display:none;"></div>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Key words</label>
 					<div class="col-sm-9">
-						<textarea rows="5" name="keyword" id="keyword" cols="" class="form-control">
-							<?php if(isset($page_details)){echo $page_details[0]['keywords'];}?>
-						</textarea>
+						<textarea rows="5" name="keyword" id="keyword" cols="" class="form-control"><?php if(isset($page_details)){echo $page_details[0]['keywords'];}?></textarea>
+						<div class="text-danger" id="keyword_error" style="display:none;"></div>
 					</div>
 				</div>
             </div>

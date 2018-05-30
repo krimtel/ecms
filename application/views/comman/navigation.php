@@ -16,54 +16,31 @@
             
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
                 <ul class="nav navbar-nav navigation">
-                  <li><a class="active" title="HOME" href="<?php echo base_url(); ?>"> HOME</a></li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="NATIONAL AGRICULTURE MARKET">NATIONAL AGRICULTURE MARKET<b class="caret"></b></a> 
-                        <ul class="dropdown-menu">
-							<li><a href="<?php echo $this->config->item('nam_url'); ?>/about_us" title="ABOUT NAM"> ABOUT NAM</a></li>
-							<li><a href="<?php echo $this->config->item('nam_url'); ?>/key_stakeholders" title="KEY STAKEHOLDERS">KEY STAKEHOLDERS</a></li>
-							<li><a href="<?php echo $this->config->item('nam_url'); ?>/implementation_progress" title="IMPLEMENTATION PROGRESS">IMPLEMENTATION PROGRESS</a></li> 
-							<li><a href="<?php echo $this->config->item('nam_url'); ?>/usefull_links" title="USEFUL LINKS">USEFUL LINKS</a></li>
-                        </ul>
-                    </li>
-					
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="FARMER">FARMER <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-                            <li><a href="<?php echo $this->config->item('farmer_url'); ?>/approved_commodities" title="APPROVED COMMODITIES">APPROVED COMMODITIES</a></li>
-                            <li><a href="<?php echo $this->config->item('farmer_url'); ?>/commodity_quality_parameters" title="COMMODITY QUALITY PARAMETERS">COMMODITY QUALITY PARAMETERS</a></li>
-                            <li><a href="<?php echo $this->config->item('farmer_url'); ?>/enrolled_mandis" title="ENROLLED MANDIS">ENROLLED MANDIS</a></li>
-                        </ul>
-					</li>
-					
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="TRADER">TRADER <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-                            <li><a href="<?php echo $this->config->item('trader_url'); ?>/commodity_price" title="COMMODITY PRICE">COMMODITY PRICE</a></li>
-                            <li><a href="<?php echo $this->config->item('trader_url'); ?>/approved_commodities" title="APPROVED COMMODITIES">APPROVED COMMODITIES</a></li>
-							<li><a href="<?php echo $this->config->item('trader_url'); ?>/commodity_quality_parameters" title="COMMODITY QUALITY PARAMETERS">COMMODITY QUALITY PARAMETERS</a></li>
-                            <li><a href="<?php echo $this->config->item('trader_url'); ?>/enrolled_mandis" title="ENROLLED MANDIS">ENROLLED MANDIS</a></li>
-                            <li><a href="<?php echo $this->config->item('trader_url'); ?>/unified_license_guidelines" title="UNIFIED LICENSE GUIDELINES">UNIFIED LICENSE GUIDELINES</a></li>
-                            <li><a href="<?php echo $this->config->item('trader_url'); ?>/manuals_guides" title="MANUALS/ OTHER GUIDES">MANUALS/ OTHER GUIDES</a></li>
-                        </ul>
-					</li>
-                  
-                    
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="STATISTICS">STATISTICS<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a target="_blank" href="http://enam.gov.in/elegantjbi/login" title="MANAGEMENT INFOMATION SYSTEM (MIS)">MANAGEMENT INFOMATION SYSTEM (MIS)</a></li>
-                            <li><a target="_blank" href="http://enam.gov.in/NAMREPORT" title="REPORTS">REPORTS</a></li>
-                        </ul>
-                    </li>
-                     
-                     <li><a href="<?php echo $this->config->item('elarning_url'); ?>/elearning" title="eLEARNING">eLEARNING</a></li>
-					<li>
-						<a title="CONTACT US" href="<?php echo base_url(); ?>Enam_ctrl/contact_us" class="dropdown-toggle" >CONTACT US <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-						<li><a href="<?php echo $this->config->item('contact_url'); ?>/feedback" title="FEEDBACK">FEEDBACK</a></li>
-						<li><a href="<?php echo $this->config->item('contact_url'); ?>/faq" title="FAQ">FAQ</a></li>                    
-					   </ul>
-					</li>
-					<li class="blink" id="blink"><a title="REGISTRATION GUIDELINE" data-toggle="modal" data-target="#details" href="#">REGISTRATION GUIDELINES</a></li>
-						
+                	<?php foreach($menus as $menu){
+                			$f = 0;
+                			if($menu['p_id'] == 0){
+	                			foreach($menus as $submenu){
+	                				if($menu['id'] == $submenu['p_id']){
+	                					$f = 1;
+	                				}
+	                			}
+	                			if($f){
+	                				echo '<li class="dropdown">';
+	                				echo '<a href="'.$menu['cms_url'].'" class="dropdown-toggle" data-toggle="dropdown" title="'.$menu['title'].'">'.$menu['title'].'<b class="caret"></b></a>';
+	                				echo '<ul class="dropdown-menu">';
+	                					foreach($menus as $innermenu){ 
+	                						if($innermenu['p_id'] == $menu['id']){
+	                							echo '<li><a href="'.$innermenu['cms_url'].'" title="'.$innermenu['title'].'"> '.$innermenu['title'].'</a></li>';
+	                						}
+	                					}
+	                				echo '</ul>';
+	                				echo '</li>';
+	                			}
+	                			else{
+	                				echo '<li><a class="" title="'.$menu['title'].'" href="'.$menu['cms_url'].'">'.$menu['title'].'</a></li>';
+	                			}
+                			}
+                	 } ?>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

@@ -73,4 +73,17 @@ class Ajax_ctrl extends CI_Controller {
 			echo json_encode(array('status'=>200));
 		}
 	}
+	
+	function Check_page_name(){
+		$text = $this->input->post('text');
+		
+		$this->db->select('*');
+		$result = $this->db->get_where('pages',array('page_name'=>$text,'status'=>1))->result_array();
+		if(count($result) > 0){
+			echo json_encode(array('msg'=>'page is alread exsist.','status'=>500));
+		}
+		else{
+			echo json_encode(array('msg'=>'Congatualtions.','status'=>200));
+		}
+	}
 }

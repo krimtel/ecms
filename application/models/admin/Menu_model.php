@@ -17,7 +17,7 @@ class Menu_model extends CI_Model {
 	}
 	
 	function menu_list(){
-		$this->db->select('m.id,m.title,m.p_id, mi.m_id, mi.menu_name, mi.lang_id,l.l_name,m.cms_url');
+		$this->db->select('m.id,m.title,m.p_id,m.external_link,mi.m_id, mi.menu_name, mi.lang_id,l.l_name,m.cms_url');
 		$this->db->join('menu_item mi','mi.menu_id = m.id','left');
 		$this->db->join('languages l','l.l_id = mi.lang_id','left');
 		$this->db->order_by('m.sort','ASC');

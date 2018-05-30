@@ -7,7 +7,7 @@ class Enam_ctrl extends CI_Controller {
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
 		$this->load->database();
-		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Slider_model','admin/Widget_model','Enam_model','admin/Event_model'));
+		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Slider_model','admin/Widget_model','admin/Menu_model','Enam_model','admin/Event_model'));
 		$this->load->library(array('session'));
 	}
 	
@@ -17,7 +17,8 @@ class Enam_ctrl extends CI_Controller {
 	
 	public function index(){
 		$data['title'] = 'eNam';
-		$data['head'] = $this->load->view('comman/head','',TRUE);
+		$data['keywords'] = 'enam home';
+		$data['head'] = $this->load->view('comman/head',$data,TRUE);
 		
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		if(count($file_menu)){
@@ -31,7 +32,9 @@ class Enam_ctrl extends CI_Controller {
 		}
 		
 		$data['header'] = $this->load->view('comman/header',$data,TRUE);
-		$data['navigation'] = $this->load->view('comman/navigation','',TRUE);
+		$data['menus'] = $this->Menu_model->menu_list();
+// 		print_r($data['menus']); die;
+		$data['navigation'] = $this->load->view('comman/navigation',$data,TRUE);
 		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
 		$data['footer'] = $this->load->view('comman/footer','',TRUE);
 		
