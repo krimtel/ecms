@@ -42,7 +42,7 @@
 						<select id="language_selector">
 							<?php if($this->session->userdata('client_language') != ''){ 
 								$session_lang = $this->session->userdata('client_language'); 
-							} ?>
+							} else { $session_lang = ''; }?>
 							<?php foreach($languages as $language){ 
 								if($session_lang != ''){ ?>
 									<?php if($language['l_id'] == $session_lang){ ?>
