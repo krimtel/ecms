@@ -50,7 +50,7 @@ class Event_ctrl extends CI_Controller {
 	}
 	
 	function event_create(){	
-	    $this->form_validation->set_rules('userFiles', 'Event Photo', 'required|trim');
+	   // $this->form_validation->set_rules('userFiles', 'Event Photo', 'required|trim');
 	    $this->form_validation->set_rules('event_title', 'Event Title', 'required|trim');
 	    $this->form_validation->set_rules('event_category', 'Event Category', 'required|trim');
 	    $this->form_validation->set_rules('event_desc', 'Event Description', 'required|trim');

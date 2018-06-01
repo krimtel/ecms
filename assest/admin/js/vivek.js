@@ -868,6 +868,13 @@ $(document).ready(function(){
 			});
 		}
 	});
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////f	
+	
+	$(document).on('click','#clr_file',function(){
+		var soft_files =  $('.soft_files:checked').val();
+		alert (soft_files);
+	});
+	
 });
 
 

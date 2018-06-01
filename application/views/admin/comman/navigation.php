@@ -57,6 +57,9 @@
 	<li>
 		<a title="Cms Pages" href="<?php echo base_url();?>admin/admin/Static_pages"> <i class="fa fa-files-o"></i> Cms Pages</a>
 	</li>
+	<li>
+		<a title="Cms Pages" href="<?php echo base_url();?>admin/admin/cache_mgnt"> <i class="fa fa-files-o"></i> Cache Management</a>
+	</li>
 	</ul>
 	</div>
 

@@ -14,8 +14,16 @@ class Enam_ctrl extends CI_Controller {
 	function hooks_fun(){
 		$this->load->view('error');
 	}
+// 	function vivek(){
+// 	    //$list = glob(FCPATH . '/software_files/');
+// 	    //print_r($list);
+// 	    $this->load->helper('directory');
+// 	    $map = directory_map('./software_files');
+// 	    print_r($map);
+// 	}
 	
 	public function index(){
+	    $data[' keywords'] = $this->load->view('comman/head','',TRUE);
 		$data['title'] = 'eNam';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
@@ -34,7 +42,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['header'] = $this->load->view('comman/header',$data,TRUE);
 		$data['menus'] = $this->Enam_model->all_menus();
 		$data['navigation'] = $this->load->view('comman/navigation',$data,TRUE);
-		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
+		//$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
 		$data['footer'] = $this->load->view('comman/footer','',TRUE);
 		
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider_client.txt'),true);

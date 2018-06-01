@@ -27,7 +27,6 @@ class Event_model extends CI_Model {
 		$this->db->insert('events',$val);
 		$val2['event_id'] = $this->db->insert_id();
 		$this->db->insert('event_item',$val2);
-		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;
