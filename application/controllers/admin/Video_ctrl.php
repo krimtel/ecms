@@ -80,6 +80,8 @@ class Video_ctrl extends CI_Controller {
 		}
 	}
 	
+	
+	
 	function video_publish(){
 	   if($this->ion_auth->is_admin()){
 		    $this->form_validation->set_rules('v_id', 'video id', 'required|trim|integer|is_natural');

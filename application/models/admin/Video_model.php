@@ -9,9 +9,6 @@ class Video_model extends CI_Model {
 	
 	function video_create($data){
 		//video table data
-		$group = $this->session->userdata('group_name');
-		if($group == 'admin'){
-			
 		$val['v_title'] = $data['v_title'];
 		$val['sort']=$data['v_order'];
 		$val['v_url'] = $data['v_url'];
@@ -39,10 +36,6 @@ class Video_model extends CI_Model {
 			$this->db->trans_commit();
 			return true;
 			
-		}
-		}
-		else{
-			echo "you are not authorized.";
 		}
 	}
 

@@ -25,6 +25,7 @@
 						<?php 
 						if(isset($files) && count($files) > 0 ){
 						    foreach($files as $file){
+						    	print_r(glob("*.txt"), $file);
 						        echo "<input type='checkbox' class='soft_files' name='soft_files' data-file='$file'>". $file."<br/>"; 
 						    }
 						}

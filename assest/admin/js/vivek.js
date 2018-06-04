@@ -169,7 +169,6 @@ $(document).ready(function(){
 		}
 		else if(language!=pattern){
 			$("#language_response").html("<span class='exists'>only char allowed</span>");
-			
 			$(that).addClass('txt_error');
 			$("#language_create").attr("disabled", "disabled");
 		}
