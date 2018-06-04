@@ -24,23 +24,15 @@ class Cache_ctrl extends CI_Controller {
 	
 	public function index(){
 		$data['title'] = 'eNam Admin';		
-		
-// 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
-// 		if(count($file_menu)){
-// 			$data['languages'] = $file_menu;
-// 		}
-// 		else{
-// 			$data['languages'] = $this->Language_model->get_all_language();
-// 			$json = json_encode($data['languages']);
-// 			$file = FCPATH . '/software_files/Language.txt';
-// 			file_put_contents ($file, $json);
-// 		}
 		$this->load->helper('directory');
 		$data['files'] = directory_map('./software_files');
-//     	$string = (base_url().'./software_files/Slider.txt');
-// 		unlink($string);
-		//$string = read_file(base_url().'./software_files/Slider.txt');
+// 		$string = @fopen(base_url().'./software_files/Language.txt',"r+");
+// 		if($string !== false){
+// 			ftruncate($string,0);
+// 			fclose($string);
+		//}
 		//echo $string;
+		
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
@@ -50,7 +42,16 @@ class Cache_ctrl extends CI_Controller {
 	}
 	
 	function cache_clear(){
-	    print_r($this->input->post()); 
+		$this->load->helper('directory');
+		$data['files'] = directory_map('./software_files');
+		$string = @fopen(base_url().'./software_files/Slider.txt',"r+");
+		if($string !== false){
+			ftruncate($string,0);
+			fclose($string);
+			unlink($string);
+			touch($string);
+			print_r( $string);
+		}
 	    
 	}
 }

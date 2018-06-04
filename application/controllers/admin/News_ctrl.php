@@ -66,7 +66,7 @@ class News_ctrl extends CI_Controller {
 			$data['news_contect'] = $this->input->post('news_desc');
 			$data['sort'] = (int)$this->input->post('news_order');
 			$data['ip'] = $this->input->ip_address();
-			$data['created_at'] = date("d-m-y h:i:s");
+			$data['created_at'] = date("y-m-d h:i:s");
 			$data['user_id'] = (int)$this->session->userdata('user_id');
 			$data['lang_id'] = (int)$this->session->userdata('language');
 			if($this->input->post('news_id') != ''){

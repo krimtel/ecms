@@ -872,6 +872,23 @@ $(document).ready(function(){
 	$(document).on('click','#clr_file',function(){
 		var soft_files =  $('.soft_files:checked').val();
 		alert (soft_files);
+		$.ajax({
+			type  :		'post',
+			url   :      baseUrl+'admin/Cache_ctrl/cache_clear',
+			data  :      {
+				'soft_files' :  soft_files
+				
+			},
+			beforesend : function(){
+				$('#loader').modal({'show' : true});
+			},
+			complete: function(){},
+			success: function(response){
+				//console.log(response);
+				//$('loader').model('toggle');
+			}
+		});
+		
 	});
 	
 });

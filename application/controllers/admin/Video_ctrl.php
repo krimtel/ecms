@@ -67,7 +67,7 @@ class Video_ctrl extends CI_Controller {
 		    $data['v_order'] = (int)$this->input->post('v_order');
 		    $data['category_id'] = $this->input->post('v_category');
 		    
-		    $data['created_at'] = date('Y-m-d h:i:s');
+		    $data['created_at'] = date("Y-m-d h:i:s");
 		    $data['created_by'] = $this->session->userdata('user_id');
 		    $result = $this->Video_model->video_create($data);
 		    if($result){
