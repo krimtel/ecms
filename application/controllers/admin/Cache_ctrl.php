@@ -47,10 +47,10 @@ class Cache_ctrl extends CI_Controller {
 		$string = @fopen(base_url().'./software_files/Slider.txt',"r+");
 		if($string !== false){
 			ftruncate($string,0);
+			clearstatcache();
+			//unlink($string);
+			//touch($string);
 			fclose($string);
-			unlink($string);
-			touch($string);
-			print_r( $string);
 		}
 	    
 	}
