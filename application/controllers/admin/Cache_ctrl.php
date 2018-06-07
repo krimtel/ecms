@@ -26,13 +26,8 @@ class Cache_ctrl extends CI_Controller {
 		$data['title'] = 'eNam Admin';		
 		$this->load->helper('directory');
 		$data['files'] = directory_map('./software_files');
-// 		$string = @fopen(base_url().'./software_files/Language.txt',"r+");
-// 		if($string !== false){
-// 			ftruncate($string,0);
-// 			fclose($string);
-		//}
-		//echo $string;
-		
+// 		$string = read_file(base_url().'./software_files/Language.txt');
+// 		echo $string;
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
@@ -43,15 +38,9 @@ class Cache_ctrl extends CI_Controller {
 	
 	function cache_clear(){
 		$this->load->helper('directory');
-		$data['files'] = directory_map('./software_files');
-		$string = @fopen(base_url().'./software_files/Slider.txt',"r+");
-		if($string !== false){
-			ftruncate($string,0);
-			clearstatcache();
-			//unlink($string);
-			//touch($string);
-			fclose($string);
-		}
-	    
+		$data['soft_files'] = $this->input->post('soft_files'); 
+		$file = FCPATH . "/software_files/{$this->input->post('soft_files')}";
+		file_put_contents ($file, "");
+		echo $file; die;
 	}
 }

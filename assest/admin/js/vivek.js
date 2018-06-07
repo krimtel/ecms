@@ -869,8 +869,8 @@ $(document).ready(function(){
 	});
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////f	
 	
-	$(document).on('click','#clr_file',function(){
-		var soft_files =  $('.soft_files:checked').val();
+	$(document).on('click','.file_clr',function(){
+		var soft_files =  $(this).data('file');
 		alert (soft_files);
 		$.ajax({
 			type  :		'post',
@@ -884,8 +884,8 @@ $(document).ready(function(){
 			},
 			complete: function(){},
 			success: function(response){
-				//console.log(response);
-				//$('loader').model('toggle');
+				console.log(response);
+				$('loader').model('toggle');
 			}
 		});
 		
