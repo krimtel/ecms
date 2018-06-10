@@ -38,8 +38,9 @@ class Menu_ctrl extends CI_Controller {
 			$data['menus'] = $this->Menu_model->menu_list();
 			$json = json_encode($data['menus']);
 			$file = FCPATH . '/software_files/Menu.txt';
-			file_put_contents ($file, $json, FILE_APPEND);
+			file_put_contents ($file, $json);
 		}
+		
 		$data['cms_pages'] = $this->Page_model->get_all_pages();
 		$data['parent_menus'] = $result = $this->Menu_model->get_all_parents_menu(0);
 		$data['head'] = $this->load->view('admin/comman/head',$data,TRUE);
@@ -131,22 +132,17 @@ class Menu_ctrl extends CI_Controller {
 			$data['menu_slug'] = $this->input->post('menu_name');
 			$data['p_id'] = (int)$this->input->post('menu_parent_dropdown');
 			
-// 			if($data['p_id'] != 0){
-				$data['external_link'] = (int)$this->input->post('menu_external_link');
-				$data['cms_url'] = $this->input->post('menu_url_text');
-				
-				$page_id = $this->input->post('menu_cems_link_select');
-				if($page_id != 0){
-					$data['page_id'] = $page_id;	
-				}
-				else {
-					$data['page_id'] = null;
-				}
-// 			}
-// 			else{
-// 				$data['external_link'] = NULL;
-// 				$data['cms_url'] = NULL;
-// 			}
+			$data['external_link'] = (int)$this->input->post('menu_external_link');
+			$data['cms_url'] = $this->input->post('menu_url_text');
+			
+			$page_id = $this->input->post('menu_cems_link_select');
+			if($page_id != 0){
+				$data['page_id'] = $page_id;	
+			}
+			else {
+				$data['page_id'] = null;
+			}
+			
 			$data['sort'] = (int)$this->input->post('menu_sort_order');
 			$data['created_at'] = date('d-m-y h:i:s');
 			$data['created_by'] = (int)$this->session->userdata('user_id');
@@ -177,9 +173,9 @@ class Menu_ctrl extends CI_Controller {
 	}
 	
 	function menu_content(){
-		if ($this->ion_auth->is_admin()){
+		//if ($this->ion_auth->is_admin()){
 			$data['m_id'] = (int)$this->input->post('m_id');
-			$data['lang_id'] = 1;
+			$data['lang_id'] = $this->session->userdata('language');
 			$result = $this->Menu_model->menu_content($data);
 			if(count($result) == 1){
 				$this->file_update();
@@ -188,6 +184,6 @@ class Menu_ctrl extends CI_Controller {
 			else{
 				echo json_encode(array('msg'=>'','status'=>500));
 			}
-		}
+		//}
 	}
 }

@@ -26,7 +26,9 @@ class Widget_ctrl extends CI_Controller {
 	}
 	
 	function widget_create(){
-		$this->form_validation->set_rules('widget_id', str_replace(':', '', $this->lang->line('widget_widget_content_label')), 'required|trim|integer|is_natural_no_zero');
+		if($this->input->post('widget_id') != ''){
+			$this->form_validation->set_rules('widget_id', str_replace(':', '', $this->lang->line('widget_widget_content_label')), 'required|trim|integer|is_natural_no_zero');
+		}
 		$this->form_validation->set_rules('widget_content', str_replace(':', '', $this->lang->line('widget_widget_content_label')), 'required|trim|min_length[3]');
 		$this->form_validation->set_rules('widget_title', str_replace(':', '', $this->lang->line('widget_widget_title_label')), 'required|trim|min_length[3]');
 		$this->form_validation->set_rules('widget_name', str_replace(':', '', $this->lang->line('widget_widget_name_label')), 'required|trim|min_length[3]');
@@ -37,8 +39,8 @@ class Widget_ctrl extends CI_Controller {
 		}
 		else{
 			$data['created_at'] = date('d-m-y h:i:s');
-			$data['created_by'] = $this->session->userdata('user_id');
-			$data['lang_id'] = $this->session->userdata('language');
+			$data['created_by'] = (int)$this->session->userdata('user_id');
+			$data['lang_id'] = (int)$this->session->userdata('language');
 			$data['ip'] = $this->input->ip_address();
 			if($this->input->post('widget_id')){
 				$data['widget_id'] = (int)$this->input->post('widget_id'); 

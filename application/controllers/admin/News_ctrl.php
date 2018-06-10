@@ -118,7 +118,7 @@ class News_ctrl extends CI_Controller {
 	function news_publish(){
 		if($this->ion_auth->is_admin()){
 			$this->form_validation->set_rules('n_id', 'News Id', 'required|trim|integer|is_natural_no_zero');
-			$this->form_validation->set_rules('status', 'News Status', 'required|trim|integer|is_natural');
+			$this->form_validation->set_rules('status', 'News Status', 'required|trim');
 			
 			if ($this->form_validation->run() == FALSE){
 				$this->session->set_flashdata('message',validation_errors());

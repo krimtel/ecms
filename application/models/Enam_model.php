@@ -7,7 +7,7 @@ class Enam_model extends CI_Model {
 		$this->load->database();
 		$this->load->library(array('session'));
 	}
-	function all_news(){ 
+	function all_news(){
 		$l_id = $this->session->userdata('client_language');
 		if($l_id == ''){
 			$l_id = 1;

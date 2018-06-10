@@ -26,7 +26,7 @@ class Menu_model extends CI_Model {
 	}
 	
 	function menu_content($data){
-		$this->db->select('m.id,mi.m_id,mi.menu_name,m.sort,m.p_id,m.external_link,m.cms_url');
+		$this->db->select('m.id,mi.m_id,mi.menu_name,m.sort,m.p_id,m.external_link,m.cms_url,m.page_id');
 		$this->db->join('menu m','m.id = mi.menu_id');
 		$result = $this->db->get_where('menu_item mi',array('mi.lang_id'=>$data['lang_id'],'mi.menu_id'=>$data['m_id'],'mi.status'=>1))->result_array();
 		//print_r($this->db->last_query()); die;
@@ -69,21 +69,34 @@ class Menu_model extends CI_Model {
 	
 	function menu_update($data){
 		$this->db->trans_begin();
-		$this->db->where('id',$data['menu_id']);
-		$this->db->update('menu',array(
-			'menu_slug' => $data['menu_slug'],
-			'title' => $data['title'],
-			'p_id' => $data['p_id'],
-			'sort' => $data['sort'],
-			'external_link' => $data['external_link'],
-			'cms_url' => $data['cms_url'],
-			'ip' => $data['ip'],
-			'updated_at' => $data['created_at'],
-			'updated_by' => $data['created_by'],
-		));
-		
-		$this->db->query("update menu_item set menu_name = '".$data['title']."',ip = '".$data['ip']."',updated_at = '".$data['created_at']."',updated_by = ".$data['created_by']." 
+		$result = $this->db->get_where('menu_item',array('menu_id'=>$data['menu_id'],'lang_id'=>$this->session->userdata('language'),'status'=>1))->result_array();
+		if(count($result) > 0){
+			$this->db->where('id',$data['menu_id']);
+			$this->db->update('menu',array(
+					'menu_slug' => $data['menu_slug'],
+					'title' => $data['title'],
+					'p_id' => $data['p_id'],
+					'sort' => $data['sort'],
+					'external_link' => $data['external_link'],
+					'cms_url' => $data['cms_url'],
+					'ip' => $data['ip'],
+					'page_id' => $data['page_id'],
+					'updated_at' => $data['created_at'],
+					'updated_by' => $data['created_by'],
+			));
+			
+			$this->db->query("update menu_item set menu_name = '".$data['title']."',ip = '".$data['ip']."',updated_at = '".$data['created_at']."',updated_by = ".$data['created_by']."
 				where menu_id = ".$data['menu_id']." AND lang_id = 1 AND status = 1");
+		}
+		else{
+			$this->db->insert('menu_item',array(
+					'lang_id' => $this->session->userdata('language'),
+					'menu_id' => $data['menu_id'],
+					'menu_name' => $data['title'],
+					'created_at' => $data['created_at'],
+					'created_by' => $data['created_by'],
+			));
+		}
 	
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();

@@ -98,6 +98,7 @@ $(document).ready(function(){
 	        			$('#menu_parent_dropdown').val(value.p_id);
 	        			$('#menu_external_link').val(value.external_link);
 	        			$('#menu_url_text').val(value.cms_url);
+	        			$('#menu_cems_link_select').val(value.page_id);
 	        		});
 	        		$('#menu_create').hide();
 	        		$('#menu_update').show();
@@ -1021,6 +1022,14 @@ $(document).ready(function(){
 		}
 		else{
 			$('#keyword_error').css('display','none');
+		}
+		
+		if($('#page_body').val() == ''){
+			$('#keyword_error').html('Please Enter Page Body.').css('display','block');
+			form_valid = false;
+		}
+		else{
+			$('#page_body_error').css('display','none');
 		}
 		
 		if(form_valid){

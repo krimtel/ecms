@@ -28,11 +28,34 @@ class Ajax_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Widgets.txt';
 			file_put_contents ($file, $json);
 		}
+		
 		if(count($Widgets) > 0){
 			if($page_id){
 				$this->db->select('page_layout');
 				$result = $this->db->get_where('pages',array('p_id'=>$page_id,'status'=>1))->result_array();
 				if($result[0]['page_layout'] == 2){
+					$this->db->select('*');
+					$layout = $this->db->get_Where('page_components',array('page_id'=>$page_id,'status'=>1))->result_array();
+					if(count($layout) > 0){
+						echo json_encode(array('data'=>$Widgets,'data2'=>$layout,'status'=>200));
+					}
+					else{
+						echo json_encode(array('data'=>$Widgets,'data2'=>$layout,'msg'=>'no Component is added int this Page.','status'=>200));
+					}
+				}
+				
+				if($result[0]['page_layout'] == 1){
+					$this->db->select('*');
+					$layout = $this->db->get_Where('page_components',array('page_id'=>$page_id,'status'=>1))->result_array();
+					if(count($layout) > 0){
+						echo json_encode(array('data'=>$Widgets,'data2'=>$layout,'status'=>200));
+					}
+					else{
+						echo json_encode(array('data'=>$Widgets,'data2'=>$layout,'msg'=>'no Component is added int this Page.','status'=>200));
+					}
+				}
+				
+				if($result[0]['page_layout'] == 3){
 					$this->db->select('*');
 					$layout = $this->db->get_Where('page_components',array('page_id'=>$page_id,'status'=>1))->result_array();
 					if(count($layout) > 0){

@@ -64,12 +64,13 @@ class Widget_model extends CI_Model {
 				$this->db->select('*');
 				$widget = $this->db->get_where('widget_item',array('lang_id'=>$data['lang_id'],'widget_id' => $result[0]['widget_id'],'status' => 1))->result_array();
 			}
+			
 			if(count($widget) > 0){
 				$this->db->where('id',$widget[0]['id']);
 				$this->db->update('widget_item',array(
-						'content' => $data['content'],
+						'content' => $data['widget_content'],
 						'updated_at' =>  $data['created_at'],
-						'updated_by' => $data['user_id'],
+						'updated_by' => $data['created_by'],
 						'ip'=>$data['ip']
 				));
 			}
@@ -77,13 +78,12 @@ class Widget_model extends CI_Model {
 				$this->db->insert('widget_item',array(
 						'widget_id' => $result[0]['widget_id'],
 						'lang_id' => $data['lang_id'],
-						'content' => $data['content'],
+						'content' => $data['widget_content'],
 						'created_at' =>  $data['created_at'],
-						'created_by' => $data['user_id'],
+						'created_by' => $data['created_by'],
 						'ip'=>$data['ip']
 				));
 			}
-			return false;
 		}
 		else {
 			$this->db->select('widget_id');
@@ -105,14 +105,15 @@ class Widget_model extends CI_Model {
 				'updated_by' => $data['created_by'],
 				'ip' => $data['ip']
 			));
-			if ($this->db->trans_status() === FALSE){
-				$this->db->trans_rollback();
-				return false;
-			}
-			else{
-				$this->db->trans_commit();
-				return true;
-			}
+		}
+		
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			return false;
+		}
+		else{
+			$this->db->trans_commit();
+			return true;
 		}
  	}
 	

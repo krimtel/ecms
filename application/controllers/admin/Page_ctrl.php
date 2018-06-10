@@ -42,7 +42,7 @@ class Page_ctrl extends CI_Controller {
 				file_put_contents ($file, $json);
 			}
 			
-			$this->db->select('p.*,pi.meta_tag,pi.keywords');
+			$this->db->select('p.*,pi.meta_tag,pi.keywords,pi.page_body');
 			$this->db->join('page_item pi','pi.page_id = p.p_id');
 			$result = $this->db->get_Where('pages p',array('p.p_id'=>$data['page_id'],'p.status'=>1,'pi.status'=>1))->result_array();
 			
@@ -86,6 +86,7 @@ class Page_ctrl extends CI_Controller {
 				$data['page_layout'] = $this->input->post('page_layout');
 				$data['meta_tag'] = $this->input->post('meta_tag');
 				$data['keyword'] = $this->input->post('keyword');
+				$data['page_body'] = $this->input->post('page_body');
 				if($data['page_layout'] == 1){
 					$data['component'] = $this->input->post('one_col_maincontent');
 				}
@@ -147,18 +148,23 @@ class Page_ctrl extends CI_Controller {
 						'title'  => $data['page_name'],
 						'meta_tag' => $data['meta_tag'],
 						'keywords' => $data['keyword'],
+						'page_body' => $data['page_body'],
 						'created_at' => date('y-m-d h:i:s'),
 						'created_by' => $this->session->userdata('user_id'),
 						'ip'	=> $this->input->ip_address()
 				));
+				print_r($this->db->last_query()); die;
 			}
 			else{
 				// page update
-				$data['page_id'] = $this->input->post('page_id');
+				
+				$data['page_id'] = (int)$this->input->post('page_id');
 				$data['page_name'] = $this->input->post('page_name');
 				$data['page_layout'] = $this->input->post('page_layout');
 				$data['meta_tag'] = $this->input->post('meta_tag');
 				$data['keyword'] = $this->input->post('keyword');
+				$data['page_body'] = $this->input->post('page_body');
+				
 				if($data['page_layout'] == 1){
 					$data['component'] = $this->input->post('one_col_maincontent');
 				}
@@ -170,6 +176,33 @@ class Page_ctrl extends CI_Controller {
 					$data['left_component'] = $this->input->post('three_col_leftcontent');
 					$data['component'] = $this->input->post('three_col_maincontent');
 					$data['right_component'] = $this->input->post('three_col_rightcontent');
+				}
+				
+				$result = $this->db->get_where('page_item',array('page_id'=>$data['page_id'],'lang_id'=>$this->session->userdata('language'),'status'=>1))->result_array();
+				
+				if(count($result)>0){
+					$this->db->where('id',$result[0]['id']);
+					$this->db->update('page_item',array(
+						'lang_id' => $this->session->userdata('language'),
+						'page_id' => $data['page_id'],
+						'title' => $data['page_name'],
+						'meta_tag' => $data['meta_tag'],
+						'keywords' => $data['keyword'],
+						'page_body' => $data['page_body']
+					));
+				}
+				else{
+					$this->db->insert('page_item',array(
+							'lang_id' => $this->session->userdata('language'),
+							'page_id' => $data['page_id'],
+							'title' => $data['page_name'],
+							'meta_tag' => $data['meta_tag'],
+							'keywords' => $data['keyword'],
+							'page_body' => $data['page_body'],
+							'created_at' => date('y-m-d h:i:s'),
+							'created_by' => $this->session->userdata('user_id')
+					));
+					
 				}
 				
 				$this->db->where('p_id',$data['page_id']);

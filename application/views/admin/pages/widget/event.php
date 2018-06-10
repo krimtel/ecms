@@ -51,7 +51,7 @@
 			   <div class="col-sm-9">
 			   	<select class="col-sm-2 form-control" id="event_category" name="event_category">
 			   	<div class="text-danger" id="event_category_error" style="display:none;"></div>
-			   		<option value="national">Natonal Level </option>
+			   		<option value="national">National Level </option>
 			   		<option value="state">State Level </option>
 			   		<option value="Event3_eNAM_GLIMPSES">Event3 eNAM GLIMPSES Level </option>
 			   	</select>

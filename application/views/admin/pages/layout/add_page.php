@@ -129,6 +129,13 @@
 						<div class="text-danger" id="keyword_error" style="display:none;"></div>
 					</div>
 				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Page Body</label>
+					<div class="col-sm-9">
+						<textarea rows="5" name="page_body" id="page_body" cols="" class="form-control"><?php if(isset($page_details)){echo $page_details[0]['page_body'];}?></textarea>
+						<div class="text-danger" id="page_body_error" style="display:none;"></div>
+					</div>
+				</div>
             </div>
 			</form>
 			<div class="box-footer">

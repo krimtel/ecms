@@ -53,8 +53,10 @@ class Links_ctrl extends CI_Controller {
 		if($this->input->post('link_id') != ''){
 			$this->form_validation->set_rules('link_id','Link Id','required|integer|is_natural_no_zero');
 		}
+		else{
+			$this->form_validation->set_rules('link_order','Link Order','required|integer|is_natural');
+		}
 		$this->form_validation->set_rules('link_desc','Link Contant','required|trim|min_length[3]');
-		$this->form_validation->set_rules('link_order','Link Order','required|integer|is_natural');
 		
 		if ($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('message', validation_errors());

@@ -33,7 +33,7 @@ class Url_ctrl extends CI_Controller {
 		$result = $this->db->get_Where('menu m',array('m.cms_url'=>$url_array,'m.status'=>1,'p.status'=>1,'p.publish'=>1,'m.external_link'=>0))->result_array();
 		
 		if(count($result)>0){
-			$this->db->select('p.page_name,p.page_layout,pi.title,pi.meta_tag,pi.keywords,pc.section,w.name,wi.content');
+			$this->db->select('p.page_name,p.page_layout,pi.title,pi.meta_tag,pi.keywords,pi.page_body,pc.section,w.name,wi.content');
 			$this->db->join('page_item pi','pi.page_id = p.p_id');
 			$this->db->join('page_components pc','pc.page_id = p.p_id');
 			$this->db->join('widgets w','w.w_id = pc.widget_id');
@@ -41,13 +41,14 @@ class Url_ctrl extends CI_Controller {
 			$result = $this->db->get_where('pages p',array(
 					'p.p_id'=>(int)$result[0]['page_id'],
 					'p.status' => 1,
-					'pi.lang_id' => $client_laguage,
+					'pi.lang_id' => (int)$client_laguage,
 					'pi.status' => 1,
 					'pc.status' => 1,
 					'w.status' => 1,
-					'wi.lang_id' => $client_laguage,
+					'wi.lang_id' => (int)$client_laguage,
 					'wi.status' => 1
 			))->result_array();
+			
 			$data['page_contents'] = $result;
 			if(count($data['page_contents']) > 0){
 				////////////////////////////////////
@@ -70,7 +71,8 @@ class Url_ctrl extends CI_Controller {
 				$data['head'] = $this->load->view('comman/head',$data,TRUE);
 				
 				$data['header'] = $this->load->view('comman/header',$data,TRUE);
-				$data['navigation'] = $this->load->view('comman/navigation','',TRUE);
+				$data['menus'] = $this->Enam_model->all_menus();
+				$data['navigation'] = $this->load->view('comman/navigation',$data,TRUE);
 				$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
 				$data['footer'] = $this->load->view('comman/footer','',TRUE);
 				$data['slider'] = $this->load->view('pages/comman/slider','',TRUE);

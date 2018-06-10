@@ -50,11 +50,13 @@ class Event_ctrl extends CI_Controller {
 	}
 	
 	function event_create(){	
-	   // $this->form_validation->set_rules('userFiles', 'Event Photo', 'required|trim');
+// 	    $this->form_validation->set_rules('userFiles', 'Event Photo', 'required|trim');
+		if($this->input->post('event_id') == ''){
+			$this->form_validation->set_rules('event_category', 'Event Category', 'required|trim');
+			$this->form_validation->set_rules('event_order', 'Event Order', 'required|trim');
+		}
 	    $this->form_validation->set_rules('event_title', 'Event Title', 'required|trim');
-	    $this->form_validation->set_rules('event_category', 'Event Category', 'required|trim');
 	    $this->form_validation->set_rules('event_desc', 'Event Description', 'required|trim');
-	    $this->form_validation->set_rules('event_order', 'Event Order', 'required|trim');
 	    
 	    if ($this->form_validation->run() == FALSE){
 	        $this->session->set_flashdata('message',validation_errors());
