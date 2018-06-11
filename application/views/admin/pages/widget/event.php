@@ -185,7 +185,7 @@
 			<div class="box-body">
 				<table class="table">
 					<tr>
-						<th>News</th>
+						<th>Event</th>
 						<?php if($group != 'subadmin'){ ?>
 							<th>Sort</th>
 							<th>Publish</th>
@@ -197,7 +197,7 @@
 								foreach($events as $event) { ?>
 								<?php if($event['lang_id'] == $this->session->userdata('language')) { ?>
 								<tr>
-									<td><?php echo $event['event_content']; ?></td>
+									<td><?php echo $event['title']; ?></td>
 									<?php if($group != 'subadmin'){ ?>
 										<td><?php echo $event['sort']; ?></td>
 										<td>
