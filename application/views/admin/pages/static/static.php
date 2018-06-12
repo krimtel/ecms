@@ -3,10 +3,10 @@
     <!-- Content Header (Page header) -->
 	<ol class="breadcrumb">
         <li><a title="Home" href="<?php echo base_url();?>admin/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Events</li>
+        <li class="active">Static page</li>
     </ol>   
 	<section class="content-header">
-      <h1 class="pull-left">Events</h1>
+      <h1 class="pull-left">Static page</h1>
     </section>
 	<!-- Main content -->
     <section class="content">
@@ -90,7 +90,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th>operations</th>
+						<th>Action</th>
 					</tr>
 					<tbody>
 						<?php if(isset($events) && (count($events) > 0)){ 
