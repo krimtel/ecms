@@ -19,7 +19,7 @@
     </div>
     <!-- Collection of nav links, forms, and other content for toggling -->
     <div id="navbarCollapse" class="collapse navbar-collapse" data-hover="dropdown" data-animations="fadeIn fadeInLeft fadeInUp fadeInRight" style="float:left;margin-top:5px;margin-bottom:5px;">
-<ul class="nav navbar-nav menu-section1">
+<ul class="nav navbar-nav menu-section1" <?php if(!isset($_SESSION['user_id'])){?>style="display: none;" <?php } ?>>
 	<li>
 		<a title="Home" class="" href="<?php echo base_url(); ?>dashboard"><i class="fa fa-home" aria-hidden="true"></i> HOME </a>
 	</li>
@@ -86,7 +86,7 @@
         		<?php }?>
         	</select>
         </li>
-        <li class="nav-item" style="margin-top:5px;margin-left:5px;">
+        <li class="nav-item" style="margin-top:5px;margin-left:5px;<?php if(!isset($_SESSION['user_id'])){?>display:none;<?php } ?>">
           <a class="nav-link" data-toggle="modal" data-target="" href="<?php echo base_url();?>admin/Auth/logout">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>

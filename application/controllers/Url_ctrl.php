@@ -33,23 +33,50 @@ class Url_ctrl extends CI_Controller {
 		$result = $this->db->get_Where('menu m',array('m.cms_url'=>$url_array,'m.status'=>1,'p.status'=>1,'p.publish'=>1,'m.external_link'=>0))->result_array();
 		
 		if(count($result)>0){
-			$this->db->select('p.page_name,p.page_layout,pi.title,pi.meta_tag,pi.keywords,pi.page_body,pc.section,w.name,wi.content');
-			$this->db->join('page_item pi','pi.page_id = p.p_id');
+// 			$this->db->select('p.page_name,p.page_layout,pi.title,pi.meta_tag,pi.keywords,pi.page_body,pc.section,w.name,wi.content');
+// 			$this->db->join('page_item pi','pi.page_id = p.p_id');
+// 			$this->db->join('page_components pc','pc.page_id = p.p_id');
+// 			$this->db->join('widgets w','w.w_id = pc.widget_id');
+// 			$this->db->join('widget_item wi','wi.widget_id = w.w_id');
+// 			$result = $this->db->get_where('pages p',array(
+// 					'p.p_id'=>(int)$result[0]['page_id'],
+// 					'p.status' => 1,
+// 					'pi.lang_id' => (int)$client_laguage,
+// 					'pi.status' => 1,
+// 					'pc.status' => 1,
+// 					'w.status' => 1,
+// 					'wi.lang_id' => (int)$client_laguage,
+// 					'wi.status' => 1
+// 			))->result_array();
+			$this->db->select('*');
+			$page_body = $this->db->get_Where('page_item',array('page_id'=>$result[0]['page_id'],'lang_id'=>(int)$client_laguage,'status'=>1))->result_array();
+			
+			$this->db->select('p.page_name,p.page_layout,pc.section,w.name,wi.content');
 			$this->db->join('page_components pc','pc.page_id = p.p_id');
 			$this->db->join('widgets w','w.w_id = pc.widget_id');
 			$this->db->join('widget_item wi','wi.widget_id = w.w_id');
-			$result = $this->db->get_where('pages p',array(
+			$page_component = $this->db->get_where('pages p',array(
 					'p.p_id'=>(int)$result[0]['page_id'],
 					'p.status' => 1,
-					'pi.lang_id' => (int)$client_laguage,
-					'pi.status' => 1,
 					'pc.status' => 1,
 					'w.status' => 1,
 					'wi.lang_id' => (int)$client_laguage,
 					'wi.status' => 1
 			))->result_array();
 			
-			$data['page_contents'] = $result;
+			if(count($page_component)>0){
+				foreach ($page_component[0] as $k => $v){
+					$page_body[0][$k] = $v;
+				}
+			}
+			else{
+				$this->db->select('*');
+				$page_component = $this->db->get_where('pages',array('p_id'=>$result[0]['page_id'],'status'=>1))->result_array();
+				foreach ($page_component[0] as $k => $v){
+					$page_body[0][$k] = $v;
+				}
+			}
+			$data['page_contents'] = $page_body;
 			if(count($data['page_contents']) > 0){
 				////////////////////////////////////
 				//main logic
@@ -63,10 +90,10 @@ class Url_ctrl extends CI_Controller {
 					$file = FCPATH . '/software_files/Language.txt';
 					file_put_contents ($file, $json);
 				}
-				$data['page_layout'] = $result[0]['page_layout'];
-				$data['page_title'] = $result[0]['title'];
-				$data['keywords'] = $result[0]['keywords'];
-				$data['title'] = 'eNam | '.$result[0]['title'].' | '.$data['keywords'];
+				$data['page_layout'] = $page_body[0]['page_layout'];
+				$data['page_title'] = $page_body[0]['title'];
+				$data['keywords'] = $page_body[0]['keywords'];
+				$data['title'] = 'eNam | '.$page_body[0]['title'].' | '.$data['keywords'];
 				
 				$data['head'] = $this->load->view('comman/head',$data,TRUE);
 				

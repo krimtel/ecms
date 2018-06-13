@@ -862,7 +862,7 @@ $(document).ready(function(){
 				complete: function(){},
 				success: function(response){
 					console.log(response);
-					$('loader').model('toggle');
+					$('#loader').modal('toggle');
 				}
 			});
 		}
@@ -875,6 +875,7 @@ $(document).ready(function(){
 		$.ajax({
 			type  :		'post',
 			url   :      baseUrl+'admin/Cache_ctrl/cache_clear',
+			dataType: "json",
 			data  :      {
 				'soft_files' :  soft_files
 				
@@ -885,7 +886,12 @@ $(document).ready(function(){
 			complete: function(){},
 			success: function(response){
 				console.log(response);
-				$('loader').model('toggle');
+				if(response.status == 200){
+					$('#loader').modal('hide');
+				}
+				else{
+					alert('Something went gone wrong.');
+				}
 			}
 		});
 		

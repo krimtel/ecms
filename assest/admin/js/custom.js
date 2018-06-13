@@ -110,6 +110,31 @@ $(document).ready(function(){
 		});
 	});
 	
+	$(document).on('click','.menu_list_item_delete',function(){
+		var m_id = $(this).data('m_id');
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Menu_ctrl/menu_delete',
+	        dataType: "json",
+	        data: {
+	        	'm_id'	: m_id
+	        },
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	if(response.status == 200){
+	        		alert(response.msg);
+	        		location.reload();
+	        	}
+	        	else{
+	        		alert(response.msg);
+	        	}
+	        	
+	        }
+		});
+	});
 	
 	$(document).on('change','#menu_parent_dropdown',function(){
 //		var x = $(this).val();

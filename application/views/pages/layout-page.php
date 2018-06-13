@@ -66,19 +66,21 @@
 	<div class="row">
 	<div class="col-md-12 col-sm-12">
 		<?php print_r($page_contents[0]['page_body']);?>
-		<?php foreach ($page_contents as $page_content){ 
-			if($page_content['section'] == 'main_body'){ ?>
-					<div class="mid-top-space natinal-agricul-market pad"> 
-						<h3 class="events-title"><span><?php echo $page_content['name']; ?></span></h3>
- 						<div class="commodity-list"> 
- 							<div class="box_cont">
-								<div style="text-align:justify">
-									<?php echo $page_content['content']; ?>
- 								</div>
- 							</div>
- 						</div> 
- 					</div>
-			<?php }
+		<?php foreach ($page_contents as $page_content){
+			if(isset($page_content['section'])){
+				if($page_content['section'] == 'main_body'){ ?>
+						<div class="mid-top-space natinal-agricul-market pad"> 
+							<h3 class="events-title"><span><?php echo $page_content['name']; ?></span></h3>
+	 						<div class="commodity-list"> 
+	 							<div class="box_cont">
+									<div style="text-align:justify">
+										<?php echo $page_content['content']; ?>
+	 								</div>
+	 							</div>
+	 						</div> 
+	 					</div>
+				<?php }
+			}
 		} ?>
 	</div>
 	</div>

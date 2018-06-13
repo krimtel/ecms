@@ -32,13 +32,18 @@
 						<div class="form-group">
 						<?php 
 						if(isset($files) && count($files) > 0 ){
-						   // foreach($files as $file){
-						    	//echo "<input type='checkbox' name='action' value=$file>".$file."<br/>";
-							foreach($files as $file)
-							{
+							foreach($files as $file){
 								if (pathinfo($file, PATHINFO_EXTENSION) === 'txt'){
-						        echo "<a class='file_clr' name='file_clr'  data-file= $file><i class='fa fa-trash'></i> </a>". $file."<br/>"; 
-						    }}
+									$x = file_get_contents(base_url().'/software_files/'.$file);
+									if($x == ''){
+										echo "blanck";
+									}
+									else{
+										echo "filluped.";
+									}
+						        	//echo "<a class='file_clr' name='file_clr'  data-file= $file><i class='fa fa-trash'></i> </a>". $file."<br/>"; 
+						    	}
+							}
 						}
 						?>
 						

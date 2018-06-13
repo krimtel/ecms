@@ -50,7 +50,7 @@
                   				<a title="Delete" class="class_delete btn btn-info btn-flat"><i class="fa fa-trash"></i></a>
                   			</td>
                 		</tr>
-                	<?php $c = $c++; } ?>
+                	<?php $c++; } ?>
             	</tbody>
               </table>
             </div>

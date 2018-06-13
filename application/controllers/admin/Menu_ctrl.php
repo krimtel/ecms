@@ -51,48 +51,6 @@ class Menu_ctrl extends CI_Controller {
 		$this->load->view('admin/comman/index',$data);
 	}
 	
-// 	function fetchCategoryTreeList($parent = 0, $user_tree_array = '',$lang = null) {
-// 		if (!is_array($user_tree_array))
-// 			$user_tree_array = array();
-// 			$query = $this->db->query("SELECT id,menu_slug,p_id FROM menu WHERE status = 1 AND `p_id` = $parent ORDER BY sort ASC")->result_array();
-// 			if (count($query) > 0) {
-// 				$user_tree_array[] = "<ul>";
-// 				foreach($query as $q){
-// 					if($lang != null){
-// 						$result = $this->db->query('select * from menu_item where menu_id ='.$q['id'].' AND lang_id ='.$lang)->result_array();
-// 						$user_tree_array[] = "<li><a href='javascript:void(0);' class='menu_edit' data-mid='".$q['id']."'>". $result[0]['menu_name']."</a></li>";
-// 					}
-// 					else{
-// 						$user_tree_array[] = "<li><a href='javascript:void(0);' class='menu_edit' data-mid='".$q['id']."'>". $q['menu_slug']."</a></li>";
-// 					}
-// 					$user_tree_array = $this->fetchCategoryTreeList($q['id'], $user_tree_array);
-// 				}
-// 				$user_tree_array[] = "</ul>";
-// 			}
-// 			return $user_tree_array;
-// 	}
-
-// 	function fetchCategoryTreeList($parent = 0, $user_tree_array = '') {
-// 		if (!is_array($user_tree_array))
-// 		$user_tree_array = array();
-// 		$query = $this->db->query("SELECT id,menu_slug,p_id FROM menu WHERE status = 1 AND `p_id` = $parent ORDER BY sort ASC")->result_array();
-// 		if (count($query) > 0) {
-// 			$user_tree_array[] = "<ul>";
-// 			foreach($query as $q){
-// 				$result = $this->db->query('select * from menu_item where menu_id ='.$q['id'].' AND lang_id = 2')->result_array();
-// 				$user_tree_array[] = "<li><a href='javascript:void(0);' class='menu_edit' data-mid='".$q['id']."'>". $result[0]['menu_name']."</a></li>";
-// 				$user_tree_array = $this->fetchCategoryTreeList($q['id'], $user_tree_array);
-// 			}
-// 			$user_tree_array[] = "</ul>";
-// 		}
-// 		return $user_tree_array;
-// 	}
-	
-// 	function menu_list($lang = null){
-// 		$result = $this->fetchCategoryTreeList($lang);
-// 		return $result;
-// 	}
-	
 	function get_all_parents_menu($p_id = 0){
 			$p_id = $this->input->post('mid');
 			$result = $this->Menu_model->get_all_parents_menu($p_id);
@@ -185,5 +143,31 @@ class Menu_ctrl extends CI_Controller {
 				echo json_encode(array('msg'=>'','status'=>500));
 			}
 		//}
+	}
+	
+	function menu_delete(){
+		if ($this->ion_auth->is_admin()){
+			$data['m_id'] = (int)$this->input->post('m_id');
+			$result = $this->Menu_model->menu_delete($data);
+			if($result){
+				$this->file_update();
+				echo json_encode(array('msg'=>'menu deleted successfully.','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+			}
+		}
+		else{
+			$data['m_id'] = (int)$this->input->post('m_id');
+			$data['lang_id'] = (int)$this->session->userdata('language');
+			$result = $this->Menu_model->menu_delete($data);
+			if($result){
+				$this->file_update();
+				echo json_encode(array('msg'=>'menu deleted successfully.','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
+			}
+		}
 	}
 }

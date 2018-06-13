@@ -111,7 +111,13 @@
 	      						echo '<li class="menu_list_item" data-m_id="'.$menu['id'].'">'.$menu['title'].'</li>';
 	      					}
 	      					else{
-	      						echo '<li class="menu_list_item" data-m_id="'.$menu['id'].'">'.$menu['menu_name'].'</li>';
+	      						echo '<li>'.$menu['menu_name'].' <span><a class="menu_list_item" data-m_id="'.$menu['id'].'"><i class="fa fa-pencil"></i></a>';
+								if($this->session->userdata('group_name') == 'admin'){	      						
+	      							echo '<a class="menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class="fa fa-trash"></i></a></span></li>';
+								}
+								else{
+									echo '</li>';
+								}
 	      					}
 	      					$ic = 0;
 	      					foreach($menus as $m1){
@@ -125,7 +131,13 @@
 		      								echo '<li class="menu_list_item" data-m_id="'.$m1['id'].'">'.$m1['title'].'</li>';
 		      							}
 		      							else{
-		      								echo '<li class="menu_list_item" data-m_id="'.$m1['id'].'">'.$m1['menu_name'].'</li>';
+		      								echo '<li>'.$m1['menu_name'].' <span><a class="menu_list_item" data-m_id="'.$m1['id'].'"><i class="fa fa-pencil"></i></a>';
+		      								if($this->session->userdata('group_name') == 'admin'){
+		      									echo '<a class="menu_list_item_delete" data-m_id="'.$m1['id'].'"><i class="fa fa-trash"></i></a></span></li>';
+		      								}
+		      								else{
+		      									echo '</li>';
+		      								}
 		      							}
 		      							
 		      						}
@@ -156,18 +168,18 @@
 
 			<div class="box-body">
 				<?php foreach($menus as $menu) {
-	      			if($menu['lang_id'] == 2 || $menu['lang_id'] == ''){
+	      			if($menu['lang_id'] == $this->session->userdata('language') || $menu['lang_id'] == ''){
 	      				if($menu['p_id'] == 0){
 	      					echo '<ul>';
 	      					if($menu['menu_name'] == ''){
 	      						echo '<li>'.$menu['title'].'</li>';
 	      					}
 	      					else{
-	      						echo '<li>'.$menu['menu_name'].'</li>';
+	      						echo '<li>'.$menu['menu_name'].' <span><a class="menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class=" fa fa-trash"></i></a></span></li>';
 	      					}
 	      					$ic = 0;
 	      					foreach($menus as $m1){
-	      						if($m1['lang_id'] == 2 || $m1['lang_id'] == ''){
+	      						if($m1['lang_id'] == $this->session->userdata('language') || $m1['lang_id'] == ''){
 		      						if($m1['p_id'] == $menu['id']){
 		      							if($ic == 0){
 		      								echo '<ul '.$ic.'>';
@@ -177,7 +189,7 @@
 		      								echo '<li>'.$m1['title'].'</li>';
 		      							}
 		      							else{
-		      								echo '<li>'.$m1['menu_name'].'</li>';
+		      								echo '<li>'.$m1['menu_name'].' <span><a class="menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class=" fa fa-trash"></i></a></span></li>';
 		      							}					
 		      						}
 		      						else{

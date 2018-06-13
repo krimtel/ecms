@@ -21,7 +21,7 @@ class Menu_model extends CI_Model {
 		$this->db->join('menu_item mi','mi.menu_id = m.id','left');
 		$this->db->join('languages l','l.l_id = mi.lang_id','left');
 		$this->db->order_by('m.sort','ASC');
-		$result = $this->db->get_where('menu m',array('m.status' => 1))->result_array();
+		$result = $this->db->get_where('menu m',array('m.status' => 1,'mi.status'=>1))->result_array();
 		return $result;
 	}
 	
@@ -112,5 +112,16 @@ class Menu_model extends CI_Model {
 		}
 	}
 	
+	function menu_delete($data){
+		if(isset($data['lang_id'])){
+			$this->db->where(array('menu_id'=>$data['m_id'],'lang_id'=>$data['lang_id']));
+			$this->db->update('menu_item',array('status'=>0));
+		}
+		else{
+			$this->db->where('id',$data['m_id']);
+			$this->db->update('menu',array('status'=>0));
+		}
+		return true;
+	}
 }
 ?>

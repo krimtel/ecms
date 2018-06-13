@@ -82,6 +82,7 @@ class Page_ctrl extends CI_Controller {
 			$data['page_id'] = (int)$this->input->post('page_id');
 			if($data['page_id'] == ''){
 				// new page create
+				$this->db->trans_begin();
 				$data['page_name'] = $this->input->post('page_name');
 				$data['page_layout'] = $this->input->post('page_layout');
 				$data['meta_tag'] = $this->input->post('meta_tag');
@@ -141,7 +142,7 @@ class Page_ctrl extends CI_Controller {
 				}
 				
 				$this->db->insert_batch('page_components',$bulk_data);
-					
+				
 				$this->db->insert('page_item',array(
 						'lang_id' => $this->session->userdata('language'),
 						'page_id' => $page_id,
@@ -153,11 +154,20 @@ class Page_ctrl extends CI_Controller {
 						'created_by' => $this->session->userdata('user_id'),
 						'ip'	=> $this->input->ip_address()
 				));
-				print_r($this->db->last_query()); die;
-			}
-			else{
-				// page update
 				
+				if ($this->db->trans_status() === FALSE){
+					$this->db->trans_rollback();
+					echo json_encode(array('msg'=>'Page not created successfully.','status'=>500));
+				}
+				else {
+					$this->db->trans_commit();
+					echo json_encode(array('msg'=>'Page created successfully.','status'=>200));
+				}
+				
+			}
+			else {
+				// page update
+				$this->db->trans_begin();
 				$data['page_id'] = (int)$this->input->post('page_id');
 				$data['page_name'] = $this->input->post('page_name');
 				$data['page_layout'] = $this->input->post('page_layout');
@@ -258,7 +268,17 @@ class Page_ctrl extends CI_Controller {
 						'updated_by' => $this->session->userdata('user_id'),
 						'ip'	=> $this->input->ip_address()
 				));
+				
+				if ($this->db->trans_status() === FALSE){
+					$this->db->trans_rollback();
+					echo json_encode(array('msg'=>'Page not updated Successfully.','status'=>500)); 
+				}
+				else{
+					$this->db->trans_commit();
+					echo json_encode(array('msg'=>'Page updated Successfully.','status'=>200));
+				}
 			}
+			
 		}
 		
 		
