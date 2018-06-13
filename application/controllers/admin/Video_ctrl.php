@@ -199,7 +199,7 @@ class Video_ctrl extends CI_Controller {
 	
 	function video_is_home(){
 	    $this->form_validation->set_rules('v_id', 'video id', 'required|trim|integer|is_natural');
-	    $this->form_validation->set_rules('status', 'video status', 'required|trim');
+	    $this->form_validation->set_rules('status1', 'video status', 'required|trim');
 	    
 	    if ($this->form_validation->run() == FALSE){
 	        $this->session->set_flashdata('message',validation_errors());

@@ -310,7 +310,6 @@ $(document).ready(function(){
 		 readURL(this);
 	});
 	
-	
 	$(document).on('click','.slider_edit',function(){
 		var s_id = $(this).data('slider_id');
 		$.ajax({
@@ -329,7 +328,6 @@ $(document).ready(function(){
 					$('#loader').modal('toggle');
 					if(response.status == 200){
 						$('#image_upload_preview').attr('src',baseUrl+'Slider_gallary/'+ response.data[0].lang_id +'/'+response.data[0].slider_image);
-						
 						$('#slider_id').val(response.data[0].s_id);
 						$('#slider_alt').val(response.data[0].alt_tag);
 						$('#slider_order').val(response.data[0].sort);
@@ -337,7 +335,6 @@ $(document).ready(function(){
 						$('#slider_create').hide();
 					}
 					else{
-						
 					}
 				}
 		});
@@ -852,6 +849,7 @@ $(document).ready(function(){
 			$.ajax({
 				type  :		'post',
 				url   :      baseUrl+'admin/video_ctrl/video_is_home',
+				dataType : "json",
 				data  :      {
 					'status1' :  status1,
 					'v_id'    :  v_id
@@ -862,7 +860,8 @@ $(document).ready(function(){
 				complete: function(){},
 				success: function(response){
 					console.log(response);
-					$('#loader').modal('toggle');
+					console.log(response.status);
+					$('#loader').modal('hide');
 				}
 			});
 		}

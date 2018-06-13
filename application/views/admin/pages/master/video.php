@@ -53,9 +53,9 @@
 				  		<option value="0">please select video category</option>
 					  	<?php foreach($p_categories as $p_category){ ?>
 					  		<?php if($p_category['p_id'] == 0){?>
-					  			<option value="<?php echo $p_category['p_id'];?>"><?php echo $p_category['category_name']; ?></option>
+					  			<option value="<?php echo $p_category['v_id'];?>"><?php echo $p_category['category_name']; ?></option>
 					  		<?php } else { ?>
-					  			<option value="<?php echo $p_category['p_id'];?>"><?php echo $p_category['p_name'].' -> '.$p_category['category_name']; ?></option>
+					  			<option value="<?php echo $p_category['v_id'];?>"><?php echo $p_category['p_name'].' -> '.$p_category['category_name']; ?></option>
 					  		<?php } ?>
 					  	<?php }?>
 				  	</select>

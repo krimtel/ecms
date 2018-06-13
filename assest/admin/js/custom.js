@@ -1807,12 +1807,12 @@ $(document).ready(function(){
 					'status1' : status1
 				},
 				beforeSend: function(){
-					$('#loader').modal({'show':true});	
+					//$('#loader').modal({'show':true});	
 				},
 				complete: function(){},
 				success:function (response) {
 					console.log(response);
-					$('#loader').modal('toggle');
+					//$('#loader').modal('toggle');
 				}
 			});
 		}
@@ -1830,12 +1830,12 @@ $(document).ready(function(){
 					'e_id'	: e_id
 				},
 				beforeSend: function(){
-					$('#loader').modal({'show':true});	
+					//$('#loader').modal({'show':true});	
 				},
 				complete: function(){},
 				success:function (response) {
 					console.log(response);
-					$('#loader').modal('toggle');
+					//$('#loader').modal('toggle');
 					//location.reload();
 				}
 			});
@@ -1854,14 +1854,14 @@ $(document).ready(function(){
 				'sp_id'	: sp_id
 			},
 			beforeSend: function(){
-				$('#loader').modal({'show':true});	
+				//$('#loader').modal({'show':true});	
 			},
 			complete: function(){},
 			success:function (response) {
 				console.log(response);
 				if(response.status == 200){
 					CKEDITOR.instances['static_page_desc'].setData(response.data[0].page_body);
-					$('#loader').modal('toggle');
+					//$('#loader').modal('toggle');
 					//location.reload();
 				}
 			}

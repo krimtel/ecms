@@ -100,7 +100,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th> operations </th>
+						<th> Actionss </th>
 					</tr>
 						<tbody>
 							<?php 
@@ -171,7 +171,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th>Operations </th>
+						<th>Actionss </th>
 					</tr>
 						<tbody>
 							<?php 
