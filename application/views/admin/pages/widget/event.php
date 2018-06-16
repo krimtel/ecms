@@ -103,7 +103,7 @@
 			</div>
 
 			<div class="box-body">
-				<table class="table">
+				<table class="table events-edit-bg">
 					<tr>
 						<th>Image</th>
 						<th>Event</th>
@@ -126,10 +126,10 @@
 										}
 									}
 									?>
-								<tr>
+								<tr class="<?php if(!$find){ echo "find"; } ?>">
 									
 									<td><img width="90" src="<?php echo base_url()."Event_gallary/".$event['event_image']; ?>"></td>
-									<td class="<?php if(!$find){ echo "find"; } ?>"><?php echo $event['title']; ?></td>
+									<td ><?php echo $event['title']; ?></td>
 									<td><?php echo $event['event_category']; ?></td>
 									<?php if($group != 'subadmin'){ ?>
 										<td><?php echo $event['sort']; ?></td>
