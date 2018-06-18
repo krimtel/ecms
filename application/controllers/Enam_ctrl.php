@@ -7,20 +7,13 @@ class Enam_ctrl extends CI_Controller {
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
 		$this->load->database();
-		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Slider_model','admin/Widget_model','admin/Menu_model','Enam_model','admin/Event_model'));
+		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Video_model','admin/Slider_model','admin/Widget_model','admin/Menu_model','Enam_model','admin/Event_model'));
 		$this->load->library(array('session'));
 	}
 	
 	function hooks_fun(){
 		$this->load->view('error');
 	}
-// 	function vivek(){
-// 	    //$list = glob(FCPATH . '/software_files/');
-// 	    //print_r($list);
-// 	    $this->load->helper('directory');
-// 	    $map = directory_map('./software_files');
-// 	    print_r($map);
-// 	}
 	
 	public function index(){
 	    $data[' keywords'] = $this->load->view('comman/head','',TRUE);
@@ -55,6 +48,8 @@ class Enam_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Slider_client.txt';
 			file_put_contents ($file, $json);
 		}
+		$data['videos'] = $this->Video_model->video_home_page_list();
+		
 		$data['slider'] = $this->load->view('pages/comman/slider',$data,TRUE);
 		$data['links'] = $this->Enam_model->all_links();
 		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);

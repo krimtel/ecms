@@ -720,23 +720,24 @@ $(document).ready(function(){
 			 form_valid = false;
 		 }
 		 else{
-			 $('#v_order').css('display','none');
+			 $('#v_order_error').css('display','none');
 		 }
 		 if($('#v_category').val()=='0'){
 			 $('#v_category_error').html("please select video category").css('display','block');
 			 form_valid = false;
 		 }
 		 else{
-			 $('#v_category').css('display','none');
+			 $('#v_category_error').css('display','none');
 		 }
 		 
 			 if(form_valid){
-			var v_id=$('#video_id').val();
-			var v_url=$('#v_url').val();
-			var v_desc=CKEDITOR.instances.v_desc.getData();
-			var v_title=$('#v_title').val();
-			var v_sort=$('#v_order').val();
-			var v_category=$('#v_category').val();
+			var v_id = $('#video_id').val();
+			var v_url = $('#v_url').val();
+			var v_desc = CKEDITOR.instances.v_desc.getData();
+			var v_title = $('#v_title').val();
+			var v_sort = $('#v_order').val();
+			var v_category = $('#v_category').val();
+
 			$.ajax({
 				type : 'post',
 				url : baseUrl+'admin/Video_ctrl/update_video',

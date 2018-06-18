@@ -1032,7 +1032,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', email, id, password, active, last_login ,language')
+		$query = $this->db->select($this->identity_column . ', email, id, password, active, last_login ,language, username')
 						  ->where($this->identity_column, $identity)
 						  ->limit(1)
 						  ->order_by('id', 'desc')
@@ -2019,6 +2019,7 @@ class Ion_auth_model extends CI_Model
 		    'old_last_login'       => $user->last_login,
 		    'language'			   => $user->language,
 		    'group_name'		   => $user_groups[0]['name'],
+		    'username'			   => $user->username,
 		    'last_check'           => time(),
 		);
 
@@ -2113,14 +2114,12 @@ class Ion_auth_model extends CI_Model
 						  ->limit(1)
 						  ->order_by('id', 'desc')
 						  ->get($this->tables['users']);
-
 		// if the user was found, sign them in
 		if ($query->num_rows() == 1)
 		{
 			$user = $query->row();
 
 			$this->update_last_login($user->id);
-
 			$this->set_session($user);
 
 			// extend the users cookies if the option is enabled

@@ -26,25 +26,19 @@
 <section class="content-section wow fadeInUp" data-wow-delay="0.3s" style="padding:30px 0;background-color:#f6f6f6;float:left;width:100%; ">
 	<div class="container-fuild" style="padding-left:2%;padding-right:2%;">
 		<h3 class="events-title"><span>eLearning Videos</span></h3>
-		<div class="col-md-4 col-sm-6">
-			<div class="elearn-v-box">
-			<iframe style="width:100%;" height="225" src="https://www.youtube.com/embed/InnoiIQVmsI" frameborder="0" 
-			allow="encrypted-media" allowfullscreen></iframe>
-			<h3>Farmer Registration</h3>
-			<p>Registering in eNAM is simple and easy. View process with this video and know about registration requirements </p></div>
-		</div>
-		<div class="col-md-4 col-sm-6">
-			<div class="elearn-v-box">
-			<iframe style="width:100%;" height="225" src="https://www.youtube.com/embed/38KaYYAaARg" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
-			<h3>Split & Merge</h3>
-			<p>Watch to know about provision of Splitting up and Merging produce/lots in eNAM application</p></div>
-		</div>
-		<div class="col-md-4 col-sm-6">
-			<div class="elearn-v-box">
-			<iframe style="width:100%;" height="225" src="https://www.youtube.com/embed/ynbyiRohtA0" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
-			<h3>Sampling, Assaying & Approval for trade</h3>
-			<p>Watch quality trading aspects – doing sampling, assaying and approving Lots for trade</p></div>
-		</div>
+		<?php if(isset($videos) && count($videos)>0){?>
+			<?php foreach($videos as $video){ ?>
+				<div class="col-md-4 col-sm-6">
+					<div class="elearn-v-box">
+					<iframe style="width:100%;" height="225" src="<?php echo $video['v_url']; ?>" frameborder="0" 
+					allow="encrypted-media" allowfullscreen></iframe>
+					<h3><?php echo $video['v_title']; ?></h3>
+					<?php echo $video['v_content']; ?></div>
+				</div>
+			<?php } ?>
+		<?php } else{ ?>
+			No Videos.
+		<?php } ?>
 		<div class="show-more">
 			<a href="elearning.html" title="Show more">Show more</a>
 		</div>

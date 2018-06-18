@@ -44,7 +44,7 @@ class Page_ctrl extends CI_Controller {
 			
 			$this->db->select('p.*,pi.meta_tag,pi.keywords,pi.page_body');
 			$this->db->join('page_item pi','pi.page_id = p.p_id');
-			$result = $this->db->get_Where('pages p',array('p.p_id'=>$data['page_id'],'p.status'=>1,'pi.status'=>1))->result_array();
+			$result = $this->db->get_Where('pages p',array('p.p_id'=>$data['page_id'],'p.status'=>1,'pi.status'=>1,'pi.lang_id'=>$this->session->userdata('language')))->result_array();
 			
 			if(count($result)>0){
 				$data['page_details'] = $result;
@@ -140,8 +140,9 @@ class Page_ctrl extends CI_Controller {
 						$bulk_data[] = $temp;
 					}
 				}
-				
-				$this->db->insert_batch('page_components',$bulk_data);
+				if(isset($bulk_data) && count($bulk_data)>0 ){
+					$this->db->insert_batch('page_components',$bulk_data);
+				}
 				
 				$this->db->insert('page_item',array(
 						'lang_id' => $this->session->userdata('language'),
@@ -154,7 +155,7 @@ class Page_ctrl extends CI_Controller {
 						'created_by' => $this->session->userdata('user_id'),
 						'ip'	=> $this->input->ip_address()
 				));
-				
+// 				print_r($this->db->last_query()); die;	
 				if ($this->db->trans_status() === FALSE){
 					$this->db->trans_rollback();
 					echo json_encode(array('msg'=>'Page not created successfully.','status'=>500));
@@ -256,8 +257,9 @@ class Page_ctrl extends CI_Controller {
 						$bulk_data[] = $temp;
 					}
 				}
-				
-				$this->db->insert_batch('page_components',$bulk_data);
+				if(isset($bulk_data) && count($bulk_data)>0){
+					$this->db->insert_batch('page_components',$bulk_data);
+				}
 					
 				$this->db->where(array('page_id'=>$data['page_id'],'lang_id'=>$this->session->userdata('language')));
 				$this->db->update('page_item',array(

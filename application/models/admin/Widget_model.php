@@ -50,7 +50,7 @@ class Widget_model extends CI_Model {
 	function widget_list(){
 		$this->db->select('widget_item.id,widgets.w_id,widgets.name,widget_item.content');
 		$this->db->join('widget_item','widget_item.widget_id=widgets.w_id');
-		$result = $this->db->get_where('widgets',array('widgets.status'=>1))->result_array();
+		$result = $this->db->get_where('widgets',array('widgets.status'=>1,'widget_item.lang_id'=>(int)$this->session->userdata('language')))->result_array();
 		return $result;
 	}
 	

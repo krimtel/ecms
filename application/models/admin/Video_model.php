@@ -48,6 +48,14 @@ class Video_model extends CI_Model {
 		return $result;
 	}
 	
+	function video_home_page_list(){
+		$this->db->select('vi.*,v.sort,v.v_url,v.publish,v.	is_home');
+		$this->db->join('video v','v.v_id=vi.video_id');
+		$this->db->order_by('v.sort,v.created_at,v.updated_at','ASC');
+		$result=$this->db->get_where('video_item vi',array('v.status'=>1,'v.is_home' => 1,'vi.status'=>1,'vi.lang_id'=>(int)$this->session->userdata('language')))->result_array();
+		return $result;
+	}
+	
 	function video_publish($data){
 	    $this->db->where('v_id',$data['v_id']);
 	    $this->db->update('video',array('publish'=>$data['status']));
@@ -121,6 +129,7 @@ class Video_model extends CI_Model {
 		$this->db->where('video_id',$data['v_id']);
 		$this->db->update('video_item',array(
 				'v_content' => $data['v_content'],
+				'v_title' => $data['v_title'],
 				'updated_at' => $data['updated_at'],
 				'updated_by' => $data['updated_by']
 		));

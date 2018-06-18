@@ -1,3 +1,32 @@
+<?php
+// $a = 'How {are} you {are} ?';
+// $x = '';
+// $strlen = strlen($a);
+// $y = '';
+// for( $i = 0; $i <= $strlen; $i++ ){
+// 	$char = substr( $a, $i, 1 );
+// 	if($char == '{'){
+// 		while($char != '}'){ 
+// 			$char = substr( $a, $i, 1 );
+// 			$y.= $char;
+// 			$i++;
+// 		}
+// 		print_r($x);
+// 		$x = '';
+// 		if($y == '{are}'){
+// 			print_r($news_page);
+// 		}
+// 		$y = '';
+		
+// 	}
+// 	else{
+// 		$x.= $char;
+// 	}
+//  }
+
+// print_r($x); die;
+// die;
+?>
 <div class="main-content-section">
 	<div class="page-title">
 		<h3><?php echo $page_title; ?></h3>
@@ -65,7 +94,6 @@
 	<?php /* 1 column layout ********************************/?>
 	<div class="row">
 	<div class="col-md-12 col-sm-12">
-		<?php print_r($page_contents[0]['page_body']);?>
 		<?php foreach ($page_contents as $page_content){
 			if(isset($page_content['section'])){
 				if($page_content['section'] == 'main_body'){ ?>
@@ -82,6 +110,37 @@
 				<?php }
 			}
 		} ?>
+		<?php //print_r($page_contents[0]['page_body']); ?>
+		<?php
+		$page_body = $page_contents[0]['page_body'];
+		$x = '';
+		$strlen = strlen($page_body);
+		$y = '';
+		for( $i = 0; $i <= $strlen; $i++ ){
+			$char = substr( $page_body, $i, 1 );
+			if($char == '{'){
+				while($char != '}'){
+					$char = substr( $page_body, $i, 1 );
+					$y.= $char;
+					$i++;
+				}
+				print_r($x);
+				$x = '';
+				if($y == '{news}'){
+					print_r($news_page);
+				}
+				$y = '';
+		
+			}
+			if($char == '}'){
+				$i--;
+			}
+			else{
+				$x.= $char;
+			}
+		 }
+		print_r($x);
+		?>
 	</div>
 	</div>
 	<br/><br/>

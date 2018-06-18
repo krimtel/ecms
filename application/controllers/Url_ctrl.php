@@ -95,8 +95,21 @@ class Url_ctrl extends CI_Controller {
 				$data['keywords'] = $page_body[0]['keywords'];
 				$data['title'] = 'eNam | '.$page_body[0]['title'].' | '.$data['keywords'];
 				
-				$data['head'] = $this->load->view('comman/head',$data,TRUE);
+				$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/News.txt'),true);
+				if(count($file_menu)){
+					$data['newses'] = $file_menu;
+				}
+				else{
+					$data['newses'] = $this->News_model->News_list();
+					$json = json_encode($data['newses']);
+					$file = FCPATH . '/software_files/News.txt';
+					file_put_contents ($file, $json, FILE_APPEND);
+				}
+
+				$data['newses'] = $this->Enam_model->all_news();
+				$data['news_page'] = $this->load->view('comman/home_notice',$data,TRUE);
 				
+				$data['head'] = $this->load->view('comman/head',$data,TRUE);
 				$data['header'] = $this->load->view('comman/header',$data,TRUE);
 				$data['menus'] = $this->Enam_model->all_menus();
 				$data['navigation'] = $this->load->view('comman/navigation',$data,TRUE);

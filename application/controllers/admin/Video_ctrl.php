@@ -162,39 +162,45 @@ class Video_ctrl extends CI_Controller {
 	    }
 	}
 	function update_video(){
-	    $this->form_validation->set_rules('video_id', 'video id', 'required|trim|integer|is_natural');
-	    $this->form_validation->set_rules('v_url', 'video url', 'required|trim');
-	    $this->form_validation->set_rules('v_title', 'video title', 'required|trim|min_length[3]');
-	    $this->form_validation->set_rules('v_desc', 'video desc', 'required|trim');
-	    $this->form_validation->set_rules('v_order', 'video order', 'required|trim|integer|is_natural');
-	    $this->form_validation->set_rules('v_category', 'video category', 'required|integer|is_natural_no_zero');
+		if($this->ion_auth->is_admin()){
+			$this->form_validation->set_rules('v_id', 'video id', 'required|trim|integer|is_natural');
+			$this->form_validation->set_rules('v_url', 'video url', 'required|trim');
+			$this->form_validation->set_rules('v_title', 'video title', 'required|trim|min_length[3]');
+			$this->form_validation->set_rules('v_desc', 'video desc', 'required|trim');
+			$this->form_validation->set_rules('v_sort', 'video order', 'required|trim|integer|is_natural');
+			$this->form_validation->set_rules('v_category', 'video category', 'required|integer|is_natural_no_zero');
+		}
+		else{
+			$this->form_validation->set_rules('v_id', 'video id', 'required|trim|integer|is_natural');
+			$this->form_validation->set_rules('v_title', 'video title', 'required|trim|min_length[3]');
+			$this->form_validation->set_rules('v_desc', 'video desc', 'required|trim');
+		}
 	    
 	    if ($this->form_validation->run() == FALSE){
 	        $this->session->set_flashdata('message',validation_errors());
 	        echo validation_errors();
 	    }
 	    else{
-	        
-	    } die;
-		$data['v_id'] = (int)$this->input->post('v_id');
-		$data['lang_id'] = (int) $this->session->userdata('language');
-		$data['updated_at'] = date('d-m-y h:i:s');
-		$data['updated_by'] = (int) $this->session->userdata('user_id');
-		$data['ip'] = $this->input->ip_address();
-		$data['v_content'] = $this->input->post('v_desc');
-		$data['sort'] = $this->input->post('v_sort');
-		$data['v_url'] = $this->input->post('v_url');
-		$data['v_title'] = $this->input->post('v_title');
-		$data['category_id'] = $this->input->post('v_category');
-		//print_r($data['v_id']); die;
-		$result=$this->Video_model->video_update($data);
-		if($result){
-			$this->file_update();
-			echo json_encode(array('msg'=>'operation successfull.','status'=>200));
-		}
-		else{
-			echo json_encode(array('msg'=>'something wrong.','status'=>500));
-		}
+			$data['v_id'] = (int)$this->input->post('v_id');
+			$data['lang_id'] = (int) $this->session->userdata('language');
+			$data['updated_at'] = date('d-m-y h:i:s');
+			$data['updated_by'] = (int) $this->session->userdata('user_id');
+			$data['ip'] = $this->input->ip_address();
+			$data['v_content'] = $this->input->post('v_desc');
+			$data['sort'] = $this->input->post('v_sort');
+			$data['v_url'] = $this->input->post('v_url');
+			$data['v_title'] = $this->input->post('v_title');
+			$data['category_id'] = $this->input->post('v_category');
+	
+			$result=$this->Video_model->video_update($data);
+			if($result){
+				$this->file_update();
+				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			}
+			else{
+				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+			}
+	    }
 	}
 	
 	function video_is_home(){

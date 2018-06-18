@@ -1,3 +1,4 @@
+<?php date_default_timezone_set("Asia/Calcutta"); ?>
 <title>Dashboard</title>
 <div class="main-content-sec container-fluid">
 <!-- Breadcrumbs-->
@@ -13,10 +14,10 @@
 	<div class="row dashborad-setting">
 	<div class="col-md-4" style="margin-top:20px;">
 		<div class="section-box">
-			<h3 class="parentname">Welcome Narayan!</h3>
+			<h3 class="parentname">Welcome <?php echo $this->session->userdata('username'); ?>!</h3>
 			
 			<div class="dashboard-date-sett">
-				<div class="date-box"><span class="date">19</span><span class="month-y"><span>Monday</span><br>Feb, 2018</span></div>
+				<div class="date-box"><span class="date"><?php echo date('d');?></span><span class="month-y"><span><?php echo date('l');?></span><br><?php echo date('M');?>, <?php echo date('Y');?></span></div>
 				<div class="date-img-box"><img class="calender-img" alt="" src="../assest/images/calender.png" /></div>
 			</div>
 		</div>
@@ -25,10 +26,17 @@
 		<div class="box-header-t box-header-primary"><span>User List</span></div>
 		<div class="box-body-sec">
 			<table class="table table-striped" style="background-color:#e4e4e4;border:1px solid #eee;">
-				<tr><td>Rahul</td><td><a href=""><img alt="" src="../images/academic/a-p-1.png"/></a></td></tr>
-				<tr><td>Vivek</td><td><a href=""><img alt="" src="../images/academic/a-p-1.png"/></a></td></tr>
-				<tr><td>Narayan</td><td><a href=""><img alt="" src="../images/academic/a-p-1.png"/></a></td></tr>
-				<tr>
+				<?php if(isset($users) && count($users)>0){ ?>
+						<?php $c = 1; foreach($users as $user){ ?>
+							<tr>
+							  <td><?php echo $c ;?>.</td>
+							  <td class="text-center"><?php echo $user['username']; ?></td>
+							</tr>		
+						<?php $c++; } ?>
+					<?php } else { ?>
+						<tr><td>No language Found.</td></tr>
+					<?php } ?>
+					<tr>
 						<td colspan="3"><a href="academic-performance.html"><i class="fa fa-th-large"></i> View All</a></td>
 					</tr>
 			</table>
@@ -38,10 +46,16 @@
 			<div class="box-header-t box-header-primary"><span> Language</span></div>
 			<div class="box-body-sec">
 				<table class="table table-striped" style="background-color:#e4e4e4;border:1px solid #eee;">
-					<tr><td>S.No.</td><td> Language</td></tr>
-					<tr><td>1 </td><td>Hindi</td></tr>
-					<tr><td>1 </td><td>English</td></tr>
-					<tr><td>1 </td><td>Marathi</td></tr>
+					<?php if(isset($languages) && count($languages)>0){ ?>
+						<?php $c = 1; foreach($languages as $language){ ?>
+							<tr>
+							  <td><?php echo $c ;?>.</td>
+							  <td class="text-center"><?php echo $language['l_name']; ?></td>
+							</tr>		
+						<?php $c++; } ?>
+					<?php } else { ?>
+						<tr><td>No language Found.</td></tr>
+					<?php } ?>
 					<tr>
 						<td colspan="4"><a href="attendance-record.html"><i class="fa fa-th-large"></i> View All</a></td>
 					</tr>
@@ -53,26 +67,16 @@
 			<div class="box-body-sec">
 			<table class="table table-striped" style="background-color:#e4e4e4;border:1px solid #eee;">
 			<tbody>
-					<tr>
-					  <td>01.</td>
-					  <td class="text-center">About Us</td>
-					</tr>
-					<tr>
-					  <td>02.</td>
-					  <td class="text-center">Contact Us</td>
-					</tr>
-					<tr>
-					  <td>03.</td>
-					  <td class="text-center">Contact Us</td>
-					</tr>
-					<tr>
-					  <td>04.</td>
-					  <td class="text-center">Contact Us</td>
-					</tr>
-					<tr>
-					  <td>05.</td>
-					  <td class="text-center">Contact Us</td>
-					</tr>
+					<?php if(isset($pages) && count($pages)>0){ ?>
+						<?php $c = 1; foreach($pages as $page){ ?>
+							<tr>
+							  <td><?php echo $c ;?>.</td>
+							  <td class="text-center"><?php echo $page['page_name']; ?></td>
+							</tr>		
+						<?php $c++; } ?>
+					<?php } else { ?>
+						<tr><td>No Page Found.</td></tr>
+					<?php } ?>
 					<tr>
 						<td colspan="3"><a href="leave-application.html"><i class="fa fa-th-large"></i> View All</a></td>
 					</tr>
@@ -84,26 +88,19 @@
 		<div class="box-body-sec">
 		<table class="table table-striped" style="background-color:#e4e4e4;border:1px solid #eee;">
 			<tbody>
-                <tr>
-                  <td>01.</td>
-                  <td>Test 123</td>
-                  <td class="text-center"><a title="click here" class="att-view" href="#">Click here</a></td>
-                </tr>
-				<tr>
-                
-                  <td>02.</td>
-                  <td>Test 123</td>
-                  <td class="text-center"><a title="click here" class="att-view" href="#">Click here</a></td>
-                </tr>
-				<tr>
-                  
-                  <td>03.</td>
-                  <td>Test 123</td>
-                  <td class="text-center"><a title="click here" class="att-view" href="#">Click here</a></td>
-                </tr>
+				<?php if(isset($events) && count($events)>0){ ?>
+						<?php $c = 1; foreach($events as $event){ ?>
+							<tr>
+							  <td><?php echo $c ;?>.</td>
+							  <td class="text-center"><?php echo $event['title']; ?></td>
+							</tr>		
+						<?php $c++; } ?>
+					<?php } else { ?>
+						<tr><td>No Page Found.</td></tr>
+					<?php } ?>
 				<tr>
 					<td colspan="5"><a href="homeworks.html"><i class="fa fa-th-large"></i> View All</a></td>
-					</tr>
+				</tr>
 			</tbody>
 		</table>
 		</div>
@@ -115,30 +112,23 @@
 		<div class="section-box">
 			<div class="box-header-t box-header-primary"><span>Video List</span></div>
 			<div class="box-body-sec">
-					 <table class="table table-striped" style="background-color:#e4e4e4;border:1px solid #eee;">
+			<table class="table table-striped" style="background-color:#e4e4e4;border:1px solid #eee;">
 			<tbody>
-                <tr>
-                  <td>01.</td>
-                  <td><img style="border:1px solid #999;width:50px;height:50px;" src="" /></td>
-                  <td>Test 123</td>
-                  <td class="text-center"><a title="click here" class="att-view" href="#">Click here</a></td>
-                </tr>
-				<tr>
-                
-                  <td>02.</td>
-				  <td><img style="border:1px solid #999;width:50px;height:50px;" src="" /></td>
-                  <td>Test 123</td>
-                  <td class="text-center"><a title="click here" class="att-view" href="#">Click here</a></td>
-                </tr>
-				<tr>
-                  
-                  <td>03.</td>
-				  <td><img style="border:1px solid #999;width:50px;height:50px;" src="" /></td>
-                  <td>Test 123</td>
-                  <td class="text-center"><a title="click here" class="att-view" href="#">Click here</a></td>
-                </tr>
-				<tr>
-					<td colspan="5"><a href="homeworks.html"><i class="fa fa-th-large"></i> View All</a></td>
+				<?php $c = 1; foreach($videos as $video){ ?>
+					<tr>
+                  		<td><?php echo $c ;?>.</td>
+                  		<td>
+                  			<?php 
+                  				$x = explode('/embed/',$video['v_url']);
+                  			?>
+                  			<img style="border:1px solid #999;width:50px;height:50px;" src="https://img.youtube.com/vi/<?php echo $x[1]; ?>/0.jpg">
+                  		</td>
+                  		<td><?php echo $video['v_title']; ?></td>
+                  		
+                	</tr>
+				<?php $c++; } ?>
+					<tr>
+						<td colspan="5"><a href="homeworks.html"><i class="fa fa-th-large"></i> View All</a></td>
 					</tr>
 			</tbody>
 		</table>
@@ -149,47 +139,33 @@
 			<div class="box-body-sec">
 					 <table class="table table-striped" style="background-color:#e4e4e4;border:1px solid #eee;">
 			<tbody>
-                <tr>
-                  <td>01.</td>
-				  <td><img src="" style="border:1px solid #999;width:50px;height:50px;"/></td>
-                  <td>Test 123</td>
-                  <td class="text-center"><a title="click here" class="att-view" href="#">Click here</a></td>
-                </tr>
-				<tr>
-                
-                  <td>02.</td>
-				  <td><img src="" style="border:1px solid #999;width:50px;height:50px;" /></td>
-                  <td>Test 123</td>
-                  <td class="text-center"><a title="click here" class="att-view" href="#">Click here</a></td>
-                </tr>
-				<tr>
-                  
-                  <td>03.</td>
-				  <td><img src="" style="border:1px solid #999;width:50px;height:50px;" /></td>
-                  <td>Test 123</td>
-                  <td class="text-center"><a title="click here" class="att-view" href="#">Click here</a></td>
-                </tr>
+				<?php $c = 1; foreach($sliders as $slider){ ?>
+				<?php if($slider['lang_id'] == $this->session->userdata('language')){ ?>
+	                <tr>
+	                  <td> <?php echo $c; ?>.</td>
+					  <td><img src="<?php echo base_url().'/slider_gallary/'.$this->session->userdata('language').'/'.$slider['slider_image']; ?>" style="border:1px solid #999;width:50px;height:50px;"/></td>
+	                  <td><?php echo $slider['alt_tag']; ?></td>
+	                </tr>
+				<?php $c++; } } ?>
 				<tr>
 					<td colspan="5"><a href="homeworks.html"><i class="fa fa-th-large"></i> View All</a></td>
-					</tr>
+				</tr>
 			</tbody>
 		</table>
 			</div>
 		</div>
 		
 		<div class="section-box">
-			<div class="box-header-t box-header-primary"><span>Notice & Announcements</span></div>
+			<div class="box-header-t box-header-primary"><span>News</span></div>
 			<div class="box-body-sec" style="">
 			<marquee style="height:290px;background-color:#e4e4e4;" class="notice-board" direction="up" scrollamount="3" onmouseover="stop();" onmouseout="start();" >
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-					<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-					<p>essentially unchanged. It was popularised in the 1960s with the release</p>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-					<p>t is a long established fact that a reader will be distracted by the readable content of a page when looking at its</p>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-					<p>assages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+					<?php if(isset($newses) && count($newses)>0){ ?>
+						<?php foreach($newses as $news){ ?>
+							<p><?php echo $news['news_contect'];?></p>
+						<?php } ?>
+					<?php } else { ?>
+						No news found.
+					<?php } ?>
 				</marquee>
 				<div class="view-all-box"><a href="notice-announcements.html"><i class="fa fa-th-large"></i> View All</a></div>
 			</div>

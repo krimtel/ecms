@@ -21,7 +21,7 @@
     <div id="navbarCollapse" class="collapse navbar-collapse" data-hover="dropdown" data-animations="fadeIn fadeInLeft fadeInUp fadeInRight" style="float:left;margin-top:5px;margin-bottom:5px;">
 <ul class="nav navbar-nav menu-section1" <?php if(!isset($_SESSION['user_id'])){?>style="display: none;" <?php } ?>>
 	<li>
-		<a title="Home" class="" href="<?php echo base_url(); ?>dashboard"><i class="fa fa-home" aria-hidden="true"></i> HOME </a>
+		<a title="Home" class="" href="<?php echo base_url(); ?>admin/admin/dashboard"><i class="fa fa-home" aria-hidden="true"></i> HOME </a>
 	</li>
 	<?php if($group != 'subadmin'){ ?>
 	<li class="dropdown">

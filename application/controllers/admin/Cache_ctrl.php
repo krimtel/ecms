@@ -18,7 +18,6 @@ class Cache_ctrl extends CI_Controller {
 	function file_update(){
 		$data['languages'] = $this->Language_model->get_all_language();
 		$json = json_encode($data['languages']);
-		//$file = FCPATH . '/software_files/Language.txt';
 		file_put_contents ($file, $json);
 	}
 	
@@ -26,8 +25,6 @@ class Cache_ctrl extends CI_Controller {
 		$data['title'] = 'eNam Admin';		
 		$this->load->helper('directory');
 		$data['files'] = directory_map('./software_files');
-// 		$string = read_file(base_url().'./software_files/Language.txt');
-// 		echo $string;
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);

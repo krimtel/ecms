@@ -1049,18 +1049,19 @@ $(document).ready(function(){
 			$('#keyword_error').css('display','none');
 		}
 		
-		if($('#page_body').val() == ''){
-			$('#keyword_error').html('Please Enter Page Body.').css('display','block');
+		if(CKEDITOR.instances.page_body.getData() == ''){
+			$('#page_body_error').html('Please Enter Page Body.').css('display','block');
 			form_valid = false;
 		}
 		else{
 			$('#page_body_error').css('display','none');
 		}
-		
 		if(form_valid){
 			$('#page_add_form').ajaxForm({
 			    dataType : 'json',
-			    data : { },
+			    data : { 
+			    	'page_body' : CKEDITOR.instances.page_body.getData()
+			    },
 			    beforeSubmit:function(e){
 					$('#loader').modal('show');
 			    },
@@ -1068,7 +1069,7 @@ $(document).ready(function(){
 			  	  if(response.status == 200){
 			    	$('#loader').modal('toggle');
 			    	alert(response.msg);
-			    	location.reload();
+			    	window.location = baseUrl + 'admin/admin/all_pages';
 			      }
 			      else{
 				    alert(response.msg);
