@@ -17,6 +17,7 @@ class Auth extends CI_Controller
 		$this->load->library('javascript');
 		$this->load->library('javascript/jquery');
 		$this->lang->load('auth');
+		$this->load->model(array('admin/Language_model','admin/User_profile_model'));
 		
 	}
 
@@ -164,9 +165,15 @@ class Auth extends CI_Controller
 	 */
 	public function change_password()
 	{
-		$this->form_validation->set_rules('old', $this->lang->line('change_password_validation_old_password_label'), 'required');
-		$this->form_validation->set_rules('new', $this->lang->line('change_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
-		$this->form_validation->set_rules('new_confirm', $this->lang->line('change_password_validation_new_password_confirm_label'), 'required');
+		//print_r($this->input->post()); die;
+		$data['o_pass'] = $this->input->post('o_pass');
+		$data['n_pass'] = $this->input->post('n_pass');
+		$data['c_n_pass'] = $this->input->post('c_n_pass');
+		$data['uid'] = $this->input->post('uid');
+		//print_r($this->input->post()); die;
+		$this->form_validation->set_rules('o_pass', $this->lang->line('change_password_validation_old_password_label'), 'required');
+		$this->form_validation->set_rules('n_pass', $this->lang->line('change_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[c_n_pass]');
+		$this->form_validation->set_rules('c_n_pass', $this->lang->line('change_password_validation_new_password_confirm_label'), 'required');
 
 		if (!$this->ion_auth->logged_in())
 		{
@@ -174,46 +181,45 @@ class Auth extends CI_Controller
 		}
 
 		$user = $this->ion_auth->user()->row();
-
 		if ($this->form_validation->run() === FALSE)
 		{
 			// display the form
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
+			//print_r($this->data['message']); die;
 			$this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
-			$this->data['old_password'] = array(
-				'name' => 'old',
-				'id' => 'old',
+			$this->data['o_pass'] = array(
+				'name' => 'o_pass',
+				'id' => 'o_pass',
 				'type' => 'password',
 			);
-			$this->data['new_password'] = array(
-				'name' => 'new',
-				'id' => 'new',
+			$this->data['n_pass'] = array(
+				'name' => 'n_pass',
+				'id' => 'n_pass',
 				'type' => 'password',
 				'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
 			);
-			$this->data['new_password_confirm'] = array(
-				'name' => 'new_confirm',
-				'id' => 'new_confirm',
+			$this->data['c_n_pass'] = array(
+				'name' => 'c_n_pass',
+				'id' => 'c_n_pass',
 				'type' => 'password',
 				'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
 			);
 			$this->data['user_id'] = array(
-				'name' => 'user_id',
-				'id' => 'user_id',
+				'name' => 'uid',
+				'id' => 'uid',
 				'type' => 'hidden',
 				'value' => $user->id,
 			);
 
 			// render
-			$this->_render_page('auth/change_password', $this->data);
+			//$this->_render_page('auth/change_password', $this->data);
+			redirect('User_profile_ctrl/change_password/'.$this->session->userdata('user_id'),'refresh');
 		}
 		else
 		{
 			$identity = $this->session->userdata('identity');
-
-			$change = $this->ion_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));
+			$change = $this->ion_auth->change_password($identity, $this->input->post('o_pass'), $this->input->post('n_pass'));
 
 			if ($change)
 			{
@@ -226,6 +232,14 @@ class Auth extends CI_Controller
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
 				redirect('auth/change_password', 'refresh');
 			}
+		}
+		//$result=$this->User_profile_model->change_password($data);
+		if($result){
+			//$this->file_update();
+			echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+		}
+		else{
+			echo json_encode(array('msg'=>'something wrong.','status'=>500));
 		}
 	}
 

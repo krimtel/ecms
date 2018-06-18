@@ -27,7 +27,7 @@ $(document).ready(function(){
 			},
 			password: {
 				required: "Please enter your password",
-				minlength: "Your username must consist of at least 4 characters"
+				minlength: "Your Password must consist of at least 3 characters"
 			}
 		},
 		 submitHandler: function(form) {
@@ -894,6 +894,122 @@ $(document).ready(function(){
 			}
 		});
 		
+	});
+
+////////////////////////////////////////////////////USER PROFILE///////////////////////////////////////////////////////////////////////////
+	
+	function filePreview(input) {
+		if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $('#profile_form + img').remove();
+	            $('#profile_form').after('<img src="'+e.target.result+'" width="450" height="300"/>');
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	$("#userFiles").change(function () {
+	    filePreview(this);
+	});
+	
+	$(document).on('click','#profile_update',function(){
+		var form_valid = true;
+		 if($('#f_name').val() == ''){
+				$('#f_name_error').html('Please Fill First Name.').css('display','block');
+				form_valid = false;
+			}
+		 else{
+				$('#f_name_error').css('display','none');
+			}
+		 if($('#l_name').val() == ''){
+				$('#l_name_error').html('Please Fill Last Name.').css('display','block');
+				form_valid = false;
+			}
+		 else{
+				$('#l_name_error').css('display','none');
+			}
+		 if($('#contact').val() == ''){
+				$('#contact_error').html('Please Fill Contact Field.').css('display','block');
+				form_valid = false;
+			}
+		 else{
+				$('#contact_error').css('display','none');
+			}
+//		 if($('#email').val() == ''){
+//				$('#email_error').html('Please Fill Email Field.').css('display','block');
+//				form_valid = false;
+//			}
+//		 else{
+//				$('#email_error').css('display','none');
+//			}
+		 
+		 var uid = $('#uid').val();
+		if(form_valid){
+			$('#profile_form').ajaxForm({
+				dataType : 'json',
+				data: {},
+				beforeSubmit:function(e){
+					$('#loader').modal('show');
+			    },
+			    success:function(response){
+			  	  if(response.status == 200){
+			    	$('#loader').modal('toggle');
+			    	alert(response.msg);
+			    	location.reload();
+			      }
+			      else{
+				    alert(response.msg);
+			      }
+			    }
+			}).submit();
+		}
+	});
+	
+/////////////////////////////////////////////////////Change Password//////////////////////////////////////////////////////////////////////
+	$(document).on('click','#profile_update',function(){
+		var form_valid = true;
+		 if($('#o_pass').val() == ''){
+				$('#o_pass_error').html('Please Fill First Name.').css('display','block');
+				form_valid = false;
+			}
+		 else{
+				$('#o_pass_error').css('display','none');
+			}
+		 if($('#n_pass').val() == ''){
+				$('#n_pass_error').html('Please Fill Last Name.').css('display','block');
+				form_valid = false;
+			}
+		 else{
+				$('#n_pass_error').css('display','none');
+			}
+		 if($('#c_n_pass').val() == ''){
+				$('#c_n_pass_error').html('Please Fill Contact Field.').css('display','block');
+				form_valid = false;
+			}
+		 else{
+				$('#c_n_pass_error').css('display','none');
+			}
+		 var uid = $('#uid').val();
+		 
+			if(form_valid){
+				$('#change_password').ajaxForm({
+					dataType : 'json',
+					data: {},
+					beforeSubmit:function(e){
+						//$('#loader').modal('show');
+				    },
+				    success:function(response){
+				  	  if(response.status == 200){
+				    	//$('#loader').modal('toggle');
+				    	alert(response.msg);
+				    	location.reload();
+				      }
+				      else{
+					    alert(response.msg);
+				      }
+				    }
+				}).submit();
+			}
 	});
 	
 });
