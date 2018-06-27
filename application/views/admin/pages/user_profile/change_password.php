@@ -47,7 +47,7 @@
 						 <div class="col-sm-9"><input type="hidden" id="uid" name="uid" class="form-control" value="<?php echo $user['id'];?>"></div>
 					</div>
 					<div class="box-footer">
-						<button id="profile_update" type="button" class="btn pull-right btn-info">Update</button>
+						<button id="change_password" name="change_password" type="button" class="btn pull-right btn-info">Update</button>
 						<button type="reset" id="language_reset" class="btn btn-default pull-right btn-space">Cancel</button>
 					</div>
 					<?php 

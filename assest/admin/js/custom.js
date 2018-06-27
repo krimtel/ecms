@@ -1133,7 +1133,6 @@ $(document).ready(function(){
 			        			x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 			        		}
 			        	});
-			        	
 						if(v.section == 'main_body'){
 							var dropdown = '<select class="form-control col-sm-6" name="one_col_maincontent[]" id="">'+
 							'<option value="0">select widget</option>'+
@@ -1275,6 +1274,11 @@ $(document).ready(function(){
 	        	$.each(response.data,function(key,value){
 	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 	        	});
+	        	x = x + '<option value="-5">NEWS</option>';
+	        	x = x + '<option value="-6">SLIDER</option>';
+	        	x = x + '<option value="-7">EVENTS</option>';
+	        	x = x + '<option value="-8">VIDEOS</option>';
+	        	x = x + '<option value="-9">Links</option>';
 	        	var dropdown = '<select class="form-control col-sm-6" name="one_col_maincontent[]" id="">'+
 				'<option value="0">select widget</option>'+
 				x +
@@ -1302,6 +1306,11 @@ $(document).ready(function(){
 	        	$.each(response.data,function(key,value){
 	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 	        	});
+	        	x = x + '<option value="-5">NEWS</option>';
+	        	x = x + '<option value="-6">SLIDER</option>';
+	        	x = x + '<option value="-7">EVENTS</option>';
+	        	x = x + '<option value="-8">VIDEOS</option>';
+	        	x = x + '<option value="-9">Links</option>';
 	        	var dropdown = '<select class="form-control col-sm-6" name="two_col_leftcontent[]" id="">'+
 				'<option value="0">select widget</option>'+
 				x +
@@ -1357,6 +1366,11 @@ $(document).ready(function(){
 	        	$.each(response.data,function(key,value){
 	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 	        	});
+	        	x = x + '<option value="-5">NEWS</option>';
+	        	x = x + '<option value="-6">SLIDER</option>';
+	        	x = x + '<option value="-7">EVENTS</option>';
+	        	x = x + '<option value="-8">VIDEOS</option>';
+	        	x = x + '<option value="-9">Links</option>';
 	        	var dropdown = '<select class="form-control col-sm-6" name="three_col_leftcontent[]" id="">'+
 				'<option value="0">select widget</option>'+
 				x +
@@ -1411,6 +1425,11 @@ $(document).ready(function(){
 	        	$.each(response.data,function(key,value){
 	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 	        	});
+	        	x = x + '<option value="-5">NEWS</option>';
+	        	x = x + '<option value="-6">SLIDER</option>';
+	        	x = x + '<option value="-7">EVENTS</option>';
+	        	x = x + '<option value="-8">VIDEOS</option>';
+	        	x = x + '<option value="-9">Links</option>';
 	        	var dropdown = '<select class="form-control col-sm-6" name="three_col_rightcontent[]" id="">'+
 				'<option value="0">select widget</option>'+
 					x +

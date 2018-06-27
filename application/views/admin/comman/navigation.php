@@ -89,7 +89,7 @@
          <li>
         	<div class="dropdown" style="margin-top:5px;margin-left:5px;<?php if(!isset($_SESSION['user_id'])){?>display:none;<?php } ?>">
   				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    				User Profile
+    				 <a class="dropdown-toggle profile waves-effect" data-toggle="dropdown" aria-expanded=""><img src="<?php echo base_url(); ?>/User_gallary/<?php echo  $this->session->userdata('photo'); ?>" alt="user-img" class="img-circle" height="35px" width="35px"> </a>
     				<span class="caret"></span>
   				</button>
   				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -107,6 +107,7 @@
 	        		</li> 
         	  </ul>
 		</div>
+		
        </li>
       </ul>
     </div>

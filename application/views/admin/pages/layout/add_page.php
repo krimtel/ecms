@@ -191,6 +191,8 @@ $(document).ready(function(){
 		        			x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 		        		}
 		        	});
+
+	        		x = x + '<option value="'+ value.news_id +'">'+ value.news_content +'</option>';
 		        	
 					if(v.section == 'main_body'){
 						var dropdown = '<select class="form-control col-sm-6" name="one_col_maincontent[]" id="">'+

@@ -44,10 +44,13 @@
 						</div>
 						<div class="form-group">
 					<label class="col-sm-3 control-label">Profile Photo</label>
-					<div class="col-sm-9">
-						<div><img width="40" id="image_upload_preview" /></div>
+					<div class="col-sm-6">
 						<input type="file" name="userFiles" id="userFiles" class="form-control">
 						<div class="text-danger" id="userfile_error" style="display:none;"></div>
+					</div>
+					<div class="col-sm-3">
+						<img width="40" id="image_upload_preview" />
+						<img width="100" class="img-circle" src="<?php echo base_url()."User_gallary/".$user['photo']; ?>" id="myImg">
 					</div>
 				</div>
 						<div class="form-group">
@@ -60,7 +63,6 @@
 				<?php 
 					}
 				?>
-				<img width="250" width="250" src="<?php echo base_url()."User_gallary/".$user['photo']; ?>">
 			<?php 	}
 				?>
 					<div class="box-footer">

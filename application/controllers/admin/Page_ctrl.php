@@ -8,7 +8,7 @@ class Page_ctrl extends CI_Controller {
 		$this->load->helper(array('url','file'));
 		$this->load->library(array('session','ion_auth'));
 		$this->load->database();
-		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Widget_model','admin/Page_model'));
+		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Widget_model','admin/Page_model','admin/News_model','admin/Slider_model','admin/Video_model','admin/Links_model'));
 		$this->lang->load('admin_lang', 'english');
 		if (!$this->ion_auth->logged_in()){
 			redirect('admin/admin');
@@ -42,6 +42,20 @@ class Page_ctrl extends CI_Controller {
 				file_put_contents ($file, $json);
 			}
 			
+			$Newses = json_decode(file_get_contents(FCPATH . '/software_files/News.txt'),true);
+			if(count($News)){
+				$data['News'] = $Newses;
+			}
+			else{
+				$data['Newses'] = $this->News_model->news_list();
+				$json = json_encode($data['Newses']);
+				$file = FCPATH . '/software_files/News.txt';
+				file_put_contents ($file, $json);
+			}
+			
+			
+			
+			
 			$this->db->select('p.*,pi.meta_tag,pi.keywords,pi.page_body');
 			$this->db->join('page_item pi','pi.page_id = p.p_id');
 			$result = $this->db->get_Where('pages p',array('p.p_id'=>$data['page_id'],'p.status'=>1,'pi.status'=>1,'pi.lang_id'=>$this->session->userdata('language')))->result_array();
@@ -68,6 +82,19 @@ class Page_ctrl extends CI_Controller {
 				$file = FCPATH . '/software_files/Widgets.txt';
 				file_put_contents ($file, $json);
 			}
+			
+// 			$Newses = json_decode(file_get_contents(FCPATH . '/software_files/News.txt'),true);
+// 			if(count($News)){
+// 				$data['News'] = $Newses;
+// 			}
+// 			else{
+// 				$data['Newses'] = $this->News_model->news_list();
+// 				$json = json_encode($data['Newses']);
+// 				$file = FCPATH . '/software_files/News.txt';
+// 				file_put_contents ($file, $json);
+// 			}
+				
+			
 			
 			$data['head'] = $this->load->view('admin/comman/head',$data,TRUE);
 			$data['header'] = $this->load->view('admin/comman/header','',TRUE);

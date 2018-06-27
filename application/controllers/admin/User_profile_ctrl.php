@@ -58,9 +58,6 @@ class User_profile_ctrl extends CI_Controller {
 		$data['contact'] = $this->input->post('contact');
 		$data['email'] = $this->input->post('email');
 		$data['uid'] = $this->input->post('uid');
-// 		$file_name = $_FILES['userFiles']['name'];
-// 		$data['user_image'] = $file_name;
-
 			if(!empty($_FILES['userFiles']['name'])){
 				$file_name = $_FILES['userFiles']['name'];
 				$f_name = addslashes(preg_replace('/\s+/', '_', $data['f_name']));
@@ -86,7 +83,7 @@ class User_profile_ctrl extends CI_Controller {
 					$data['user_image'] = $upload_data['file_name'];	
 					
 					//print_r($data['user_image']); die;
-			
+					$this->session->set_userdata('photo',$data['user_image']);
 					
 				}
 				else{
