@@ -16,7 +16,17 @@ class Widget_ctrl extends CI_Controller {
 	}
 	
 	function index(){
-	$data['widget']=$this->Widget_model->widget_list();
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Widgets.txt'),true);
+		if(count($file_menu)){
+			$data['widget'] = $file_menu;
+		}
+		else{
+			$data['widget'] = $this->Widget_model->widget_list();
+			$json = json_encode($data['widget']);
+			$file = FCPATH . '/software_files/Widgets.txt';
+			file_put_contents ($file, $json, FILE_APPEND);
+		}
+		
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);

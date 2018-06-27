@@ -18,6 +18,7 @@
 						<a href="<?php echo base_url(); ?>Enam_ctrl/register" title="Register"><span class="register-icon">&nbsp;</span> <br/>
 						<span><b>New Registration</b></span></a>
 					</div>
+					
 					<div class="header-right-list login-btns">
 						<a target="_blank" class="border" href="http://www.enam.gov.in/NAM/faces/infrastructure/SLogin.jsf" title="Login"><span class="login-icon">&nbsp;</span><br/>
 						<span><b>Login</b></span></a>

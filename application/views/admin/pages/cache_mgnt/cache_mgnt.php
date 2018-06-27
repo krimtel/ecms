@@ -48,14 +48,19 @@
 				  </div>
 				</div>
 					<div class="box-body">
+						<div class="col-sm-12">
+							<input id="select_all" type="checkbox"> Select All
+							<span class="pull-right"><a id="clear_cache" href="javascript:void(0);">Clear Cache</a></span>
+						</div>
+						<hr><hr>
 						<div class="form-group">
 						<?php 
 						if(isset($files) && count($files) > 0 ){
 							foreach($files as $file){
 								if (pathinfo($file, PATHINFO_EXTENSION) === 'txt'){
 									$x = file_get_contents(base_url().'/software_files/'.$file);
-						        	echo "<a class='file_clr' name='file_clr'  data-file= $file><i class='fa fa-trash'></i> </a>". $file."<br/>"; 
-						        	echo '<input type="checkbox" />'; 
+									echo '<input class="checkbox" type="checkbox" name="check[]" value="'.$file.'"/>';
+						        	echo "<a class='file_clr' name='file_clr'  data-file= $file><i class='fa fa-trash'></i> </a>". $file."<br/>";
 						    	}
 							}
 						}

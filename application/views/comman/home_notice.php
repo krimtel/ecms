@@ -4,17 +4,19 @@
 		<marquee height="400" onMouseOut="start();" onMouseOver="stop();" direction="up" scrollamount="2">
 			<?php if(count($newses)>0){ ?>
 				<?php foreach($newses as $news) {
-					if(strlen( $news['news_contect']>100))
-					{
-					?>
-					<div class="focus-news-feilds">
-						<p><?php echo substr($news['news_contect'],0,100).".."; ?></p>
-				<?php 
-					}
-					else{
-					?>	
-					<div class="focus-news-feilds">
-					<p><?php  echo $news['news_contect'];
+					if($news['lang_id'] == $this->session->userdata['client_language']){
+						if(strlen( $news['news_contect']>100))
+						{
+						?>
+						<div class="focus-news-feilds">
+							<p><?php echo substr($news['news_contect'],0,100).".."; ?></p>
+					<?php 
+						}
+						else{
+						?>	
+						<div class="focus-news-feilds">
+						<p><?php  echo $news['news_contect'];
+						}
 					}
 					?>
 <!-- 						<a href="http://economictimes.indiatimes.com/articleshow/52522537.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst" target="_blank">read more</a> -->

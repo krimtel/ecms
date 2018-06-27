@@ -1069,7 +1069,7 @@ $(document).ready(function(){
 			  	  if(response.status == 200){
 			    	$('#loader').modal('toggle');
 			    	alert(response.msg);
-			    	window.location = baseUrl + 'admin/admin/all_pages';
+			    	//window.location = baseUrl + 'admin/admin/all_pages';
 			      }
 			      else{
 				    alert(response.msg);
@@ -1106,7 +1106,7 @@ $(document).ready(function(){
 	$(document).on('change','#page_layout',function(){
 		var layout_id = $(this).val();
 		if(layout_id == 1){
-			$('#1coumn').show();
+			$('#1coumn').hide();
 			$('#2coumn').hide();
 			$('#3coumn').hide();
 			
@@ -1211,37 +1211,102 @@ $(document).ready(function(){
 		        },
 		        complete: function(){},
 		        success:function (response) {
+		        	console.log(response);
+		        	$('#three_col_leftcontent_box').html('');
+		        	$('#three_col_rightcontent_box').html('');
 		        	$.each(response.data2,function(k,v){
 		        		var x = '';
+		        		var find = 0;
 		        		$.each(response.data,function(key,value){
 			        		if(value.w_id == v.widget_id){
 			        			x = x + '<option value="'+ value.w_id +'" selected>'+ value.name +'</option>';
+			        			find = 1;
 			        		}
 			        		else{
 			        			x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 			        		}
 			        	});
 			        	
+		        		if(find){
+							x = x + '<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>'+
+		        			'<option value="-6">Contact Us</option>';
+						}
+						else{
+							if(v.widget_id == '-1'){
+			        			x = x + '<option value="-1" selected>News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-5">Videos</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-2'){
+			        			x = x + '<option value="-2" selected>Slider</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-5">Videos</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-3'){
+			        			x = x + '<option value="-3" selected>Quick Link</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-5">Videos</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-4'){
+			        			x = x + '<option value="-4" selected>Event</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-5">Videos</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-5'){
+			        			x = x + '<option value="-5" selected>Videos</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-6'){
+			        			x = x + '<option value="-6" selected>Contact Us</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-5">Videos</option>';
+			        		}
+						}
+		        		
+		        		
 						if(v.section == 'left_col'){
 							var dropdown = '<select class="form-control col-sm-6" name="three_col_leftcontent[]" id="">'+
 							'<option value="0">select widget</option>'+
 							x +
 							'</select>';
-			        		$('#three_col_leftcontent_box').prepend(dropdown);
+			        		$('#three_col_leftcontent_box').append(dropdown);
 						}
 						else if(v.section == 'main_body'){
 							var dropdown = '<select class="form-control col-sm-6" name="three_col_maincontent[]" id="">'+
 							'<option value="0">select widget</option>'+
 							x +
 							'</select>';
-							$('#three_col_maincontent_box').prepend(dropdown);
+							$('#three_col_maincontent_box').aooend(dropdown);
 						}
 						else{
 							var dropdown = '<select class="form-control col-sm-6" name="three_col_rightcontent[]" id="">'+
 							'<option value="0">select widget</option>'+
 							x +
 							'</select>';
-							$('#three_col_rightcontent_box').prepend(dropdown);
+							$('#three_col_rightcontent_box').append(dropdown);
 						}
 			        });
 		        	$('#loader').modal('toggle');
@@ -1306,11 +1371,13 @@ $(document).ready(function(){
 	        	$.each(response.data,function(key,value){
 	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 	        	});
-	        	x = x + '<option value="-5">NEWS</option>';
-	        	x = x + '<option value="-6">SLIDER</option>';
-	        	x = x + '<option value="-7">EVENTS</option>';
-	        	x = x + '<option value="-8">VIDEOS</option>';
-	        	x = x + '<option value="-9">Links</option>';
+	        	x = x + '<option value="0">--------------------------------------------------------------------------</option>'+
+	        			'<option value="-1">News</option>'+
+	        			'<option value="-2">Slider</option>'+
+	        			'<option value="-3">Quick Link</option>'+
+	        			'<option value="-4">Event</option>'+
+	        			'<option value="-5">Videos</option>'+
+	        			'<option value="-6">Contact Us</option>';
 	        	var dropdown = '<select class="form-control col-sm-6" name="two_col_leftcontent[]" id="">'+
 				'<option value="0">select widget</option>'+
 				x +
@@ -1366,11 +1433,13 @@ $(document).ready(function(){
 	        	$.each(response.data,function(key,value){
 	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 	        	});
-	        	x = x + '<option value="-5">NEWS</option>';
-	        	x = x + '<option value="-6">SLIDER</option>';
-	        	x = x + '<option value="-7">EVENTS</option>';
-	        	x = x + '<option value="-8">VIDEOS</option>';
-	        	x = x + '<option value="-9">Links</option>';
+	        	x = x + '<option value="0">--------------------------------------------------------------------------</option>'+
+    			'<option value="-1">News</option>'+
+    			'<option value="-2">Slider</option>'+
+    			'<option value="-3">Quick Link</option>'+
+    			'<option value="-4">Event</option>'+
+    			'<option value="-5">Videos</option>'+
+    			'<option value="-6">Contact Us</option>';
 	        	var dropdown = '<select class="form-control col-sm-6" name="three_col_leftcontent[]" id="">'+
 				'<option value="0">select widget</option>'+
 				x +
@@ -1425,11 +1494,13 @@ $(document).ready(function(){
 	        	$.each(response.data,function(key,value){
 	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
 	        	});
-	        	x = x + '<option value="-5">NEWS</option>';
-	        	x = x + '<option value="-6">SLIDER</option>';
-	        	x = x + '<option value="-7">EVENTS</option>';
-	        	x = x + '<option value="-8">VIDEOS</option>';
-	        	x = x + '<option value="-9">Links</option>';
+	        	x = x + '<option value="0">--------------------------------------------------------------------------</option>'+
+    			'<option value="-1">News</option>'+
+    			'<option value="-2">Slider</option>'+
+    			'<option value="-3">Quick Link</option>'+
+    			'<option value="-4">Event</option>'+
+    			'<option value="-5">Videos</option>'+
+    			'<option value="-6">Contact Us</option>';
 	        	var dropdown = '<select class="form-control col-sm-6" name="three_col_rightcontent[]" id="">'+
 				'<option value="0">select widget</option>'+
 					x +
@@ -1888,4 +1959,25 @@ $(document).ready(function(){
 		});
 	});
 	
+	
+	$(document).on('click','#clear_cache',function(){
+		var chache = [];
+		 $("input:checkbox[class=checkbox]:checked").each(function () {
+			 chache.push($(this).val());
+	     });
+		 console.log(chache);
+	});
+	
+	$("#select_all").change(function(){ 
+	    $(".checkbox").prop('checked', $(this).prop("checked")); 
+	});
+ 
+	$('.checkbox').change(function(){ 
+	    if(false == $(this).prop("checked")){ 
+	        $("#select_all").prop('checked', false); 
+	    }
+	    if ($('.checkbox:checked').length == $('.checkbox').length ){
+	        $("#select_all").prop('checked', true);
+	    }
+	});
 });

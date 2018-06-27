@@ -41,7 +41,7 @@ class Page_ctrl extends CI_Controller {
 				$file = FCPATH . '/software_files/Widgets.txt';
 				file_put_contents ($file, $json);
 			}
-			
+// 			print_r($data['widgets']); die;
 			$Newses = json_decode(file_get_contents(FCPATH . '/software_files/News.txt'),true);
 			if(count($News)){
 				$data['News'] = $Newses;

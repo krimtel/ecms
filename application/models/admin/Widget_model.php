@@ -47,10 +47,19 @@ class Widget_model extends CI_Model {
 		}
 	}
 	
+// 	function widget_list(){
+// 		$this->db->select('widget_item.id,widgets.w_id,widgets.name,widget_item.content');
+// 		$this->db->join('widget_item','widget_item.widget_id=widgets.w_id');
+// 		$result = $this->db->get_where('widgets',array('widgets.status'=>1,'widget_item.lang_id'=>(int)$this->session->userdata('language')))->result_array();
+// 		return $result;
+// 	}
+	
 	function widget_list(){
-		$this->db->select('widget_item.id,widgets.w_id,widgets.name,widget_item.content');
-		$this->db->join('widget_item','widget_item.widget_id=widgets.w_id');
-		$result = $this->db->get_where('widgets',array('widgets.status'=>1,'widget_item.lang_id'=>(int)$this->session->userdata('language')))->result_array();
+		$this->db->select('wi.*,w.name');
+		$this->db->join('widget_item wi','wi.widget_id = w.w_id','left');
+		$this->db->join('languages l','l.l_id = wi.lang_id','left');
+		$this->db->order_by('w.created_at,w.updated_at','ASC');
+		$result = $this->db->get_where('widgets w',array('w.status' => 1,'wi.status'=>1))->result_array();
 		return $result;
 	}
 	
