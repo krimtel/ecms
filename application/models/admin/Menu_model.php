@@ -69,12 +69,13 @@ class Menu_model extends CI_Model {
 	
 	function menu_update($data){
 		$this->db->trans_begin();
-		$result = $this->db->get_where('menu_item',array('menu_id'=>$data['menu_id'],'lang_id'=>$this->session->userdata('language'),'status'=>1))->result_array();
+		$result = $this->db->get_where('menu_item',array('menu_id'=>$data['menu_id'],'lang_id'=>(int)$this->session->userdata('language'),'status'=>1))->result_array();
+		
 		if(count($result) > 0){
 			$this->db->where('id',$data['menu_id']);
 			$this->db->update('menu',array(
-					'menu_slug' => $data['menu_slug'],
-					'title' => $data['title'],
+					//'menu_slug' => $data['menu_slug'],
+					//'title' => $data['title'],
 					'p_id' => $data['p_id'],
 					'sort' => $data['sort'],
 					'external_link' => $data['external_link'],
@@ -85,8 +86,13 @@ class Menu_model extends CI_Model {
 					'updated_by' => $data['created_by'],
 			));
 			
-			$this->db->query("update menu_item set menu_name = '".$data['title']."',ip = '".$data['ip']."',updated_at = '".$data['created_at']."',updated_by = ".$data['created_by']."
-				where menu_id = ".$data['menu_id']." AND lang_id = 1 AND status = 1");
+			$this->db->where(array('menu_id' => $data['menu_id'],'lang_id'=>(int)$this->session->userdata('language'),'status'=>1));
+			$this->db->update('menu_item',array(
+					'menu_name' => $data['title'],
+					'ip' => $data['ip'],
+					'updated_at' => $data['created_at'],
+					'updated_by' => $data['created_by'] 
+			));
 		}
 		else{
 			$this->db->insert('menu_item',array(

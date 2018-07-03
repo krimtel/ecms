@@ -41,7 +41,10 @@ class Url_ctrl extends CI_Controller {
 		if(count($result)>0){
 			$this->db->select('*');
 			$page_body = $this->db->get_Where('page_item',array('page_id'=>$result[0]['page_id'],'lang_id'=>(int)$client_laguage,'status'=>1))->result_array();
-			
+			if(empty($page_body)){
+				echo "Sorry! Page content is not converted in this language";
+				die;
+			}
 
 			$this->db->select('p.page_name,p.page_layout,pc.section,w.name,wi.content,pc.widget_id');
 			$this->db->join('page_components pc','(pc.page_id = p.p_id AND pc.status = 1)');

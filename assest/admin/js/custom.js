@@ -1069,7 +1069,7 @@ $(document).ready(function(){
 			  	  if(response.status == 200){
 			    	$('#loader').modal('toggle');
 			    	alert(response.msg);
-			    	//window.location = baseUrl + 'admin/admin/all_pages';
+			    	window.location = baseUrl + 'admin/admin/all_pages';
 			      }
 			      else{
 				    alert(response.msg);

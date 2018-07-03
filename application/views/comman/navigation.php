@@ -30,14 +30,14 @@
 	                				echo '<ul class="dropdown-menu">';
 	                					foreach($menus as $innermenu){ 
 	                						if($innermenu['p_id'] == $menu['id']){
-	                							echo '<li><a href="'.$innermenu['cms_url'].'" title="'.$innermenu['title'].'"> '.$innermenu['menu_name'].'</a></li>';
+	                							echo '<li><a href="'.base_url().$innermenu['cms_url'].'" title="'.$innermenu['title'].'"> '.$innermenu['menu_name'].'</a></li>';
 	                						}
 	                					}
 	                				echo '</ul>';
 	                				echo '</li>';
 	                			}
 	                			else{
-	                				echo '<li><a class="" title="'.$menu['title'].'" href="'.$menu['cms_url'].'">'.$menu['menu_name'].'</a></li>';
+	                				echo '<li><a class="" title="'.$menu['title'].'" href="'.base_url().$menu['cms_url'].'">'.$menu['menu_name'].'</a></li>';
 	                			}
                 			}
                 	 } ?>

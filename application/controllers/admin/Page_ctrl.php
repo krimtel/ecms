@@ -43,7 +43,7 @@ class Page_ctrl extends CI_Controller {
 			}
 // 			print_r($data['widgets']); die;
 			$Newses = json_decode(file_get_contents(FCPATH . '/software_files/News.txt'),true);
-			if(count($News)){
+			if(count($Newses)){
 				$data['News'] = $Newses;
 			}
 			else{
@@ -52,17 +52,23 @@ class Page_ctrl extends CI_Controller {
 				$file = FCPATH . '/software_files/News.txt';
 				file_put_contents ($file, $json);
 			}
-			
-			
-			
-			
-			$this->db->select('p.*,pi.meta_tag,pi.keywords,pi.page_body');
+				
+			$this->db->select('p.*,pi.meta_tag,pi.keywords,pi.page_body,pi.title as page_name');
 			$this->db->join('page_item pi','pi.page_id = p.p_id');
-			$result = $this->db->get_Where('pages p',array('p.p_id'=>$data['page_id'],'p.status'=>1,'pi.status'=>1,'pi.lang_id'=>$this->session->userdata('language')))->result_array();
+			$result = $this->db->get_Where('pages p',array('p.p_id'=>(int)$data['page_id'],'p.status'=>1,'pi.status'=>1,'pi.lang_id'=>(int)$this->session->userdata('language')))->result_array();
+			
 			
 			if(count($result)>0){
 				$data['page_details'] = $result;
 			}
+			else{
+				$this->db->select('p.*,pi.meta_tag,pi.keywords,pi.page_body,pi.title as page_name');
+				$this->db->join('page_item pi','pi.page_id = p.p_id');
+				$result = $this->db->get_Where('pages p',array('p.p_id'=>(int)$data['page_id'],'p.status'=>1,'pi.status'=>1,'pi.lang_id'=>1))->result_array();
+								
+				$data['page_details'] = $result;
+			}
+			
 			$data['head'] = $this->load->view('admin/comman/head',$data,TRUE);
 			$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 			$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
@@ -245,7 +251,7 @@ class Page_ctrl extends CI_Controller {
 				
 				$this->db->where('p_id',$data['page_id']);
 				$this->db->update('pages',array(
-						'page_name' => $data['page_name'],
+						//'page_name' => $data['page_name'],
 						'page_layout' => $data['page_layout'],
 						'updated_at' => date('y-m-d h:i:s'),
 						'updated_by' => $this->session->userdata('user_id')
