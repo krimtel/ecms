@@ -118,14 +118,20 @@
 							<th>Publish</th>
 							<th>Is Home</th>
 							<?php } ?>
-							<th> Operations </th>
+							<th> Actions </th>
 					</tr>
 					<tbody>
 						<?php if(isset($videos) && (count($videos) > 0)){
 								foreach($videos as $video){
 									if($video['lang_id']==1){
+										$find = 0;
+										foreach($videos as $vid){
+											if($vid['video_id'] == $video['video_id'] && $vid['lang_id'] == $this->session->userdata('language')){
+												$find = 1;
+											}
+										}
 										?>
-										<tr>
+										<tr class="<?php if(!$find){ echo "find"; } ?>">
 											<td><?php echo $video['v_url'];?></td>
 											<td><?php echo $video['v_title'];?></td>
 											<td><?php echo $video['v_content'];?></td>

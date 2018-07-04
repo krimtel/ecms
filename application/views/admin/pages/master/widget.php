@@ -75,8 +75,15 @@
                 <tbody id="language_users_display">
 					<?php if(isset($widget) && (count($widget)>0)){
 						
-						foreach($widget as $widgets){ ?> 
-							<tr>
+						foreach($widget as $widgets){ 
+							$find = 0;
+							foreach($widget as $wid){
+								if($wid['id'] == $widgets['id'] && $wid['lang_id'] == $this->session->userdata('language')){
+									$find = 1;
+								}
+							}
+							?> 
+							<tr class="<?php if(!$find){ echo "find"; } ?>">
 	                  			<td><?php echo $widgets['name']; ?></td>
 	                  			<td><?php echo $widgets['content']; ?></td>
 	                  			<td>

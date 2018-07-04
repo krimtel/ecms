@@ -1032,7 +1032,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', email, id, password, active, last_login ,language, username,photo')
+		$query = $this->db->select($this->identity_column . ', email, id, password, active, last_login ,language, username,photo','first_name')
 						  ->where($this->identity_column, $identity)
 						  ->limit(1)
 						  ->order_by('id', 'desc')
@@ -2021,6 +2021,7 @@ class Ion_auth_model extends CI_Model
 		    'group_name'		   => $user_groups[0]['name'],
 		    'username'			   => $user->username,
 		    'photo'			   => $user->photo,
+		  //  'first_name'	   => $user->first_name,
 		    'last_check'           => time(),
 		);
 

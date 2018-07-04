@@ -87,4 +87,5 @@ body{background-color:#eee;}
     font-weight: 600;}
 .box-header-t span{padding:3px 15px;    float: left;
     /*min-width: 250px;*/border-radius:0px 0px 0px 0px;}
-.events-edit-bg .find{background-color:#6df1eb;}
+# b.events-edit-bg .find{background-color:#6df1eb;}
+.find{background-color:#6df1eb;}  

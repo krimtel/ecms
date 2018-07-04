@@ -44,18 +44,7 @@
 					</div>
 				</div>
 				
-			<!--	<div class="form-group">
-					<label class="col-sm-3 control-label">Event description</label>
-					<div class="col-sm-9">
-						<textarea id="event_desc" name="event_desc" class="form-control" rows="10"></textarea>
-						<div class="text-danger" id="event_desc_error" style="display:none;"></div>
-						<input id="event_id" name="event_id" type="hidden" class="form-control" value="">
-			            <script>
-			                CKEDITOR.replace('event_desc');
-			            </script>
-					</div>
-				</div>   
-				                !-->
+			
 				  <input id="slider_id" name="slider_id" type="hidden" class="form-control" value="">
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
@@ -114,8 +103,8 @@
 										}
 									}
 									?>
-								<tr>
-									<td class="<?php if(!$find){ echo "find"; } ?>"><?php echo $slider['alt_tag']; ?></td>
+								<tr class="<?php if(!$find){ echo "find"; } ?>">
+									<td><?php echo $slider['alt_tag']; ?></td>
 									<td><img alt="" width="50" src="<?php echo base_url();?>Slider_gallary/1/<?php echo $slider['slider_image'];?>" /></td>
 									<?php if($group == 'admin'){ ?>
 										<td> <?php echo $slider['sort']?></td>
@@ -128,7 +117,7 @@
 									<?php } ?>
 									<td>
 									<?php if($group == 'subadmin'){ ?>
-										<a href="javascript:void(0);" class="slider_tranlate" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
+										<a href="javascript:void(0);" class="slider_tranlate" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-language"></i></a>
 									<?php } else { ?>
 										<a href="javascript:void(0);" class="slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
 										<?php if($group == 'admin'){ ?>
@@ -188,7 +177,7 @@
 										<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" /></td>
 									<?php } ?>
 									<td>
-										<a href="javascript:void(0);" class="slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
+										<a href="javascript:void(0);" class="slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-language"></i></a>
 										<a href="javascript:void(0);" class="slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
 									</td>
 								</tr>

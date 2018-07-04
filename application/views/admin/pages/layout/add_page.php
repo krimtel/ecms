@@ -1,3 +1,4 @@
+<?php $group = $this->session->userdata('group_name'); ?>
 <?php 
 	$wiget_drop_Down = '';
 	foreach($widgets as $widget){
@@ -39,6 +40,7 @@
 						<input type="hidden" id="page_id" name="page_id" class="form-control" value="<?php if(isset($page_details)){echo $page_details[0]['p_id'];}?>">
 					</div>
 				</div>
+				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Select Layout</label>
 					<div class="col-sm-9">
@@ -58,6 +60,7 @@
 						<div class="text-danger" id="page_layout_error" style="display: none;"></div>
 					</div>
 				</div>
+				<?php } ?>
 				<!--  -->
 				<div class="form-group" id="1coumn" style="display: none;">
 					<label class="col-sm-2 control-label">Select Layout</label>
@@ -73,6 +76,7 @@
 						</table>
 					</div>
 				</div>
+				
 				<div class="form-group" id="2coumn" style="display: none;">
 					<label class="col-sm-2 control-label">Select Layout</label>
 					<div class="col-sm-9">
@@ -94,6 +98,7 @@
 						</table>
 					</div>
 				</div>
+				
 				<div class="form-group" id="3coumn" style="display: none;">
 					<label class="col-sm-2 control-label">Select Layout</label>
 					<div class="col-sm-9">
@@ -121,7 +126,7 @@
 					</div>
 				</div>
 				<!--  -->
-				
+				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Meta tags</label>
 					<div class="col-sm-9">
@@ -129,6 +134,7 @@
 						<div class="text-danger" id="meta_tag_error" style="display:none;"></div>
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Key words</label>
 					<div class="col-sm-9">
@@ -136,6 +142,7 @@
 						<div class="text-danger" id="keyword_error" style="display:none;"></div>
 					</div>
 				</div>
+				<?php } ?>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Page Body</label>
 					<div class="col-sm-9">

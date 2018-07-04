@@ -1,3 +1,4 @@
+<?php $group = $this->session->userdata('group_name'); ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 	<ol class="breadcrumb">
@@ -30,6 +31,7 @@
 					</div>
 					<div class="col-sm-9"><input id="menu_id" name="menu_id" type="hidden" class="form-control" value=""></div>
 				</div>
+				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Sort Order</label>
 					<div class="col-sm-9">
@@ -81,7 +83,7 @@
 						<div class="text-danger" id="menu_url_text_error" style="display:none;"></div>
 					</div>
 				</div>
-				
+				<?php } ?>
 			</div>
 			</form>
 			<div class="box-footer">

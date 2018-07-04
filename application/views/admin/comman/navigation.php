@@ -87,12 +87,17 @@
         	</select>
         </li>
          <li>
-        	<div class="dropdown" style="margin-top:5px;margin-left:5px;<?php if(!isset($_SESSION['user_id'])){?>display:none;<?php } ?>">
+        	<div class="dropdown" style="<?php if(!isset($_SESSION['user_id'])){?>display:none;<?php } ?>">
   				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    				 <a class="dropdown-toggle profile waves-effect" data-toggle="dropdown" aria-expanded=""><img src="<?php echo base_url(); ?>/User_gallary/<?php echo  $this->session->userdata('photo'); ?>" alt="user-img" class="img-circle" height="35px" width="35px"> </a>
+    			<ul><li> <a class="dropdown-toggle profile waves-effect" data-toggle="dropdown" aria-expanded=""><img src="<?php if($this->session->userdata('photo')){ echo base_url(); ?>/User_gallary/<?php echo  $this->session->userdata('photo'); } else{ echo base_url();?>/User_gallary/dif_img.png<?php }?>" alt="user-img" class="img-circle" height="35px" width="35px"> </a></li></ul>
     				<span class="caret"></span>
   				</button>
-  				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+  			 	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	        		<li>
+	            		<a><?php //echo $this->session->userdata['first_name'];?></a>
+	        		 </li> 
+	        		<li>
+	        		
 	        		<li>
 	        			<a href="<?php echo base_url('admin/User_profile_ctrl/profile/').$this->session->userdata('user_id');?>">
 	            		<i class="fa fa-fw fa-edit"></i>Edit Profile</a>

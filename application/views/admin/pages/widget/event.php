@@ -129,7 +129,7 @@
 								<tr class="<?php if(!$find){ echo "find"; } ?>">
 									
 									<td><img width="90" src="<?php echo base_url()."Event_gallary/".$event['event_image']; ?>"></td>
-									<td ><?php echo $event['title']; ?></td>
+									<td ><?php echo substr($event['title'],0,100); ?></td>
 									<td><?php echo $event['event_category']; ?></td>
 									<?php if($group != 'subadmin'){ ?>
 										<td><?php echo $event['sort']; ?></td>
@@ -150,7 +150,7 @@
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="btn btn-info btn-flat event_tranlate" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a class="btn btn-info btn-flat event_tranlate" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-language"></i></a>
 										<?php } else { ?>
 											<a class="btn btn-info btn-flat event_edit" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-pencil"></i></a> 
 									    	<a class="btn btn-info btn-flat event_delete" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-trash"></i></a>
@@ -199,7 +199,7 @@
 								<?php if($event['lang_id'] == $this->session->userdata('language')) { ?>
 								<tr>
 									<td><img width="90" src="<?php echo base_url()."Event_gallary/".$event['event_image']; ?>"></td>
-									<td><?php echo $event['title']; ?></td>
+									<td><?php echo substr($event['title'],0,100); ?></td>
 									<?php if($group != 'subadmin'){ ?>
 										<td><?php echo $event['sort']; ?></td>
 										<td>
@@ -219,7 +219,7 @@
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="event_tranlate" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a class="event_tranlate" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-language"></i></a>
 										<?php } else { ?>
 											<a class="event_edit" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-pencil"></i></a> 
 									    	<a class="event_delete" data-event_id="<?php echo $event['event_id']?>"><i class="fa fa-trash"></i></a>

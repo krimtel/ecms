@@ -96,8 +96,8 @@
 										}
 									}
 									?>
-								<tr>
-									<td class="<?php if(!$find){ echo "find"; } ?>"><?php echo $link['link_contect']; ?></td>
+								<tr class="<?php if(!$find){ echo "find"; } ?>">
+									<td><?php echo $link['link_contect']; ?></td>
 									
 									<?php if($group != 'subadmin'){ ?>
 										<td><?php echo $link['sort']; ?></td>
@@ -111,7 +111,7 @@
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a class="btn btn-info btn-flat link_tranlate" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a class="btn btn-info btn-flat link_tranlate" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-language"></i></a>
 										<?php } else { ?>
 											<a class="btn btn-info btn-flat link_edit" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-pencil"></i></a> 
 									    	<a class="btn btn-info btn-flat link_delete" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-trash"></i></a>
@@ -171,7 +171,7 @@
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<a title="" class="link_tranlate" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-heartbeat"></i></a>
+											<a title="" class="link_tranlate" data-link_id="<?php echo $link['link_id']?>"><i class="fa fa-language"></i></a>
 										<?php } else { ?>
 											<a title="Edit" class="link_edit" data-news_id="<?php echo $link['link_id']?>"><i class="fa fa-pencil"></i></a> 
 									    	<a title="Delete" class="link_delete" data-news_id="<?php echo $link['link_id']?>"><i class="fa fa-trash"></i></a>
