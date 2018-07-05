@@ -33,11 +33,14 @@ class Cache_ctrl extends CI_Controller {
 		$this->load->view('admin/comman/index',$data);
 	}
 	
-	function cache_clear(){
+	function clear_cache(){
 		$this->load->helper('directory');
-		$data['soft_files'] = $this->input->post('soft_files'); 
-		$file = FCPATH . "/software_files/{$this->input->post('soft_files')}";
-		file_put_contents ($file, "");
-			echo json_encode(array('msg'=>'file clear successfully.','status'=>200));
+		$files = $this->input->post('files');
+		foreach($files as $file){
+			$file = FCPATH . "/software_files/".$file;
+			file_put_contents ($file, "");
+		}
+		
+		echo json_encode(array('msg'=>'file clear successfully.','status'=>200));
 	}
 }

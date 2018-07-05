@@ -1970,7 +1970,21 @@ $(document).ready(function(){
 		 $("input:checkbox[class=checkbox]:checked").each(function () {
 			 chache.push($(this).val());
 	     });
-		 console.log(chache);
+		 $.ajax({
+				type: 'POST',
+				url: baseUrl+'admin/Cache_ctrl/clear_cache',
+				dataType: "json",
+				data: {
+					'files'	: chache
+				},
+				beforeSend: function(){
+					//$('#loader').modal({'show':true});	
+				},
+				complete: function(){},
+				success:function (response) {
+					
+				}
+		 });	 
 	});
 	
 	$("#select_all").change(function(){ 
