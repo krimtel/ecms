@@ -27,6 +27,18 @@ class Event_model extends CI_Model {
 		$this->db->insert('events',$val);
 		$val2['event_id'] = $this->db->insert_id();
 		$this->db->insert('event_item',$val2);
+		
+		///-----------activity insert----------//
+		$ect['e_id'] = 8;
+		$ect['created_at'] = $data['created_at'];
+		$ect['created_by'] = $data['created_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 8;
+		$logg['created_at'] = $data['created_at'];
+		$logg['user_id'] = $data['created_by'];
+		$this->db->insert('logg',$logg);
+		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;

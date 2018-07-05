@@ -52,6 +52,17 @@ class Menu_model extends CI_Model {
 			$value['ip'] = $data['ip'];
 			
 			$this->db->insert('menu_item',$value);
+			///-----------activity insert----------//
+			$ect['e_id'] = 32;
+			$ect['created_at'] = $data['created_at'];
+			$ect['created_by'] = $data['created_by'];
+			$this->db->insert('activity_tab',$ect);
+			///-----------logg insert----------//
+			$logg['event_id'] = 32;
+			$logg['created_at'] = $data['created_at'];
+			$logg['user_id'] = $data['created_by'];
+			$this->db->insert('logg',$logg);
+			
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
 			return false;
@@ -104,6 +115,17 @@ class Menu_model extends CI_Model {
 			));
 		}
 	
+		///-----------activity insert----------//
+		$ect['e_id'] = 33;
+		$ect['created_at'] = $data['created_at'];
+		$ect['created_by'] = $data['created_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 33;
+		$logg['created_at'] = $data['created_at'];
+		$logg['user_id'] = $data['created_by'];
+		$this->db->insert('logg',$logg);
+		
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
 			return false;
@@ -127,6 +149,17 @@ class Menu_model extends CI_Model {
 			$this->db->where('id',$data['m_id']);
 			$this->db->update('menu',array('status'=>0));
 		}
+		/////////acvity_tab////////////////////////
+		$ect['e_id'] = 35;
+		$ect['created_at'] = date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 35;
+		$logg['created_at'] = date('y-m-d h:i');
+		$logg['user_id'] = $this->session->userdata('user_id');
+		$this->db->insert('logg',$logg);
+		
 		return true;
 	}
 }

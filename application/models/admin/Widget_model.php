@@ -36,6 +36,17 @@ class Widget_model extends CI_Model {
 				'created_by' => $data['created_by'],
 				'ip' => $data['ip']
 			));
+			///-----------activity insert----------//
+			$ect['e_id'] = 20;
+			$ect['created_at'] = $data['created_at'];
+			$ect['created_by'] = $data['created_by'];
+			$this->db->insert('activity_tab',$ect);
+			///-----------logg insert----------//
+			$logg['event_id'] = 20;
+			$logg['created_at'] = $data['created_at'];
+			$logg['user_id'] = $data['created_by'];
+			$this->db->insert('logg',$logg);
+			
 			if ($this->db->trans_status() === FALSE){
 				$this->db->trans_rollback();
 				return array('msg'=>'something wrong.','status'=>500);
@@ -115,6 +126,16 @@ class Widget_model extends CI_Model {
 				'ip' => $data['ip']
 			));
 		}
+		///-----------activity insert----------//
+		$ect['e_id'] = 21;
+		$ect['created_at'] = $data['created_at'];
+		$ect['created_by'] = $data['created_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 21;
+		$logg['created_at'] = $data['created_at'];
+		$logg['user_id'] = $data['created_by'];
+		$this->db->insert('logg',$logg);
 		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
@@ -129,6 +150,17 @@ class Widget_model extends CI_Model {
 	function widget_delete($data){
 		$this->db->where('w_id',$data['w_id']);
 		$this->db->update('widgets',array('status'=>0));
+		$ect['e_id'] = 23;
+		$ect['created_at'] = date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 23;
+		$logg['created_at'] = date('y-m-d h:i');
+		$logg['user_id'] = $this->session->userdata('user_id');
+		$this->db->insert('logg',$logg);
+		
+		
 		return true;
 	}
 	

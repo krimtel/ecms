@@ -27,7 +27,18 @@ class Video_model extends CI_Model {
 		$val2['created_by'] = $data['created_by'];
 		
 		$this->db->insert('video_item',$val2);
-	
+		///-----------activity insert----------//
+		$ect['e_id'] = 28;
+		$ect['created_at'] = $data['created_at'];
+		$ect['created_by'] = $data['created_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 28;
+		$logg['created_at'] = $data['created_at'];
+		$logg['user_id'] = $data['created_by'];
+		$this->db->insert('logg',$logg);
+			
+		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;
@@ -59,6 +70,15 @@ class Video_model extends CI_Model {
 	function video_publish($data){
 	    $this->db->where('v_id',$data['v_id']);
 	    $this->db->update('video',array('publish'=>$data['status']));
+	    $ect['e_id'] = 30;
+	    $ect['created_at'] = date('y-m-d h:i');
+	    $ect['created_by'] = $this->session->userdata('user_id');
+	    $this->db->insert('activity_tab',$ect);
+	    ///-----------logg insert----------//
+	    $logg['event_id'] = 30;
+	    $logg['created_at'] = date('y-m-d h:i');
+	    $logg['user_id'] = $this->session->userdata('user_id');
+	    $this->db->insert('logg',$logg);
 	    return true;
 	}
 	 
@@ -72,6 +92,16 @@ class Video_model extends CI_Model {
 	function video_delete($data){
 	    $this->db->where('v_id',$data['v_id']);
 	    $this->db->update('video',array('status'=>0));
+	    
+	    $ect['e_id'] = 31;
+	    $ect['created_at'] = date('y-m-d h:i');
+	    $ect['created_by'] = $this->session->userdata('user_id');
+	    $this->db->insert('activity_tab',$ect);
+	    ///-----------logg insert----------//
+	    $logg['event_id'] = 31;
+	    $logg['created_at'] = date('y-m-d h:i');
+	    $logg['user_id'] = $this->session->userdata('user_id');
+	    $this->db->insert('logg',$logg);
 	    return true;
 	}
 	function get_video_data($data){
@@ -137,6 +167,17 @@ class Video_model extends CI_Model {
 		$this->db->query("update video set updated_at = '".$data['updated_at']."',v_url='".$data['v_url']."',category_id='".$data['category_id']."',updated_by='".$data['updated_by']."',sort='".$data['sort']."',v_title='".$data['v_title']."'
 				where v_id = (select video_id from video_item where v_id=".$data['v_id'].")");
 	//	print_r($this->db->last_query()); die;
+		///-----------activity insert----------//
+		$ect['e_id'] = 29;
+		$ect['created_at'] = $data['updated_at'];
+		$ect['created_by'] = $data['updated_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 29;
+		$logg['created_at'] = $data['updated_at'];
+		$logg['user_id'] = $data['updated_by'];
+		$this->db->insert('logg',$logg);
+			
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;

@@ -101,7 +101,7 @@ class Widget_ctrl extends CI_Controller {
 			$data['w_id'] = $this->input->post('w_id');
 			$result = $this->Widget_model->widget_delete($data);
 			if($result){
-				$this->file_update();
+				//$this->file_update();
 				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
 			}
 			else{

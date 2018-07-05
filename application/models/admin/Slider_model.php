@@ -26,6 +26,16 @@ class Slider_model extends CI_Model {
 		$val2['slider_id'] = $this->db->insert_id();
 		$this->db->insert('slider_item',$val2);
 		//print_r($this->db->last_query()); die;
+		$ect['e_id'] = 24;
+		$ect['created_at'] = $data['created_at'];
+		$ect['created_by'] = $data['created_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 24;
+		$logg['created_at'] = $data['created_at'];
+		$logg['user_id'] = $data['created_by'];
+		$this->db->insert('logg',$logg);
+		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;
@@ -114,6 +124,16 @@ class Slider_model extends CI_Model {
 			));
 		}
 	
+		$ect['e_id'] = 25;
+		$ect['created_at'] = $data['created_at'];
+		$ect['created_by'] = $data['created_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 25;
+		$logg['created_at'] = $data['created_at'];
+		$logg['user_id'] = $data['created_by'];
+		$this->db->insert('logg',$logg);
+		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;
@@ -129,6 +149,16 @@ class Slider_model extends CI_Model {
 		
 		$this->db->where('sid',(int)$result[0]['slider_id']);
 		$this->db->update('slider',array('publish'=>$data['status']));
+		
+		$ect['e_id'] = 26;
+		$ect['created_at'] = date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 26;
+		$logg['created_at'] = date('y-m-d h:i');
+		$logg['user_id'] = $this->session->userdata('user_id');
+		$this->db->insert('logg',$logg);
 		return true;
 	}
 	
@@ -137,6 +167,16 @@ class Slider_model extends CI_Model {
 		
 		$this->db->where('sid',(int)$result[0]['slider_id']);
 		$this->db->update('slider',array('status'=>0));
+		
+		$ect['e_id'] = 27;
+		$ect['created_at'] = date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 27;
+		$logg['created_at'] = date('y-m-d h:i');
+		$logg['user_id'] = $this->session->userdata('user_id');
+		$this->db->insert('logg',$logg);
 		return true;
 	}
 	

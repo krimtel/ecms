@@ -28,6 +28,17 @@ class News_model extends CI_Model {
 			$this->db->select('*');
 			$result = $this->db->get_where('news_item',array('id'=>$this->db->insert_id()))->result_array();
 			
+			///-----------activity insert----------//
+			$ect['e_id'] = 12;
+			$ect['created_at'] = $data['created_at'];
+			$ect['created_by'] = $data['user_id'];
+			$this->db->insert('activity_tab',$ect);
+			///-----------logg insert----------//
+			$logg['event_id'] = 12;
+			$logg['created_at'] = $data['created_at'];
+			$logg['user_id'] = $data['user_id'];
+			$this->db->insert('logg',$logg);
+			
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;
@@ -82,6 +93,17 @@ class News_model extends CI_Model {
 				
 				$this->db->query("update news set updated_at = '".$data['created_at']."',updated_by=".$data['user_id'].",sort=".$data['sort']." where id = (select news_id from news_item where id=".$data['news_id'].")");
 				
+				$ect['e_id'] = 13;
+				$ect['created_at'] = $data['created_at'];
+				$ect['created_by'] = $data['user_id'];
+				$this->db->insert('activity_tab',$ect);
+				///-----------logg insert----------//
+				$logg['event_id'] = 13;
+				$logg['created_at'] = $data['created_at'];
+				$logg['user_id'] = $data['user_id'];
+				$this->db->insert('logg',$logg);
+				
+				
 			if ($this->db->trans_status() === FALSE){
 				$this->db->trans_rollback();
 				return false;
@@ -99,6 +121,7 @@ class News_model extends CI_Model {
 		$this->db->join('languages l','l.l_id = ni.lang_id','left');
 		$this->db->order_by('n.sort,n.created_at,n.updated_at','ASC');
 		$result = $this->db->get_where('news n',array('n.status' => 1,'ni.status'=>1))->result_array();
+		
 		return $result;
 	}
 	
@@ -120,12 +143,35 @@ class News_model extends CI_Model {
 	function news_publish($data){
 		$this->db->where('id',$data['n_id']);
 		$this->db->update('news',array('publish'=>$data['status']));
+		
+		$ect['e_id'] = 14;
+		$ect['created_at'] = date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 14;
+		$logg['created_at'] = date('y-m-d h:i');
+		$logg['user_id'] = $this->session->userdata('user_id');
+		$this->db->insert('logg',$logg);
+		
+		
 		return true;
 	}
 	
 	function news_delete($data){
 		$this->db->where('id',$data['n_id']);
 		$this->db->update('news',array('status'=>0));
+		
+		$ect['e_id'] = 15;
+		$ect['created_at'] = date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 15;
+		$logg['created_at'] = date('y-m-d h:i');
+		$logg['user_id'] = $this->session->userdata('user_id');
+		$this->db->insert('logg',$logg);
+		
 		return true;
 	}
 }

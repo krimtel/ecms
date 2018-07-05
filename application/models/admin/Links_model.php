@@ -22,11 +22,21 @@ class Links_model extends CI_Model {
 			$val2['link_contect'] = $data['link_contect'];
 			$val2['created_at'] = $data['created_at'];
 			$val2['created_by'] = $data['user_id'];
-			
 			$this->db->insert('quick_links_item',$val2);  //// insert link language table
 			
 			$this->db->select('*');
 			$result = $this->db->get_where('quick_links_item',array('id'=>$this->db->insert_id()))->result_array();
+			
+			///-----------activity insert----------//
+			$ect['e_id'] = 16;
+			$ect['created_at'] = $data['created_at'];
+			$ect['created_by'] = $data['user_id'];
+			$this->db->insert('activity_tab',$ect);
+			///-----------logg insert----------//
+			$logg['event_id'] = 16;
+			$logg['created_at'] = $data['created_at'];
+			$logg['user_id'] = $data['user_id'];
+			$this->db->insert('logg',$logg);
 			
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
@@ -83,6 +93,17 @@ class Links_model extends CI_Model {
 				
 				$this->db->query("update quick_links set updated_at = '".$data['created_at']."',updated_by=".$data['user_id'].",sort=".$data['sort']." where id = (select link_id from quick_links_item where id=".$data['link_id'].")");
 				
+				///-----------activity insert----------//
+				$ect['e_id'] = 17;
+				$ect['created_at'] = $data['created_at'];
+				$ect['created_by'] = $data['user_id'];
+				$this->db->insert('activity_tab',$ect);
+				///-----------logg insert----------//
+				$logg['event_id'] = 17;
+				$logg['created_at'] = $data['created_at'];
+				$logg['user_id'] = $data['user_id'];
+				$this->db->insert('logg',$logg);
+				
 			if ($this->db->trans_status() === FALSE){
 				$this->db->trans_rollback();
 				return false;
@@ -121,12 +142,34 @@ class Links_model extends CI_Model {
 	function link_publish($data){
 		$this->db->where('id',$data['l_id']);
 		$this->db->update('quick_links',array('publish'=>$data['status']));
+		
+		///-----------activity insert----------//
+		$ect['e_id'] = 18;
+		$ect['created_at'] = date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 18;
+		$logg['created_at'] =date('y-m-d h:i');
+		$logg['user_id'] = $this->session->userdata('user_id');
+		$this->db->insert('logg',$logg);
 		return true;
 	}
 	
 	function link_delete($data){
 		$this->db->where('id',$data['l_id']);
 		$this->db->update('quick_links',array('status'=>0));
+		
+		$ect['e_id'] = 19;
+		$ect['created_at'] = date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 19;
+		$logg['created_at'] =date('y-m-d h:i');
+		$logg['user_id'] = $this->session->userdata('user_id');
+		$this->db->insert('logg',$logg);
+		
 		return true;
 	}
 }
