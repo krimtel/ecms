@@ -8,7 +8,7 @@ class Users_model extends CI_Model {
 	}
 	
 	function get_all_lang_users($u_id = null){
-		$this->db->select('u.id,u.username,g.name,l.l_name,l.l_id,u.first_name,u.last_name');
+		$this->db->select('u.id,u.email,u.username,g.name,l.l_name,l.l_id,u.first_name,u.last_name');
 		$this->db->join('users_groups ug','ug.user_id = u.id');
 		$this->db->join('groups g','g.id = ug.group_id');
 		$this->db->join('languages l','l.l_id = u.language');
@@ -53,6 +53,36 @@ class Users_model extends CI_Model {
 				'active' => 0
 		));
 		return true;
+	}
+	
+	function get_notification(){
+		$result = $this->db->query("select u.first_name,ue.event_name,ue.url,at.act_id
+				FROM `activity_tab` `at` 
+				JOIN `users_events` `ue` ON `ue`.`ue_id` = `at`.`e_id`
+				JOIN `users` `u` ON `u`.`id` = `at`.`created_by`
+				where act_id NOT in(
+					SELECT `at`.`act_id`
+					FROM `activity_tab` `at`
+					WHERE `at`.`shown` LIKE '%,".$this->session->userdata('user_id').",%'
+					AND `at`.`status` = 1
+				)"
+		)->result_array();
+		return $result;
+		
+	}
+	
+	function notification_show($data){
+		$this->db->select('*');
+		$result = $this->db->get_where('activity_tab',array('act_id'=>$data['act_id']))->result_array();
+		
+		$str = $result[0]['shown'];
+		$str = rtrim($str,',');
+		$str = $str.','.$data['u_id'].',';
+		
+		$this->db->where('act_id',$data['act_id']);
+		$this->db->update('activity_tab',array(
+				'shown' => $str
+		));
 	}
 }
 ?>

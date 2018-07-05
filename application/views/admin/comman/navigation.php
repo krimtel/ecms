@@ -86,6 +86,26 @@
         		<?php }?>
         	</select>
         </li>
+        
+        <li>
+        	<div class="dropdown" style="<?php if(!isset($_SESSION['user_id'])){?>display:none;<?php } ?>">
+  				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    			<ul style="">
+    				<li> 
+    					<a class="dropdown-toggle profile waves-effect" data-toggle="dropdown" aria-expanded="">
+    						N	 
+    					</a>
+    				</li>
+    			</ul>
+    				<span class="caret"></span>
+  				</button>
+  			 	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	        		<div id="user_notification"></div>	 
+        	  	</ul>
+			</div>
+       	</li>
+        
+        
          <li>
         	<div class="dropdown" style="<?php if(!isset($_SESSION['user_id'])){?>display:none;<?php } ?>">
   				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -97,7 +117,6 @@
 	            		<a><?php //echo $this->session->userdata['first_name'];?></a>
 	        		 </li> 
 	        		<li>
-	        		
 	        		<li>
 	        			<a href="<?php echo base_url('admin/User_profile_ctrl/profile/').$this->session->userdata('user_id');?>">
 	            		<i class="fa fa-fw fa-edit"></i>Edit Profile</a>
@@ -111,9 +130,9 @@
 	            		<i class="fa fa-fw fa-sign-out"></i>Logout</a> 
 	        		</li> 
         	  </ul>
-		</div>
-		
-       </li>
+			</div>
+       	</li>
+       
       </ul>
     </div>
   </nav>

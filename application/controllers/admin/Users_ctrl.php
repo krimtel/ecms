@@ -237,4 +237,36 @@ class Users_ctrl extends CI_Controller {
 			}
 		}
 	}
+	
+	function mail_sent(){
+		$this->load->library('email');
+		$this->email->from('sinha.rahulsinha.sinha@gmail.com', 'rahul');
+		$this->email->to($this->input->post('mail_id'));
+		$this->email->subject('Email subject');
+		$this->email->message($this->input->post('mail_body'));
+		 
+		//Send mail
+		if($this->email->send())
+			echo "sent";
+		else
+			echo "failed";
+			
+	}
+	
+	function get_notification(){
+		$result = $this->Users_model->get_notification();
+		if(count($result)>0){
+			echo json_encode(array('data'=>$result,'msg'=>'User notinications.','status'=>200));
+		}
+		else{
+			echo json_encode(array('msg'=>'No record found.','status'=>500));
+		}
+	}
+	
+	function notification_show(){
+		$data['act_id'] = $this->input->post('act_id');
+		$data['u_id'] = $this->session->userdata('user_id');
+		$result = $this->Users_model->notification_show($data);
+		
+	}
 }

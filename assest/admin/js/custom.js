@@ -1,7 +1,12 @@
+baseUrl = $('#base_url').val();
+uGroup = $('#u_group').val();
+
+
 $(document).ready(function(){
 	var baseUrl = $('#base_url').val();
 	var uGroup = $('#u_group').val();
-	
+
+	get_notifictions();
 	//////////////////////////////menu ////////////////////////////////////
 	$(document).on('change','#menu_external_link',function(){
 		var x = $(this).val(); 
@@ -1980,4 +1985,115 @@ $(document).ready(function(){
 	        $("#select_all").prop('checked', true);
 	    }
 	});
+	
+	$(document).on('click','.user_mail',function(){
+		var uid = $(this).data('uid');
+		var mailid = $(this).data('mail_id');
+		var uname = $(this).data('uname');
+		
+		$('#myModalLabel').html('Compose Mail');
+		var x = '<form class="form-horizontal">'+
+					'<div class="form-group">'+
+						'<label for="inputEmail3" class="col-sm-2 control-label">User Name</label>'+
+						'<div class="col-sm-10">'+
+							'<input type="text" class="form-control" id="mail_uid" placeholder="User id" value="'+ uid +'">'+
+							'<input type="text" class="form-control" id="mail_fname" placeholder="User name" value="'+ uname +'">'+
+							'<div id="mail_fname_error" class="text-danger" style="display:none;"></div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="form-group">'+
+						'<label for="inputEmail3" class="col-sm-2 control-label">E-Mail Id</label>'+
+						'<div class="col-sm-10">'+
+							'<input type="email" class="form-control" id="mail_id" placeholder="mail_id" value="'+ mailid +'">'+
+							'<div id="mail_id_error" class="text-danger" style="display:none;"></div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="form-group">'+
+						'<label for="inputEmail3" class="col-sm-2 control-label">Mail Body</label>'+
+						'<div class="col-sm-10">'+
+							'<textarea class="form-control" id="mail_body"></textarea>'+
+							'<div id="mail_body_error" class="text-danger" style="display:none;"></div>'+
+						'</div>'+
+					'</div>'+
+	  				
+	  				'<div class="form-group">'+
+		  				'<div class="col-sm-offset-2 col-sm-10">'+
+		  					'<input type="button" class="btn btn-info" id="mail_submit" value="Submit"/>&nbsp;'+
+		  					'<input type="reset" data-dismiss="modal" aria-label="Close" class="btn btn-danger" id="mail_reset" value="Cancel"/>'+
+		  				'</div>'+
+	  				'</div>'+
+			  	'</form>';
+		$('#loader .modal-body').html(x);
+		$('#loader .modal-footer').hide();
+		$('#loader').modal({
+			show : true,
+			backdrop : false,
+			keyboard: false
+		});
+	});
+	
+	
+	$(document).on('click','#mail_submit',function(){
+		var mail_name = $('#mail_fname').val();
+		var mail_id = $('#mail_id').val();
+		var mail_body = $('#mail_body').val();
+		$.ajax({
+			type: 'POST',
+			url: baseUrl+'admin/Users_ctrl/mail_sent',
+			dataType: "json",
+			data: {
+				'mail_name' : mail_name,
+				'mail_id' : mail_id,
+				'mail_body' : mail_body
+			},
+			beforeSend: function(){
+
+			},
+			complete: function(){},
+			success:function (response) {
+				
+			}
+		});
+	});
+	
+	$(document).on('click','.nitification_click',function(){
+		var act_id = $(this).data('notification_id');
+		$.ajax({
+			type: 'POST',
+			url: baseUrl+'admin/Users_ctrl/notification_show',
+			dataType: "json",
+			data: {
+				'act_id' : act_id
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success:function (response) {
+			}
+		});
+	});
+	
 });
+
+
+function get_notifictions(){
+	$.ajax({
+		type: 'POST',
+		url: baseUrl+'admin/Users_ctrl/get_notification',
+		dataType: "json",
+		data: {},
+		beforeSend: function(){},
+		complete: function(){},
+		success:function (response) {
+			var x = '';
+			if(response.status == 200){
+				$.each(response.data,function(key,value){
+					x = x + '<li><a class="nitification_click" data-notification_id="'+ value.act_id +'" href="#"><b>'+ value.first_name +'</b>&nbsp;&nbsp; '+ value.event_name +'</a></li>'  
+				});
+			}
+			else {
+				
+			}
+			$('#user_notification').html(x);
+		}
+	});
+}

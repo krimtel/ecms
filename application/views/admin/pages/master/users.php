@@ -73,7 +73,7 @@
                   <th>S.No.</th>
                   <th>Users</th>
                   <th>Language</th>
-                  <th>Mail/sms</th>
+                  <th>Mail/Sms</th>
                   <th>Edit/Delete</th>
                 </tr>
                 <tbody id="language_users_display">
@@ -84,7 +84,7 @@
 	                  			<td><?php echo $c; ?></td>
 	                  			<td><?php echo $user_lang['first_name'].' '.$user_lang['last_name']; ?></td>
 	                  			<td><?php echo $user_lang['l_name']; ?></td>
-	                  			<td> </td>
+	                  			<td><a href="javascript:void(0);" class="user_mail" data-uname="<?php echo $user_lang['first_name'].' '.$user_lang['last_name']; ?>" data-uid="<?php echo $user_lang['id']; ?>" data-mail_id="<?php echo $user_lang['email']; ?>"><?php echo $user_lang['email']; ?></a></td>
 	                  			<td>
 	                  				<a class="class_edit btn btn-info btn-flat user_edit" data-u_id="<?php echo $user_lang['id']; ?>" data-lang_id="<?php echo $user_lang['l_id']; ?>"><i class="fa fa-pencil"></i></a>
 	                  				<a class="class_delete btn btn-info btn-flat user_delete" data-u_id="<?php echo $user_lang['id']; ?>"><i class="fa fa-trash"></i></a>

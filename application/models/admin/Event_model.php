@@ -53,7 +53,7 @@ class Event_model extends CI_Model {
 		$this->db->select('ei.*,e.sort,e.event_image,e.publish,e.event_category,e.is_home');
 		$this->db->join('event_item ei','ei.event_id = e.id','left');
 		$this->db->join('languages l','l.l_id = ei.lang_id','left');
-		$this->db->order_by('e.sort,e.created_at,e.updated_at','ASC');
+		$this->db->order_by('e.sort,e.created_at,e.updated_at','DESC');
 		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1))->result_array();
 		return $result;
 	}
@@ -76,6 +76,17 @@ class Event_model extends CI_Model {
 	function event_publish($data){
 		$this->db->where('id',$data['e_id']);
 		$this->db->update('events',array('publish'=>$data['status']));
+		
+		///-----------activity insert----------//
+		$ect['e_id'] = 10;
+		$ect['created_at'] = $data['created_at'];
+		$ect['created_by'] = $data['created_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 10;
+		$logg['created_at'] = $data['created_at'];
+		$logg['user_id'] = $data['created_by'];
+		$this->db->insert('logg',$logg);
 		return true;
 	}
 	
@@ -88,6 +99,17 @@ class Event_model extends CI_Model {
 	function event_delete($data){
 		$this->db->where('id',$data['e_id']);
 		$this->db->update('events',array('status'=>0));
+		
+		///-----------activity insert----------//
+		$ect['e_id'] = 11;
+		$ect['created_at'] = $data['created_at'];
+		$ect['created_by'] = $data['created_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 11;
+		$logg['created_at'] = $data['created_at'];
+		$logg['user_id'] = $data['created_by'];
+		$this->db->insert('logg',$logg);
 		return true;
 	}
 	
@@ -146,6 +168,17 @@ class Event_model extends CI_Model {
 				'created_by' => $data['created_by']
 			));
 		}
+		
+		///-----------activity insert----------//
+		$ect['e_id'] = 9;
+		$ect['created_at'] = $data['created_at'];
+		$ect['created_by'] = $data['created_by'];
+		$this->db->insert('activity_tab',$ect);
+		///-----------logg insert----------//
+		$logg['event_id'] = 9;
+		$logg['created_at'] = $data['created_at'];
+		$logg['user_id'] = $data['created_by'];
+		$this->db->insert('logg',$logg);
 		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
