@@ -24,12 +24,13 @@ class News_model extends CI_Model {
 			$val2['created_by'] = $data['user_id'];
 			
 			$this->db->insert('news_item',$val2);  //// insert news language table
-			
+			$news_id = $this->db->insert_id();
 			$this->db->select('*');
 			$result = $this->db->get_where('news_item',array('id'=>$this->db->insert_id()))->result_array();
 			
 			///-----------activity insert----------//
 			$ect['e_id'] = 12;
+			$ect['e_primary_id'] = $news_id;
 			$ect['created_at'] = $data['created_at'];
 			$ect['created_by'] = $data['user_id'];
 			$this->db->insert('activity_tab',$ect);
@@ -37,6 +38,7 @@ class News_model extends CI_Model {
 			$logg['event_id'] = 12;
 			$logg['created_at'] = $data['created_at'];
 			$logg['user_id'] = $data['user_id'];
+			$logg['activity_id'] = $this->db->insert_id();
 			$this->db->insert('logg',$logg);
 			
 		if ($this->db->trans_status() === FALSE){
@@ -94,6 +96,7 @@ class News_model extends CI_Model {
 				$this->db->query("update news set updated_at = '".$data['created_at']."',updated_by=".$data['user_id'].",sort=".$data['sort']." where id = (select news_id from news_item where id=".$data['news_id'].")");
 				
 				$ect['e_id'] = 13;
+				$ect['e_primary_id'] = $data['news_id'];
 				$ect['created_at'] = $data['created_at'];
 				$ect['created_by'] = $data['user_id'];
 				$this->db->insert('activity_tab',$ect);
@@ -101,7 +104,9 @@ class News_model extends CI_Model {
 				$logg['event_id'] = 13;
 				$logg['created_at'] = $data['created_at'];
 				$logg['user_id'] = $data['user_id'];
+				$logg['activity_id'] = $this->db->insert_id();
 				$this->db->insert('logg',$logg);
+				
 				
 				
 			if ($this->db->trans_status() === FALSE){
@@ -145,6 +150,7 @@ class News_model extends CI_Model {
 		$this->db->update('news',array('publish'=>$data['status']));
 		
 		$ect['e_id'] = 14;
+		$ect['e_primary_id'] = $data['n_id'];
 		$ect['created_at'] = date('y-m-d h:i');
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
@@ -152,6 +158,7 @@ class News_model extends CI_Model {
 		$logg['event_id'] = 14;
 		$logg['created_at'] = date('y-m-d h:i');
 		$logg['user_id'] = $this->session->userdata('user_id');
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		
 		
@@ -163,6 +170,7 @@ class News_model extends CI_Model {
 		$this->db->update('news',array('status'=>0));
 		
 		$ect['e_id'] = 15;
+		$ect['e_primary_id'] = $data['n_id'];
 		$ect['created_at'] = date('y-m-d h:i');
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
@@ -170,6 +178,7 @@ class News_model extends CI_Model {
 		$logg['event_id'] = 15;
 		$logg['created_at'] = date('y-m-d h:i');
 		$logg['user_id'] = $this->session->userdata('user_id');
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		
 		return true;

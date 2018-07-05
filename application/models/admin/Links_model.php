@@ -29,6 +29,7 @@ class Links_model extends CI_Model {
 			
 			///-----------activity insert----------//
 			$ect['e_id'] = 16;
+			$ect['e_primary_id'] = $val2['link_id'];
 			$ect['created_at'] = $data['created_at'];
 			$ect['created_by'] = $data['user_id'];
 			$this->db->insert('activity_tab',$ect);
@@ -36,6 +37,7 @@ class Links_model extends CI_Model {
 			$logg['event_id'] = 16;
 			$logg['created_at'] = $data['created_at'];
 			$logg['user_id'] = $data['user_id'];
+			$logg['activity_id'] = $this->db->insert_id();
 			$this->db->insert('logg',$logg);
 			
 		if ($this->db->trans_status() === FALSE){
@@ -92,9 +94,12 @@ class Links_model extends CI_Model {
 				));
 				
 				$this->db->query("update quick_links set updated_at = '".$data['created_at']."',updated_by=".$data['user_id'].",sort=".$data['sort']." where id = (select link_id from quick_links_item where id=".$data['link_id'].")");
-				
+				//---------------------//
+				$this->db->select('link_id');
+				$activity = $this->db->get_where('quick_links_item',array('id'=>$data['link_id']))->result_array();
 				///-----------activity insert----------//
 				$ect['e_id'] = 17;
+				$ect['e_primary_id'] = $activity[0]['link_id'];
 				$ect['created_at'] = $data['created_at'];
 				$ect['created_by'] = $data['user_id'];
 				$this->db->insert('activity_tab',$ect);
@@ -102,6 +107,7 @@ class Links_model extends CI_Model {
 				$logg['event_id'] = 17;
 				$logg['created_at'] = $data['created_at'];
 				$logg['user_id'] = $data['user_id'];
+				$logg['activity_id'] = $this->db->insert_id();
 				$this->db->insert('logg',$logg);
 				
 			if ($this->db->trans_status() === FALSE){
@@ -145,6 +151,7 @@ class Links_model extends CI_Model {
 		
 		///-----------activity insert----------//
 		$ect['e_id'] = 18;
+		$ect['e_primary_id'] = $data['l_id'];
 		$ect['created_at'] = date('y-m-d h:i');
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
@@ -152,6 +159,7 @@ class Links_model extends CI_Model {
 		$logg['event_id'] = 18;
 		$logg['created_at'] =date('y-m-d h:i');
 		$logg['user_id'] = $this->session->userdata('user_id');
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		return true;
 	}
@@ -161,6 +169,7 @@ class Links_model extends CI_Model {
 		$this->db->update('quick_links',array('status'=>0));
 		
 		$ect['e_id'] = 19;
+		$ect['e_primary_id'] = $data['l_id'];
 		$ect['created_at'] = date('y-m-d h:i');
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
@@ -168,6 +177,7 @@ class Links_model extends CI_Model {
 		$logg['event_id'] = 19;
 		$logg['created_at'] =date('y-m-d h:i');
 		$logg['user_id'] = $this->session->userdata('user_id');
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		
 		return true;
