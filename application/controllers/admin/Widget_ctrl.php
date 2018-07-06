@@ -141,4 +141,15 @@ class Widget_ctrl extends CI_Controller {
 		}
 	}
 	
+	function widget_name_check(){
+		$data['str'] = $this->input->post('str');
+		$result = $this->Widget_model->widget_name_check($data);
+		if(count($result) > 0){
+			echo json_encode(array('data'=>$result,'status'=>500));
+		}
+		else{
+			echo json_encode(array('msg'=>'no record found','status'=>200));
+		}
+	}
+	
 }

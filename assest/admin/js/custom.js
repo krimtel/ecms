@@ -1015,6 +1015,31 @@ $(document).ready(function(){
 		}
 
 	});
+	
+	$(document).on('keyup','#widget_name',function(){
+		var str = $(this).val();
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Widget_ctrl/widget_name_check',
+	        dataType: "json",
+	        data: {
+	        	'str' : str
+	        },
+	        beforeSend: function(){
+	        	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	if(response.status == 500){
+					$('#widget_create').attr('disabled','disabled');
+	        	}
+	        	else{
+	        		$('#widget_create').removeAttr('disabled','disabled');
+	        	}
+	        }
+		});
+	});
 /////////////////////////////////////////////////////////////page///////////////////////////////////////////////////////////////////////
 	$(document).on('click','#page_create,#page_update',function(){
 		var form_valid = true;

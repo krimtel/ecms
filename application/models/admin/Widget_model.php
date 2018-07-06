@@ -181,5 +181,11 @@ class Widget_model extends CI_Model {
 		$result = $this->db->get_where('widgets w',array('w.status'=>1,'wi.id'=>$data['widget_id']))->result_array();
 		return $result;
 	}
+	
+	function widget_name_check($data){
+		$this->db->select('*');
+		$result = $this->db->get_where('widgets',array('name'=>$data['str']))->result_array();
+		return $result;
+	}
 }
 ?>

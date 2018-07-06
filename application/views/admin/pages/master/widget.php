@@ -84,8 +84,9 @@
                 		</tr>
                 		<tbody id="language_users_display">
 						<?php if(isset($widget) && (count($widget)>0)){
-						
-						foreach($widget as $widgets){ 
+						 
+						foreach($widget as $widgets){
+							if($widgets['lang_id'] == 1) {
 							$find = 0;
 							foreach($widget as $wid){
 								if($wid['id'] == $widgets['id'] && $wid['lang_id'] == $this->session->userdata('language')){
@@ -103,8 +104,8 @@
 	                  				
 	                  			</td>
                 			</tr>	
-					<?php
-						
+						<?php
+							}
 						}
 				}?>
             		</tbody>
@@ -112,6 +113,9 @@
             </div>
 		</div>
 	</section>
+	
+	
+	
 	<?php if($group == 'subadmin'){ ?>
 	<?php if($group == 'subadmin'){ ?>
 		<section class="col-lg-4 connectedSortable">

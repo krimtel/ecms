@@ -65,8 +65,10 @@ class Users_model extends CI_Model {
 					FROM `activity_tab` `at`
 					WHERE `at`.`shown` LIKE '%,".$this->session->userdata('user_id').",%'
 					AND `at`.`status` = 1
-				)"
+				)
+				AND at.created_by <>".$this->session->userdata('user_id')
 		)->result_array();
+		
 		return $result;
 		
 	}
