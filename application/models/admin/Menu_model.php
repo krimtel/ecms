@@ -54,6 +54,7 @@ class Menu_model extends CI_Model {
 			$this->db->insert('menu_item',$value);
 			///-----------activity insert----------//
 			$ect['e_id'] = 32;
+			$ect['e_primary_id'] = $m_id;
 			$ect['created_at'] = $data['created_at'];
 			$ect['created_by'] = $data['created_by'];
 			$this->db->insert('activity_tab',$ect);
@@ -61,6 +62,7 @@ class Menu_model extends CI_Model {
 			$logg['event_id'] = 32;
 			$logg['created_at'] = $data['created_at'];
 			$logg['user_id'] = $data['created_by'];
+			$logg['activity_id'] = $this->db->insert_id();
 			$this->db->insert('logg',$logg);
 			
 		if ($this->db->trans_status() === FALSE) {
@@ -114,9 +116,10 @@ class Menu_model extends CI_Model {
 					'created_by' => $data['created_by'],
 			));
 		}
-	
-		///-----------activity insert----------//
+		
+		///////////////////////Inseert Activity////////////////////////
 		$ect['e_id'] = 33;
+		$ect['e_primary_id'] = $data['menu_id'];
 		$ect['created_at'] = $data['created_at'];
 		$ect['created_by'] = $data['created_by'];
 		$this->db->insert('activity_tab',$ect);
@@ -124,6 +127,7 @@ class Menu_model extends CI_Model {
 		$logg['event_id'] = 33;
 		$logg['created_at'] = $data['created_at'];
 		$logg['user_id'] = $data['created_by'];
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		
 		if ($this->db->trans_status() === FALSE) {
@@ -151,6 +155,7 @@ class Menu_model extends CI_Model {
 		}
 		/////////acvity_tab////////////////////////
 		$ect['e_id'] = 35;
+		$ect['e_primary_id'] = $data['m_id'];
 		$ect['created_at'] = date('y-m-d h:i');
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
@@ -158,6 +163,7 @@ class Menu_model extends CI_Model {
 		$logg['event_id'] = 35;
 		$logg['created_at'] = date('y-m-d h:i');
 		$logg['user_id'] = $this->session->userdata('user_id');
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		
 		return true;

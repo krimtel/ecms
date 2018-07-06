@@ -148,10 +148,13 @@ class Links_model extends CI_Model {
 	function link_publish($data){
 		$this->db->where('id',$data['l_id']);
 		$this->db->update('quick_links',array('publish'=>$data['status']));
-		
+		//---------------------//
+		$this->db->select('link_id');
+		$activity = $this->db->get_where('quick_links_item',array('id'=>$data['l_id']))->result_array();
 		///-----------activity insert----------//
+		
 		$ect['e_id'] = 18;
-		$ect['e_primary_id'] = $data['l_id'];
+		$ect['e_primary_id'] = $activity[0]['link_id'];
 		$ect['created_at'] = date('y-m-d h:i');
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
@@ -167,12 +170,15 @@ class Links_model extends CI_Model {
 	function link_delete($data){
 		$this->db->where('id',$data['l_id']);
 		$this->db->update('quick_links',array('status'=>0));
-		
+		//---------------------//
+		$this->db->select('link_id');
+		$activity = $this->db->get_where('quick_links_item',array('id'=>$data['l_id']))->result_array();
 		$ect['e_id'] = 19;
-		$ect['e_primary_id'] = $data['l_id'];
+		$ect['e_primary_id'] = $activity[0]['link_id'];
 		$ect['created_at'] = date('y-m-d h:i');
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
+		
 		///-----------logg insert----------//
 		$logg['event_id'] = 19;
 		$logg['created_at'] =date('y-m-d h:i');

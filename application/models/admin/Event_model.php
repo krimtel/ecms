@@ -30,6 +30,7 @@ class Event_model extends CI_Model {
 		
 		///-----------activity insert----------//
 		$ect['e_id'] = 8;
+		$ect['e_primary_id'] = $val2['event_id'];
 		$ect['created_at'] = $data['created_at'];
 		$ect['created_by'] = $data['created_by'];
 		$this->db->insert('activity_tab',$ect);
@@ -37,7 +38,9 @@ class Event_model extends CI_Model {
 		$logg['event_id'] = 8;
 		$logg['created_at'] = $data['created_at'];
 		$logg['user_id'] = $data['created_by'];
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
+		
 		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
@@ -76,16 +79,20 @@ class Event_model extends CI_Model {
 	function event_publish($data){
 		$this->db->where('id',$data['e_id']);
 		$this->db->update('events',array('publish'=>$data['status']));
-		
+		////////////////////////////////////////////////
+		//$this->db->select('event_id');
+		//$activity = $this->db->get_where('event_item',array('id'=>$data['e_id']))->result_array();
 		///-----------activity insert----------//
 		$ect['e_id'] = 10;
-		$ect['created_at'] = $data['created_at'];
-		$ect['created_by'] = $data['created_by'];
+		$ect['e_primary_id'] = $data['e_id'];
+		$ect['created_at'] = date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
 		///-----------logg insert----------//
 		$logg['event_id'] = 10;
-		$logg['created_at'] = $data['created_at'];
-		$logg['user_id'] = $data['created_by'];
+		$logg['activity_id'] = $this->db->insert_id();
+		$logg['created_at'] =  date('y-m-d h:i');
+		$logg['user_id'] =$this->session->userdata('user_id');
 		$this->db->insert('logg',$logg);
 		return true;
 	}
@@ -99,17 +106,22 @@ class Event_model extends CI_Model {
 	function event_delete($data){
 		$this->db->where('id',$data['e_id']);
 		$this->db->update('events',array('status'=>0));
-		
+		////////////////////////////////////
+		//$this->db->select('event_id');
+		//$activity = $this->db->get_where('event_item',array('id'=>$data['e_id']))->result_array();
 		///-----------activity insert----------//
 		$ect['e_id'] = 11;
-		$ect['created_at'] = $data['created_at'];
-		$ect['created_by'] = $data['created_by'];
+		$ect['e_primary_id'] = $data['e_id'];
+		$ect['created_at'] =date('y-m-d h:i');
+		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
 		///-----------logg insert----------//
 		$logg['event_id'] = 11;
-		$logg['created_at'] = $data['created_at'];
-		$logg['user_id'] = $data['created_by'];
+		$logg['created_at'] =date('y-m-d h:i');
+		$logg['user_id'] = $this->session->userdata('user_id');
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
+		
 		return true;
 	}
 	
@@ -168,9 +180,12 @@ class Event_model extends CI_Model {
 				'created_by' => $data['created_by']
 			));
 		}
-		
+		//---------------------//
+		$this->db->select('event_id');
+		$activity = $this->db->get_where('event_item',array('id'=>$data['event_id']))->result_array();
 		///-----------activity insert----------//
 		$ect['e_id'] = 9;
+		$ect['e_primary_id'] = $activity[0]['event_id'];
 		$ect['created_at'] = $data['created_at'];
 		$ect['created_by'] = $data['created_by'];
 		$this->db->insert('activity_tab',$ect);
@@ -178,7 +193,9 @@ class Event_model extends CI_Model {
 		$logg['event_id'] = 9;
 		$logg['created_at'] = $data['created_at'];
 		$logg['user_id'] = $data['created_by'];
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
+		
 		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();

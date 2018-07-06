@@ -27,6 +27,7 @@ class Slider_model extends CI_Model {
 		$this->db->insert('slider_item',$val2);
 		//print_r($this->db->last_query()); die;
 		$ect['e_id'] = 24;
+		$ect['e_primary_id'] = $val2['slider_id'];
 		$ect['created_at'] = $data['created_at'];
 		$ect['created_by'] = $data['created_by'];
 		$this->db->insert('activity_tab',$ect);
@@ -34,6 +35,7 @@ class Slider_model extends CI_Model {
 		$logg['event_id'] = 24;
 		$logg['created_at'] = $data['created_at'];
 		$logg['user_id'] = $data['created_by'];
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		
 		if ($this->db->trans_status() === FALSE){
@@ -109,30 +111,36 @@ class Slider_model extends CI_Model {
 			}
 	
 		}
-		else{
-			//subabmin update
-			$this->db->select('event_id');
-			$result = $this->db->get_where('event_item',array('id'=>$data['event_id'],'lang_id'=>1,'status'=>1))->result_array();
+// 		else{
+// 			//subabmin update
+// 			$this->db->select('event_id');
+// 			$result = $this->db->get_where('event_item',array('id'=>$data['event_id'],'lang_id'=>1,'status'=>1))->result_array();
 				
-			$this->db->insert('event_item',array(
-					'event_id' => $result[0]['event_id'],
-					'lang_id' => $this->session->userdata('language'),
-					'title' => $data['event_title'],
-					'event_content' => $data['event_desc'],
-					'created_at' => $data['created_at'],
-					'created_by' => $data['created_by']
-			));
-		}
-	
+// 			$this->db->insert('event_item',array(
+// 					'event_id' => $result[0]['event_id'],
+// 					'lang_id' => $this->session->userdata('language'),
+// 					'title' => $data['event_title'],
+// 					'event_content' => $data['event_desc'],
+// 					'created_at' => $data['created_at'],
+// 					'created_by' => $data['created_by']
+// 			));
+// 		}
+	//////////////////////////////////////////////////
+		$this->db->select('slider_id');
+		$activity = $this->db->get_where('slider_item',array('s_id'=>$data['sid']))->result_array();
+	//////////////////////////////////////////////////////////////////////////////////	
 		$ect['e_id'] = 25;
+		$ect['e_primary_id'] = $activity[0]['slider_id'];
 		$ect['created_at'] = $data['created_at'];
 		$ect['created_by'] = $data['created_by'];
 		$this->db->insert('activity_tab',$ect);
 		///-----------logg insert----------//
 		$logg['event_id'] = 25;
+		$logg['activity_id'] = $this->db->insert_id();
 		$logg['created_at'] = $data['created_at'];
 		$logg['user_id'] = $data['created_by'];
 		$this->db->insert('logg',$logg);
+		////////////////////////////////////
 		
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
@@ -149,8 +157,11 @@ class Slider_model extends CI_Model {
 		
 		$this->db->where('sid',(int)$result[0]['slider_id']);
 		$this->db->update('slider',array('publish'=>$data['status']));
-		
+		////////////////////ACTIVITY INSERT//////////////////
+		$this->db->select('slider_id');
+		$activity = $this->db->get_where('slider_item',array('s_id'=>$data['s_id']))->result_array();
 		$ect['e_id'] = 26;
+		$ect['e_primary_id'] = $activity[0]['slider_id'];
 		$ect['created_at'] = date('y-m-d h:i');
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
@@ -158,6 +169,7 @@ class Slider_model extends CI_Model {
 		$logg['event_id'] = 26;
 		$logg['created_at'] = date('y-m-d h:i');
 		$logg['user_id'] = $this->session->userdata('user_id');
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		return true;
 	}
@@ -167,8 +179,12 @@ class Slider_model extends CI_Model {
 		
 		$this->db->where('sid',(int)$result[0]['slider_id']);
 		$this->db->update('slider',array('status'=>0));
+		////////////////////ACTIVITY INSERT////////////////////////
+		$this->db->select('slider_id');
+		$activity = $this->db->get_where('slider_item',array('s_id'=>$data['s_id']))->result_array();
 		
 		$ect['e_id'] = 27;
+		$ect['e_primary_id'] = $activity[0]['slider_id'];
 		$ect['created_at'] = date('y-m-d h:i');
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
@@ -176,6 +192,7 @@ class Slider_model extends CI_Model {
 		$logg['event_id'] = 27;
 		$logg['created_at'] = date('y-m-d h:i');
 		$logg['user_id'] = $this->session->userdata('user_id');
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		return true;
 	}

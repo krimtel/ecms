@@ -2,7 +2,7 @@
 <?php 
 	$wiget_drop_Down = '';
 	foreach($widgets as $widget){
-		$wiget_drop_Down .= '<option value="'.$widget['widget_id'].'">'.$widget['name'].'</option>'; 
+		$wiget_drop_Down .= '<option value="'.$widget['w_id'].'">'.$widget['name'].'</option>'; 
 	}
 ?>
 

@@ -38,6 +38,7 @@ class Widget_model extends CI_Model {
 			));
 			///-----------activity insert----------//
 			$ect['e_id'] = 20;
+			$ect['e_primary_id'] = $id;
 			$ect['created_at'] = $data['created_at'];
 			$ect['created_by'] = $data['created_by'];
 			$this->db->insert('activity_tab',$ect);
@@ -45,6 +46,7 @@ class Widget_model extends CI_Model {
 			$logg['event_id'] = 20;
 			$logg['created_at'] = $data['created_at'];
 			$logg['user_id'] = $data['created_by'];
+			$logg['activity_id'] = $this->db->insert_id();
 			$this->db->insert('logg',$logg);
 			
 			if ($this->db->trans_status() === FALSE){
@@ -127,7 +129,11 @@ class Widget_model extends CI_Model {
 			));
 		}
 		///-----------activity insert----------//
+		$this->db->select('widget_id');
+		$activity = $this->db->get_where('widget_item',array('id'=>$data['widget_id']))->result_array();
+		
 		$ect['e_id'] = 21;
+		$ect['e_primary_id'] = $activity[0]['widget_id'];
 		$ect['created_at'] = $data['created_at'];
 		$ect['created_by'] = $data['created_by'];
 		$this->db->insert('activity_tab',$ect);
@@ -135,6 +141,7 @@ class Widget_model extends CI_Model {
 		$logg['event_id'] = 21;
 		$logg['created_at'] = $data['created_at'];
 		$logg['user_id'] = $data['created_by'];
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 		
 		if ($this->db->trans_status() === FALSE){
@@ -151,15 +158,19 @@ class Widget_model extends CI_Model {
 		$this->db->where('w_id',$data['w_id']);
 		$this->db->update('widgets',array('status'=>0));
 		$ect['e_id'] = 23;
+///////////////////Activity////////////////////////////////
+		$this->db->select('widget_id');
+		$activity = $this->db->get_where('widget_item',array('id'=>$data['w_id']))->result_array();
 		$ect['created_at'] = date('y-m-d h:i');
+		$ect['e_primary_id'] = $activity[0]['widget_id'];
 		$ect['created_by'] = $this->session->userdata('user_id');
 		$this->db->insert('activity_tab',$ect);
 		///-----------logg insert----------//
 		$logg['event_id'] = 23;
 		$logg['created_at'] = date('y-m-d h:i');
 		$logg['user_id'] = $this->session->userdata('user_id');
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
-		
 		
 		return true;
 	}

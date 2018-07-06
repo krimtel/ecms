@@ -29,6 +29,7 @@ class Video_model extends CI_Model {
 		$this->db->insert('video_item',$val2);
 		///-----------activity insert----------//
 		$ect['e_id'] = 28;
+		$ect['e_primary_id'] = $val2['video_id'];
 		$ect['created_at'] = $data['created_at'];
 		$ect['created_by'] = $data['created_by'];
 		$this->db->insert('activity_tab',$ect);
@@ -36,6 +37,7 @@ class Video_model extends CI_Model {
 		$logg['event_id'] = 28;
 		$logg['created_at'] = $data['created_at'];
 		$logg['user_id'] = $data['created_by'];
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 			
 		
@@ -70,7 +72,12 @@ class Video_model extends CI_Model {
 	function video_publish($data){
 	    $this->db->where('v_id',$data['v_id']);
 	    $this->db->update('video',array('publish'=>$data['status']));
+	//////////////Activity Insert//////////////////// 
+	    $this->db->select('video_id');
+	    $activity = $this->db->get_where('video_item',array('v_id'=>$data['v_id']))->result_array();
+	    
 	    $ect['e_id'] = 30;
+	    $ect['e_primary_id'] = $activity[0]['video_id'];
 	    $ect['created_at'] = date('y-m-d h:i');
 	    $ect['created_by'] = $this->session->userdata('user_id');
 	    $this->db->insert('activity_tab',$ect);
@@ -78,6 +85,7 @@ class Video_model extends CI_Model {
 	    $logg['event_id'] = 30;
 	    $logg['created_at'] = date('y-m-d h:i');
 	    $logg['user_id'] = $this->session->userdata('user_id');
+	    $logg['activity_id'] = $this->db->insert_id();
 	    $this->db->insert('logg',$logg);
 	    return true;
 	}
@@ -92,8 +100,11 @@ class Video_model extends CI_Model {
 	function video_delete($data){
 	    $this->db->where('v_id',$data['v_id']);
 	    $this->db->update('video',array('status'=>0));
-	    
+	    ///////////////////////Activity Insert/////////////////
+	    $this->db->select('video_id');
+	    $activity = $this->db->get_where('video_item',array('v_id'=>$data['v_id']))->result_array();
 	    $ect['e_id'] = 31;
+	    $ect['e_primary_id'] = $activity[0]['video_id'];
 	    $ect['created_at'] = date('y-m-d h:i');
 	    $ect['created_by'] = $this->session->userdata('user_id');
 	    $this->db->insert('activity_tab',$ect);
@@ -101,6 +112,7 @@ class Video_model extends CI_Model {
 	    $logg['event_id'] = 31;
 	    $logg['created_at'] = date('y-m-d h:i');
 	    $logg['user_id'] = $this->session->userdata('user_id');
+	    $logg['activity_id'] = $this->db->insert_id();
 	    $this->db->insert('logg',$logg);
 	    return true;
 	}
@@ -168,7 +180,11 @@ class Video_model extends CI_Model {
 				where v_id = (select video_id from video_item where v_id=".$data['v_id'].")");
 	//	print_r($this->db->last_query()); die;
 		///-----------activity insert----------//
+		$this->db->select('video_id');
+		$activity = $this->db->get_where('video_item',array('v_id'=>$data['v_id']))->result_array();
+		
 		$ect['e_id'] = 29;
+		$ect['e_primary_id'] = $activity[0]['video_id'];
 		$ect['created_at'] = $data['updated_at'];
 		$ect['created_by'] = $data['updated_by'];
 		$this->db->insert('activity_tab',$ect);
@@ -176,6 +192,7 @@ class Video_model extends CI_Model {
 		$logg['event_id'] = 29;
 		$logg['created_at'] = $data['updated_at'];
 		$logg['user_id'] = $data['updated_by'];
+		$logg['activity_id'] = $this->db->insert_id();
 		$this->db->insert('logg',$logg);
 			
 		if ($this->db->trans_status() === FALSE){
