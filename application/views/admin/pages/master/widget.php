@@ -93,7 +93,7 @@
 								}
 							}
 							?> 
-							<tr class="<?php if(!$find){ echo "find"; } ?>">
+							<tr class="<?php if(!$find){ /*echo "find";*/ } ?>">
 	                  			<td><?php echo $widgets['name']; ?></td>
 	                  			<td><?php echo $widgets['content']; ?></td>
 	                  			<td>

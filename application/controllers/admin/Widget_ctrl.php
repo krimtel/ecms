@@ -8,7 +8,7 @@ class Widget_ctrl extends CI_Controller {
 		$this->load->helper(array('url','file'));
 		$this->load->library(array('session','ion_auth','form_validation'));
 		$this->load->database();
-		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Widget_model'));
+		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Widget_model','admin/Slider_model'));
 		$this->lang->load('admin_lang', 'english');
 		if (!$this->ion_auth->logged_in()){
 			redirect('admin/admin');
@@ -16,7 +16,18 @@ class Widget_ctrl extends CI_Controller {
 	}
 	
 	function index(){
-		$languages = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+		
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+		if(count($file_menu)){
+			$languages = $file_menu;
+		}
+		else{
+			$languages = $this->Language_model->get_all_language();
+			$json = json_encode($languages);
+			$file = FCPATH . '/software_files/Language.txt';
+			file_put_contents ($file, $json);
+		}
+		
 		foreach($languages as $language){
 			if($language['l_id'] == $this->session->userdata('language'))
 				$data['language'] = $language;
