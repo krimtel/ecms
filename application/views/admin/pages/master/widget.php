@@ -1,3 +1,4 @@
+<?php $group = $this->session->userdata('group_name'); ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 	<ol class="breadcrumb">
@@ -12,7 +13,11 @@
     <section class="content">
       <div class="row">
         <!-- Left col -->
+        <?php if($group == 'subadmin'){ ?>
+			<section class="col-lg-4 connectedSortable">
+		<?php } else { ?>
         <section class="col-lg-6 connectedSortable">
+        <?php } ?>
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<h3 class="box-title">Add New Widget</h3>
@@ -56,24 +61,29 @@
 					</div>
 			</div>
 		</section>
+		
+		<?php if($group == 'subadmin'){ ?>
+		<section class="col-lg-4 connectedSortable">
+		<?php } else {?>
 		<section class="col-lg-6 connectedSortable">
-		<div class="box box-primary">
-			<div class="box-header with-border">
-			  <h3 class="box-title">All Widget List</h3>
-			  <div class="box-tools pull-right">
-				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-				  <i class="fa fa-minus"></i></button>
-			  </div>
-			</div>
-			<div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tr>
-                  <th>Widget Name</th>
-                  <th>Content</th>
-                  <th>Edit/Delete</th>
-                </tr>
-                <tbody id="language_users_display">
-					<?php if(isset($widget) && (count($widget)>0)){
+		<?php } ?>
+			<div class="box box-primary">
+				<div class="box-header with-border">
+			  		<h3 class="box-title">All Widget List</h3>
+			  		<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+				  		<i class="fa fa-minus"></i></button>
+			  		</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+              		<table class="table table-hover">
+                		<tr>
+                  			<th>Widget Name</th>
+                  			<th>Content</th>
+                  			<th>Edit/Delete</th>
+                		</tr>
+                		<tbody id="language_users_display">
+						<?php if(isset($widget) && (count($widget)>0)){
 						
 						foreach($widget as $widgets){ 
 							$find = 0;
@@ -97,11 +107,54 @@
 						
 						}
 				}?>
-            	</tbody>
+            		</tbody>
               </table>
             </div>
 		</div>
-		</section>
+	</section>
+	<?php if($group == 'subadmin'){ ?>
+	<?php if($group == 'subadmin'){ ?>
+		<section class="col-lg-4 connectedSortable">
+		<?php } else {?>
+		<section class="col-lg-6 connectedSortable">
+		<?php } ?>
+			<div class="box box-primary">
+				<div class="box-header with-border">
+			  		<?php if(isset($language)){ ?>
+			  			<h3 class="box-title">All Events (<?php echo $language['l_name']; ?>)</h3>
+					<?php } ?>
+			  		<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+				  		<i class="fa fa-minus"></i></button>
+			  		</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+              		<table class="table table-hover">
+                		<tr>
+                  			<th>Widget Name</th>
+                  			<th>Content</th>
+                  			<th>Edit/Delete</th>
+                		</tr>
+                		<tbody id="language_users_display">
+						<?php if(isset($widget) && (count($widget)>0)){
+						foreach($widget as $widgets){ 
+						if($widgets['lang_id'] == $this->session->userdata('language')) { ?>
+							<tr">
+	                  			<td><?php echo $widgets['name']; ?></td>
+	                  			<td><?php echo $widgets['content']; ?></td>
+	                  			<td>
+	                  				<a title="Edit" class="btn btn-info btn-flat widget_edit" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-pencil"></i></a>
+	                  				<a title="Delete" class="btn btn-info btn-flat widget_delete" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-trash"></i></a>
+	                  			</td>
+                			</tr>	
+					<?php } } }?>
+            		</tbody>
+              </table>
+            </div>
 		</div>
+	</section>
+	<?php } ?>
+	
+	</div>
 	</section>
 </div>

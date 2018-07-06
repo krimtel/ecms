@@ -36,6 +36,7 @@ class Cache_ctrl extends CI_Controller {
 	function clear_cache(){
 		$this->load->helper('directory');
 		$files = $this->input->post('files');
+		
 		foreach($files as $file){
 			$file = FCPATH . "/software_files/".$file;
 			file_put_contents ($file, "");

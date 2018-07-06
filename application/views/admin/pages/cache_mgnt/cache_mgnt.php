@@ -36,7 +36,7 @@
 									else{
 										$class = '';
 									}
-									echo '<input class="checkbox '.$class.'" type="checkbox" name="check[]" value="'.$file.'"/>';
+									echo '<input class="checkbox" type="checkbox" name="check[]" value="'.$file.'"/>';
 						        	echo "<a class='file_clr' name='file_clr'  data-file= $file><i class='fa fa-trash'></i> </a>". $file."<br/>";
 						        	
 						    	}

@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/enam/trunk/';
+$config['base_url'] = 'http://main-server/enam/trunk/';
 $config['nam_url'] = $config['base_url'].'nam';
 $config['farmer_url'] = $config['base_url'].'farmer';
 $config['trader_url'] = $config['base_url'].'trader';

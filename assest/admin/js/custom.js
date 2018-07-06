@@ -1982,7 +1982,9 @@ $(document).ready(function(){
 				},
 				complete: function(){},
 				success:function (response) {
-					
+					if(response.status == 200){
+						location.reload();
+					}
 				}
 		 });	 
 	});
