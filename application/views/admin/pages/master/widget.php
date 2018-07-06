@@ -78,14 +78,16 @@
 				<div class="box-body table-responsive no-padding">
               		<table class="table table-hover">
                 		<tr>
+                  			
                   			<th>Widget Name</th>
+                  			<th>Shortcode</th>
                   			<th>Content</th>
                   			<th>Edit/Delete</th>
                 		</tr>
                 		<tbody id="language_users_display">
 						<?php if(isset($widget) && (count($widget)>0)){
-						 
-						foreach($widget as $widgets){
+						
+						foreach($widget as $widgets){ 
 							if($widgets['lang_id'] == 1) {
 							$find = 0;
 							foreach($widget as $wid){
@@ -96,6 +98,7 @@
 							?> 
 							<tr class="<?php if(!$find){ /*echo "find";*/ } ?>">
 	                  			<td><?php echo $widgets['name']; ?></td>
+	                  			<td><?php echo "[shortcode:enam:".$widgets['name']."]"; ?></td>
 	                  			<td><?php echo $widgets['content']; ?></td>
 	                  			<td>
 	          
@@ -104,7 +107,7 @@
 	                  				
 	                  			</td>
                 			</tr>	
-						<?php
+					<?php
 							}
 						}
 				}?>
@@ -113,9 +116,6 @@
             </div>
 		</div>
 	</section>
-	
-	
-	
 	<?php if($group == 'subadmin'){ ?>
 	<?php if($group == 'subadmin'){ ?>
 		<section class="col-lg-4 connectedSortable">

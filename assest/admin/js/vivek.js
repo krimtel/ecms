@@ -1,14 +1,7 @@
 $(document).ready(function(){
 	var baseUrl = $('#base_url').val();
 	var uGroup = $('#u_group').val();
-//$.validator.setDefaults({
-//	submitHandler: function() {
-//		form.submit();
-//	}
-//});
-	
 
-	//$("#login_form").validate({
 	$("form[name='login_form']").validate({
 		rules: {
 			identity: {
