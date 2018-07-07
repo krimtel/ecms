@@ -18,7 +18,6 @@ class Enam_ctrl extends CI_Controller {
 	}
 	
 	public function index(){
-	    $data[' keywords'] = $this->load->view('comman/head','',TRUE);
 		$data['title'] = 'eNam';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
@@ -52,12 +51,12 @@ class Enam_ctrl extends CI_Controller {
 			file_put_contents ($file, $json);
 		}
 		$data['videos'] = $this->Video_model->video_home_page_list();
-		
+		$data['newses'] = $this->Enam_model->all_news();
+		$data['events'] = $this->Event_model->home_list_events();
+		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
 		$data['slider'] = $this->load->view('pages/comman/slider',$data,TRUE);
 		$data['links'] = $this->Enam_model->all_links();
 		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
-		$data['newses'] = $this->Enam_model->all_news();
-		$data['events'] = $this->Event_model->home_list_events();
 		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
 		$data['main_contant'] = $this->load->view('pages/dashboard',$data,TRUE);
 		$this->load->view('comman/index',$data);

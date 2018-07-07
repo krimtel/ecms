@@ -14,8 +14,6 @@ class Auth extends CI_Controller
 		$this->load->database();
 		$this->load->library(array('ion_auth', 'form_validation'));
 		$this->load->helper(array('url', 'language'));
-		$this->load->library('javascript');
-		$this->load->library('javascript/jquery');
 		$this->lang->load('auth');
 		$this->load->model(array('admin/Language_model','admin/User_profile_model'));
 		
