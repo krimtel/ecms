@@ -21,4 +21,15 @@ $(document).ready(function(){
 	        }
 		});
 	});
+	
+
+	$(document).on('click','.rahul_youtube',function(){
+		var v_url = $(this).data('v_url');
+		var iframe_id = $(this).data('v_id');
+		var x = '<iframe width="260" height="200" src="'+v_url+'?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+		  var id = $(this).data('v_id');
+		  $(this).hide();
+		  $('#'+iframe_id).html(x).show();
+	});
 });
+
