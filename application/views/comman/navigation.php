@@ -3,8 +3,8 @@
     width: 100%;
     height: 40px;
     z-index: 99;">
-		 <nav class="navbar navbar-default navbar-static-top gcolor" role="navigation" style="padding:0px 3%;margin:0;">
-            <div class="navbar-header navbar-toggle" style="height:40px;">
+		 <nav class="navbar navbar-default navbar-static-top nav-bg-th" role="navigation" style="padding:0px 2%;margin:0;" >
+            <div class="navbar-header" style="height:40px;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -14,7 +14,7 @@
               <a class="navbar-brand" href="#"></a>
             </div>
             
-            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="navbar-collapse-1" style="font-weight:bold">
                 <ul class="nav navbar-nav navigation">
                 	<?php foreach($menus as $menu){
                 			$f = 0;

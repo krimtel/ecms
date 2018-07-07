@@ -19,7 +19,6 @@
 						}
 					}
 					?>
-<!-- 						<a href="http://economictimes.indiatimes.com/articleshow/52522537.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst" target="_blank">read more</a> -->
 					</div>
 				<?php } ?>
 			<?php } else { ?>

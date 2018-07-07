@@ -1,79 +1,62 @@
 <div class="container-fuild" style="float:left;width:100%;">
 	<?php print_r($slider); ?>
 </div>
-<div class="container-fuild left-right-space" style="float:left;min-height:450px;width:100%;">
-	<div class="content-section">
-		<div class="col-sm-5 wow fadeInLeft" data-wow-delay="0.5s" style="margin-top:15px;">
-			<img alt="Map" src="<?php echo base_url(); ?>assest/images/home/map.jpg" />
-		</div>
-		<div class="col-lg-3 col-sm-3 wow fadeInUp" data-wow-delay="0.5s">
-			<div style="position:relative;margin-top:15px;">
-				<iframe style="height:240px;" src="https://www.youtube.com/embed/fMe23afGdKc" frameborder="0" allowfullscreen></iframe>
-			</div>
-			<div style="position:relative;margin-top:20px;">
-				<div class="register-user-box"><b>National Conference</b> on "Agriculture-2022: Doubling Farmer's Incomes" 19th & 20th Feb 2018</div>
-				<img style="width:102%;" alt="Event" src="<?php echo base_url(); ?>assest/images/home/event0.jpg" />
-			</div>
-		</div>
-		<div class="col-lg-4 col-sm-4 home-n wow fadeInRight" data-wow-delay="0.5s">
-			<?php
-				///  news section
-				print_r($home_notice); 
-			?>
-		</div>
-	</div>
-</div>
-<section class="content-section wow fadeInUp" data-wow-delay="0.3s" style="padding:30px 0;background-color:#f6f6f6;float:left;width:100%; ">
-	<div class="container-fuild" style="padding-left:2%;padding-right:2%;">
-		<h3 class="events-title"><span>eLearning Videos</span></h3>
-		<?php if(isset($videos) && count($videos)>0){?>
-			<?php foreach($videos as $video){ ?>
-				<div class="col-md-4 col-sm-6">
+
+
+
+<section class="content-section" style="background-color:#fff;padding:20px 0;float:left;width:100%;">
+	<div class="container-fuild" style="padding-left:3%;padding-right:3%;">
+		<div class="col-sm-6 wow fadeInLeft" data-wow-delay="0.5s" style="margin-top:15px;">
+			<div class="sidebar-header-title"><span class="e-text">eNAM</span><span>eLEARNING VIDEOS</span> <span class="pull-right"><a href="">VIEW ALL</a><a href=""><img src="<?php echo base_url();?>assest/images/new-theme/icon/arrow-l.png" /></a><a href=""><img src="<?php echo base_url();?>assest/images/new-theme/icon/arrow-r.png" /></a></span></div>
+			<div class="row">
+			<?php if(isset($videos) && count($videos)>0){?>
+				<?php $c = 1; foreach($videos as $video){ ?>
+				<div class="col-md-6">
 					<div class="elearn-v-box">
-					<iframe style="width:100%;" height="225" src="<?php echo $video['v_url']; ?>" frameborder="0" 
-					allow="encrypted-media" allowfullscreen></iframe>
-					<h3><?php echo $video['v_title']; ?></h3>
-					<?php echo $video['v_content']; ?></div>
-				</div>
-			<?php } ?>
-		<?php } else{ ?>
-			No Videos.
-		<?php } ?>
-		<div class="show-more">
-			<a href="elearning.html" title="Show more">Show more</a>
-		</div>
-	</div>
-</section>
-
-
-<section class="content-section" style="padding:30px 0;background-color:#fff;float:left;width:100%;">
-	<div class="container-fuild" style="padding-left:2%;padding-right:2%;">
-		<div class="row">
-			<div class="col-lg-9 col-sm-9 wow fadeInUp" data-wow-delay="0.5s">
-            	<h3 class="events-title"><span>eNAM Events</span></h3>
-				
-				<?php if((count($events) > 0) && (isset($events))){ ?>
-					<?php foreach($events as $event){ ?>
-					<div class="col-md-4 enam-events-box">
-						<img alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>\Event_gallary/<?php echo $event['event_image']; ?>" />
-						<span><?php echo $event['event_category']; ?></span>
-						<?php $event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];?>
-						<h3><?php echo $event_title; ?></h3>
-						<?php $event_content = strlen($event['event_content']) > 200 ? substr($event['title'],0,200)."..." : $event['event_content'];?>
-						<div><?php echo $event_content; ?></div>
-						<p class="p-date">Published on <?php echo $event['created_at']; ?></p>
+						<?php $v = explode('/embed/',$video['v_url']); ?>
+						<img class="rahul_youtube" data-v_id="iframe_v_<?php echo $c;?>" data-v_url="<?php echo $video['v_url']; ?>" src="https://img.youtube.com/vi/<?php echo $v[1];?>/0.jpg">
+						<div id="iframe_v_<?php echo $c;?>" style="display:none;"></div>
+						<h3><?php echo $video['v_title']; ?></h3>
+						<p><?php echo $video['v_content']; ?></p>
 					</div>
-					<?php } ?>
-				<?php } else { ?>
-					<div class="well text-danger">No events Found.</div>
-				<?php }?>
+				</div>
+				<?php $c++; } ?>
+			<?php } else{ ?>
+					No Videos.
+			<?php } ?>
 			</div>
-			<div class="col-lg-3 col-sm-3 home-q wow fadeInRight" data-wow-delay="0.5s">
-				<?php
-					/// quick links
-					print_r($quickLinks); 
-				?>
-			</div>
+		</div>
+		
+		<div class="col-lg-3 col-sm-3 wow fadeInUp" data-wow-delay="0.5s" style="margin-top:15px;">
+			<div class="sidebar-header-title"><span class="e-text">eNAM</span><span>NEWS & EVENTS</span></div>
+			<?php if((count($events) > 0) && (isset($events))){ ?>
+				<?php $c=1; foreach($events as $event){ 
+					if($c < 3){
+					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
+					?>
+					<div style="position:relative;margin-bottom:25px;">
+						<div class="register-user-box">
+							<b><?php echo $event_title; ?></b>
+						</div>
+						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
+					</div>
+				<?php $c++; } } ?>
+			<?php } else { ?>
+				<div class="well text-danger">No events Found.</div>
+			<?php }?>
+		</div>
+		
+		<div class="col-lg-3 col-sm-3 home-n wow fadeInRight" data-wow-delay="0.5s">
+			<div class="focus-section">
+				<?php print_r($quickLinks); ?>
+				
+				<div class="booklet-section">
+					<ul>
+						<li><a title="eNAM Booklet" href=""><img alt="Logistic Details" src="<?php echo base_url();?>assest/images/new-theme/icon/booklet.png" /> <span>Download</span><br>eNAM Booklet</a></li>
+						<li><a title="Guidelines  Manual" href="guide.html"><img alt="Logistic Details" src="<?php echo base_url();?>assest/images/new-theme/icon/guideline.png" /><span>Registration</span><br>Guidelines  Manual </a></li>
+					</ul>
+				</div>
+</div>
 		</div>
 	</div>
 </section>
