@@ -26,13 +26,13 @@ $(document).ready(function(){
 			$('#menu_name_error').html('Please Enter menu name.').css('display','block');
 			form_valid = false;
 		}
-		else if($('#menu_name').val().length < 4){
-			$('#menu_name_error').html('Menu name should atleast 3 character.').css('display','block');
-			form_valid = false;
-		}
-		else{
-			$('#menu_name_error').css('display','none');
-		}
+//		else if($('#menu_name').val().length < 4){
+//			$('#menu_name_error').html('Menu name should atleast 3 character.').css('display','block');
+//			form_valid = false;
+//		}
+//		else{
+//			$('#menu_name_error').css('display','none');
+//		}
 		
 		if($('#menu_sort_order').val() == ''){
 			$('#menu_sort_order_error').html('Please Enter Menu Sort Order.').css('display','block');

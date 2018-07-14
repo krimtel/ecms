@@ -64,14 +64,14 @@ class Menu_ctrl extends CI_Controller {
 	
 	function menu_create(){
 		if($this->input->post('menu_id') == ''){
-			$this->form_validation->set_rules('menu_name','menu_name','required|min_length[3]|is_unique[menu.title]',
+			$this->form_validation->set_rules('menu_name','menu_name','required|is_unique[menu.title]',
 				array(
 					'required'      => $this->lang->line('menu_name_error_required'),
 					'is_unique'     => $this->lang->line('menu_name_error_isunique')
 				));
 		}
 		else{
-			$this->form_validation->set_rules('menu_name','menu_name','required|min_length[3]',
+			$this->form_validation->set_rules('menu_name','menu_name','required',
 					array(
 							'required'      => $this->lang->line('menu_name_error_required')
 					));

@@ -304,13 +304,13 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click','.slider_edit',function(){
-		var s_id = $(this).data('slider_id');
+		var slider_id = $(this).data('slider_id');
 		$.ajax({
 			type: 'POST',
 			url: baseUrl+'admin/Slider_ctrl/get_slider_content',
 			dataType: "json",
 			data: {
-				's_id'	: s_id
+				's_id'	: slider_id
 			},
 			beforeSend: function(){
 				$('#loader').modal({'show':true});	
@@ -318,14 +318,42 @@ $(document).ready(function(){
 			complete: function(){},
 				success:function (response) {
 					console.log(response);
-					$('#loader').modal('toggle');
 					if(response.status == 200){
-						$('#image_upload_preview').attr('src',baseUrl+'Slider_gallary/'+ response.data[0].lang_id +'/'+response.data[0].slider_image);
-						$('#slider_id').val(response.data[0].s_id);
-						$('#slider_alt').val(response.data[0].alt_tag);
-						$('#slider_order').val(response.data[0].sort);
-						$('#slider_update').show();
-						$('#slider_create').hide();
+						$('#loader #myModalLabel').html('vivek');
+						$('#loader .modal-footer').hide();
+						var x = '<form name="f1" id="slider_update_popup" method="POST" enctype="multipart/form-data" action="'+ baseUrl +'admin/Slider_ctrl/slider_update_subadmin" class="form-horizontal">'+
+							  		'<div class="form-group">'+
+							  			'<label for="inputEmail3" class="col-sm-2 control-label">Email</label>'+
+							  			'<div class="col-sm-10">'+
+							  				'<img width="30" src="'+baseUrl+'/Slider_gallary/'+ response.data[0].lang_id +'/'+ response.data[0].slider_image +'" id="image_preview_popup">'+
+							  				'<input type="file" name="file" id="slider_photo_popup" class="form-control">'+
+							  				'<input type="hidden" name="slider_id_popup" class="form-control" id="slider_id_popup" value="'+ slider_id +'">'+
+							  				'<div class="text-danger" id="slider_photo_popup_error" style="display:none;"></div>'+
+							  			'</div>'+
+							  		'</div>'+
+							  		'<div class="form-group">'+
+							  			'<label for="inputPassword3" class="col-sm-2 control-label">Tag</label>'+
+							  			'<div class="col-sm-10">'+
+							  				'<input type="text" name="slider_tag_popup" class="form-control" id="slider_tag_popup" value="'+ response.data[0].alt_tag +'"/>'+
+							  				'<div class="text-danger" id="slider_tag_popup_error" style="display:none;"></div>'+
+							  			'</div>'+
+							  		'</div>'+
+							  		'<div class="form-group">'+
+						  			'<div class="col-sm-offset-2 col-sm-10">'+
+						  				'<input type="button" class="btn btn-primary" id="slider_update_popup_submit" value="update">'+
+						  			'</div>'+
+						  		'</div>'+
+							  	'</div>'+
+							  '</form>';
+						$('#loader .modal-body').html(x);
+						
+						
+//						$('#image_upload_preview').attr('src',baseUrl+'Slider_gallary/'+ response.data[0].lang_id +'/'+response.data[0].slider_image);
+//						$('#slider_id').val(response.data[0].s_id);
+//						$('#slider_alt').val(response.data[0].alt_tag);
+//						$('#slider_order').val(response.data[0].sort);
+//						$('#slider_update').show();
+//						$('#slider_create').hide();
 					}
 					else{
 					}
@@ -445,7 +473,7 @@ $(document).ready(function(){
 							  			'<label for="inputEmail3" class="col-sm-2 control-label">Email</label>'+
 							  			'<div class="col-sm-10">'+
 							  				'<input type="file" name="file" id="slider_photo_popup" class="form-control">'+
-							  				'<input type="text" name="slider_id_popup" class="form-control" id="slider_id_popup" value="'+ slider_id +'">'+
+							  				'<input type="hidden" name="slider_id_popup" class="form-control" id="slider_id_popup" value="'+ slider_id +'">'+
 							  				'<div class="text-danger" id="slider_photo_popup_error" style="display:none;"></div>'+
 							  			'</div>'+
 							  		'</div>'+
@@ -903,7 +931,7 @@ $(document).ready(function(){
 //	    }
 //	}
 	$("#userFiles").change(function () {
-	    filePreview(this);
+	    // filePreview(this);
 	});
 	
 	$(document).on('click','#profile_update',function(){

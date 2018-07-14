@@ -27,8 +27,8 @@
 			<div class="box-body">
 			<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">Slider Photo</label>
-					<div class="col-sm-10">
+					<label class="col-sm-3 control-label">Slider Photo</label>
+					<div class="col-sm-9">
 						<div><img width="40" id="image_upload_preview" /></div>
 						<input type="file" name="userFiles" id="userFiles" class="form-control">
 						<div class="text-danger" id="userfile_error" style="display:none;"></div>
@@ -37,8 +37,8 @@
 			<?php } ?>
 				
 			  	<div class="form-group">
-					<label class="col-sm-2 control-label">Alt Tag</label>
-					<div class="col-sm-10">
+					<label class="col-sm-3 control-label">Alt Tag</label>
+					<div class="col-sm-9">
 						<input type="text" name="slider_alt" id="slider_alt" class="form-control">
 						<div class="text-danger" id="slider_alt_error" style="display:none;"></div>
 					</div>
@@ -48,8 +48,8 @@
 				  <input id="slider_id" name="slider_id" type="hidden" class="form-control" value="">
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">Sort Order</label>
-					<div class="col-sm-10">
+					<label class="col-sm-3 control-label">Sort Order</label>
+					<div class="col-sm-9">
 						<input type="text" id="slider_order" name="slider_order" class="form-control" placeholder="Enter sort order" value="999"/>
 						<div class="text-danger" id="slider_order_error" style="display:none;"></div>
 					</div>
@@ -89,7 +89,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th> Edit / Delete </th>
+						<th> Actions </th>
 					</tr>
 						<tbody>
 							<?php 

@@ -1,3 +1,5 @@
+
+text/x-generic Menu_model.php ( PHP script text )
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 

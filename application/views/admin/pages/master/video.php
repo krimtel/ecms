@@ -196,7 +196,7 @@
 						<th>Operation</th>
 					</tr>
 					<tbody>
-						<?php if(isset($videos) && (count($video) > 0)){ 
+						<?php if(isset($videos) && (count($videos) > 0)){ 
 								foreach($videos as $video) { ?>
 								<?php if($video['lang_id'] == $this->session->userdata('language')) { ?>
 								<tr>

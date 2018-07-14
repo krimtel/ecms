@@ -50,6 +50,7 @@ class Enam_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Slider_client.txt';
 			file_put_contents ($file, $json);
 		}
+		
 		$data['videos'] = $this->Video_model->video_home_page_list();
 		$data['newses'] = $this->Enam_model->all_news();
 		$data['events'] = $this->Event_model->home_list_events();

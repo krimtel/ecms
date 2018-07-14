@@ -32,10 +32,15 @@ class Slider_ctrl extends CI_Controller {
 	
 	public function index(){
 		$data['title'] = 'eNam Admin | Events';
-		$languages = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
-		foreach($languages as $language){
-			if($language['l_id'] == $this->session->userdata('language'))
-			$data['language'] = $language;
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+		if(count($file_menu)){
+			$languages = $file_menu;
+		}
+		else{
+			$languages = $this->Language_model->get_all_language();
+			$json = json_encode($languages);
+			$file = FCPATH . '/software_files/Language.txt';
+			file_put_contents ($file, $json);
 		}
 		
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider.txt'),true);
