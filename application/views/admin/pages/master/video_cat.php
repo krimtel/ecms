@@ -63,11 +63,21 @@
 			  </div>
 			</div>
 			<div class="box-body table-responsive no-padding">
+				<table class="table table-hover">
+					<thead>
+					<tr>
+                  <th>S.No.</th>
+                  <th>Category</th>
+                  <th>Edit/Delete</th>
+					</tr>
+				</thead>
+					<tbody>
+					
               <?php foreach($categories as $category){
 	      				if($category['p_id'] == 0){
-	      					echo '<ul>';
+
 	      					if($category['category_name'] != ''){
-	      						echo '<li class="v_cat_list_item" data-vc_id="'.$category['v_id'].'">'.$category['category_name'].'</li><span><a href="javascript:void(0);" class="video_cat_delte" data-vid="'.$category['v_id'].'"><i class="fa fa-trash"></i></a></span>';
+	      						echo '<tr><td>01.</td><td class="v_cat_list_item" data-vc_id="'.$category['v_id'].'">'.$category['category_name'].'</td><td><a href="javascript:void(0);" class="btn btn-info btn-flat video_cat_delte" data-vid="'.$category['v_id'].'"><i class="fa fa-trash"></i></a></td></tr>';
 	      					}
 	      					$ic = 0;
 	      					foreach($categories as $m1){
@@ -77,18 +87,18 @@
 	      							}
 	      							$ic = 1;
 	      							if($m1['category_name'] != ''){
-	      								echo '<li class="v_cat_list_item" data-vc_id="'.$m1['v_id'].'">'.$m1['category_name'].'</li><span><a href="javascript:void(0);" class="video_cat_delte" data-vid="'.$category['v_id'].'"><i class="fa fa-trash"></i></a></span>';
+	      								echo '<tr><td>01</td><td class="v_cat_list_item" data-vc_id="'.$m1['v_id'].'">'.$m1['category_name'].'</td><td><a href="javascript:void(0);" class="btn btn-info btn-flat video_cat_delte" data-vid="'.$category['v_id'].'"><i class="fa fa-trash"></i></a></td></tr>';
 	      							}
 	      						}
 	      						else{
 	      							continue;
 	      						}
 	      					}
-	      					echo '</ul>';
 	      				}
-	      				echo '</ul>';
 	      		}
 	      		?>
+					</tbody>
+				</table>
             </div>
 		</div>
 		</section>

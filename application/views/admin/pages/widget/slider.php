@@ -27,8 +27,8 @@
 			<div class="box-body">
 			<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Slider Photo</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Slider Photo</label>
+					<div class="col-sm-10">
 						<div><img width="40" id="image_upload_preview" /></div>
 						<input type="file" name="userFiles" id="userFiles" class="form-control">
 						<div class="text-danger" id="userfile_error" style="display:none;"></div>
@@ -37,8 +37,8 @@
 			<?php } ?>
 				
 			  	<div class="form-group">
-					<label class="col-sm-3 control-label">Alt Tag</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Alt Tag</label>
+					<div class="col-sm-10">
 						<input type="text" name="slider_alt" id="slider_alt" class="form-control">
 						<div class="text-danger" id="slider_alt_error" style="display:none;"></div>
 					</div>
@@ -48,8 +48,8 @@
 				  <input id="slider_id" name="slider_id" type="hidden" class="form-control" value="">
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Sort Order</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Sort Order</label>
+					<div class="col-sm-10">
 						<input type="text" id="slider_order" name="slider_order" class="form-control" placeholder="Enter sort order" value="999"/>
 						<div class="text-danger" id="slider_order_error" style="display:none;"></div>
 					</div>
@@ -89,7 +89,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th> Actionss </th>
+						<th> Edit / Delete </th>
 					</tr>
 						<tbody>
 							<?php 
@@ -117,11 +117,11 @@
 									<?php } ?>
 									<td>
 									<?php if($group == 'subadmin'){ ?>
-										<a href="javascript:void(0);" class="slider_tranlate" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-language"></i></a>
+										<a href="javascript:void(0);" class="btn btn-info btn-flat slider_tranlate" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-language"></i></a>
 									<?php } else { ?>
-										<a href="javascript:void(0);" class="slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
+										<a href="javascript:void(0);" class="btn btn-info btn-flat slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-pencil"></i></a>
 										<?php if($group == 'admin'){ ?>
-										<a href="javascript:void(0);" class="slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
+										<a href="javascript:void(0);" class="btn btn-info btn-flat slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
 									<?php } } ?>
 										
 									</td>
@@ -179,8 +179,8 @@
 										<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" /></td>
 									<?php } ?>
 									<td>
-										<a href="javascript:void(0);" class="slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-language"></i></a>
-										<a href="javascript:void(0);" class="slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
+										<a href="javascript:void(0);" class="btn btn-info btn-flat slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-language"></i></a>
+										<a href="javascript:void(0);" class="btn btn-info btn-flat slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
 									</td>
 								</tr>
 						<?php } } }?>

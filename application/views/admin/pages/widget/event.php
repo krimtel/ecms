@@ -20,7 +20,7 @@
 		<?php } ?>
 		<div class="box box-primary">
 			<div class="box-header with-border">
-			  <h3 class="box-title">Add new Events</h3>
+			  <h3 class="box-title">Add New Event</h3>
 			  <div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 				  <i class="fa fa-minus"></i></button>
@@ -30,8 +30,8 @@
 			<div class="box-body">
 			<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Event Photo</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Event Photo</label>
+					<div class="col-sm-10">
 						<input type="file" name="userFiles" id="userFiles" class="form-control">
 						<div class="text-danger" id="userfile_error" style="display:none;"></div>
 					</div>
@@ -39,16 +39,16 @@
 			<?php } ?>
 				
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Event Title</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Event Title</label>
+					<div class="col-sm-10">
 						<input type="text" name="event_title" id="event_title" class="form-control">
 						<div class="text-danger" id="event_title_error" style="display:none;"></div>
 					</div>
 				</div>
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Please Select Category</label>
-			   <div class="col-sm-9">
+					<label class="col-sm-2 control-label">Please Select Category</label>
+			   <div class="col-sm-10">
 			   	<select class="col-sm-2 form-control" id="event_category" name="event_category">
 			   	<div class="text-danger" id="event_category_error" style="display:none;"></div>
 			   		<option value="national">National Level </option>
@@ -59,8 +59,8 @@
 			   </div>
 			   <?php } ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Event Description</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Event Description</label>
+					<div class="col-sm-10">
 						<textarea id="event_desc" name="event_desc" class="form-control" rows="10"></textarea>
 						<div class="text-danger" id="event_desc_error" style="display:none;"></div>
 						<input id="event_id" name="event_id" type="hidden" class="form-control" value="" />
@@ -71,8 +71,8 @@
 				</div>
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Sort Order</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Sort Order</label>
+					<div class="col-sm-10">
 						<input type="text" id="event_order" name="event_order" class="form-control" placeholder="Enter sort order" value="999"/>
 						<div class="text-danger" id="event_order_error" style="display:none;"></div>
 					</div>

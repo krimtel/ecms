@@ -104,18 +104,18 @@
 			  </div>
 			</div>
 
-			<div class="box-body">
+			<div class="box-body menu-section-list">
 			<?php foreach($menus as $menu) {
 	      			if($menu['lang_id'] == 1 || $menu['lang_id'] == ''){
 	      				if($menu['p_id'] == 0){
-	      					echo '<ul>';
+	      					echo '<ul class="">';
 	      					if($menu['menu_name'] == ''){
 	      						echo '<li class="menu_list_item" data-m_id="'.$menu['id'].'">'.$menu['title'].'</li>';
 	      					}
 	      					else{
-	      						echo '<li>'.$menu['menu_name'].' <span><a class="menu_list_item" data-m_id="'.$menu['id'].'"><i class="fa fa-pencil"></i></a>';
+	      						echo '<li>'.$menu['menu_name'].' <span class="pull-right"><a class="menu_list_item btn btn-info btn-flat " data-m_id="'.$menu['id'].'"><i class="fa fa-pencil"></i></a>';
 								if($this->session->userdata('group_name') == 'admin'){	      						
-	      							echo '<a class="menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class="fa fa-trash"></i></a></span></li>';
+	      							echo '<a class="btn btn-info btn-flat  menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class="fa fa-trash"></i></a></span></li>';
 								}
 								else{
 									echo '</li>';
@@ -133,9 +133,9 @@
 		      								echo '<li class="menu_list_item" data-m_id="'.$m1['id'].'">'.$m1['title'].'</li>';
 		      							}
 		      							else{
-		      								echo '<li>'.$m1['menu_name'].' <span><a class="menu_list_item" data-m_id="'.$m1['id'].'"><i class="fa fa-pencil"></i></a>';
+		      								echo '<li>'.$m1['menu_name'].' <span class="pull-right"><a class="btn btn-info btn-flat menu_list_item" data-m_id="'.$m1['id'].'"><i class="fa fa-pencil"></i></a>';
 		      								if($this->session->userdata('group_name') == 'admin'){
-		      									echo '<a class="menu_list_item_delete" data-m_id="'.$m1['id'].'"><i class="fa fa-trash"></i></a></span></li>';
+		      									echo '<a class="btn btn-info btn-flat menu_list_item_delete" data-m_id="'.$m1['id'].'"><i class="fa fa-trash"></i></a></span></li>';
 		      								}
 		      								else{
 		      									echo '</li>';
@@ -168,7 +168,7 @@
 			  </div>
 			</div>
 
-			<div class="box-body">
+			<div class="box-body menu-section-list">
 				<?php foreach($menus as $menu) {
 	      			if($menu['lang_id'] == $this->session->userdata('language') || $menu['lang_id'] == ''){
 	      				if($menu['p_id'] == 0){
@@ -177,7 +177,7 @@
 	      						echo '<li>'.$menu['title'].'</li>';
 	      					}
 	      					else{
-	      						echo '<li>'.$menu['menu_name'].' <span><a class="menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class=" fa fa-trash"></i></a></span></li>';
+	      						echo '<li>'.$menu['menu_name'].' <span class="pull-right"><a class="btn btn-info btn-flat  menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class=" fa fa-trash"></i></a></span></li>';
 	      					}
 	      					$ic = 0;
 	      					foreach($menus as $m1){
@@ -191,7 +191,7 @@
 		      								echo '<li>'.$m1['title'].'</li>';
 		      							}
 		      							else{
-		      								echo '<li>'.$m1['menu_name'].' <span><a class="menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class=" fa fa-trash"></i></a></span></li>';
+		      								echo '<li>'.$m1['menu_name'].' <span class="pull-right"><a class="btn btn-info btn-flat menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class=" fa fa-trash"></i></a></span></li>';
 		      							}					
 		      						}
 		      						else{

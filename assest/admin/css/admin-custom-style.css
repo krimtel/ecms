@@ -89,3 +89,6 @@ body{background-color:#eee;}
     /*min-width: 250px;*/border-radius:0px 0px 0px 0px;}
 # b.events-edit-bg .find{background-color:#6df1eb;}
 .find{background-color:#6df1eb;}  
+.navbar-nav li.t-li{margin-left:5px;}
+.menu-section-list ul{padding-left:17px;}
+.menu-section-list ul li{float:left;width:100%;}

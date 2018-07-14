@@ -30,8 +30,8 @@
 			<div class="box-body">
 			<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Video Url</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Video Url</label>
+					<div class="col-sm-10">
 						<input type="text" name="v_url" id="v_url" class="form-control">
 						<div class="text-danger" id="v_url_error" style="display:none;"></div>
 					</div>
@@ -39,16 +39,16 @@
 			<?php } ?>
 				
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Video Title</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Video Title</label>
+					<div class="col-sm-10">
 						<input type="text" name="v_title" id="v_title" class="form-control">
 						<div class="text-danger" id="v_title_error" style="display:none;"></div>
 					</div>
 				</div>
 				<?php if($group != 'subadmin') { ?>
 				<div class="form-group">
-				<label class="col-sm-3 control-label">Select Category</label>
-				  <div class="col-sm-9">
+				<label class="col-sm-2 control-label">Select Category</label>
+				  <div class="col-sm-10">
 				  	<select id="v_category" name="v_category" class="form-control">
 				  		<option value="0">please select video category</option>
 					  	<?php foreach($p_categories as $p_category){ ?>
@@ -64,8 +64,8 @@
 				</div>
 				<?php }?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Video Content</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Video Content</label>
+					<div class="col-sm-10">
 						<textarea id="v_desc" name="v_desc" class="form-control" rows="10"></textarea>
 						<div class="text-danger" id="v_desc_error" style="display:none;"></div>
 						<input id="video_id" name="video_id" type="hidden" class="form-control" value="">
@@ -76,8 +76,8 @@
 				</div>
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Sort Order</label>
-					<div class="col-sm-9">
+					<label class="col-sm-2 control-label">Sort Order</label>
+					<div class="col-sm-10">
 						<input type="text" id="v_order" name="v_order" class="form-control" placeholder="Enter sort order" value="999"/>
 						<div class="text-danger" id="v_order_error" style="display:none;"></div>
 					</div>
@@ -107,8 +107,8 @@
 			  </div>
 			</div>
 
-			<div class="box-body">
-				<table class="table">
+			<div class="box-body table-responsive">
+				<table class="table table-hover">
 					<tr>
 						<th>Video</th>
 						<th>Title</th>
@@ -151,11 +151,11 @@
 												<input class="video_is_home" data-video_id="<?php echo $video['video_id']?>" type="checkbox" />
 											<?php } ?>
 										</td>
-											<td><a class="video_edit" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a> 
-                                           <a class="video_delete" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-trash"></i></a></td>
+											<td><a class="btn btn-info btn-flat video_edit" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a> 
+                                           <a class="btn btn-info btn-flat video_delete" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-trash"></i></a></td>
                                            <?php }
                                            else{ ?>
-                                           	<td><a class="video_tranlate" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a>
+                                           	<td><a class="btn btn-info btn-flat video_tranlate" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a>
                                           <?php }
                                            ?>
 										</tr>	
@@ -187,8 +187,8 @@
 				  <i class="fa fa-minus"></i></button>
 			  </div>
 			</div>
-			<div class="box-body">
-				<table class="table">
+			<div class="box-body table-responsive">
+				<table class="table table-hover">
 					<tr>
 						<th>Video</th>
 						<th>Title</th>
@@ -216,7 +216,7 @@
 									<?php } ?>
 									<td>
 										<?php if($group == 'subadmin'){ ?>
-											<td><a class="video_tranlate" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a>
+											<td><a class="btn btn-info btn-flat  video_tranlate" data-video_id="<?php echo $video['video_id']?>"><i class="fa fa-pencil"></i></a>
 										<?php }  ?>
 											
 									</td>

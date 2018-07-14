@@ -30,7 +30,7 @@
 				<li><a title="Users" href="<?php echo base_url(); ?>admin/admin/users" ><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
 				<li><a title="Language" href="<?php echo base_url(); ?>admin/admin/language"><i class="fa fa-language" aria-hidden="true"></i> Language</a></li>
 								<?php if($group=='admin'){?>
-				<li><a title="Language" href="<?php echo base_url(); ?>admin/admin/video">Video Catagory</a></li>
+				<li><a title="Video Catagory" href="<?php echo base_url(); ?>admin/admin/video"><i class="fa fa-video-camera"></i>Video Catagory</a></li>
 								<?php }?>				
 			</ul>
 	</li>
@@ -51,7 +51,7 @@
 				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/events"><i class="fa fa-calendar" aria-hidden="true" ></i> Events </a></li>
 				<li><a title="Sliders" href="<?php echo base_url(); ?>admin/admin/slider"><i class="fa fa-image" aria-hidden="true" ></i> Slider </a></li>
 				<li><a title="Widgets" href="<?php echo base_url(); ?>admin/admin/widgets"><i class="fa fa-delicious" aria-hidden="true" ></i> Widgets </a></li>
-				<li><a title="Videos" href="<?php echo base_url(); ?>admin/admin/videos"><i class="fa fa-delicious" aria-hidden="true" ></i> Videos </a></li>
+				<li><a title="Videos" href="<?php echo base_url(); ?>admin/admin/videos"><i class="fa fa-video-camera"></i></i> Videos </a></li>
 			</ul>
 	</li>
 	
@@ -63,7 +63,7 @@
 
 	
       <ul class="navbar-nav ml-auto" style="list-style:none;padding:0px;float:right;margin-top:13px;">
-        <li class="nav-item">
+        <li class="nav-item t-li">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
               <input class="form-control" type="text" placeholder="Search for..." style="width:180px;">
@@ -75,7 +75,7 @@
             </div>
           </form>
         </li>
-        <li>
+        <li class="t-li">
         	<select id="user_language" class="form-control">
         		<?php if(isset($language)){ ?>
 					<option id="<?php echo $language['l_id'];?>"><?php echo $language['l_name']; ?></option>        			
@@ -85,52 +85,43 @@
         	</select>
         </li>
         
-        <li>
+        <li class="t-li">
         	<div class="dropdown" style="<?php if(!isset($_SESSION['user_id'])){?>display:none;<?php } ?>">
   				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    			<ul style="">
-    				<li> 
-    					<a class="dropdown-toggle profile waves-effect" data-toggle="dropdown" aria-expanded="">
-    						N	 
-    					</a>
-    				</li>
-    			</ul>
-    				<span class="caret"></span>
+    			<a class="dropdown-toggle profile waves-effect" data-toggle="dropdown" aria-expanded=""><i class="fa fa-bell"></i> Notification</a> <span class="caret"></span>
   				</button>
-  			 	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	        		<div id="user_notification"></div>	 
-        	  	</ul>
+  			 	<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1" style="min-height:80px;">
+	        		<div id="user_notification"> No Record Found</div>	 
+        	  	</div>
 			</div>
        	</li>
         
         
-         <li>
+         <li class="t-li">
         	<div class="dropdown" style="<?php if(!isset($_SESSION['user_id'])){?>display:none;<?php } ?>">
   				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    			<ul><li> <a class="dropdown-toggle profile waves-effect" data-toggle="dropdown" aria-expanded=""><img src="<?php if($this->session->userdata('photo')){ echo base_url(); ?>/User_gallary/<?php echo  $this->session->userdata('photo'); } else{ echo base_url();?>/User_gallary/dif_img.png<?php }?>" alt="user-img" class="img-circle" height="35px" width="35px"> </a></li></ul>
+    			<a class="dropdown-toggle profile waves-effect" data-toggle="dropdown" aria-expanded="">  <img style="width:17px;" src="<?php if($this->session->userdata('photo')){ echo base_url(); ?>User_gallary/<?php echo  $this->session->userdata('photo'); } else{ echo base_url();?>User_gallary/deaf-user.png<?php }?>" alt="User" class="img-circle" /> </a>
     				<span class="caret"></span>
   				</button>
-  			 	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	        		<li>
+  			 	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+	        		<!--<li>
 	            		<a><?php //echo $this->session->userdata['first_name'];?></a>
-	        		 </li> 
-	        		<li>
+	        		 </li> -->
 	        		<li>
 	        			<a href="<?php echo base_url('admin/User_profile_ctrl/profile/').$this->session->userdata('user_id');?>">
-	            		<i class="fa fa-fw fa-edit"></i>Edit Profile</a>
+	            		<i class="fa fa-fw fa-user"></i> Edit Profile</a>
 	        		 </li> 
 	        		<li> 
 	        			<a href="<?php echo base_url('admin/User_profile_ctrl/change_password/').$this->session->userdata('user_id');?>">
-	            		<i class="fa fa-fw fa-edit"></i>Change Password</a>
+	            		<i class="fa fa-fw fa-edit"></i> Change Password</a>
 	        		 </li>
-	        		<li class="nav-item" style="margin-top:5px;margin-left:5px;">
+	        		<li class="nav-item">
 	          			<a class="nav-link" data-toggle="modal" data-target="" href="<?php echo base_url();?>admin/Auth/logout">
-	            		<i class="fa fa-fw fa-sign-out"></i>Logout</a> 
+	            		<i class="fa fa-fw fa-sign-out"></i> Logout</a> 
 	        		</li> 
         	  </ul>
 			</div>
        	</li>
-       
       </ul>
     </div>
   </nav>

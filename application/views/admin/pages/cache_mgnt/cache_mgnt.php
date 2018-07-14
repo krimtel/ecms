@@ -21,10 +21,13 @@
 					<div class="box-body">
 						<div class="col-sm-12">
 							<input id="select_all" type="checkbox"> Select All
-							<span class="pull-right"><a id="clear_cache" href="javascript:void(0);">Clear Cache</a></span>
+							<span class="pull-right"><a class="btn btn-info btn-flat" id="clear_cache" href="javascript:void(0);">Clear Cache</a></span>
 						</div>
 						<hr><hr>
 						<div class="form-group">
+						<table class="table table-hover">
+						<thead><tr><th>Select</th><th>Files</th><th>Delete</th></tr></thead>
+						<tbody>
 						<?php 
 						if(isset($files) && count($files) > 0 ){
 							foreach($files as $file){
@@ -36,14 +39,17 @@
 									else{
 										$class = '';
 									}
-									echo '<input class="checkbox" type="checkbox" name="check[]" value="'.$file.'"/>';
-						        	echo "<a class='file_clr' name='file_clr'  data-file= $file><i class='fa fa-trash'></i> </a>". $file."<br/>";
+									
+									echo '<tr><td><input class="checkbox" type="checkbox" name="check[]" value="'.$file.'"/></td>';
+									echo '<td>'.$file.'</td>';
+						        	echo "<td><a class='btn btn-info btn-flat file_clr' name='file_clr'  data-file= $file><i class='fa fa-trash'></i> </a></td></tr>";
 						        	
 						    	}
 							}
 						}
 						?>
-						
+						</tbody>
+						</table>
 						</div>
 					</div>
 			</div>
