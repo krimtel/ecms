@@ -3,7 +3,7 @@
 
 
 <div class="latest-news">
-	<div class="sidebar-header-title"><span class="e-text-news">LATEST</span><span>ANNOUNCEMENTS</span></div>
+	<div class="sidebar-header-title"><span class="e-text-news"><?php echo $this->lang->line('latest');?></span><span><?php echo $this->lang->line('announcements');?></span></div>
 		<div  class="focus-news">		
 			<marquee height="190" onMouseOut="start();" onMouseOver="stop();" direction="up" scrollamount="2">
 				<?php if(count($newses)>0){ ?>

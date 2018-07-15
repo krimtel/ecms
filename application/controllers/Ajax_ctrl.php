@@ -14,6 +14,8 @@ class Ajax_ctrl extends CI_Controller {
 	function language_select(){
 		$l_id = $this->input->post('l_id');
 		$this->session->set_userdata('client_language', $l_id);
-		echo json_encode(array('msg'=>'language slected.','status'=>200));
+		header('content-Type: application/json');
+			echo json_encode(array('msg'=>'language slected.','status'=>200));
+		die;
 	}
 }

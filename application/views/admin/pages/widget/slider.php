@@ -162,7 +162,7 @@
 							<th>Sort</th>
 							<th>Publish</th>
 						<?php } ?>
-						<th>Actionss </th>
+						<th>Action</th>
 					</tr>
 						<tbody>
 							<?php 
@@ -172,15 +172,19 @@
 								<tr>
 									<td><img alt="" width="50" src="<?php echo base_url();?>Slider_gallary/<?php echo $this->session->userdata('language');?>/<?php echo $slider['slider_image'];?>" /></td>
 									<td> <?php echo $slider['alt_tag']?></td>
-									<td> <?php echo $slider['sort']?></td>
-									<?php if($slider['publish'] == '1') {?>
-										<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" checked /></td>
-									<?php } else {?>
-										<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" /></td>
-									<?php } ?>
+									<?php if($group != 'subadmin') { ?>
+										<td> <?php echo $slider['sort']?></td>
+										<?php if($slider['publish'] == '1') {?>
+											<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" checked /></td>
+										<?php } else {?>
+											<td><input class="slider_published" data-slider_id="<?php echo $slider['s_id']; ?>" type="checkbox" /></td>
+										<?php } ?>
+									<?php }?>
 									<td>
-										<a href="javascript:void(0);" class="btn btn-info btn-flat slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-language"></i></a>
-										<a href="javascript:void(0);" class="btn btn-info btn-flat slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
+										<a href="javascript:void(0);" class="slider_edit" data-slider_id="<?php echo $slider['s_id'];?>"><i class="fa fa-language"></i></a>
+										<?php if($group != 'subadmin') { ?>
+											<a href="javascript:void(0);" class="slider_delete" data-slider_id="<?php echo $slider['s_id']; ?>"><i class="fa fa-trash"></i></a>
+										<?php } ?>
 									</td>
 								</tr>
 						<?php } } }?>

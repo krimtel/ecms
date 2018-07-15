@@ -51,7 +51,7 @@
 				<li><a title="Events" href="<?php echo base_url(); ?>admin/admin/events"><i class="fa fa-calendar" aria-hidden="true" ></i> Events </a></li>
 				<li><a title="Sliders" href="<?php echo base_url(); ?>admin/admin/slider"><i class="fa fa-image" aria-hidden="true" ></i> Slider </a></li>
 				<li><a title="Widgets" href="<?php echo base_url(); ?>admin/admin/widgets"><i class="fa fa-delicious" aria-hidden="true" ></i> Widgets </a></li>
-				<li><a title="Videos" href="<?php echo base_url(); ?>admin/admin/videos"><i class="fa fa-video-camera"></i></i> Videos </a></li>
+				<li><a title="Videos" href="<?php echo base_url(); ?>admin/admin/videos"><i class="fa fa-delicious" aria-hidden="true"></i> Videos </a></li>
 			</ul>
 	</li>
 	

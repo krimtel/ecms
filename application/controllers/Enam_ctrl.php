@@ -15,6 +15,11 @@ class Enam_ctrl extends CI_Controller {
 			);
 			$this->session->set_userdata($newdata);
 		}
+		//////////////temp/////////////////////////
+		if($this->session->userdata('client_language') == 1)
+			$this->lang->load('client_lang', 'english');
+		else
+			$this->lang->load('client_lang', 'hindi');
 	}
 	
 	public function index(){
@@ -50,15 +55,24 @@ class Enam_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Slider_client.txt';
 			file_put_contents ($file, $json);
 		}
-		
 		$data['videos'] = $this->Video_model->video_home_page_list();
+		
+		$v = array();
+		foreach($data['videos'] as $ve){
+			$temp = array();
+			$temp = $ve;
+			$temp['created_at'] = $this->time_elapsed_string($data['videos'][0]['created_at'], true);
+			$v[] = $temp;
+		}
+		$data['videos'] = $v;
+		
 		$data['newses'] = $this->Enam_model->all_news();
 		$data['events'] = $this->Event_model->home_list_events();
-		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		//$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
 		$data['slider'] = $this->load->view('pages/comman/slider',$data,TRUE);
 		$data['links'] = $this->Enam_model->all_links();
 		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
-		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		//$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
 		$data['main_contant'] = $this->load->view('pages/dashboard',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
@@ -395,6 +409,35 @@ class Enam_ctrl extends CI_Controller {
 		$data['banner'] = $this->load->view('pages/comman/banner','',TRUE);
 		$data['main_contant'] = $this->load->view('pages/training-calender/training-calender1',$data,TRUE);
 		$this->load->view('comman/index',$data);
+	}
+	
+	function time_elapsed_string($datetime, $full = false) {
+		$now = new DateTime;
+		$ago = new DateTime($datetime);
+		$diff = $now->diff($ago);
+	
+		$diff->w = floor($diff->d / 7);
+		$diff->d -= $diff->w * 7;
+	
+		$string = array(
+				'y' => 'year',
+				'm' => 'month',
+				'w' => 'week',
+				'd' => 'day',
+				'h' => 'hour',
+				'i' => 'minute',
+				's' => 'second',
+		);
+		foreach ($string as $k => &$v) {
+			if ($diff->$k) {
+				$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+			} else {
+				unset($string[$k]);
+			}
+		}
+	
+		if (!$full) $string = array_slice($string, 0, 1);
+		return $string ? implode(', ', $string) . '' : 'just now';
 	}
 	
 	

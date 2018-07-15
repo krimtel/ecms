@@ -1,8 +1,3 @@
-
-Editing:  
-/home/sankalp04/public_html/enam/application/controllers/admin/Widget_ctrl.php
- Encoding:       
- 
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 

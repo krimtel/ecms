@@ -250,12 +250,23 @@ class Page_ctrl extends CI_Controller {
 				}
 				
 				$this->db->where('p_id',$data['page_id']);
-				$this->db->update('pages',array(
-						//'page_name' => $data['page_name'],
-						'page_layout' => $data['page_layout'],
-						'updated_at' => date('y-m-d h:i:s'),
-						'updated_by' => $this->session->userdata('user_id')
-				));
+				
+				if($this->ion_auth->is_admin()){
+					$this->db->update('pages',array(
+							//'page_name' => $data['page_name'],
+							'page_layout' => $data['page_layout'],
+							'updated_at' => date('y-m-d h:i:s'),
+							'updated_by' => $this->session->userdata('user_id')
+					));
+				}
+				else{
+					$this->db->update('pages',array(
+							//'page_name' => $data['page_name'],
+							//'page_layout' => $data['page_layout'],
+							'updated_at' => date('y-m-d h:i:s'),
+							'updated_by' => $this->session->userdata('user_id')
+					));
+				}
 				
 				$this->db->where('page_id',$data['page_id']);
 				$this->db->update('page_components',array('status'=>0));

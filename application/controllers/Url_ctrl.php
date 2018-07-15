@@ -7,7 +7,7 @@ class Url_ctrl extends CI_Controller {
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
 		$this->load->database();
-		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Slider_model','admin/Widget_model','Enam_model','admin/Event_model'));
+		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Slider_model','admin/Widget_model','admin/News_model','Enam_model','admin/Event_model'));
 		$this->load->library(array('session'));
 		if(!$this->session->userdata('client_language')){
 			$newdata = array(
@@ -70,8 +70,9 @@ class Url_ctrl extends CI_Controller {
 			$data['page_contents'] = $page_body;
 			if(count($data['page_contents']) > 0){	
 				////////////////////////////////////
-				$str = $data['page_contents'][0]['page_body'];
-				
+				$str = html_entity_decode($data['page_contents'][0]['page_body']);
+
+
 				$regex = "/\[(.*?)\]/";
 				$data['output'] = $str;
 				preg_match_all($regex, $str, $matches);
@@ -88,7 +89,7 @@ class Url_ctrl extends CI_Controller {
 				}
 				////////////////////////////////////
 				//main logic
-				$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+				$file_menu = json_decode(file_get_contents(base_url().'software_files/Language.txt'),true);
 				if(count($file_menu)){
 					$data['languages'] = $file_menu;
 				}
@@ -98,21 +99,20 @@ class Url_ctrl extends CI_Controller {
 					$file = FCPATH . '/software_files/Language.txt';
 					file_put_contents ($file, $json);
 				}
-			
 				////-----all widget pages---------------////
-				$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/News.txt'),true);
+				$file_menu = json_decode(file_get_contents(base_url().'software_files/News.txt'),true);
 				if(count($file_menu)){
 					$data['newses'] = $file_menu;
 				}
 				else{
-					$data['newses'] = $this->News_model->News_list();
+					$data['newses'] = $this->News_model->News_list();                                 
 					$json = json_encode($data['newses']);
 					$file = FCPATH . '/software_files/News.txt';
 					file_put_contents ($file, $json, FILE_APPEND);
 				}
 				$data['news_page'] = $this->load->view('comman/home_notice',$data,TRUE);
-				
-				$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Links.txt'),true);
+
+				$file_menu = json_decode(file_get_contents(base_url(). 'software_files/Links.txt'),true);
 				if(count($file_menu)){
 					$data['links'] = $file_menu;
 				}
@@ -125,7 +125,7 @@ class Url_ctrl extends CI_Controller {
 				$data['quickLinks_page'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
 				
 				
-				$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider_client.txt'),true);
+				$file_menu = json_decode(file_get_contents(base_url().'software_files/Slider_client.txt'),true);
 				if(count($file_menu)){
 					$data['sliders'] = $file_menu;
 				}
@@ -142,7 +142,6 @@ class Url_ctrl extends CI_Controller {
 				$data['page_title'] = $page_body[0]['title'];
 				$data['keywords'] = $page_body[0]['keywords'];
 				$data['title'] = 'eNam | '.$page_body[0]['title'].' | '.$data['keywords'];
-
 				$data['head'] = $this->load->view('comman/head',$data,TRUE);
 				$data['header'] = $this->load->view('comman/header',$data,TRUE);
 				$data['menus'] = $this->Enam_model->all_menus();

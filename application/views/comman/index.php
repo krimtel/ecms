@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <?php print_r($head); ?>
  <body id="enamHome" class="default-theme font-A"> 
- <input type="hidden" id="base_url" value="<?php echo base_url();?>" /> 
+  
 <?php if(isset($header)){ print_r($header); } ?>
 <?php if(isset($navigation)){ print_r($navigation);} ?>
-
+<input type="hidden" id="base_url" value="<?php echo base_url();?>" />
 <?php if(isset($main_contant)){print_r($main_contant);} ?>
 <?php if(isset($footer)){ print_r($footer);} ?>
 </body>
