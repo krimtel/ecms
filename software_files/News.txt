@@ -1,1 +1,1 @@
-[]
+[{"id":"1","news_id":"1","lang_id":"1","news_contect":"<p>there are two important news are availabel<\/p>","created_at":"2018-07-15 08:05:09","created_by":"1","updated_at":"0000-00-00 00:00:00","updated_by":null,"status":"1","sort":"1","publish":"1"}]

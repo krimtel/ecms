@@ -11,22 +11,23 @@ class Enam_ctrl extends CI_Controller {
 		$this->load->library(array('session'));
 		if(!$this->session->userdata('client_language')){
 			$newdata = array(
-				'client_language'  => '1'
+					'client_language'  => '1'
 			);
 			$this->session->set_userdata($newdata);
 		}
 		//////////////temp/////////////////////////
 		if($this->session->userdata('client_language') == 1)
 			$this->lang->load('client_lang', 'english');
-		else
-			$this->lang->load('client_lang', 'hindi');
+			else
+				$this->lang->load('client_lang', 'hindi');
+
 	}
-	
+
 	public function index(){
 		$data['title'] = 'eNam';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
-		
+
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		if(count($file_menu)){
 			$data['languages'] = $file_menu;
@@ -37,14 +38,14 @@ class Enam_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Language.txt';
 			file_put_contents ($file, $json);
 		}
-		
+
 		$data['header'] = $this->load->view('comman/header',$data,TRUE);
 		$data['menus'] = $this->Enam_model->all_menus();
-		
+
 		$data['navigation'] = $this->load->view('comman/navigation',$data,TRUE);
 		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
 		$data['footer'] = $this->load->view('comman/footer','',TRUE);
-		
+
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider_client.txt'),true);
 		if(count($file_menu)){
 			$data['sliders'] = $file_menu;
@@ -56,31 +57,31 @@ class Enam_ctrl extends CI_Controller {
 			file_put_contents ($file, $json);
 		}
 		$data['videos'] = $this->Video_model->video_home_page_list();
-		
+
 		$v = array();
 		foreach($data['videos'] as $ve){
 			$temp = array();
 			$temp = $ve;
-			$temp['created_at'] = $this->time_elapsed_string($data['videos'][0]['created_at'], true);
+			$temp['created_at'] = $this->time_elapsed_string(strtotime($ve['created_at']));
 			$v[] = $temp;
 		}
 		$data['videos'] = $v;
-		
+
 		$data['newses'] = $this->Enam_model->all_news();
 		$data['events'] = $this->Event_model->home_list_events();
-		//$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
 		$data['slider'] = $this->load->view('pages/comman/slider',$data,TRUE);
 		$data['links'] = $this->Enam_model->all_links();
 		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
-		//$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
 		$data['main_contant'] = $this->load->view('pages/dashboard',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	public function layout_page(){
 		$data['title'] = 'eNam';
 		$data['head'] = $this->load->view('comman/head','',TRUE);
-		
+
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		if(count($file_menu)){
 			$data['languages'] = $file_menu;
@@ -91,7 +92,7 @@ class Enam_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Language.txt';
 			file_put_contents ($file, $json);
 		}
-		
+
 		$data['header'] = $this->load->view('comman/header',$data,TRUE);
 		$data['navigation'] = $this->load->view('comman/navigation','',TRUE);
 		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
@@ -133,8 +134,8 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/state_licence/state_unified_license',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
-	
+
+
 	/*About us Section*/
 	public function about_us()
 	{
@@ -149,7 +150,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/nam/about-nam',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	public function implementation_progress()
 	{
 		$data['title'] = 'Implementation Progress';
@@ -163,7 +164,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/nam/implementation-progress',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	public function key_stakeholders()
 	{
 		$data['title'] = 'Key Stakeholders';
@@ -177,7 +178,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/nam/key-stakeholders',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	public function usefull_links()
 	{
 		$data['title'] = 'Usefull Links';
@@ -191,9 +192,9 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/nam/usefull-links',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	/*Farmer */
-	
+
 	public function approved_commodities()
 	{
 		$data['title'] = 'Approved Commodities';
@@ -233,9 +234,9 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/farmer/enrolled-mandis',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	/*traders*/
-	
+
 	public function commodity_price()
 	{
 		$data['title'] = 'Commodity Price';
@@ -275,7 +276,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/trader/unified-license-guidelines',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	/*MIS*/
 	public function mis()
 	{
@@ -287,7 +288,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/statistics/mis',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	public function report()
 	{
 		$data['title'] = 'Report';
@@ -298,7 +299,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/statistics/report',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	/*elearning*/
 	public function elearning()
 	{
@@ -353,7 +354,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/contactus/faq',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	/*download*/
 	public function download()
 	{
@@ -396,7 +397,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/training-calender/training-calender',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 	public function training_calender1()
 	{
 		$data['title'] = 'Training Calender1';
@@ -410,35 +411,49 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/training-calender/training-calender1',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
-	function time_elapsed_string($datetime, $full = false) {
-		$now = new DateTime;
-		$ago = new DateTime($datetime);
-		$diff = $now->diff($ago);
-	
-		$diff->w = floor($diff->d / 7);
-		$diff->d -= $diff->w * 7;
-	
-		$string = array(
-				'y' => 'year',
-				'm' => 'month',
-				'w' => 'week',
-				'd' => 'day',
-				'h' => 'hour',
-				'i' => 'minute',
-				's' => 'second',
+
+	function rahul_test(){
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+		if(count($file_menu)){
+			$data['languages'] = $file_menu;
+		}
+		else{
+			$data['languages'] = $this->Language_model->get_all_language();
+			$json = json_encode($data['languages']);
+			$file = FCPATH . '/software_files/Language.txt';
+			file_put_contents ($file, $json);
+		}
+		$data['head'] = $this->load->view('comman/head_1','',TRUE);
+		//$data['head'] = 'head';
+		$data['header'] = $this->load->view('comman/header',$data,TRUE);
+		//$data['header'] = 'header';
+		$this->load->view('comman/index',$data);
+
+		//echo "sdf"; die;
+	}
+
+
+
+
+	function time_elapsed_string($time) {
+		$time_difference = time() - $time;
+		if( $time_difference < 1 ) { return 'less than 1 second ago'; }
+		$condition = array( 12 * 30 * 24 * 60 * 60 =>  'year',
+				30 * 24 * 60 * 60       =>  'month',
+				24 * 60 * 60            =>  'day',
+				60 * 60                 =>  'hour',
+				60                      =>  'minute',
+				1                       =>  'second'
 		);
-		foreach ($string as $k => &$v) {
-			if ($diff->$k) {
-				$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-			} else {
-				unset($string[$k]);
+
+		foreach( $condition as $secs => $str )
+		{
+			$d = $time_difference / $secs;
+			if( $d >= 1 )
+			{
+				$t = round( $d );
+				return 'about ' . $t . ' ' . $str . ( $t > 1 ? 's' : '' ) . ' ago';
 			}
 		}
-	
-		if (!$full) $string = array_slice($string, 0, 1);
-		return $string ? implode(', ', $string) . '' : 'just now';
 	}
-	
-	
 }
