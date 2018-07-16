@@ -103,7 +103,7 @@ body{background-color:#eee;}
     border: 1px solid #bcbfbe}
 .sort-code-head{padding:10px;border-bottom: 1px solid #eee;border-radius:5px 5px 0px 0px;
     font-weight: 600;color: #ffffff;    background-color: #5a5757;}
-.sort-code-head i{color:#fff;padding-top:10px;}
+.sort-code-head i{color:#fff;padding-top:3px;}
 .sort-code-body{padding:10px;float:left;width:100%;background-color: #fff;height:248px;}
 
 
