@@ -45,6 +45,7 @@ class Language_ctrl extends CI_Controller {
 	}
 	
 	function language_edit(){
+		
 		if($this->ion_auth->is_admin()){
 			$this->form_validation->set_rules('name', 'language name', 'required|trim|min_length[3]');
 			$this->form_validation->set_rules('id', 'language id', 'required|trim|integer|is_natural_no_zero');
@@ -62,6 +63,11 @@ class Language_ctrl extends CI_Controller {
 				if($result){
 					$this->file_update();
 					if($this->lang->line('language_update_success')){
+						
+						
+						rename(('application/language/'.$data['l_name']), $this->input->post('name'));
+						
+						
 						$msg  = $this->lang->line('language_update_success');
 					}
 					else{
@@ -94,7 +100,21 @@ class Language_ctrl extends CI_Controller {
 			
 			$result = $this->Language_model->language_create($data);
 			if(count($result) > 0){
+
+				
 				if($this->lang->line('language_create_success')){
+					
+					
+					if(is_dir('application/language/'.$data['l_name'])){
+						echo "hello";  die;
+					}
+					else{
+						mkdir('application/language/'.$data['l_name']);
+						
+					}
+					
+					
+					
 					$msg  = $this->lang->line('language_create_success');
 				}
 				else{
@@ -115,6 +135,10 @@ class Language_ctrl extends CI_Controller {
 		else{
 			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
 		}
+	
+		
+	
+	
 	}
 	
 	function language_delete(){

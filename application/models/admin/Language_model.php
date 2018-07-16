@@ -25,12 +25,19 @@ class Language_model extends CI_Model {
 				)
 			);
 		if($this->db->affected_rows()){
-			$this->db->insert('logg',array(
-					'user_id' => $this->session->userdata('user_id'),
-					'event_id' => 2,
-					'created_at' => $data['updated_at'],
-					'remark' => $data['id']
-			));
+			$ect['e_id'] = 2;
+			$ect['e_primary_id'] = $data['id'];
+			$ect['created_at'] = $data['updated_at'];
+			$ect['created_by'] = $data['user_id'];
+			$this->db->insert('activity_tab',$ect);
+			///-----------logg insert----------//
+			$logg['event_id'] = 2;
+			$logg['created_at'] = $data['updated_at'];
+			$logg['user_id'] = $data['user_id'];
+			$logg['activity_id'] = $this->db->insert_id();
+			$this->db->insert('logg',$logg);
+			
+	///////////////////////////////////////////////////
 			
 			if ($this->db->trans_status() === FALSE) {
 				$this->db->trans_rollback();
@@ -68,12 +75,18 @@ class Language_model extends CI_Model {
 			);
 		if($this->db->affected_rows()){
 			//////////update log table 
-			$this->db->insert('logg',array(
-				'user_id' => $this->session->userdata('user_id'),
-				'event_id' => 3,
-				'created_at' => $data['updated_at'],
-				'remark' => $data['id']
-			));
+			$ect['e_id'] = 3;
+			$ect['e_primary_id'] = $data['id'];
+			$ect['created_at'] = $data['updated_at'];
+			$ect['created_by'] = $data['user_id'];
+			$this->db->insert('activity_tab',$ect);
+			///-----------logg insert----------//
+			$logg['event_id'] = 3;
+			$logg['created_at'] = $data['updated_at'];
+			$logg['user_id'] = $data['user_id'];
+			$logg['activity_id'] = $this->db->insert_id();
+			$this->db->insert('logg',$logg);
+				
 			
 			if ($this->db->trans_status() === FALSE) {
 				$this->db->trans_rollback();
