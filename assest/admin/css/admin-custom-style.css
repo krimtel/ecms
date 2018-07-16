@@ -94,18 +94,20 @@ body{background-color:#eee;}
 .menu-section-list ul li{float:left;width:100%;}
 
 /*sort code*/
-.sort-code-box{position: fixed;border-radius:5px 0;
+.sort-code-box{position: fixed;border-radius:5px 5px 0px 0px;
     bottom: 0px;
     right: 0px;
     width: 255px;
-    height: 290px;
-    background-color: #fff;
+
+    
     border: 1px solid #bcbfbe}
-.sort-code-head{padding:10px;border-bottom: 1px solid #eee;border-radius:5px 0;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #5a5757;}
-.sort-code-body{padding:10px;}
+.sort-code-head{padding:10px;border-bottom: 1px solid #eee;border-radius:5px 5px 0px 0px;
+    font-weight: 600;color: #ffffff;    background-color: #5a5757;}
+.sort-code-head i{color:#fff;padding-top:10px;}
+.sort-code-body{padding:10px;float:left;width:100%;background-color: #fff;height:248px;}
+
 
 ul.sort-code-body-sec{float:left;width:100%;padding-left:0px;}
 .sort-code-body-sec li{float:left;width:100%;color:#000;list-style:none;border-bottom:1px solid #eee;padding:5px 0;}
+.dash-news-sec{float:left;padding-left:20px;}
+.dash-news-sec li{list-style:none;}

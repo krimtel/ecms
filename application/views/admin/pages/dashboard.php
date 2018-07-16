@@ -158,15 +158,17 @@
 		
 		<div class="section-box">
 			<div class="box-header-t box-header-primary"><span>News</span></div>
-			<div class="box-body-sec" style="">
-			<marquee style="height:290px;background-color:#e4e4e4;" class="notice-board" direction="up" scrollamount="3" onmouseover="stop();" onmouseout="start();" >
+			<div class="box-body-sec">
+				<marquee style="height:290px;background-color:#e4e4e4;" class="notice-board" direction="up" scrollamount="3" onmouseover="stop();" onmouseout="start();" >
+					<ul class="dash-news-sec">
 					<?php if(isset($newses) && count($newses)>0){ ?>
 						<?php foreach($newses as $news){ ?>
-							<p><?php echo $news['news_contect'];?></p>
+							<li><?php echo $news['news_contect'];?></li>
 						<?php } ?>
 					<?php } else { ?>
-						No news found.
+						<li>No news found.</li>
 					<?php } ?>
+					</ul>
 				</marquee>
 				<div class="view-all-box"><a href="<?php echo base_url(); ?>/admin/admin/news"><i class="fa fa-th-large"></i> View All</a></div>
 			</div>
@@ -179,7 +181,7 @@
 				<div class="box-header-t box-header-primary"><span>Recent Activites</span></div>
 				<div class="box-body-sec">
 					<a href="#">
-                <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="">
+                <img style="width:100%;" class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="">
               </a>
               <div class="card-body">
                 <h6 class="card-title mb-1"><a href="#">Rahul Kumar</a></h6>
@@ -189,7 +191,7 @@
               </div>
               <hr class="my-0">
 			   <a href="#">
-                <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=180" alt="">
+                <img style="width:100%;" class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=180" alt="">
               </a>
               <div class="card-body">
                 <h6 class="card-title mb-1"><a href="#">Manish</a></h6>
@@ -199,7 +201,7 @@
               </div>
               <hr class="my-0">
 			  <a href="#">
-                <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=281" alt="">
+                <img style="width:100%;" class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=281" alt="">
               </a>
               <div class="card-body">
                 <h6 class="card-title mb-1"><a href="#">Snita</a></h6>

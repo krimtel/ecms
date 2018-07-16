@@ -169,7 +169,7 @@
 		</section>
 		
 <div class="sort-code-box">
-	<div class="sort-code-head">Sort Code <span class="pull-right"><a href=""><i class="fa fa-minus"></i></a></span></div>
+	<div class="sort-code-head sort-head-title">Sort Code <span class="pull-right"><i class="fa fa-minus"></i></span></div>
 	<div class="sort-code-body">
 		<ul class="sort-code-body-sec">
 			<li>14</li>
@@ -181,7 +181,13 @@
 </div>
 
 
-
+<script>
+$(document).ready(function(){
+    $(".sort-head-title").click(function(){
+        $(".sort-code-body").slideToggle();
+    });
+});
+</script>
 <script>
 $(document).ready(function(){
 	var baseUrl = $('#base_url').val();
