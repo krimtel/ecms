@@ -7,7 +7,7 @@
         <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
       <div class="modal-body">
-		<img alt="" src="../assest/images/gif-load.gif" />
+		<img alt="" src="<?php echo base_url(); ?>/assest/images/gif-load.gif" />
       </div>
       <div class="modal-footer" style="display:block;">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -16,13 +16,12 @@
     </div>
   </div>
 </div>
-
+<!-- Loader  -->
 <div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="">
-
+  <div class="modal-dialog" role="document" style="width:70px;top:40%">
+    <div class="modal-content" style="border-radius:10px;">
       <div class="modal-body">
-		<img alt="" src="/../../../../assest/images/gif-load.gif" />
+		<img style="width:40px;" alt="" src="<?php echo base_url(); ?>/assest/images/gif-load.gif" />
       </div>
       
     </div>

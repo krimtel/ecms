@@ -3,6 +3,7 @@ uGroup = $('#u_group').val();
 
 
 $(document).ready(function(){
+	//$('#loader').modal({'show':true});
 	var baseUrl = $('#base_url').val();
 	var uGroup = $('#u_group').val();
 
