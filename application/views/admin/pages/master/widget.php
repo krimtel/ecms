@@ -3,10 +3,10 @@
     <!-- Content Header (Page header) -->
 	<ol class="breadcrumb">
         <li><a title="Home" href="<?php echo base_url();?>admin/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Widget</li>
+        <li class="active">Components</li>
      </ol>   
 	<section class="content-header">
-      <h1>Widget</h1>
+      <h1>Components</h1>
     </section>
 	
 	<!-- Main content -->
@@ -20,7 +20,7 @@
         <?php } ?>
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">Add New Widget</h3>
+					<h3 class="box-title">Add New Component</h3>
 					<div class="box-tools pull-right">
 					<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 					  <i class="fa fa-minus"></i></button>
@@ -69,7 +69,7 @@
 		<?php } ?>
 			<div class="box box-primary">
 				<div class="box-header with-border">
-			  		<h3 class="box-title">All Widget List</h3>
+			  		<h3 class="box-title">All Component List</h3>
 			  		<div class="box-tools pull-right">
 						<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 				  		<i class="fa fa-minus"></i></button>
@@ -79,7 +79,7 @@
               		<table class="table table-hover">
                 		<tr>
                   			
-                  			<th>Widget Name</th>
+                  			<th>Component Name</th>
                   			<th>Shortcode</th>
                   			<th>Content</th>
                   			<th>Edit/Delete</th>

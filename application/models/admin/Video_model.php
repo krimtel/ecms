@@ -63,14 +63,15 @@ class Video_model extends CI_Model {
 
 	function video_home_page_list(){
 		if((int)$this->session->userdata('client_language')==''){
-			$language=1;
+			$language = 1;
 		}else{
 			$language=(int)$this->session->userdata('client_language');
 		}
 		$this->db->select('vi.*,v.sort,v.v_url,v.publish,v.is_home');
 		$this->db->join('video v','v.v_id=vi.video_id');
 		$this->db->order_by('v.sort,v.created_at,v.updated_at','ASC');
-		$result=$this->db->get_where('video_item vi',array('v.status'=>1,'v.is_home' => 1,'vi.status'=>1,'vi.lang_id'=>$language))->result_array();
+		$result = $this->db->get_where('video_item vi',array('v.status'=>1,'v.is_home' => 1,'vi.status'=>1,'vi.lang_id'=>$language))->result_array();
+		
 		return $result;
 	}
 

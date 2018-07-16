@@ -445,7 +445,7 @@ class Enam_ctrl extends CI_Controller {
 				60                      =>  'minute',
 				1                       =>  'second'
 		);
-
+		
 		foreach( $condition as $secs => $str )
 		{
 			$d = $time_difference / $secs;

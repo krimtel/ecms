@@ -442,9 +442,9 @@ $(document).ready(function(){
 	        	    		  				'</div>'+
 	            		  				'</div>'+
 	        	    			  	'</form>';
-	        	    		$('#loader .modal-body').html(x);
-	        	    		$('#loader .modal-footer').hide();
-	        	    		$('#loader').modal({
+	        	    		$('#loader-1 .modal-body').html(x);
+	        	    		$('#loader-1 .modal-footer').hide();
+	        	    		$('#loader-1').modal({
 	        	    			show : true,
 	        	    			backdrop : false,
 	        	    			keyboard: false
@@ -604,9 +604,9 @@ $(document).ready(function(){
 	    		  				'</div>'+
     		  				'</div>'+
 	    			  	'</form>';
-	    		$('#loader .modal-body').html(x);
-	    		$('#loader .modal-footer').hide();
-	    		$('#loader').modal({
+	    		$('#loader-1 .modal-body').html(x);
+	    		$('#loader-1 .modal-footer').hide();
+	    		$('#loader-1').modal({
 	    			show : true,
 	    			backdrop : false,
 	    			keyboard: false

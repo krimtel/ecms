@@ -21,8 +21,8 @@
 					<a class="border" href="/NAM/faces/common/welcome.jspx" title="Login"><img alt="Help No" src="<?php echo base_url(); ?>/assest/images/new-theme/login-user.png" />
 					<span><b>Login Here</b></span></a>
 				</div>
-				<div class="header-right-list lang-box" style="border-right:0px;">
-					<span>Languages</span><br/>
+				<div class="header-right-list" style="border-right:0px;">
+					<span>Languages</span>
 					<select id="language_selector" style="border:0px; color:#000;margin-top:-23px;">
 						<?php if($this->session->userdata('client_language') != ''){ 
 							$session_lang = $this->session->userdata('client_language'); 

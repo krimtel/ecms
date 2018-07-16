@@ -27,7 +27,7 @@ class Admin_ctrl extends CI_Controller {
 	function dashboard(){
 		$data['title'] = 'eNam Admin';
 		$l_id = $this->session->userdata('language'); 
-		
+		 
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		if(count($file_menu)){
 			$languages = $file_menu;

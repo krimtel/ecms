@@ -11,7 +11,6 @@ $lang['latest'] = 'LATEST';
 $lang['announcements'] = 'ANNOUNCEMENTS';
 $lang['important_link'] = 'IMPORTANT LINK';
 
-
 $lang['download'] = 'Download';
 $lang['eNAM_Booklet'] = 'eNAM Booklet';
 $lang['guidelines_manual'] = 'Guidelines Manual';

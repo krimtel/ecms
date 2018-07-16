@@ -40,11 +40,10 @@
 			<ul class="dropdown-menu">
 				<li><a title="Pages" href="<?php echo base_url(); ?>admin/admin/all_pages"> <i class="fa fa-clone" aria-hidden="true" ></i> Pages </a></li>
 				<li><a title="Menu" href="<?php echo base_url(); ?>admin/admin/menus"> <i class="fa fa-ellipsis-h" aria-hidden="true" ></i> Menu </a></li>
-				<li><a title="Home-Page" href="<?php echo base_url(); ?>admin/admin/home_page"> <i class="fa fa-home" aria-hidden="true" ></i> Home Page</a></li>
 			</ul>
 	</li>
 	<li class="dropdown">
-			<a title="Widget" href="#" data-toggle="dropdown" > <i class="fa fa-th-large" aria-hidden="true" ></i> Widget <b class="caret"></b></a>
+			<a title="Widget" href="#" data-toggle="dropdown" > <i class="fa fa-th-large" aria-hidden="true" ></i> Components <b class="caret"></b></a>
 			<ul class="dropdown-menu">
 				<li><a title="News/Notice" href="<?php echo base_url(); ?>admin/admin/news"><i class="fa fa-file" aria-hidden="true" ></i> News/Notice </a></li>
 				<li><a title="News/Links" href="<?php echo base_url(); ?>admin/admin/links"><i class="fa fa-link" aria-hidden="true" ></i> Quick Links </a></li>
@@ -54,10 +53,11 @@
 				<li><a title="Videos" href="<?php echo base_url(); ?>admin/admin/videos"><i class="fa fa-delicious" aria-hidden="true"></i> Videos </a></li>
 			</ul>
 	</li>
-	
+	<?php if($this->ion_auth->is_admin()){ ?>
 	<li>
 		<a title="Cms Pages" href="<?php echo base_url();?>admin/admin/cache_mgnt"> <i class="fa fa-files-o"></i> Cache Management</a>
 	</li>
+	<?php } ?>
 	</ul>
 	</div>
 
@@ -75,6 +75,7 @@
             </div>
           </form>
         </li>
+        <?php if($this->ion_auth->is_admin()){ ?>
         <li class="t-li">
         	<select id="user_language" class="form-control">
         		<?php if(isset($language)){ ?>
@@ -84,7 +85,7 @@
         		<?php }?>
         	</select>
         </li>
-        
+        <?php } ?>
         <li class="t-li">
         	<div class="dropdown" style="<?php if(!isset($_SESSION['user_id'])){?>display:none;<?php } ?>">
   				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

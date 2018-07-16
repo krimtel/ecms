@@ -21,7 +21,7 @@
 				<div class="date-img-box"><img class="calender-img" alt="" src="../assest/images/calender.png" /></div>
 			</div>
 		</div>
-	
+	<?php if($this->ion_auth->is_admin()){ ?>
 	<div class="section-box">
 		<div class="box-header-t box-header-primary"><span>User List</span></div>
 		<div class="box-body-sec">
@@ -37,7 +37,7 @@
 						<tr><td>No language Found.</td></tr>
 					<?php } ?>
 					<tr>
-						<td colspan="3"><a href="academic-performance.html"><i class="fa fa-th-large"></i> View All</a></td>
+						<td colspan="3"><a href="<?php echo base_url(); ?>/admin/admin/users"><i class="fa fa-th-large"></i> View All</a></td>
 					</tr>
 			</table>
 		</div>
@@ -57,11 +57,12 @@
 						<tr><td>No language Found.</td></tr>
 					<?php } ?>
 					<tr>
-						<td colspan="4"><a href="attendance-record.html"><i class="fa fa-th-large"></i> View All</a></td>
+						<td colspan="4"><a href="<?php echo base_url(); ?>/admin/admin/language"><i class="fa fa-th-large"></i> View All</a></td>
 					</tr>
 				</table>
 			</div>
 		</div>
+		<?php } ?>
 		<div class="section-box">
 			<div class="box-header-t box-header-primary"><span>Pages</span></div>
 			<div class="box-body-sec">
@@ -78,7 +79,7 @@
 						<tr><td>No Page Found.</td></tr>
 					<?php } ?>
 					<tr>
-						<td colspan="3"><a href="leave-application.html"><i class="fa fa-th-large"></i> View All</a></td>
+						<td colspan="3"><a href="<?php echo base_url(); ?>/admin/admin/all_pages"><i class="fa fa-th-large"></i> View All</a></td>
 					</tr>
 				</tbody>
 				</table>
@@ -99,7 +100,7 @@
 						<tr><td>No Page Found.</td></tr>
 					<?php } ?>
 				<tr>
-					<td colspan="5"><a href="homeworks.html"><i class="fa fa-th-large"></i> View All</a></td>
+					<td colspan="5"><a href="<?php echo base_url(); ?>/admin/admin/events"><i class="fa fa-th-large"></i> View All</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -128,7 +129,7 @@
                 	</tr>
 				<?php $c++; } ?>
 					<tr>
-						<td colspan="5"><a href="homeworks.html"><i class="fa fa-th-large"></i> View All</a></td>
+						<td colspan="5"><a href="<?php echo base_url();?>/admin/admin/videos"><i class="fa fa-th-large"></i> View All</a></td>
 					</tr>
 			</tbody>
 		</table>
@@ -148,7 +149,7 @@
 	                </tr>
 				<?php $c++; } } ?>
 				<tr>
-					<td colspan="5"><a href="homeworks.html"><i class="fa fa-th-large"></i> View All</a></td>
+					<td colspan="5"><a href="<?php echo base_url(); ?>/admin/admin/slider"><i class="fa fa-th-large"></i> View All</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -167,7 +168,7 @@
 						No news found.
 					<?php } ?>
 				</marquee>
-				<div class="view-all-box"><a href="notice-announcements.html"><i class="fa fa-th-large"></i> View All</a></div>
+				<div class="view-all-box"><a href="<?php echo base_url(); ?>/admin/admin/news"><i class="fa fa-th-large"></i> View All</a></div>
 			</div>
 		</div>
 
