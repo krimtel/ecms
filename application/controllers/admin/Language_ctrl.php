@@ -110,13 +110,13 @@ class Language_ctrl extends CI_Controller {
 					$msg = 'Language creation successfully.';
 				}
 				
-				if(is_dir(base_url("application/language/".$this->input->post('l_eng')))){
-					//echo base_url("application/language/".$this->input->post('l_eng')); die;
-					echo "hello"; die;
+				if(is_dir(APPPATH.'/language/'.$this->input->post('l_eng'))){
+					
+					copy(FCPPATH.'/language/english/client_lang.php',FCPPATH.'/language/'.$this->input->post('l_eng')/".client_lang.php");
 				}
 				else{
 					 mkdir(APPPATH.'/language/'.$this->input->post('l_eng'));
-					 
+					 copy(FCPPATH.'/language/english/client_lang.php',FCPPATH.'/language/'.$this->input->post('l_eng')/".client_lang.php");
 				}
 				
 				echo json_encode(array('data'=>$result,'msg'=>$msg,'status'=>200));
