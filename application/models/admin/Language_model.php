@@ -19,7 +19,7 @@ class Language_model extends CI_Model {
 		$this->db->select('l_eng');
 		$res = 	$this->db->get_where('languages',array('l_id'=>$data['id']))->result_array();
 		//rename(FCPPATH.'/language/'.$result[0]['l_eng'], $data['l_eng']);
-		rename(APPPATH.'./language/'.$result[0]['l_eng'],APPPATH.'./language/'.$data['l_eng']);
+		rename(APPPATH.'./language/'.$res[0]['l_eng'],APPPATH.'./language/'.$data['l_eng']);
 		
 		
 		$this->db->where('l_id',$data['id']);
