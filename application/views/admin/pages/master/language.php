@@ -26,7 +26,15 @@
 						  <label class="col-sm-3 control-label">New Language</label>
 						  <div class="col-sm-9"><input type="text" id="language_name" class="form-control" placeholder="Enter new language">
 						   <div id="language_response" class="response text-danger"></div></div>
+			
 						  <div class="col-sm-9"><input type="hidden" id="language_id" class="form-control" value=""></div>
+						</div>
+						<div class="form-group">
+						  <label class="col-sm-3 control-label">Language Name In English</label>
+						  <div class="col-sm-9"><input type="text" id="language_name_eng" class="form-control" placeholder="Enter new language">
+						   <div id="language_response" class="response text-danger"></div></div>
+			
+						  <div class="col-sm-9"><input type="hidden" id="language_id_eng" class="form-control" value=""></div>
 						</div>
 					</div>
 					<div class="box-footer">

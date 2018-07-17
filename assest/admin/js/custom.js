@@ -205,6 +205,7 @@ $(document).ready(function(){
 		$('#language_create').show();
 		var l_name = $('#language_name').val();
 		var l_id = $('#language_id').val();
+		var l_eng = $('#language_name_eng').val();
 		
 		$.ajax({
 	        type: 'POST',
@@ -212,8 +213,8 @@ $(document).ready(function(){
 	        dataType: "json",
 	        data: {
 	        	'name'	: l_name,
-	        	'id'	: l_id
-	        	
+	        	'id'	: l_id,
+	        	'l_eng'  : l_eng
 	        },
 	        beforeSend: function(){
 	        	$('#loader').modal({'show':true});	
@@ -236,13 +237,14 @@ $(document).ready(function(){
 	///language update close
 	$(document).on('click','#language_create',function(){
 		var l_name = $('#language_name').val();
-		
+		var l_eng = $('#language_name_eng').val();
 		$.ajax({
 	        type: 'POST',
 	        url: baseUrl+'admin/Language_ctrl/language_create',
 	        dataType: "json",
 	        data: {
-	        	'name'	: l_name
+	        	'name'	: l_name,
+	        	'l_eng'  : l_eng
 	        	
 	        },
 	        beforeSend: function(){

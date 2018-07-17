@@ -16,9 +16,16 @@ class Language_model extends CI_Model {
 	
 	function language_edit($data){
 		$this->db->trans_begin();
+		$this->db->select('l_eng');
+		$res = 	$this->db->get_where('languages',array('l_id'=>$data['id']))->result_array();
+		//rename(FCPPATH.'/language/'.$result[0]['l_eng'], $data['l_eng']);
+		rename(APPPATH.'./language/'.$result[0]['l_eng'],APPPATH.'./language/'.$data['l_eng']);
+		
+		
 		$this->db->where('l_id',$data['id']);
 		$this->db->update('languages',array(
 				'l_name'=>$data['name'],
+				'l_eng'=>$data['l_eng'],
 				'updated_at' => $data['updated_at'],
 				'ip' => $data['ip'],
 				'last_update_by' => $data['user_id']

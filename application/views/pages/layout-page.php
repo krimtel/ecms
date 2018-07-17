@@ -2,7 +2,10 @@
 		<!--<div class="page-title" style="padding:0 4%;"> -->
 		<h3><?php //echo $page_title; ?></h3>
 	<!--</div> -->
-
+<?php
+	//echo "hello"; die;
+// echo $this->uri->segment(1); die;
+ ?>
 <div class="container-fuild" style="padding-left:4%;padding-right:4%;">
 	 <?php /* 3 column layout ============================*/?>
 	 <?php if($page_layout == 3){ ?>

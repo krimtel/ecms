@@ -44,12 +44,12 @@ class Language_ctrl extends CI_Controller {
 		$this->load->view('admin/comman/index',$data);
 	}
 	
-	function language_edit(){
-		
+	function language_edit(){ 
 		if($this->ion_auth->is_admin()){
 			$this->form_validation->set_rules('name', 'language name', 'required|trim|min_length[3]');
 			$this->form_validation->set_rules('id', 'language id', 'required|trim|integer|is_natural_no_zero');
 			$data['name'] = $this->input->post('name');
+			$data['l_eng'] = $this->input->post('l_eng');
 			$data['id'] = (int)$this->input->post('id');
 			$data['updated_at'] = date('d-m-y h:i:s');
 			$data['ip'] = $this->input->ip_address();
@@ -61,11 +61,9 @@ class Language_ctrl extends CI_Controller {
 			else{
 				$result = $this->Language_model->language_edit($data);
 				if($result){
+					
 					$this->file_update();
 					if($this->lang->line('language_update_success')){
-						
-						
-						rename(('application/language/'.$data['l_name']), $this->input->post('name'));
 						
 						
 						$msg  = $this->lang->line('language_update_success');
@@ -92,8 +90,10 @@ class Language_ctrl extends CI_Controller {
 	}
 	
 	function language_create(){
+		
 		if($this->ion_auth->is_admin()){
 			$data['l_name'] = $this->input->post('name');
+			$data['l_eng'] = $this->input->post('l_eng');
 			$data['created_at'] = date('d-m-y h:i:s');
 			$data['ip'] = $this->input->ip_address();
 			$data['last_update_by'] = $this->session->userdata('user_id');
@@ -102,24 +102,23 @@ class Language_ctrl extends CI_Controller {
 			if(count($result) > 0){
 
 				
-				if($this->lang->line('language_create_success')){
-					
-					
-					if(is_dir('application/language/'.$data['l_name'])){
-						echo "hello";  die;
-					}
-					else{
-						mkdir('application/language/'.$data['l_name']);
-						
-					}
-					
-					
+				if($this->lang->line('language_create_success')){				
 					
 					$msg  = $this->lang->line('language_create_success');
 				}
 				else{
 					$msg = 'Language creation successfully.';
 				}
+				
+				if(is_dir(base_url("application/language/".$this->input->post('l_eng')))){
+					//echo base_url("application/language/".$this->input->post('l_eng')); die;
+					echo "hello"; die;
+				}
+				else{
+					 mkdir(APPPATH.'/language/'.$this->input->post('l_eng'));
+					 
+				}
+				
 				echo json_encode(array('data'=>$result,'msg'=>$msg,'status'=>200));
 			}
 			else{
