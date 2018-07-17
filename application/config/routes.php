@@ -28,6 +28,7 @@ $route['admin/admin/add_page'] = 'admin/Page_ctrl/index';
 $route['admin/admin/add_page/(:num)'] = 'admin/Page_ctrl/index/$1';
 $route['admin/admin/all_pages'] = 'admin/Page_ctrl/all_pages';
 $route['admin/admin/cache_mgnt'] = 'admin/Cache_ctrl/index';
+$route['admin/admin/lang_file'] = 'admin/Lang_ctrl/index';
 $route['admin/admin/notification'] = 'admin/Notification_ctrl/admin_notification';
 $route['admin/admin/user_profile_update'] = 'admin/user_profile/profile';
 $route['admin/admin/profile_update'] = 'admin/user_profile/profile';

@@ -58,6 +58,9 @@
 		<a title="Cms Pages" href="<?php echo base_url();?>admin/admin/cache_mgnt"> <i class="fa fa-files-o"></i> Cache Management</a>
 	</li>
 	<?php } ?>
+	<li>
+		<a title="lang_file" href="<?php echo base_url();?>admin/admin/lang_file"> <i class="fa fa-files-o"></i> Language File</a>
+	</li>
 	</ul>
 	</div>
 

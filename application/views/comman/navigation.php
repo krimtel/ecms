@@ -17,24 +17,24 @@
                 			$f = 0;
                 			if($menu['p_id'] == 0){
 	                			foreach($menus as $submenu){
-	                				if($menu['id'] == $submenu['p_id']){
+	                				if($menu['id'] == $subm.enu['p_id']){
 	                					$f = 1;
 	                				}
 	                			}
 	                			if($f){
 	                				echo '<li class="dropdown">';
-	                				echo '<a href="'.$menu['cms_url'].'" class="dropdown-toggle" data-toggle="dropdown" title="'.$menu['title'].'">'.$menu['menu_name'].'<b class="caret"></b></a>';
+	                				echo '<a href="'.$menu['cms_url'].'" class="dropdown-toggle" data-toggle="dropdown" title="'.$menu['menu_name'].'">'.$menu['menu_name'].'<b class="caret"></b></a>';
 	                				echo '<ul class="dropdown-menu">';
 	                					foreach($menus as $innermenu){ 
 	                						if($innermenu['p_id'] == $menu['id']){
-	                							echo '<li><a href="'.base_url().$innermenu['cms_url'].'" title="'.$innermenu['title'].'"> '.$innermenu['menu_name'].'</a></li>';
+	                							echo '<li><a href="'.base_url().$innermenu['cms_url'].'" title="'.$innermenu['menu_name'].'"> '.$innermenu['menu_name'].'</a></li>';
 	                						}
 	                					}
 	                				echo '</ul>';
 	                				echo '</li>';
 	                			}
 	                			else{
-	                				echo '<li><a class="" title="'.$menu['title'].'" href="'.base_url().$menu['cms_url'].'">'.$menu['menu_name'].'</a></li>';
+	                				echo '<li><a class="" title="'.$menu['menu_name'].'" href="'.base_url().$menu['cms_url'].'">'.$menu['menu_name'].'</a></li>';
 	                			}
                 			}
                 	 } ?>

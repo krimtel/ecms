@@ -1004,6 +1004,30 @@ $(document).ready(function(){
 	$("#myImg").change(function(){
 	    readURL(this);
 	});
+	
+//////////////////User Lang Handle/////////////////////////
+	$(document).on('click','#upd_lang_file',function(){
+			var user_lang = $('#user_lang').val();
+			alert(user_lang); 
+			$.ajax({
+				type: 'POST',
+				url: baseUrl+'admin/Lang_ctrl/upd_lang_file',
+				dataType: "json",
+				data: {
+					'user_lang'	: user_lang
+				},
+				beforeSend: function(){
+					$('#loader').modal({'show':true});	
+				},
+				complete: function(){},
+				success:function (response) {
+					console.log(response);
+					$('#loader').modal('toggle');
+					location.reload();
+				}
+			});
+	});
+	
 });
 
 
