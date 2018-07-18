@@ -1,7 +1,5 @@
 <div id="myCarousel" class="carousel slide" data-ride="carousel" style="padding-top: 109px;">
 
-
-
 <div class="latest-news">
 	<div class="sidebar-header-title"><span class="e-text-news"><?php echo $this->lang->line('latest');?></span><span><?php echo $this->lang->line('announcements');?></span></div>
 		<div  class="focus-news">		

@@ -48,14 +48,13 @@
 		<div style="padding-left:30px;" class="col-lg-3 col-sm-3 home-n wow fadeInRight" data-wow-delay="0.5s">
 			<div class="focus-section">
 				<?php print_r($quickLinks); ?>
-				
 				<div class="booklet-section">
 					<ul>
 						<li><a title="eNAM Booklet" href=""><img alt="Logistic Details" src="<?php echo base_url();?>assest/images/new-theme/icon/booklet.png" /> <span><?php echo $this->lang->line('download');?></span><br><?php echo $this->lang->line('eNAM_Booklet');?></a></li>
 						<li><a title="Guidelines  Manual" href="guide.html"><img alt="Logistic Details" src="<?php echo base_url();?>assest/images/new-theme/icon/guideline.png" /><span><?php echo $this->lang->line('registration');?></span><br><?php echo $this->lang->line('guidelines_manual');?></a></li>
 					</ul>
 				</div>
-</div>
+			</div>
 		</div>
 	</div>
 </section>
