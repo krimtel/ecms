@@ -275,7 +275,7 @@ $(document).ready(function(){
 	});
 	///language create close
 	$(document).on('click','.language_delete',function(){
-		x = confirm('Are you sure.');
+		x = confirm('Sure to poceed with this!');
 		if(x){
 			var l_id = $(this).data('l_id');
 			var that = this;
@@ -884,7 +884,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click','.news_published',function(){
-		var x = confirm('Are you sure.');
+		var x = confirm('Sure to poceed with this!');
 		if(!x){
 			if($(this).prop('checked') == true){
 				$(this).prop('checked', false);
@@ -917,7 +917,7 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click','.news_delete',function(){
-		var x = confirm('Are you sure.'); 
+		var x = confirm('Sure to proceed with this?'); 
 		if(x){
 			var n_id = $(this).data('news_id');
 			$.ajax({
@@ -995,7 +995,7 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click','.widget_delete',function(){
-		var x = confirm('Are you sure.'); 
+		var x = confirm('Sure to proceed with this?'); 
 		if(x){
 			var w_id = $(this).data('widget_id');
 			$.ajax({
@@ -1641,7 +1641,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click','.link_published',function(){
-		var x = confirm('Are you sure.');
+		var x = confirm('Sure to proceed with this?');
 		if(!x){
 			if($(this).prop('checked') == true){
 				$(this).prop('checked', false);
@@ -1674,7 +1674,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click','.link_delete',function(){
-		var x = confirm('Are you sure.'); 
+		var x = confirm('Sure to proceed with this?'); 
 		if(x){
 			var l_id = $(this).data('link_id');
 			$.ajax({
@@ -1878,7 +1878,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click','.event_published',function(){
-		var x = confirm('Are you sure.');
+		var x = confirm('Sure to proceed with this?');
 		if(!x){
 			if($(this).prop('checked') == true){
 				$(this).prop('checked', false);
@@ -1910,7 +1910,7 @@ $(document).ready(function(){
 		}
 	});
 	$(document).on('click','.is_home',function(){
-		var x = confirm('Are you sure.');
+		var x = confirm('Sure to proceed with this?');
 		if(!x){
 			if($(this).prop('checked') == true){
 				$(this).prop('checked', false);
@@ -1943,7 +1943,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click','.event_delete',function(){
-		var x = confirm('Are you sure.'); 
+		var x = confirm('Sure to proceed with this?'); 
 		if(x){
 			var e_id = $(this).data('event_id');
 			$.ajax({
@@ -2112,6 +2112,29 @@ $(document).ready(function(){
 			beforeSend: function(){},
 			complete: function(){},
 			success:function (response) {
+			}
+		});
+	});
+	
+	
+	$(document).on('click','#title_update',function(){
+		var title_body = $('#title_body').val();
+		$.ajax({
+			type: 'POST',
+			url: baseUrl+'Enam_ctrl/rahul_test',
+			dataType: "json",
+			data: {
+				't_body' : title_body
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success:function (response) {
+				if(response.status == 200){
+					
+				}
+				else {
+					
+				}
 			}
 		});
 	});

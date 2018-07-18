@@ -81,10 +81,10 @@ class Video_ctrl extends CI_Controller {
     		$result = $this->Video_model->video_create($data);
 			if($result){
 				$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 			}
 		}
 	}
@@ -113,15 +113,15 @@ class Video_ctrl extends CI_Controller {
 				$result = $this->Video_model->video_publish($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+					echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 				}
 				else{
-					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+					echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 				}
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
 		}
 	}
 
@@ -139,10 +139,10 @@ class Video_ctrl extends CI_Controller {
 				$result = $this->Video_model->video_delete($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+					echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 				}
 				else{
-					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+					echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 				}
 			}
 		}
@@ -163,10 +163,10 @@ class Video_ctrl extends CI_Controller {
 			$data['updated_by'] = (int) $this->session->userdata('user_id');
 			$result = $this->Video_model->get_video_data($data);
 			if(count($result)>0){
-			 echo json_encode(array('data'=>$result,'msg'=>'news content.','status'=>200));
+			 echo json_encode(array('data'=>$result,'msg'=>'News content.','status'=>200));
 			}
 			else{
-			 echo json_encode(array('msg'=>'no record found.','status'=>500));
+			 echo json_encode(array('msg'=>'No record found.','status'=>500));
 			}
 		}
 	}
@@ -204,10 +204,10 @@ class Video_ctrl extends CI_Controller {
 			$result=$this->Video_model->video_update($data);
 			if($result){
 				$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 			}
 		}
 	}
@@ -232,10 +232,10 @@ class Video_ctrl extends CI_Controller {
 			$result=$this->Video_model->video_is_home($data);
 			if($result){
 				$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 			}
 		}
 	}
@@ -273,7 +273,7 @@ class Video_ctrl extends CI_Controller {
 					$data['ip'] = $this->input->ip_address();
 					$result = $this->Video_model->category_create($data);
 					if($result){
-						echo json_encode(array('msg'=>'video category created successfully.','status'=>200));
+						echo json_encode(array('msg'=>'Video category created successfully.','status'=>200));
 					}
 					else{
 						echo json_encode(array('msg'=>'Viedo category not created.','status'=>500));
@@ -288,7 +288,7 @@ class Video_ctrl extends CI_Controller {
 					$data['ip'] = $this->input->ip_address();
 					$result = $this->Video_model->category_update($data);
 					if($result){
-						echo json_encode(array('msg'=>'video category updated successfully.','status'=>200));
+						echo json_encode(array('msg'=>'Video category updated successfully.','status'=>200));
 					}
 					else{
 						echo json_encode(array('msg'=>'Viedo category not updated.','status'=>500));

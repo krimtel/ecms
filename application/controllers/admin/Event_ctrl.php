@@ -111,11 +111,11 @@ class Event_ctrl extends CI_Controller {
 					$result = $this->Event_model->event_create($data);
 					if($result){
 						$this->file_update();
-						echo json_encode(array('msg'=>'Event created successfully.','status'=>200));
+						echo json_encode(array('msg'=>'Event Created Successfully.','status'=>200));
 					}
 					else{
 						delete_files($uploadPath.$data['event_image']);
-						echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+						echo json_encode(array('msg'=>'Something Gone Wrong.','status'=>500));
 					}
 				}
 				else{
@@ -156,11 +156,11 @@ class Event_ctrl extends CI_Controller {
 					$result = $this->Event_model->event_update($data);
 					if($result){
 						$this->file_update();
-						echo json_encode(array('msg'=>'Event created successfully.','status'=>200));
+						echo json_encode(array('msg'=>'Event Created Successfully.','status'=>200));
 					}
 					else{
 						delete_files($uploadPath.$data['event_image']);
-						echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+						echo json_encode(array('msg'=>'Something gone Wrong.','status'=>500));
 					}
 				}
 				else{
@@ -172,10 +172,10 @@ class Event_ctrl extends CI_Controller {
 				$result = $this->Event_model->event_update($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'event updated successfully.','status'=>200));
+					echo json_encode(array('msg'=>'Event Updated Successfully.','status'=>200));
 				}
 				else{
-					echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+					echo json_encode(array('msg'=>'Something Gone Wrong.','status'=>500));
 				}
 			}
 		}
@@ -198,10 +198,10 @@ class Event_ctrl extends CI_Controller {
 		    $data['updated_by'] = (int) $this->session->userdata('user_id');
 	       	$result = $this->Event_model->get_event_content($data);
 		    if(count($result)>0){
-			echo json_encode(array('data'=>$result,'msg'=>'event content.','status'=>200));
+			echo json_encode(array('data'=>$result,'msg'=>'Event Content.','status'=>200));
 		}
 		else{
-			echo json_encode(array('msg'=>'no record found.','status'=>200));
+			echo json_encode(array('msg'=>'No Record Found.','status'=>200));
 		}
 	}
 	   }
@@ -227,10 +227,10 @@ class Event_ctrl extends CI_Controller {
 			 $result = $this->Event_model->event_publish($data);
 			 if($result){
 			 	$this->file_update();
-			   	echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			   	echo json_encode(array('msg'=>'Operation Successfull.','status'=>200));
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				echo json_encode(array('msg'=>'Something Wrong.','status'=>500));
 			}
 		}
 		}
@@ -255,14 +255,14 @@ class Event_ctrl extends CI_Controller {
 			if($result){
 				//print_r($result); die;
 				$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				echo json_encode(array('msg'=>'Operation Successfull.','status'=>200));
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				echo json_encode(array('msg'=>'Something Wrong.','status'=>500));
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'you Are Not Authorized.','status'=>500));
 		}
 	}
 	function news_delete(){
@@ -271,14 +271,14 @@ class Event_ctrl extends CI_Controller {
 			$result = $this->News_model->news_delete($data);
 			if($result){
 				$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				echo json_encode(array('msg'=>'Operation Successfull.','status'=>200));
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				echo json_encode(array('msg'=>'Something Wrong.','status'=>500));
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'you Are Not Authorized.','status'=>500));
 		}
 	}
 	
@@ -288,14 +288,14 @@ class Event_ctrl extends CI_Controller {
 			$result = $this->Event_model->event_delete($data);
 			if($result){
 				$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				echo json_encode(array('msg'=>'Operation Successfull.','status'=>200));
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				echo json_encode(array('msg'=>'Something Wrong.','status'=>500));
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'You Are Not Authorized.','status'=>500));
 		}
 	}
 	

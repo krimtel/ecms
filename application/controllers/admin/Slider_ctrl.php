@@ -235,15 +235,15 @@ class Slider_ctrl extends CI_Controller {
 				$result = $this->Slider_model->slider_publish($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+					echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 				}
 				else{
-					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+					echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 				}
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
 		}
 	}
 	
@@ -260,15 +260,15 @@ class Slider_ctrl extends CI_Controller {
 				$result = $this->Slider_model->slider_delete($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+					echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 				}
 				else{
-					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+					echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 				}
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
 		}
 	}
 	

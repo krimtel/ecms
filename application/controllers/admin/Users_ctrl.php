@@ -43,10 +43,10 @@ class Users_ctrl extends CI_Controller {
 		$u_id = $this->input->post('id');
 		$result = $this->Users_model->get_user_language($u_id);
 		if(count($result) > 0){
-			echo json_encode(array('data'=>$result,'msg'=>'record found.','status'=>200));
+			echo json_encode(array('data'=>$result,'msg'=>'Record found.','status'=>200));
 		}
 		else{
-			echo json_encode(array('msg'=>'no record found.','status'=>500));
+			echo json_encode(array('msg'=>'No record found.','status'=>500));
 		}
 	}
 	
@@ -144,7 +144,7 @@ class Users_ctrl extends CI_Controller {
 			
 			$result = $this->ion_auth->register($identity, $password, $email, $additional_data);
 			if($result){
-				echo json_encode(array('msg'=>'user created successfully.','status'=>200));
+				echo json_encode(array('msg'=>'User created successfully.','status'=>200));
 			}
 			else{
 				echo json_encode(array('msg'=>'Error occured.','status'=>500));
@@ -170,7 +170,7 @@ class Users_ctrl extends CI_Controller {
 					echo json_encode(array('data'=>$result,'msg'=>'user detail.','status'=>200));
 				}
 				else{
-					echo json_encode(array('msg'=>'no record found.','status'=>500));
+					echo json_encode(array('msg'=>'No record found.','status'=>500));
 				}
 			}
 		}

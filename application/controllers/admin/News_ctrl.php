@@ -92,7 +92,7 @@ class News_ctrl extends CI_Controller {
 					}
 				}
 				else{
-					echo json_encode(array('msg'=>'You Dont have permission.','status'=>500));
+					echo json_encode(array('msg'=>'You dont have permission.','status'=>500));
 				}
 			}
 		}

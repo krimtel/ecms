@@ -94,7 +94,11 @@
 		</div>
 		</section>
 		
-		<section class="col-lg-3 connectedSortable">
+		<?php if($group != 'subadmin'){ ?>
+			<section class="col-lg-6 connectedSortable">
+		<?php } else { ?>
+			<section class="col-lg-3 connectedSortable">
+		<?php } ?>
 		<div class="box box-primary">
 			<div class="box-header with-border">
 			  <h3 class="box-title">All Menus</h3>
@@ -115,7 +119,7 @@
 	      					else{
 	      						echo '<li>'.$menu['menu_name'].' <span class="pull-right"><a class="menu_list_item btn btn-info btn-flat " data-m_id="'.$menu['id'].'"><i class="fa fa-pencil"></i></a>';
 								if($this->session->userdata('group_name') == 'admin'){	      						
-	      							echo '<a class="btn btn-info btn-flat  menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class="fa fa-trash"></i></a></span></li>';
+	      							echo '&nbsp;&nbsp;&nbsp;<a class="btn btn-info btn-flat  menu_list_item_delete" data-m_id="'.$menu['id'].'"><i class="fa fa-trash"></i></a></span></li>';
 								}
 								else{
 									echo '</li>';
@@ -135,7 +139,7 @@
 		      							else{
 		      								echo '<li>'.$m1['menu_name'].' <span class="pull-right"><a class="btn btn-info btn-flat menu_list_item" data-m_id="'.$m1['id'].'"><i class="fa fa-pencil"></i></a>';
 		      								if($this->session->userdata('group_name') == 'admin'){
-		      									echo '<a class="btn btn-info btn-flat menu_list_item_delete" data-m_id="'.$m1['id'].'"><i class="fa fa-trash"></i></a></span></li>';
+		      									echo '&nbsp;&nbsp;&nbsp;<a class="btn btn-info btn-flat menu_list_item_delete" data-m_id="'.$m1['id'].'"><i class="fa fa-trash"></i></a></span></li>';
 		      								}
 		      								else{
 		      									echo '</li>';
@@ -158,6 +162,7 @@
             </div>
 		</div>
 		</section>
+		<?php if($group == 'subadmin'){ ?>
 		<section class="col-lg-3 connectedSortable">
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -208,6 +213,7 @@
             </div>			
 		</div>
 		</section>
+		<?php } ?>
 		</div>
 		</section>
 </div>

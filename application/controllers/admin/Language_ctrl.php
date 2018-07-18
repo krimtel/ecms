@@ -44,12 +44,12 @@ class Language_ctrl extends CI_Controller {
 		$this->load->view('admin/comman/index',$data);
 	}
 	
-	function language_edit(){ 
+	function language_edit(){
+		
 		if($this->ion_auth->is_admin()){
 			$this->form_validation->set_rules('name', 'language name', 'required|trim|min_length[3]');
 			$this->form_validation->set_rules('id', 'language id', 'required|trim|integer|is_natural_no_zero');
 			$data['name'] = $this->input->post('name');
-			$data['l_eng'] = $this->input->post('l_eng');
 			$data['id'] = (int)$this->input->post('id');
 			$data['updated_at'] = date('d-m-y h:i:s');
 			$data['ip'] = $this->input->ip_address();
@@ -61,11 +61,8 @@ class Language_ctrl extends CI_Controller {
 			else{
 				$result = $this->Language_model->language_edit($data);
 				if($result){
-					
 					$this->file_update();
 					if($this->lang->line('language_update_success')){
-						
-						
 						$msg  = $this->lang->line('language_update_success');
 					}
 					else{
@@ -90,24 +87,19 @@ class Language_ctrl extends CI_Controller {
 	}
 	
 	function language_create(){
-		
 		if($this->ion_auth->is_admin()){
 			$data['l_name'] = $this->input->post('name');
-			$data['l_eng'] = $this->input->post('l_eng');
 			$data['created_at'] = date('d-m-y h:i:s');
 			$data['ip'] = $this->input->ip_address();
 			$data['last_update_by'] = $this->session->userdata('user_id');
 			
 			$result = $this->Language_model->language_create($data);
 			if(count($result) > 0){
-
-				
-				if($this->lang->line('language_create_success')){				
-					
+				if($this->lang->line('language_create_success')){
 					$msg  = $this->lang->line('language_create_success');
 				}
 				else{
-					$msg = 'Language creation successfully.';
+					$msg = 'Language Creation Successfully.';
 				}
 				
 				if(is_dir(APPPATH.'/language/'.$this->input->post('l_eng'))){
@@ -126,13 +118,13 @@ class Language_ctrl extends CI_Controller {
 					$msg  = $this->lang->line('language_create_failed');
 				}
 				else{
-					$msg = 'Language creation failed.';
+					$msg = 'Language Creation Failed.';
 				}
 				echo json_encode(array('msg'=>$msg,'status'=>500));
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'You Are Not Authorized.','status'=>500));
 		}
 	
 		
@@ -159,7 +151,7 @@ class Language_ctrl extends CI_Controller {
 						$msg  = $this->lang->line('language_delete_success');
 					}
 					else{
-						$msg = 'Language delete successfully.';
+						$msg = 'Language Delete Successfully.';
 					}
 					echo json_encode(array('msg'=>$msg,'status'=>200));
 				}
@@ -168,7 +160,7 @@ class Language_ctrl extends CI_Controller {
 						$msg  = $this->lang->line('language_delete_failed');
 					}
 					else{
-						$msg = 'Language delete failed.';
+						$msg = 'Language Delete Failed.';
 					}
 					echo json_encode(array('msg'=>$msg,'status'=>500));
 				}
@@ -183,10 +175,10 @@ class Language_ctrl extends CI_Controller {
 		$language = $this->input->post('language');
 		$result = $this->db->get_where('languages',array('l_name'=>$language,'status'=>1))->result_array();
 		if(count($result) > 0){
-			echo json_encode(array('msg'=>'This language already Exist.','status'=>500));
+			echo json_encode(array('msg'=>'This language already exist.','status'=>500));
 		}
 		else{
-			echo json_encode(array('msg'=>'congrets.','status'=>200));
+			echo json_encode(array('msg'=>'Congretes.','status'=>200));
 		}
 	}
 }

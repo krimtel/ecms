@@ -11,7 +11,8 @@ class Enam_ctrl extends CI_Controller {
 		$this->load->library(array('session'));
 		if(!$this->session->userdata('client_language')){
 			$newdata = array(
-					'client_language'  => '1'
+					'client_language'  => '1',
+					'lang_folder' => 'english'
 			);
 			$this->session->set_userdata($newdata);
 		}
@@ -411,31 +412,16 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/training-calender/training-calender1',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
+	
+	
 
 	function rahul_test(){
-		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
-		if(count($file_menu)){
-			$data['languages'] = $file_menu;
-		}
-		else{
-			$data['languages'] = $this->Language_model->get_all_language();
-			$json = json_encode($data['languages']);
-			$file = FCPATH . '/software_files/Language.txt';
-			file_put_contents ($file, $json);
-		}
-		$data['head'] = $this->load->view('comman/head_1','',TRUE);
-		//$data['head'] = 'head';
-		$data['header'] = $this->load->view('comman/header',$data,TRUE);
-		//$data['header'] = 'header';
-		$this->load->view('comman/index',$data);
-
-		//echo "sdf"; die;
+		$file = FCPATH . '/software_files/rahul.txt';
+		$json = $this->input->post('t_body');		
+		file_put_contents ($file, $json);
 	}
 
-
-
-
-	function time_elapsed_string($time) {
+		function time_elapsed_string($time) {
 		$time_difference = time() - $time;
 		if( $time_difference < 1 ) { return 'less than 1 second ago'; }
 		$condition = array( 12 * 30 * 24 * 60 * 60 =>  'year',

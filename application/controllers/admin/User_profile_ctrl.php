@@ -94,10 +94,10 @@ class User_profile_ctrl extends CI_Controller {
 		$result = $this->User_profile_model->profile_update($data);
 		if($result){
 			//$this->file_update();
-			echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+			echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 		}
 		else{
-			echo json_encode(array('msg'=>'something wrong.','status'=>500));
+			echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 		}
 	}
 			

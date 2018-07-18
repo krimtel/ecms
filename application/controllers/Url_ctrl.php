@@ -11,7 +11,8 @@ class Url_ctrl extends CI_Controller {
 		$this->load->library(array('session'));
 		if(!$this->session->userdata('client_language')){
 			$newdata = array(
-					'client_language'  => '1'
+					'client_language'  => '1',
+					'lang_folder' => 'english'
 			);
 			$this->session->set_userdata($newdata);
 		}

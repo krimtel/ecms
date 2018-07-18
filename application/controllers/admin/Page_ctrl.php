@@ -333,7 +333,7 @@ class Page_ctrl extends CI_Controller {
 				
 				if ($this->db->trans_status() === FALSE){
 					$this->db->trans_rollback();
-					echo json_encode(array('msg'=>'Page not updated Successfully.','status'=>500)); 
+					echo json_encode(array('msg'=>'Page not updated successfully.','status'=>500)); 
 				}
 				else{
 					$this->db->trans_commit();

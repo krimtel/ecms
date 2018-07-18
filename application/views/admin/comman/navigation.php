@@ -40,6 +40,7 @@
 			<ul class="dropdown-menu">
 				<li><a title="Pages" href="<?php echo base_url(); ?>admin/admin/all_pages"> <i class="fa fa-clone" aria-hidden="true" ></i> Pages </a></li>
 				<li><a title="Menu" href="<?php echo base_url(); ?>admin/admin/menus"> <i class="fa fa-ellipsis-h" aria-hidden="true" ></i> Menu </a></li>
+				<li><a title="Menu" href="<?php echo base_url(); ?>admin/admin/home_content"> <i class="fa fa-ellipsis-h" aria-hidden="true" ></i> Home Content </a></li>
 			</ul>
 	</li>
 	<li class="dropdown">

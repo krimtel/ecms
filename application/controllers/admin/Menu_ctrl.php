@@ -111,7 +111,7 @@ class Menu_ctrl extends CI_Controller {
 				$result = $this->Menu_model->menu_update($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'menu updated successfully.','status'=>200));
+					echo json_encode(array('msg'=>'Menu Updated Successfully.','status'=>200));
 				}
 				else{
 					echo json_encode(array('msg'=>'some error found.','status'=>500));
@@ -121,7 +121,7 @@ class Menu_ctrl extends CI_Controller {
 				$result = $this->Menu_model->menu_create($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'menu created susseccfully.','status'=>200));
+					echo json_encode(array('msg'=>'Menu created susseccfully.','status'=>200));
 				}
 				else{
 					echo json_encode(array('msg'=>'some error found.','status'=>500));
@@ -151,7 +151,7 @@ class Menu_ctrl extends CI_Controller {
 			$result = $this->Menu_model->menu_delete($data);
 			if($result){
 				$this->file_update();
-				echo json_encode(array('msg'=>'menu deleted successfully.','status'=>200));
+				echo json_encode(array('msg'=>'Menu deleted successfully.','status'=>200));
 			}
 			else{
 				echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
@@ -163,7 +163,7 @@ class Menu_ctrl extends CI_Controller {
 			$result = $this->Menu_model->menu_delete($data);
 			if($result){
 				$this->file_update();
-				echo json_encode(array('msg'=>'menu deleted successfully.','status'=>200));
+				echo json_encode(array('msg'=>'Menu deleted successfully.','status'=>200));
 			}
 			else{
 				echo json_encode(array('msg'=>'You are not authorized.','status'=>500));

@@ -15,17 +15,9 @@ class Lang_ctrl extends CI_Controller {
 		}
 	}
 
-	function file_update(){
-		$data['languages'] = $this->Language_model->get_all_language();
-		$json = json_encode($data['languages']);
-		file_put_contents ($file, $json);
-	}
-
 	public function index(){
-		
 		$data['title'] = 'eNam Admin';
-		$this->load->helper('directory');
-		$data['files'] = directory_map('./software_files');
+		$data['file_body'] = file_get_contents(FCPATH . '/software_files/rahul.txt');
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);

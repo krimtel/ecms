@@ -319,8 +319,9 @@ $(document).ready(function(){
 				success:function (response) {
 					console.log(response);
 					if(response.status == 200){
-						$('#loader #myModalLabel').html('vivek');
-						$('#loader .modal-footer').hide();
+						$('#loader').modal('toggle');	
+						$('#loader-1 #myModalLabel').html('Slider Update');
+						$('#loader-1 .modal-footer').hide();
 						var x = '<form name="f1" id="slider_update_popup" method="POST" enctype="multipart/form-data" action="'+ baseUrl +'admin/Slider_ctrl/slider_update_subadmin" class="form-horizontal">'+
 							  		'<div class="form-group">'+
 							  			'<label for="inputEmail3" class="col-sm-2 control-label">Email</label>'+
@@ -345,8 +346,12 @@ $(document).ready(function(){
 						  		'</div>'+
 							  	'</div>'+
 							  '</form>';
-						$('#loader .modal-body').html(x);
-						
+						$('#loader-1 .modal-body').html(x);
+						$('#loader-1').modal({
+        	    			show : true,
+        	    			backdrop : false,
+        	    			keyboard: false
+        	    		});
 						
 //						$('#image_upload_preview').attr('src',baseUrl+'Slider_gallary/'+ response.data[0].lang_id +'/'+response.data[0].slider_image);
 //						$('#slider_id').val(response.data[0].s_id);
@@ -436,8 +441,9 @@ $(document).ready(function(){
 				success:function (response) {
 					console.log(response);
 					if(response.status == 200){
-						$('#loader #myModalLabel').html('vivek');
-						$('#loader .modal-footer').hide();
+						$('#loader').modal('toggle');	
+						$('#loader-1 #myModalLabel').html('slider update');
+						$('#loader-1 .modal-footer').hide();
 						var x = '<form name="f1" id="slider_update_popup" method="POST" enctype="multipart/form-data" action="'+ baseUrl +'admin/Slider_ctrl/slider_update_subadmin" class="form-horizontal">'+
 							  		'<div class="form-group">'+
 							  			'<label for="inputEmail3" class="col-sm-2 control-label">Email</label>'+
@@ -462,11 +468,12 @@ $(document).ready(function(){
 						  		'</div>'+
 							  	'</div>'+
 							  '</form>';
-						$('#loader .modal-body').html(x);
+						$('#loader-1 .modal-body').html(x);
 					}
 					else{
-						$('#loader #myModalLabel').html('vivek');
-						$('#loader .modal-footer').hide();
+						$('#loader').modal('toggle');
+						$('#loader-1 #myModalLabel').html('slider update');
+						$('#loader-1 .modal-footer').hide();
 						//$('#loader .modal-footer').html('<input type="button" class="btn btn-primary" id="slider_update_popup" value="update">');
 						var x = '<form name="f1" id="slider_update_popup" method="POST" enctype="multipart/form-data" action="'+ baseUrl +'admin/Slider_ctrl/slider_update_subadmin" class="form-horizontal">'+
 							  		'<div class="form-group">'+
@@ -491,12 +498,12 @@ $(document).ready(function(){
 						  		'</div>'+
 							  	'</div>'+
 							  '</form>';
-						$('#loader .modal-body').html(x);
+						$('#loader-1 .modal-body').html(x);
 					}
 				}
 		});
 		
-		$('#loader').modal({
+		$('#loader-1').modal({
 			show : true,
 			keyboard : false,
 			backdrop : false

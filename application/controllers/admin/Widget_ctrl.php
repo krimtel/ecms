@@ -75,7 +75,7 @@ class Widget_ctrl extends CI_Controller {
 				$data['widget_content'] = $this->input->post('widget_content');
 				$result = $this->Widget_model->widget_update($data);
 				if($result){
-					echo json_encode(array('msg'=>'widget updated successfully.','status'=>200));
+					echo json_encode(array('msg'=>'Widget updated successfully.','status'=>200));
 				}
 				else{
 					echo json_encode(array('msg'=>'Something gonna wrong.','status'=>500));
@@ -87,7 +87,7 @@ class Widget_ctrl extends CI_Controller {
 					$data['widget_name'] = $this->input->post('widget_name');
 					$data['widget_content'] = $this->input->post('widget_content');
 					$result = $this->Widget_model->widget_create($data);
-					echo json_encode(array('data'=>$result,'msg'=>'widget created successfully.','status'=>200));
+					echo json_encode(array('data'=>$result,'msg'=>'Widget created successfully.','status'=>200));
 				}
 				else{
 					echo json_encode(array('msg'=>'Not authorized for creating widgets.','status'=>500));
@@ -118,14 +118,14 @@ class Widget_ctrl extends CI_Controller {
 			$result = $this->Widget_model->widget_delete($data);
 			if($result){
 				//$this->file_update();
-				echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+				echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 			}
 			else{
-				echo json_encode(array('msg'=>'something wrong.','status'=>500));
+				echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
 		}
 		
 	}
@@ -148,7 +148,7 @@ class Widget_ctrl extends CI_Controller {
 			echo json_encode(array('data'=>$result,'status'=>500));
 		}
 		else{
-			echo json_encode(array('msg'=>'no record found','status'=>200));
+			echo json_encode(array('msg'=>'No record found','status'=>200));
 		}
 	}
 	

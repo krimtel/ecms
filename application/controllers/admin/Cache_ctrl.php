@@ -42,6 +42,6 @@ class Cache_ctrl extends CI_Controller {
 			file_put_contents ($file, "");
 		}
 		
-		echo json_encode(array('msg'=>'file clear successfully.','status'=>200));
+		echo json_encode(array('msg'=>'File Clear Successfully.','status'=>200));
 	}
 }

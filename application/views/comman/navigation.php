@@ -17,7 +17,7 @@
                 			$f = 0;
                 			if($menu['p_id'] == 0){
 	                			foreach($menus as $submenu){
-	                				if($menu['id'] == $subm.enu['p_id']){
+	                				if($menu['id'] == $submenu['p_id']){
 	                					$f = 1;
 	                				}
 	                			}

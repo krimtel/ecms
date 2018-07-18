@@ -13,9 +13,17 @@ class Ajax_ctrl extends CI_Controller {
 	
 	function language_select(){
 		$l_id = $this->input->post('l_id');
-		$this->session->set_userdata('client_language', $l_id);
+		
+		$this->db->select('*');
+		$result = $this->db->get_where('languages',array('l_id'=>$l_id))->result_array();
+		
+		$session_data = array(
+			'client_language' => $l_id,
+			'lang_folder' => $result[0]['l_eng']
+		);
+		$this->session->set_userdata($session_data);
 		header('content-Type: application/json');
-			echo json_encode(array('msg'=>'language slected.','status'=>200));
+			echo json_encode(array('msg'=>'Language slected.','status'=>200));
 		die;
 	}
 }

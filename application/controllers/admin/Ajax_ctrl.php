@@ -32,7 +32,7 @@ class Ajax_ctrl extends CI_Controller {
 						echo json_encode(array('data'=>$widgets,'data2'=>$layout,'status'=>200));
 					}
 					else{
-						echo json_encode(array('data'=>$widgets,'data2'=>$layout,'msg'=>'no Component is added int this Page.','status'=>200));
+						echo json_encode(array('data'=>$widgets,'data2'=>$layout,'msg'=>'No component is added in this page.','status'=>200));
 					}
 				}
 				
@@ -43,7 +43,7 @@ class Ajax_ctrl extends CI_Controller {
 						echo json_encode(array('data'=>$widgets,'data2'=>$layout,'status'=>200));
 					}
 					else{
-						echo json_encode(array('data'=>$widgets,'data2'=>$layout,'msg'=>'no Component is added int this Page.','status'=>200));
+						echo json_encode(array('data'=>$widgets,'data2'=>$layout,'msg'=>'No component is added in this page.','status'=>200));
 					}
 				}
 				
@@ -54,16 +54,16 @@ class Ajax_ctrl extends CI_Controller {
 						echo json_encode(array('data'=>$widgets,'data2'=>$layout,'status'=>200));
 					}
 					else{
-						echo json_encode(array('data'=>$widgets,'data2'=>$layout,'msg'=>'no Component is added int this Page.','status'=>200));
+						echo json_encode(array('data'=>$widgets,'data2'=>$layout,'msg'=>'No component is added in this page.','status'=>200));
 					}
 				}
 			}
 			else{
-				echo json_encode(array('data'=>$widgets,'msg'=>'all widgets','status'=>200));
+				echo json_encode(array('data'=>$widgets,'msg'=>'All Widgets.','status'=>200));
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'no record found.','status'=>500));
+			echo json_encode(array('msg'=>'No Record Found.','status'=>500));
 		}
 	}
 	
@@ -71,10 +71,10 @@ class Ajax_ctrl extends CI_Controller {
 	function get_all_language(){
 		$result = $this->Language_model->get_all_language();
 		if(count($result) > 0){
-			echo json_encode(array('data'=>$result,'msg'=>'all languages.','status'=>200));
+			echo json_encode(array('data'=>$result,'msg'=>'All Languages.','status'=>200));
 		}
 		else{
-			echo json_encode(array('msg'=>'no record found.','status'=>500));
+			echo json_encode(array('msg'=>'No Record Found.','status'=>500));
 		}
 	}
 	
@@ -95,7 +95,7 @@ class Ajax_ctrl extends CI_Controller {
 		$this->db->select('*');
 		$result = $this->db->get_where('pages',array('page_name'=>$text,'status'=>1))->result_array();
 		if(count($result) > 0){
-			echo json_encode(array('msg'=>'page is alread exsist.','status'=>500));
+			echo json_encode(array('msg'=>'Page is alread exsist.','status'=>500));
 		}
 		else{
 			echo json_encode(array('msg'=>'Congatualtions.','status'=>200));

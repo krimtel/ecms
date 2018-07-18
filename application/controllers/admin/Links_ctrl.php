@@ -74,10 +74,10 @@ class Links_ctrl extends CI_Controller {
 				$result = $this->Links_model->link_update($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+					echo json_encode(array('msg'=>'Operation Successfull.','status'=>200));
 				}
 				else{
-					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+					echo json_encode(array('msg'=>'Something Wrong.','status'=>500));
 				}
 			}
 			else{
@@ -86,7 +86,7 @@ class Links_ctrl extends CI_Controller {
 					$result = $this->Links_model->link_create($data);
 					if(count($result) > 0){
 						$this->file_update();
-						echo json_encode(array('data'=>$result,'msg'=>'link created successfully.','status'=>200));
+						echo json_encode(array('data'=>$result,'msg'=>'Link Created Successfully.','status'=>200));
 					}
 					else{
 						echo json_encode(array('msg'=>'link not created successfully.','status'=>500));
@@ -119,7 +119,7 @@ class Links_ctrl extends CI_Controller {
 				echo json_encode(array('data'=>$result,'msg'=>'link content.','status'=>200));
 			}
 			else{
-				echo json_encode(array('msg'=>'no record found.','status'=>200));
+				echo json_encode(array('msg'=>'No Record Found.','status'=>200));
 			}
 		}
 	}
@@ -145,15 +145,15 @@ class Links_ctrl extends CI_Controller {
 				$result = $this->Links_model->link_publish($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+					echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 				}
 				else{
-					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+					echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 				}
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
 		}
 	}
 	
@@ -169,15 +169,15 @@ class Links_ctrl extends CI_Controller {
 				$result = $this->Links_model->link_delete($data);
 				if($result){
 					$this->file_update();
-					echo json_encode(array('msg'=>'operation successfull.','status'=>200));
+					echo json_encode(array('msg'=>'Operation successfull.','status'=>200));
 				}
 				else{
-					echo json_encode(array('msg'=>'something wrong.','status'=>500));
+					echo json_encode(array('msg'=>'Something wrong.','status'=>500));
 				}
 			}
 		}
 		else{
-			echo json_encode(array('msg'=>'you are not authorized.','status'=>500));
+			echo json_encode(array('msg'=>'You are not authorized.','status'=>500));
 		}
 	}
 }
