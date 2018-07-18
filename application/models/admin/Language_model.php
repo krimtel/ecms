@@ -71,6 +71,7 @@ class Language_model extends CI_Model {
 	}
 	
 	function language_delete($data){
+		
 		$this->db->trans_begin();
 		$this->db->where('l_id',$data['id']);
 		$this->db->update('languages',array(
@@ -81,7 +82,32 @@ class Language_model extends CI_Model {
 				)
 			);
 		if($this->db->affected_rows()){
-			//////////update log table 
+			
+			$this->db->select('*');
+			$result = $this->db->get_where('languages',array('l_id'=>$data['id']))->result_array();
+			$fol = $result[0]['l_eng'];
+			$dirname = (APPPATH.'/language/'.$fol);
+			
+			function delete_directory($dirname) {
+				if (is_dir($dirname))
+					$dir_handle = opendir($dirname);
+					if (!$dir_handle)
+						return false;
+						while($file = readdir($dir_handle)) {
+							if ($file != "." && $file != "..") {
+								if (!is_dir($dirname."/".$file))
+									unlink($dirname."/".$file);
+									else
+										delete_directory($dirname.'/'.$file);
+							}
+						}
+						closedir($dir_handle);
+						rmdir($dirname);
+						return true;
+			}
+			
+			
+			//////////update log table///////////////////////////////// 
 			$ect['e_id'] = 3;
 			$ect['e_primary_id'] = $data['id'];
 			$ect['created_at'] = $data['updated_at'];

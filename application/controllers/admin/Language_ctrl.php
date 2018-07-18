@@ -128,7 +128,7 @@ class Language_ctrl extends CI_Controller {
 	
 	}
 	
-	function language_delete(){
+	function language_delete(){ 
 		if ($this->ion_auth->is_admin()){
 			$this->form_validation->set_rules('id', 'language id', 'required|trim|integer|is_natural_no_zero');
 			
@@ -143,6 +143,7 @@ class Language_ctrl extends CI_Controller {
 			else{
 				$result = $this->Language_model->language_delete($data);
 				if($result){
+					
 					if($this->lang->line('language_delete_success')){
 						$msg  = $this->lang->line('language_delete_success');
 					}

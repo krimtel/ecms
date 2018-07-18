@@ -191,6 +191,7 @@ $(document).ready(function(){
 		$('#language_create').hide();
 		$('#language_name').val($(this).data('l_name'));
 		$('#language_id').val($(this).data('l_id'));
+		
 	});
 	
 	$(document).on('click','#language_reset',function(){
@@ -263,6 +264,7 @@ $(document).ready(function(){
             					'<td>'+
             					'<a class="class_edit btn btn-info btn-flat language_edit" data-l_id="'+ response.data[0].l_id +'" data-l_name="'+ response.data[0].l_name +'"><i class="fa fa-pencil"></i></a>'+
             					'<a class="class_delete btn btn-info btn-flat language_delete" data-l_id="'+ response.data[0].l_id +'" data-l_name="'+ response.data[0].l_name +'"><i class="fa fa-trash"></i></a>'+
+            					
             					'</td>'+
             				'</tr>';
 	        		$('#class_display').append(x);
