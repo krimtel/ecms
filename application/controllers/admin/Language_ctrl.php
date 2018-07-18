@@ -50,6 +50,7 @@ class Language_ctrl extends CI_Controller {
 			$this->form_validation->set_rules('name', 'language name', 'required|trim|min_length[3]');
 			$this->form_validation->set_rules('id', 'language id', 'required|trim|integer|is_natural_no_zero');
 			$data['name'] = $this->input->post('name');
+			$data['l_eng'] = $this->input->post('l_eng');
 			$data['id'] = (int)$this->input->post('id');
 			$data['updated_at'] = date('d-m-y h:i:s');
 			$data['ip'] = $this->input->ip_address();
@@ -89,6 +90,7 @@ class Language_ctrl extends CI_Controller {
 	function language_create(){
 		if($this->ion_auth->is_admin()){
 			$data['l_name'] = $this->input->post('name');
+			$data['l_eng'] = $this->input->post('l_eng');
 			$data['created_at'] = date('d-m-y h:i:s');
 			$data['ip'] = $this->input->ip_address();
 			$data['last_update_by'] = $this->session->userdata('user_id');
@@ -102,13 +104,10 @@ class Language_ctrl extends CI_Controller {
 					$msg = 'Language Creation Successfully.';
 				}
 				
-				if(is_dir(APPPATH.'/language/'.$this->input->post('l_eng'))){
+				if(!is_dir(APPPATH.'/language/'.$this->input->post('l_eng'))){
 					
-					copy(FCPPATH.'/language/english/client_lang.php',FCPPATH.'/language/'.$this->input->post('l_eng')/".client_lang.php");
-				}
-				else{
-					 mkdir(APPPATH.'/language/'.$this->input->post('l_eng'));
-					 copy(FCPPATH.'/language/english/client_lang.php',FCPPATH.'/language/'.$this->input->post('l_eng')/".client_lang.php");
+					mkdir(APPPATH.'/language/'.$this->input->post('l_eng'));
+					copy(APPPATH.'/language/english/client_lang.php',APPPATH.'/language/'.$this->input->post('l_eng').'/client_lang.php');
 				}
 				
 				echo json_encode(array('data'=>$result,'msg'=>$msg,'status'=>200));
@@ -126,9 +125,6 @@ class Language_ctrl extends CI_Controller {
 		else{
 			echo json_encode(array('msg'=>'You Are Not Authorized.','status'=>500));
 		}
-	
-		
-	
 	
 	}
 	
