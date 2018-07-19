@@ -18,7 +18,7 @@ class Lang_ctrl extends CI_Controller {
 	public function index(){
 		$data['title'] = 'eNam Admin';
 		$data['file_body'] = file_get_contents(FCPATH . '/software_files/rahul.txt');
-		print_r($data['file_body']); die;
+		
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);

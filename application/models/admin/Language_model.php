@@ -55,6 +55,12 @@ class Language_model extends CI_Model {
 				$file = FCPATH . '/software_files/Logg.txt';
 				$msg = date('d-m-y h:i:s').' || user '.$this->session->userdata('identity').' update the language id '.$data['id'].PHP_EOL;
 				file_put_contents ($file, $msg,FILE_APPEND);
+				
+				$data['menus'] = $this->get_all_language();
+				$json = json_encode($data['menus']);
+				$file = FCPATH . '/software_files/Language.txt';
+				file_put_contents ($file, $json);
+				
 				return true;
 			}
 		}
@@ -67,6 +73,11 @@ class Language_model extends CI_Model {
 		$this->db->insert('languages',$data);
 		$id = $this->db->insert_id();
 		$result = $this->db->get_where('languages',array('l_id'=>$id))->result_array();
+		
+		$data['menus'] = $this->get_all_language();
+		$json = json_encode($data['menus']);
+		$file = FCPATH . '/software_files/Language.txt';
+		file_put_contents ($file, $json);
 		return $result;
 	}
 	
@@ -135,6 +146,11 @@ class Language_model extends CI_Model {
 				$file = FCPATH . '/software_files/Logg.txt';
 				$msg = date('d-m-y h:i:s').' || user '.$this->session->userdata('identity').' Delete the language id '.$data['id'].PHP_EOL;
 				file_put_contents ($file, $msg,FILE_APPEND);
+				
+				$data['menus'] = $this->get_all_language();
+				$json = json_encode($data['menus']);
+				$file = FCPATH . '/software_files/Language.txt';
+				file_put_contents ($file, $json);
 				
 				return true;
 			}

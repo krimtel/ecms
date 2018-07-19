@@ -70,10 +70,11 @@ class Enam_ctrl extends CI_Controller {
 
 		$data['newses'] = $this->Enam_model->all_news();
 		$data['events'] = $this->Event_model->home_list_events();
+		$data['links'] = $this->Enam_model->all_links();
+		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
 		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
 		$data['slider'] = $this->load->view('pages/comman/slider',$data,TRUE);
 		$data['links'] = $this->Enam_model->all_links();
-		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
 		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
 		$data['main_contant'] = $this->load->view('pages/dashboard',$data,TRUE);
 		$this->load->view('comman/index',$data);

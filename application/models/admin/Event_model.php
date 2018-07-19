@@ -5,6 +5,7 @@ class Event_model extends CI_Model {
 	function __construct(){
 		parent :: __construct();
 		$this->load->database();
+		$offset = $this->config->item('offset');
 	}
 	
 	function event_create($data){
@@ -52,12 +53,15 @@ class Event_model extends CI_Model {
 		}
 	}
 	
-	function event_list(){
+	function event_list($start = 1){
+		echo $this->config->item('offset'); die;
 		$this->db->select('ei.*,e.sort,e.event_image,e.publish,e.event_category,e.is_home');
 		$this->db->join('event_item ei','ei.event_id = e.id','left');
 		$this->db->join('languages l','l.l_id = ei.lang_id','left');
-		$this->db->order_by('e.sort,e.created_at,e.updated_at','DESC');
+		$this->db->order_by('e.sort,e.created_at','ASC');
+		$this->db->limit($offset,$start);
 		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1))->result_array();
+		print_r($this->db->last_query());
 		return $result;
 	}
 	

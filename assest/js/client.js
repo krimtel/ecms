@@ -22,13 +22,25 @@ $(document).ready(function(){
 		});
 	});
 	
+$(document).on('click','.play-img',function(){
+		var v_url = $(this).data('v_url');
+                var id = $(this).data('pid');
+                $('#iframe1_v_'+id).hide();
+
+		var iframe_id = $(this).data('v_id');
+		var x = '<iframe width="294px" height="155px" src="'+v_url+'?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+		  var id = $(this).data('v_id');
+		  $(this).hide();
+		  $('#'+iframe_id).html(x).show();
+});
 
 	$(document).on('click','.rahul_youtube',function(){
 		var v_url = $(this).data('v_url');
 		var iframe_id = $(this).data('v_id');
-		var x = '<iframe width="280px" height="158px" src="'+v_url+'?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+		var x = '<iframe width="294px" height="155px" src="'+v_url+'?autoplay=1" frameborder="0" allowfullscreen></iframe>';
 		  var id = $(this).data('v_id');
 		  $(this).hide();
 		  $('#'+iframe_id).html(x).show();
 	});
 });
+s
