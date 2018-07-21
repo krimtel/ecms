@@ -99,7 +99,7 @@
 							<tr class="<?php if(!$find){ /*echo "find";*/ } ?>">
 	                  			<td><?php echo $widgets['name']; ?></td>
 	                  			<td><?php echo "[shortcode:enam:".$widgets['name']."]"; ?></td>
-	                  			<td><?php echo $this->substring->trim_text($widgets['content'],15); ?></td>
+	                  			<td title="<?php echo $widgets['content'];?>"><?php echo $this->substring->trim_text($widgets['content'],15); ?></td>
 	                  			
 	                  			<td>
 	                  				<a title="Edit" class="btn btn-info btn-flat widget_edit" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-pencil"></i></a>
