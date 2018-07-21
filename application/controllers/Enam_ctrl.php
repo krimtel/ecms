@@ -21,7 +21,6 @@ class Enam_ctrl extends CI_Controller {
 			$this->lang->load('client_lang', 'english');
 			else
 				$this->lang->load('client_lang', 'hindi');
-
 	}
 
 	public function index(){
@@ -68,6 +67,7 @@ class Enam_ctrl extends CI_Controller {
 		}
 		$data['videos'] = $v;
 
+		$data['home_body'] = $this->Widget_model->home_content(); 	
 		$data['newses'] = $this->Enam_model->all_news();
 		$data['events'] = $this->Event_model->home_list_events();
 		$data['links'] = $this->Enam_model->all_links();

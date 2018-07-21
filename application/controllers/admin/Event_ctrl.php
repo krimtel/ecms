@@ -299,4 +299,18 @@ class Event_ctrl extends CI_Controller {
 		}
 	}
 	
+	function get_events_ajax(){
+		$data['page_count'] = $this->input->post('page_count');
+		$data['is_home'] = $this->input->post('is_home');
+		$data['is_active'] = $this->input->post('is_active');
+		$data['search_text'] = $this->input->post('search_text');
+		$result = $this->Event_model->get_events_ajax($data);
+		if(count($result)>0){
+			echo json_encode(array('data'=>$result,'msg'=>'All Events.','status'=>200));
+		}
+		else{
+			echo json_encode(array('msg'=>'No Record Found.','status'=>500));
+		}
+	}
+	
 }

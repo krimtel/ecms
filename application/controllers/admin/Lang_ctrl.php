@@ -2,7 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Lang_ctrl extends CI_Controller {
-
+	
+	var $existing_langs = array();
+	var $lang_path = APPPATH.'language';
+	var $CI;
+	
 	function __construct(){
 		parent :: __construct();
 		$this->load->helper(array('url','file','form'));
@@ -16,9 +20,12 @@ class Lang_ctrl extends CI_Controller {
 	}
 
 	public function index(){
-		$data['title'] = 'eNam Admin';
-		$data['file_body'] = file_get_contents(FCPATH . '/software_files/rahul.txt');
+		$lang = 'hindi';
+		$file = 'client';
+		$file_path = APPPATH.'language/'.$lang.'/'.$file.'_lang.php';
 		
+		$data['file_body'] = file_get_contents($file_path,true);
+		print_r($data['file_body']); die;
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);

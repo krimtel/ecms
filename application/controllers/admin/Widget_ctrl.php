@@ -6,9 +6,8 @@ class Widget_ctrl extends CI_Controller {
 	function __construct(){
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
-		$this->load->library(array('session','ion_auth','form_validation'));
+		$this->load->library(array('session','ion_auth','form_validation','substring'));
 		$this->load->database();
-		$this->load->library('substring'); 
 		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Widget_model','admin/Slider_model'));
 		$this->lang->load('admin_lang', 'english');
 		if (!$this->ion_auth->logged_in()){
@@ -71,7 +70,7 @@ class Widget_ctrl extends CI_Controller {
 				$data['widget_id'] = (int)$this->input->post('widget_id'); 
 				$data['widget_title'] = $this->input->post('widget_title');
 				$data['widget_name'] = $this->input->post('widget_name');
-				$data['widget_content'] = $this->input->post('widget_content');
+				$data['widget_content'] = $this->input->post('widget_content',false);
 				$result = $this->Widget_model->widget_update($data);
 				if($result){
 					echo json_encode(array('msg'=>'Widget updated successfully.','status'=>200));

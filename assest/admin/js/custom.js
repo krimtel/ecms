@@ -977,12 +977,12 @@ $(document).ready(function(){
 			data : {
 				'widget_id' : w_id,
 			},
-			beforeSubmit : function(e){
-				//$('#loader').modal('show');
+			beforeSend : function(e){
+				$('#loader').modal('show');
 			} ,
 			 success:function(response){
-				 $('#loader').modal('toggle');
 			  	  if(response.status == 200){
+			  		$('#loader').modal('toggle');
 			    	CKEDITOR.instances['widget_content'].setData(response.data[0].content);
 			    	$('#widget_id').val(response.data[0].id);
 			    	$('#widget_title').val(response.data[0].w_title);

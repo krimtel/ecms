@@ -162,22 +162,22 @@
 				</table>
 				<div class="well">
 					<select class="col-sm-2" id="event_page_counter">
-						<option value="1">1</option>
+						<option value="0">1</option>
 						<option value="1">2</option>
-						<option value="1">3</option>
-						<option value="1">4</option>
+						<option value="2">3</option>
+						<option value="3">4</option>
 					</select>
 					
 					<select class="col-sm-2" id="event_is_home">
-						<option value="1">IS HOME</option>
-						<option value="1">YES</option>
-						<option value="1">NO</option>
+						<option value="0">IS HOME</option>
+						<option value="yes">YES</option>
+						<option value="no">NO</option>
 					</select>
 					
 					<select class="col-sm-2" id="event_is_active">
-						<option value="1">IS ACTIVE</option>
-						<option value="1">YES</option>
-						<option value="1">NO</option>
+						<option value="0">IS ACTIVE</option>
+						<option value="yes">YES</option>
+						<option value="no">NO</option>
 					</select>
 					<input type="text" id="event_search"/>
 				</div>

@@ -31,7 +31,7 @@
     </a>
 </div>
 <div class="latest-news" style="float:right;padding-left:2px;">
-	<div class="sidebar-header-title" style="font-size:14px;"><span class="e-text-news"><?php echo $this->lang->line('latest');?></span><span><?php echo $this->lang->line('announcements');?></span></div>
+		<div class="sidebar-header-title" style="font-size:14px;"><span class="e-text-news"><?php echo $this->lang->line('announcements');?></span></div>
 		<div  class="focus-news">		
 			<marquee height="190" onMouseOut="start();" onMouseOver="stop();" direction="up" scrollamount="2">
 				<?php if(count($newses)>0){ ?>
