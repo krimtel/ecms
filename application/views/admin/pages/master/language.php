@@ -68,7 +68,7 @@
 	                		<td><?php echo $c; ?></td>
 	                		<td><?php echo $language['l_name']; ?></td>
 	                		<td>
-	                		<a class="class_edit btn btn-info btn-flat language_edit" data-l_id="<?php echo $language['l_id']; ?>" data-l_name="<?php echo $language['l_name']; ?>"><i class="fa fa-pencil"></i></a>
+	                		<a class="class_edit btn btn-info btn-flat language_edit" data-l_id="<?php echo $language['l_id']; ?>" data-l_name="<?php echo $language['l_name']; ?>" data-l_eng="<?php echo $language['l_eng']; ?>"><i class="fa fa-pencil"></i></a>
 	                		<a class="class_delete btn btn-info btn-flat language_delete" data-l_id="<?php echo $language['l_id']; ?>" data-l_name="<?php echo $language['l_name']; ?>"><i class="fa fa-trash"></i></a>
 	                		</td>
                 		</tr>

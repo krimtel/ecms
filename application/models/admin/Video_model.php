@@ -173,8 +173,12 @@ class Video_model extends CI_Model {
 		}
 		else{
 
-			$this->db->trans_begin();
-			$this->db->where('video_id',$data['v_id']);
+		$this->db->trans_begin();
+		$l_id =	$this->session->userdata('language');
+			$this->db->select('v_id');
+		$id = 	$this->db->get_where('video_item',array('video_id'=>$data['v_id'],'lang_id'=>$l_id,'status'=>1))->result_array();
+				//print_r($this->db->last_query()); die;	
+			$this->db->where('v_id',$id[0]['v_id']);
 			$this->db->update('video_item',array(
 					'v_content' => $data['v_content'],
 					'v_title' => $data['v_title'],
@@ -184,7 +188,7 @@ class Video_model extends CI_Model {
 
 			$this->db->query("update video set updated_at = '".$data['updated_at']."',v_url='".$data['v_url']."',category_id='".$data['category_id']."',updated_by='".$data['updated_by']."',sort='".$data['sort']."',v_title='".$data['v_title']."'
 				where v_id = (select video_id from video_item where v_id=".$data['v_id'].")");
-			//	print_r($this->db->last_query()); die;
+				//print_r($this->db->last_query()); die;
 			///-----------activity insert----------//
 			$this->db->select('video_id');
 			$activity = $this->db->get_where('video_item',array('v_id'=>$data['v_id']))->result_array();

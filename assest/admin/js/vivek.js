@@ -127,7 +127,7 @@ $(document).ready(function(){
 		if($("#language_name").val() == ''){
 			$("#language_response").html('Language name not empty.'); 
 		}
-		var pattern =  new RegExp("^[a-zA-Z ]*$");
+		var pattern =  new RegExp("^[a-zA-Z]*$");
 		var that = this;
 		if(pattern.test(language)) {
 			if(language==''){
@@ -141,12 +141,13 @@ $(document).ready(function(){
 		            type: 'POST',
 		            dataType: "json",
 		            data: {
-		            	'language' : language
+		            	'language' : language,
 		            },
 		            success: function(response){
 		                if(response.status == 200){
 		                	$(that).removeClass('txt_error');
-		                	$("#language_create").attr("disabled", false);
+		                	//$("#language_create").attr("disabled", false);
+		                	language_form_check();
 		                	$("#language_response").html('');
 		                }else {
 		                    $(that).addClass('txt_error');
@@ -166,6 +167,55 @@ $(document).ready(function(){
 			$("#language_create").attr("disabled", "disabled");
 		}
 	    });
+	
+	     
+	////////////////////
+	$(document).on('keyup','#language_name_eng',function(){
+		var language_name_eng = $("#language_name_eng").val().trim();
+		if($("#language_name_eng").val() == ''){
+			$("#language_response").html('Language name not empty.'); 
+		}
+		var pattern =  new RegExp("^[a-zA-Z]*$");
+		var that = this;
+		if(pattern.test(language_name_eng)) {
+			if(language_name_eng==''){
+				 $("#language_create").attr("disabled", "disabled");
+				 
+			}
+			else if (language_name_eng != ''){
+		         $("#language_response").show();
+		         $.ajax({
+		            url: baseUrl +'admin/language_ctrl/language_check_eng',
+		            type: 'POST',
+		            dataType: "json",
+		            data: {
+		            	'language_name_eng' : language_name_eng,
+		            },
+		            success: function(response){
+		                if(response.status == 200){
+		                	$(that).removeClass('txt_error');
+		                	//$("#language_create").attr("disabled", false);
+		                	language_form_check();
+		                	$("#language_response").html('');
+		                }else {
+		                    $(that).addClass('txt_error');
+		                    $("#language_create").attr("disabled", "disabled");
+		                    $("#language_response").html("<span class='exists'>"+ response.msg +"</span>");
+		                }
+		                
+		             }
+		          });
+		      }else{
+		         $("#language_response").hide();
+		      }
+		}
+		else if(language_name_eng!=pattern){
+			$("#language_response").html("<span class='exists'>only char allowed</span>");
+			$(that).addClass('txt_error');
+			$("#language_create").attr("disabled", "disabled");
+		}
+	    });
+	
 	///////////////////////Users Language////////////////////////////////////////////////
 	
 	$(document).on('change','#users_list_drop_down',function(){
@@ -1037,4 +1087,15 @@ $(document).ready(function(){
 	
 });
 
-
+function language_form_check(){
+	var pattern =  new RegExp("^[a-zA-Z]*$");
+	if($('#language_name_eng').val() != '' && $("#language_name").val() != ''){
+		if((pattern.test($('#language_name_eng').val())) && (pattern.test($("#language_name").val()))) {
+			$("#language_create").attr("disabled", false);
+		}
+		else{
+			$("#language_create").attr("disabled", 'disabled');
+		}
+	}
+	
+}

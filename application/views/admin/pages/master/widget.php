@@ -85,12 +85,12 @@
                   			<th>Edit/Delete</th>
                 		</tr>
                 		<tbody id="language_users_display">
-						<?php if(isset($widget) && (count($widget)>0)){
-						
+						<?php if(isset($widget) && (count($widget)>0)){			
 						foreach($widget as $widgets){ 
 							if($widgets['lang_id'] == 1) {
 							$find = 0;
 							foreach($widget as $wid){
+						
 								if($wid['id'] == $widgets['id'] && $wid['lang_id'] == $this->session->userdata('language')){
 									$find = 1;
 								}
@@ -99,9 +99,9 @@
 							<tr class="<?php if(!$find){ /*echo "find";*/ } ?>">
 	                  			<td><?php echo $widgets['name']; ?></td>
 	                  			<td><?php echo "[shortcode:enam:".$widgets['name']."]"; ?></td>
-	                  			<td><?php echo $widgets['content']; ?></td>
+	                  			<td><?php echo $this->substring->trim_text($widgets['content'],15); ?></td>
+	                  			
 	                  			<td>
-	          
 	                  				<a title="Edit" class="btn btn-info btn-flat widget_edit" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-pencil"></i></a>
 	                  				<a title="Delete" class="btn btn-info btn-flat widget_delete" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-trash"></i></a>
 	                  				

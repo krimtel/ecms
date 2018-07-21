@@ -40,7 +40,7 @@
 			<ul class="dropdown-menu">
 				<li><a title="Pages" href="<?php echo base_url(); ?>admin/admin/all_pages"> <i class="fa fa-clone" aria-hidden="true" ></i> Pages </a></li>
 				<li><a title="Menu" href="<?php echo base_url(); ?>admin/admin/menus"> <i class="fa fa-ellipsis-h" aria-hidden="true" ></i> Menu </a></li>
-				<li><a title="Menu" href="<?php echo base_url(); ?>admin/admin/home_content"> <i class="fa fa-ellipsis-h" aria-hidden="true" ></i> Home Content </a></li>
+			<!-- 	<li><a title="Menu" href="<?php //echo base_url(); ?>admin/admin/home_content"> <i class="fa fa-ellipsis-h" aria-hidden="true" ></i> Home Content </a></li> -->
 			</ul>
 	</li>
 	<li class="dropdown">
@@ -54,15 +54,19 @@
 				<li><a title="Videos" href="<?php echo base_url(); ?>admin/admin/videos"><i class="fa fa-delicious" aria-hidden="true"></i> Videos </a></li>
 			</ul>
 	</li>
+	<li class="dropdown">
+			<a title="System" href="#" data-toggle="dropdown" > <i class="fa fa-th-large" aria-hidden="true" ></i> System <b class="caret"></b></a>
+			<ul class="dropdown-menu">
 	<?php if($this->ion_auth->is_admin()){ ?>
 	<li>
-		<a title="Cms Pages" href="<?php echo base_url();?>admin/admin/cache_mgnt"> <i class="fa fa-files-o"></i> Cache Management</a>
+		<a title="Cache Files" href="<?php echo base_url();?>admin/admin/cache_mgnt"> <i class="fa fa-files-o"></i> Cache Management</a>
 	</li>
 	<?php } ?>
 	<li>
 		<a title="lang_file" href="<?php echo base_url();?>admin/admin/lang_file"> <i class="fa fa-files-o"></i> Language File</a>
 	</li>
 	</ul>
+	</li>
 	</div>
 
 	

@@ -190,6 +190,7 @@ $(document).ready(function(){
 		$('#language_update').show();
 		$('#language_create').hide();
 		$('#language_name').val($(this).data('l_name'));
+		$('#language_name_eng').val($(this).data('l_eng'));
 		$('#language_id').val($(this).data('l_id'));
 		
 	});

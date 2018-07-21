@@ -8,6 +8,7 @@ class Widget_ctrl extends CI_Controller {
 		$this->load->helper(array('url','file'));
 		$this->load->library(array('session','ion_auth','form_validation'));
 		$this->load->database();
+		$this->load->library('substring'); 
 		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Widget_model','admin/Slider_model'));
 		$this->lang->load('admin_lang', 'english');
 		if (!$this->ion_auth->logged_in()){
@@ -16,7 +17,6 @@ class Widget_ctrl extends CI_Controller {
 	}
 	
 	function index(){
-		
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		if(count($file_menu)){
 			$languages = $file_menu;
@@ -42,7 +42,6 @@ class Widget_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Widgets.txt';
 			file_put_contents ($file, $json, FILE_APPEND);
 		}
-		
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
@@ -134,7 +133,7 @@ class Widget_ctrl extends CI_Controller {
 		$data['widget_id'] = $this->input->post('widget_id');
 		$result = $this->Widget_model->widget_content($data);
 		if(count($result)>0){
-			echo json_encode(array('data'=>$result,'status'=>200));
+			//echo json_encode(array('data'=>$result,'status'=>200));
 		}
 		else{
 			echo json_encode(array('status'=>500));

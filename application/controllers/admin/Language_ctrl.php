@@ -168,7 +168,7 @@ class Language_ctrl extends CI_Controller {
 		}
 	}
 	
-	function language_check(){
+	function language_check(){ 
 		$language = $this->input->post('language');
 		$result = $this->db->get_where('languages',array('l_name'=>$language,'status'=>1))->result_array();
 		if(count($result) > 0){
@@ -178,4 +178,16 @@ class Language_ctrl extends CI_Controller {
 			echo json_encode(array('msg'=>'Congretes.','status'=>200));
 		}
 	}
+	
+	function language_check_eng(){
+		$language_name_eng = $this->input->post('language_name_eng');
+		$result = $this->db->get_where('languages',array('l_eng'=>$language_name_eng,'status'=>1))->result_array();
+		if(count($result) > 0){
+			echo json_encode(array('msg'=>'This language already exist.','status'=>500));
+		}
+		else{
+			echo json_encode(array('msg'=>'Congretes.','status'=>200));
+		}
+	}
+	
 }
