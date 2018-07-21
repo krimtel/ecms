@@ -133,7 +133,7 @@ class Widget_ctrl extends CI_Controller {
 		$data['widget_id'] = $this->input->post('widget_id');
 		$result = $this->Widget_model->widget_content($data);
 		if(count($result)>0){
-			//echo json_encode(array('data'=>$result,'status'=>200));
+			echo json_encode(array('data'=>$result,'status'=>200));
 		}
 		else{
 			echo json_encode(array('status'=>500));

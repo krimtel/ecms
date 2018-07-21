@@ -978,7 +978,7 @@ $(document).ready(function(){
 				'widget_id' : w_id,
 			},
 			beforeSubmit : function(e){
-				$('#loader').modal('show');
+				//$('#loader').modal('show');
 			} ,
 			 success:function(response){
 				 $('#loader').modal('toggle');

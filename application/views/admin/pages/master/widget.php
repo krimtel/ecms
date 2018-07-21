@@ -145,7 +145,7 @@
 						if($widgets['lang_id'] == $this->session->userdata('language')) { ?>
 							<tr">
 	                  			<td><?php echo $widgets['name']; ?></td>
-	                  			<td><?php echo $widgets['content']; ?></td>
+	                  			<td title="<?php echo $widgets['content'];?>"><?php echo $this->substring->trim_text($widgets['content'],15); ?></td>
 	                  			<td>
 	                  				<a title="Edit" class="btn btn-info btn-flat widget_edit" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-pencil"></i></a>
 	                  				<a title="Delete" class="btn btn-info btn-flat widget_delete" data-widget_id="<?php echo $widgets['id']; ?>"><i class="fa fa-trash"></i></a>
