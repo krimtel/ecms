@@ -226,7 +226,8 @@ class Event_model extends CI_Model {
 	}
 	
 	function get_events_ajax($data){
-		$l_id = $this->session->all_userdata();
+		$l_id = $this->session->userdata('language'); 
+		
 		if($data['is_home']){
 			$this->db->where('e.is_home',1);			
 		}
@@ -237,12 +238,14 @@ class Event_model extends CI_Model {
 			$this->db->like('ei.title',$data['search_text'],'after');
 		}
 		$offset = $this->config->item('offset');
+		
 		$this->db->select('ei.*,e.sort,e.event_image,e.publish,e.event_category,e.is_home');
 		$this->db->join('event_item ei','ei.event_id = e.id','left');
 		$this->db->join('languages l','l.l_id = ei.lang_id','left');
 		$this->db->order_by('e.sort,e.created_at','ASC');
 		$this->db->limit($offset,($offset * $data['page_count']));
 		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.lang_id'=>$l_id,'ei.status'=>1))->result_array();
+		
 		return $result;
 	}
 }

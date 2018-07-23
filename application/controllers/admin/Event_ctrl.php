@@ -305,6 +305,7 @@ class Event_ctrl extends CI_Controller {
 		$data['is_active'] = $this->input->post('is_active');
 		$data['search_text'] = $this->input->post('search_text');
 		$result = $this->Event_model->get_events_ajax($data);
+		print_r($result); die;
 		if(count($result)>0){
 			echo json_encode(array('data'=>$result,'msg'=>'All Events.','status'=>200));
 		}

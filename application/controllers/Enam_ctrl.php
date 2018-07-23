@@ -23,7 +23,7 @@ class Enam_ctrl extends CI_Controller {
 				$this->lang->load('client_lang', 'hindi');
 	}
 
-	public function index(){
+	public function index(){		
 		$data['title'] = 'eNam';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
