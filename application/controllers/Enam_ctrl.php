@@ -334,7 +334,7 @@ class Enam_ctrl extends CI_Controller {
 		$data['slider'] = $this->load->view('pages/comman/slider',$data,TRUE);
 		$data['links'] = $this->Enam_model->all_links();
 		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
-		$data['main_contant'] = $this->load->view('pages/gallary/gallaries',$data,TRUE);
+		$data['main_contant'] = $this->load->view('pages/gallary/video_gallaries',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
 
