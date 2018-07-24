@@ -1,6 +1,6 @@
 <nav class="menu-section">
-	<div class="container-fuild" style="/*position: fixed;margin-top:110px;*/    width: 100%;    height: 40px;    z-index: 99;">
-		 <nav class="navbar navbar-default navbar-static-top nav-bg-th" role="navigation" style="padding:0px 2%;margin:0;" >
+	<div class="container-fuild" style="/*position: fixed;margin-top:110px;*/    width: 100%;    height: 40px;">
+		 <nav class="navbar navbar-default navbar-static-top nav-bg-th" role="navigation" style="padding:0px 2%;margin:0;position:unset;" >
             <div class="navbar-header" style="height:40px;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
