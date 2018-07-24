@@ -57,7 +57,7 @@
 			</div>
 			<!--State Events -->
 			<div class="col-md-12 video-gallery">
-				<h5><span>National Events</span></h5>
+				<h5><span>State Events</span></h5>
 				<div class="row">
 					<?php if((count($events) > 0) && (isset($events))){ ?>
 				<?php $c=1; foreach($events as $event){ 
