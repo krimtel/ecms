@@ -2,13 +2,12 @@
 	<div class="container-fuild" style="padding-left:4%;padding-right:4%;">
 		<div class="row">
 			<div class="col-md-12 video-gallery">
-				<h5><span>All Videos</span>
+				<h5><span>All Events</span>
 					<div class="pull-right search-btn">
-						<input placeholder="Search videos..." type="text" /><i class="fa fa-search"></i>
 						<select class="pull-left">
 							<option>Select Category</option>
-							<option>tyy</option>
-							<option>tyy</option>
+							<option>National Events</option>
+							<option>State Events</option>
 						</select>
 					</div>
 				</h5>

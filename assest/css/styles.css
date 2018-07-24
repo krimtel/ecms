@@ -389,7 +389,7 @@ iframe body form .TickerBox{background-color:#ececec !important;}
 .event-box{}
 .events-box .events-de{position:relative;padding-bottom:25.5px;width:110%;/*padding-right:15px;border-right:1px solid #eee;*/}
 .events-box .events-de:list-child{padding-bottom:0px;}
-.register-user-box{   position: absolute;font-family: 'Roboto', sans-serif;font-weight:normal;bottom: 25px;
+.register-user-box{   /*position: absolute;*/font-family: 'Roboto', sans-serif;font-weight:normal;bottom: 25px;
    /* background-color: rgba(41, 40, 40, 0.8);*/
 	background: #b316ca; 
     background: linear-gradient(to right, rgba(179,22,202,0.8), rgba(33,110,225,0.8));
@@ -475,8 +475,11 @@ body.hindi .navigation li a{font-size:14px !important;}
 .video-box{}
 .video-box a img{float:left;border1px solid #eee;padding:3px;width:100%;height:300px;}
 .video-box a{float:left;}
-.video-g-details h5{color:#545353 !important;width:100%;margin-bottom:0px;border-bottom:0px;margin-top:5px;}
+.video-g-details h5{color:#545353 !important;width:100%;margin-bottom:0px;border-bottom:0px;margin-top:0px;}
 .elearn-v-box .thum{border:1px solid #d6d3d3;float:left;padding:3px;}
 .video-gallery .search-btn input{margin-top:-7px;padding:7px;font-size:13px;color:#777;width:250px;border-radius:3px;border:1px solid #e2d7d7;}
 .video-gallery .search-btn i{position:absolute;right:25px;cursor:pointer;}
 .video-gallery .search-btn select{margin-right:10px;padding:4px 10px;margin-top:-7px;border:1px solid #e2d7d7;font-size:13px;}
+.singal-video-details h4{    float: left;    width: 100%;    margin-bottom: 7px;    color: #44560a;    font-weight: 600;}
+.singal-video-details p{color: #757575;    margin-bottom: 10px;    float: left;}
+.singal-video-details img{border:1px solid #eee;width:100%;float:left;height:400px;}
