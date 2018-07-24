@@ -23,7 +23,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/orange-box.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/blue-box.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/red-box.css"/>
-<!--<link rel="stylesheet" type="text/css" href="<?php //	echo base_url(); ?>assest/css/font-awesome.min.css"/> -->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/font-awesome.min.css"/> 
 
 <script type="text/javascript" src="<?php echo base_url(); ?>assest/js/jquery.min.js" /></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assest/js/bootstrap.min.js"></script>
