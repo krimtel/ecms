@@ -59,7 +59,7 @@ class Event_model extends CI_Model {
 		$this->db->join('event_item ei','ei.event_id = e.id','left');
 		$this->db->join('languages l','l.l_id = ei.lang_id','left');
 		$this->db->order_by('e.sort,e.created_at','ASC');
-		$this->db->limit($offset,$start);
+		//$this->db->limit($offset,$start);
 		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1))->result_array();
 		return $result;
 	}
