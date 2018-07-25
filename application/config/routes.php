@@ -5,6 +5,8 @@ $route['default_controller'] = 'Enam_ctrl';
 $route['404_override'] = 'Url_ctrl/index';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['elearning'] = 'Elearning_ctrl';
+$route['elearning/(:any)'] = 'Elearning_ctrl/index/$1';
 $route['nam/(:any)'] = 'Enam_ctrl/$1';
 $route['layout_page/(:any)'] = 'Enam_ctrl/$1';
 

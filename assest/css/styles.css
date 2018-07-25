@@ -463,6 +463,11 @@ body.hindi .navigation li a{font-size:14px !important;}
     top: 43%;
     left: 35%;border-radius:11px;}
 .play-img:hover{background-color:#ff0000; }
+.play-img-gallery{    width: 64px;cursor:pointer;
+    position: absolute;
+    top: 43%;
+    left: 35%;border-radius:11px;}
+.play-img-gallery:hover{background-color:#ff0000; }
 .about-sec p{margin-bottom:13px;color:#282828;font-family: calibri;    font-size: 15px;}
 .about-sec-ul li{margin-bottom:13px;padding-left:8px;color:#282828;font-family: calibri;    font-size: 15px;}
 .about-sec-ul li strong{margin-left:-8px;}
