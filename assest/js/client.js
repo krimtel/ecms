@@ -75,7 +75,7 @@ $(document).on('click','.play-img',function(){
 							'<div class="col-md-12">'+
 								'<div class="thum">'+
 									'<div style="background:url(http://img.youtube.com/vi/'+ street +'/0.jpg) center no-repeat;cursor:pointer;height:172px;width:280px;background-size:cover;"></div>'+
-									'<img alt="" style="width:64px;" class="play-img-gallery" src="'+baseUrl+'assest/images/new-theme/icon/play-ico.png"/>'+
+									'<img alt="" style="width:64px;" data-pid="'+ value['vid'] +'" class="play-img-gallery" src="'+baseUrl+'assest/images/new-theme/icon/play-ico.png"/>'+
 								'</div>'+
 							'</div>'+
 							'<div class="col-md-12 video-g-details">'+

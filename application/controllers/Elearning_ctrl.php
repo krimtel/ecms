@@ -79,7 +79,8 @@ class Elearning_ctrl extends CI_Controller {
 		}
 	}
 	
-	function video_detail(){
+	function video_detail($id){
+		echo $id;  die;
 		$data['title'] = 'eNam';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);

@@ -38,7 +38,7 @@
 							<div class="thum"><?php $v = explode('/embed/',$video['v_url']); ?>
 								<div data-v_id="iframe1_v_<?php echo $c;?>" data-v_url="<?php echo $video['v_url']; ?>" style="background:url('http://img.youtube.com/vi/<?php echo $v[1];?>/0.jpg') center no-repeat;cursor:pointer;height:172px;width:280px;background-size:cover;"></div>
 
-								<img alt="" style="width:64px;"  data-v_id="iframe_v_<?php echo $c;?>" data-v_url="<?php echo $video['v_url']; ?>" data-pid="<?php echo $c;?>" class="play-img-gallery" src="<?php echo base_url();?>assest/images/new-theme/icon/play-ico.png" />
+								<img alt="" style="width:64px;"  data-v_id="iframe_v_<?php echo $c;?>" data-v_url="<?php echo $video['v_url']; ?>" data-pid="<?php echo $video['vid'];?>" class="play-img-gallery" src="<?php echo base_url();?>assest/images/new-theme/icon/play-ico.png" />
 								<div id="iframe_v_<?php echo $c;?>" style="display:none;"></div>
 							</div>
 						</div>
