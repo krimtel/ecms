@@ -80,7 +80,8 @@ class Elearning_ctrl extends CI_Controller {
 	}
 	
 	function video_detail($id){
-		echo $id;  die;
+		$data['videos1'] = $this->Elearning_model->get_videos($id);
+		
 		$data['title'] = 'eNam';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
@@ -119,7 +120,7 @@ class Elearning_ctrl extends CI_Controller {
 		foreach($data['videos'] as $ve){
 			$temp = array();
 			$temp = $ve;
-			$temp['created_at'] = $this->time_elapsed_string(strtotime($ve['created_at']));
+			$temp['created_at'] = $this->substring->time_elapsed_string(strtotime($ve['created_at']));
 			$v[] = $temp;
 		}
 		$data['videos'] = $v;

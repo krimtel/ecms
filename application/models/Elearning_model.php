@@ -61,4 +61,12 @@ class Elearning_model extends CI_Model {
 			return $result;
 		}
 	}
+	
+	
+	function get_videos($id){
+		$l_id = $this->session->userdata('client_language');
+		$this->db->select('v.*,vi.v_title,vi.v_content,vi.created_at,vi.updated_at');
+		$this->db->join('video v','v.v_id=vi.video_id');
+		return $videos1 = $this->db->get_where('video_item vi',array('vi.video_id'=>$id,'vi.lang_id'=>$l_id,'vi.status'=>1))->result_array();
+	}
 }

@@ -7,6 +7,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['elearning'] = 'Elearning_ctrl';
 $route['elearning/(:any)'] = 'Elearning_ctrl/index/$1';
+$route['elearning/id/(:any)'] = 'Elearning_ctrl/video_detail/$1';
 $route['nam/(:any)'] = 'Enam_ctrl/$1';
 $route['layout_page/(:any)'] = 'Enam_ctrl/$1';
 
