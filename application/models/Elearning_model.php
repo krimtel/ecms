@@ -65,8 +65,24 @@ class Elearning_model extends CI_Model {
 	
 	function get_videos($id){
 		$l_id = $this->session->userdata('client_language');
-		$this->db->select('v.*,vi.v_title,vi.v_content,vi.created_at,vi.updated_at');
+		$this->db->select('v.*,vi.*');
 		$this->db->join('video v','v.v_id=vi.video_id');
 		return $videos1 = $this->db->get_where('video_item vi',array('vi.video_id'=>$id,'vi.lang_id'=>$l_id,'vi.status'=>1))->result_array();
 	}
+	
+	function video_home_page_list($id){
+		if((int)$this->session->userdata('client_language')==''){
+			$language = 1;
+		}else{
+			$language=(int)$this->session->userdata('client_language');
+		}
+		$this->db->select('vi.*,v.sort,v.v_url,v.publish,v.is_home');
+		$this->db->join('video v','v.v_id=vi.video_id');
+		$this->db->order_by('v.sort,v.created_at,v.updated_at','ASC');
+		$this->db->where_not_in('vi.video_id',$id);
+		$result = $this->db->get_where('video_item vi',array('v.status'=>1,'vi.status'=>1,'vi.lang_id'=>$language))->result_array();
+		//print_r($this->db->last_query()); die;
+		return $result;
+	}
+
 }

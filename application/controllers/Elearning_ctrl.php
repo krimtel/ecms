@@ -23,11 +23,10 @@ class Elearning_ctrl extends CI_Controller {
 				$this->lang->load('client_lang', 'hindi');
 	}
 
-	public function index($cat	='All'){
+	public function index($cat	='All'){ 
 		$data['title'] = 'eNam|eLearning';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
-
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		if(count($file_menu)){
 			$data['languages'] = $file_menu;
@@ -80,6 +79,7 @@ class Elearning_ctrl extends CI_Controller {
 	}
 	
 	function video_detail($id){
+		
 		$data['videos1'] = $this->Elearning_model->get_videos($id);
 		
 		$data['title'] = 'eNam';
@@ -114,7 +114,8 @@ class Elearning_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Slider_client.txt';
 			file_put_contents ($file, $json);
 		}
-		$data['videos'] = $this->Video_model->video_home_page_list();
+		$data['videos'] = $this->Elearning_model->video_home_page_list($id);
+		//print_r($data['videos']); die;
 	
 		$v = array();
 		foreach($data['videos'] as $ve){
@@ -137,5 +138,5 @@ class Elearning_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/gallary/video_show',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-	
+
 }

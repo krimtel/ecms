@@ -132,7 +132,8 @@
 										}
 										?>
 										<tr class="<?php if(!$find){ echo "find"; } ?>">
-											<td><?php echo $video['v_url'];?></td>
+										<?php $v = explode('/embed/',$video['v_url']); ?>
+											<td> <img src='http://img.youtube.com/vi/<?php echo $v['1'];?>/0.jpg' height="100" width="100"></td>
 											<td><?php echo $video['v_title'];?></td>
 											<td><?php echo $video['v_content'];?></td>
 											<?php if($group != 'subadmin'){ ?>

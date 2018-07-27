@@ -257,13 +257,16 @@ $(document).ready(function(){
 			 $('#slider_alt_error').css('display','none');
 		 }
 		 
-		 if($('#slider_order').val()==''){
+		 if($('#slider_order').val()==''){ 
 			 $('#slider_order_error').html("please Fill Slider Sort Order").css('display','block');
 			 form_valid = false;
 		 }
+		 
 		 else{
 			 $('#slider_order_error').css('display','none');
 		 }
+			
+			
 		if(form_valid){
 			$('#slider_form').ajaxForm({
 				dataType : 'json',
