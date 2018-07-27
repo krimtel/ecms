@@ -92,78 +92,73 @@
 			<div class="col-md-12 video-gallery events-list">
 				<h5><span>All Events</span>
 					<div class="pull-right search-btn">
-						<input placeholder="Search videos..." type="text" /><i class="fa fa-search"></i>
-						<select class="pull-left">
-							<option>Select Events Category</option>
-							<option>National Events</option>
-							<option>State Events</option>
-							<option>Others Events</option>
+						<input placeholder="Search videos..." type="text" id="event_search_gallery" /><i class="fa fa-search"></i>
+						<select class="pull-left" id="event_category_selector">
+							<option value="All">Select Events Category</option>
+							<?php if(count($events_categories)>0){ ?>
+								<?php foreach($events_categories as $events_category){
+									if($events_category['event_category'] != ''){ ?>
+									<option value="<?php echo $events_category['event_category'];?>"><?php echo $events_category['event_category'];?></option>
+								<?php } } ?>
+							<?php } ?>
 						</select>
 					</div>
 				</h5>
-				<div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-				<div class="carousel-inner">
-				  <div class="item active">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						
-						<img id="myImg" style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-
-				  <div class="item">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
 				
-				  <div class="item">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
+				<!--<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner">
+						<div class="item active">
+							<?php //if((count($events) > 0) && (isset($events))){ ?>
+							<?php //$c=1; foreach($events as $event){
+							//if($c < 5){
+								//$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
+							?>
+							<div class="col-md-3 events-de">
+								<img id="myImg" style="width:100%;" alt="<?php //echo $event['title']; ?>" src="<?php //echo base_url(); ?>/Event_gallary/<?php //echo $event['event_image']; ?>" />
+								<div class="register-user-box">
+									<h5><?php //echo $event_title; ?></h5>
+									<?php //echo $event['event_content'];?>
+								</div>
+							</div>
+						<?php //$c++; } } ?>
+						<?php //} else { ?>
+							<div class="well text-danger">No Events Found.</div>
+						<?php //}?>
+				  	</div>
+				</div> -->
+				
+			
+			
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner">
+						<?php
+						$c = count($events);
+						$counter = 1;
+						for($i = $counter; $i<$c; $i++){
+							if($i == 1){
+								echo '<div class="item active">';
+							}
+							else{
+								echo '<div class="item">';
+							}
+						
+							for($j=$i;$j<$i+4;$j++){
+							if($c > $j){
+							?>
+							<div class="col-md-3 events-de">
+								<img id="myImg" style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
+								<div class="register-user-box">
+									<h5><?php echo 'event_title'; ?></h5>
+									<?php echo $events[$j]['event_content'];?>
+								</div>
+							</div>		
+					  <?php $counter++; } }
+					  	echo '</div>';		
+						}
+						?>
 				</div>
 
-				<!-- Left and right controls -->
+				
 				<a class="left carousel-control" href="#myCarousel" data-slide="prev">
 				  <i class="fa fa-angle-left"></i>
 				  <span class="sr-only">Previous</span>
@@ -173,262 +168,31 @@
 				  <span class="sr-only">Next</span>
 				</a>
 			  </div>
-				<div id="myModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption">ghg ghgfg gtjb jh hgj h h</div>
-</div>
-<script>
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById('myImg');
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
-img.onclick = function(){
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    captionText.innerHTML = this.alt;
-}
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-    modal.style.display = "none";
-}
-</script>				
-			</div>
-			<!--National Events -->
-			<div class="col-md-12 video-gallery events-list">
-				<h5><span>National Events</span></h5>
-				<div id="myCarousel1" class="carousel slide" data-ride="carousel">
-
-				<!-- Wrapper for slides -->
-				<div class="carousel-inner">
-				  <div class="item active">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-
-				  <div class="item">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-				
-				  <div class="item">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-				</div>
-
-				<!-- Left and right controls -->
-				<a class="left carousel-control" href="#myCarousel1" data-slide="prev">
-				  <i class="fa fa-angle-left"></i>
-				  <span class="sr-only">Previous</span>
-				</a>
-				<a class="right carousel-control" href="#myCarousel1" data-slide="next">
-				  <i class="fa fa-angle-right"></i>
-				  <span class="sr-only">Next</span>
-				</a>
-			  </div>
-			</div>
-			<!--State Events -->
-			<div class="col-md-12 video-gallery events-list">
-				<h5><span>State Events</span></h5>
-				<div id="myCarousel2" class="carousel slide" data-ride="carousel">
-				
-				<!-- Wrapper for slides -->
-				<div class="carousel-inner">
-				  <div class="item active">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-
-				  <div class="item">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-				
-				  <div class="item">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-				</div>
-
-				<!-- Left and right controls -->
-				<a class="left carousel-control" href="#myCarousel2" data-slide="prev">
-					<i class="fa fa-angle-left"></i>
-				  <span class="sr-only">Previous</span>
-				</a>
-				<a class="right carousel-control" href="#myCarousel2" data-slide="next">
-				  <i class="fa fa-angle-right"></i>
-				  <span class="sr-only">Next</span>
-				</a>
-			  </div>
+			
+			
+					
+			
+			<div id="myModal" class="modal">
+  				<span class="close">&times;</span>
+  				<img class="modal-content" id="img01">
+  				<div id="caption">ghg ghgfg gtjb jh hgj h h</div>
 			</div>
 			
-			<!--Others Events -->
-			<div class="col-md-12 video-gallery events-list">
-				<h5><span>Others Events</span></h5>
-				<div id="myCarousel3" class="carousel slide" data-ride="carousel">
-				
-				<!-- Wrapper for slides -->
-				<div class="carousel-inner">
-				  <div class="item active">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-
-				  <div class="item">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-				
-				  <div class="item">
-					<?php if((count($events) > 0) && (isset($events))){ ?>
-				<?php $c=1; foreach($events as $event){ 
-					if($c < 5){
-					$event_title = strlen($event['title']) > 50 ? substr($event['title'],0,50)."..." : $event['title'];
-					?>
-					<div class="col-md-3 events-de">
-						<img style="width:100%;" alt="<?php echo $event['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $event['event_image']; ?>" />
-						<div class="register-user-box">
-							<h5><?php echo $event_title; ?></h5>
-							<?php echo $event['event_content'];?>
-						</div>
-					</div>
-				<?php $c++; } } ?>
-			<?php } else { ?>
-				<div class="well text-danger">No Events Found.</div>
-			<?php }?>
-				  </div>
-				</div>
-
-				<!-- Left and right controls -->
-				<a class="left carousel-control" href="#myCarousel3" data-slide="prev">
-				  <i class="fa fa-angle-left"></i>
-				  <span class="sr-only">Previous</span>
-				</a>
-				<a class="right carousel-control" href="#myCarousel3" data-slide="next">
-				  <i class="fa fa-angle-right"></i>
-				  <span class="sr-only">Next</span>
-				</a>
-			  </div>
+				<script>
+					var modal = document.getElementById('myModal');
+					var img = document.getElementById('myImg');
+					var modalImg = document.getElementById("img01");
+					var captionText = document.getElementById("caption");
+					img.onclick = function(){
+				    	modal.style.display = "block";
+				    	modalImg.src = this.src;
+				    	captionText.innerHTML = this.alt;
+					}
+					var span = document.getElementsByClassName("close")[0];
+					span.onclick = function() { 
+				    modal.style.display = "none";
+					}
+				</script>				
 			</div>
 		</div>
 	</div>

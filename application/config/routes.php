@@ -12,6 +12,8 @@ $route['elearning/id/(:num)'] = 'Elearning_ctrl/video_detail/$1';
 $route['nam/(:any)'] = 'Enam_ctrl/$1';
 $route['layout_page/(:any)'] = 'Enam_ctrl/$1';
 
+$route['events'] = 'Event_ctrl';
+$route['events/(:any)'] = 'Event_ctrl/index/$1';
 ////////////////////admin/////////
 
 $route['admin/admin'] = 'admin/Auth/index';

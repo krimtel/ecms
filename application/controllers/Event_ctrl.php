@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Elearning_ctrl extends CI_Controller {
+class Event_ctrl extends CI_Controller {
 
 	function __construct(){
 		parent :: __construct();
 		$this->load->helper(array('url','file'));
 		$this->load->database();
-		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Video_model','admin/Slider_model','admin/Widget_model','admin/Menu_model','Enam_model','admin/Event_model','Elearning_model'));
+		$this->load->model(array('admin/Language_model','admin/Users_model','admin/Video_model','admin/Slider_model','admin/Widget_model','admin/Menu_model','Enam_model','Elearning_model','Event_model'));
 		$this->load->library(array('session','substring'));
 		if(!$this->session->userdata('client_language')){
 			$newdata = array(
@@ -23,10 +23,11 @@ class Elearning_ctrl extends CI_Controller {
 				$this->lang->load('client_lang', 'hindi');
 	}
 
-	public function index($cat	='All'){ 
-		$data['title'] = 'eNam|eLearning';
+	public function index($cat	='All'){
+		$data['title'] = 'eNam|Events';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
+
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
 		if(count($file_menu)){
 			$data['languages'] = $file_menu;
@@ -38,40 +39,23 @@ class Elearning_ctrl extends CI_Controller {
 			file_put_contents ($file, $json);
 		}
 		
-		$data['video_categories'] = $this->Elearning_model->Video_cat_list();
-		$data['videos'] = $this->Elearning_model->Video_list($cat);
-		$v = array();
-		foreach($data['videos'] as $ve){
-			$temp = array();
-			$temp = $ve;
-			$temp['created_at'] = $this->substring->time_elapsed_string(strtotime($ve['created_at']));
-			$v[] = $temp;
-		}
-		$data['videos'] = $v;	
+		$data['events_categories'] = $this->Event_model->event_cat_list();	
+		$data['events'] = $this->Event_model->event_list($cat);
 		
 		$data['header'] = $this->load->view('comman/header',$data,TRUE);
 		$data['menus'] = $this->Enam_model->all_menus();
 		$data['navigation'] = $this->load->view('comman/navigation',$data,TRUE);
 		$data['footer'] = $this->load->view('comman/footer','',TRUE);
-		$data['main_contant'] = $this->load->view('pages/gallary/video_gallaries',$data,TRUE);
+		$data['main_contant'] = $this->load->view('pages/event_gallary/gallaries',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
 	
-	function video_search_list(){
+	function event_search_list(){
 		$data['cat'] = $this->input->post('cat');
 		$data['text'] = $this->input->post('text');
-		$data['video_list'] = $this->Elearning_model->video_search_list($data);
-		$v = array();
-		foreach($data['video_list'] as $ve){
-			$temp = array();
-			$temp = $ve;
-			$temp['created_at'] = $this->substring->time_elapsed_string(strtotime($ve['created_at']));
-			$v[] = $temp;
-		}
-		$data['videos'] = $v;
-		
-		if(count($data['video_list'])>0){
-			echo json_encode(array('data'=>$data['videos'],'msg'=>'video list','status'=>200));
+		$data['event_list'] = $this->Event_model->event_search_list($data);
+		if(count($data['event_list'])>0){
+			echo json_encode(array('data'=>$data['event_list'],'msg'=>'event list','status'=>200));
 		}
 		else{
 			echo json_encode(array('msg'=>'no record found.','status'=>500));
@@ -79,9 +63,6 @@ class Elearning_ctrl extends CI_Controller {
 	}
 	
 	function video_detail($id){
-		
-		$data['videos1'] = $this->Elearning_model->get_videos($id);
-		
 		$data['title'] = 'eNam';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
@@ -114,15 +95,13 @@ class Elearning_ctrl extends CI_Controller {
 			$file = FCPATH . '/software_files/Slider_client.txt';
 			file_put_contents ($file, $json);
 		}
-		$data['videos'] = $this->Elearning_model->video_home_page_list($id);
-		//print_r($data['videos']); die;
+		$data['videos'] = $this->Video_model->video_home_page_list();
 	
 		$v = array();
 		foreach($data['videos'] as $ve){
 			$temp = array();
 			$temp = $ve;
-
-			$temp['created_at'] = $this->substring->time_elapsed_string(strtotime($ve['created_at']));
+			$temp['created_at'] = $this->time_elapsed_string(strtotime($ve['created_at']));
 			$v[] = $temp;
 		}
 		$data['videos'] = $v;
@@ -139,5 +118,5 @@ class Elearning_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/gallary/video_show',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
-
+	
 }
