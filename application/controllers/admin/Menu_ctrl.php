@@ -108,6 +108,8 @@ class Menu_ctrl extends CI_Controller {
 			
 			if($this->input->post('menu_id') != ''){
 				$data['menu_id'] = (int)$this->input->post('menu_id');
+				$data['title']  =  $this->input->post('menu_name');
+				//print_r($this->input->post()); die;
 				$result = $this->Menu_model->menu_update($data);
 				if($result){
 					$this->file_update();

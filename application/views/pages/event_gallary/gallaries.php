@@ -132,6 +132,7 @@
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					<div class="carousel-inner">
 						<?php
+						
 						$c = count($events);
 						$counter = 1;
 						for($i = $counter; $i<$c; $i++){
@@ -144,15 +145,17 @@
 						
 							for($j=$i;$j<$i+4;$j++){
 							if($c > $j){
+								
 							?>
 							<div class="col-md-3 events-de">
-								<img id="myImg" style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
+								<img class="enent_inst" data-id="<?php echo $events[$j]['event_id']; ?>" data-title="<?php echo $events[$j]['title']; ?>" data-content="<?php echo $events[$j]['event_content']; ?>" data-image="<?php echo $events[$j]['event_image']; ?>" style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
 								<div class="register-user-box">
 									<h5><?php echo 'event_title'; ?></h5>
-									<?php echo $events[$j]['event_content'];?>
+									<?php echo $events[$j]['title'];?>
 								</div>
-							</div>		
-					  <?php $counter++; } }
+							</div>	
+					  <?php
+					  $counter++; } }
 					  	echo '</div>';		
 						}
 						?>
@@ -170,28 +173,32 @@
 			  </div>
 			
 			
+			<div class="modal fade" id="event_instance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Event Detail</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <div class="modal-body">
+				  <div id="modal_title"></div>
+					<div id="modal_image"></div>
+					<div id="modal_content"></div>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					
-			
-			<div id="myModal" class="modal">
-  				<span class="close">&times;</span>
-  				<img class="modal-content" id="img01">
-  				<div id="caption">ghg ghgfg gtjb jh hgj h h</div>
-			</div>
+				  </div>
+				</div>
+			  </div>
+		</div>
 			
 				<script>
-					var modal = document.getElementById('myModal');
-					var img = document.getElementById('myImg');
-					var modalImg = document.getElementById("img01");
-					var captionText = document.getElementById("caption");
-					img.onclick = function(){
-				    	modal.style.display = "block";
-				    	modalImg.src = this.src;
-				    	captionText.innerHTML = this.alt;
-					}
-					var span = document.getElementsByClassName("close")[0];
-					span.onclick = function() { 
-				    modal.style.display = "none";
-					}
+				var base =	$('#base_url').val();
+				
+					
 				</script>				
 			</div>
 		</div>

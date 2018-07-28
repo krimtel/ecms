@@ -85,11 +85,11 @@ class Menu_model extends CI_Model {
 		$result = $this->db->get_where('menu_item',array('menu_id'=>$data['menu_id'],'lang_id'=>(int)$this->session->userdata('language'),'status'=>1))->result_array();
 		
 		if(count($result) > 0){
-			if($this->ion_auth->is_admin()){
+			if($this->ion_auth->is_admin()){ //print_r($this->input->post()); die;
 				$this->db->where('id',$data['menu_id']);
 				$this->db->update('menu',array(
 						//'menu_slug' => $data['menu_slug'],
-						//'title' => $data['title'],
+						'title' => $data['title'],
 						'p_id' => $data['p_id'],
 						'sort' => $data['sort'],
 						'external_link' => $data['external_link'],
