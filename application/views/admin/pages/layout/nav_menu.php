@@ -40,7 +40,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Select Parent link</label>
+					<label class="col-sm-3 control-label">Select Parent menu</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="menu_parent_dropdown" id="menu_parent_dropdown">
 							<option value="0" selected>Please select Parent</option>

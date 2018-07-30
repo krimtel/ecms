@@ -156,34 +156,34 @@ $(document).ready(function(){
 //		}
 	});
 	
-	$(document).on('keyup','#menu_url_text',function(){
-		var text = $(this).val();
-		if(text == ''){
-			return false;
-		}
-		$.ajax({
-			type: 'POST',
-			url: baseUrl+'admin/Ajax_ctrl/menu_url_check',
-			dataType: "json",
-			data: {
-				'text'	: text
-			},
-			beforeSend: function(){
-				$('#menu_create').attr("disabled", "disabled");
-				$('#menu_update').attr("disabled", "disabled");
-			},
-			success:function (response) {
-				if(response.status == 500){
-					$('#menu_url_text_error').html('This url is already exist, try new one.').css('display','block');
-				}
-				else{
-					$('#menu_url_text_error').css('display','none');
-					$('#menu_create').removeAttr("disabled");
-					$('#menu_update').removeAttr("disabled");
-				}
-			}
-		});
-	});
+	// $(document).on('keyup','#menu_url_text',function(){
+		// var text = $(this).val();
+		// if(text == ''){
+			// return false;
+		// }
+		// $.ajax({
+			// type: 'POST',
+			// url: baseUrl+'admin/Ajax_ctrl/menu_url_check',
+			// dataType: "json",
+			// data: {
+				// 'text'	: text
+			// },
+			// beforeSend: function(){
+				// $('#menu_create').attr("disabled", "disabled");
+				// $('#menu_update').attr("disabled", "disabled");
+			// },
+			// success:function (response) {
+				// if(response.status == 500){
+					// $('#menu_url_text_error').html('This url is already exist, try new one.').css('display','block');
+				// }
+				// else{
+					// $('#menu_url_text_error').css('display','none');
+					// $('#menu_create').removeAttr("disabled");
+					// $('#menu_update').removeAttr("disabled");
+				// }
+			// }
+		// });
+	// });
 	
 	////////////////////////////  language ////////////////////////////////////
 	$(document).on('click','.language_edit',function(){
