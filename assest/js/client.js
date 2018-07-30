@@ -151,7 +151,7 @@ $(document).on('click','.play-img',function(){
 	});
 	
 	
-	 $(document).on('click','.enent_inst',function(){
+	 $(document).on('click','.event_inst',function(){
 						
 						var e_id = $(this).data('id');
 						var e_title = $(this).data('title');
