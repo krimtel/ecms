@@ -148,10 +148,10 @@
 								
 							?>
 							<div class="col-md-3 events-de">
-								<img class="enent_inst" data-id="<?php echo $events[$j]['event_id']; ?>" data-title="<?php echo $events[$j]['title']; ?>" data-content="<?php echo $events[$j]['event_content']; ?>" data-image="<?php echo $events[$j]['event_image']; ?>" style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
+								<img class="event_inst" data-id="<?php echo $events[$j]['event_id']; ?>" data-title="<?php echo $events[$j]['title']; ?>" data-content="<?php echo $events[$j]['event_content']; ?>" data-image="<?php echo $events[$j]['event_image']; ?>" style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
 								<div class="register-user-box">
-									<h5><?php echo 'event_title'; ?></h5>
-									<?php echo $events[$j]['title'];?>
+									<h5><?php echo 'event_content'; ?></h5>
+									<?php echo $events[$j]['event_content'];?>
 								</div>
 							</div>	
 					  <?php
@@ -183,9 +183,9 @@
 					</button>
 				  </div>
 				  <div class="modal-body">
-				  <div id="modal_title"></div>
-					<div id="modal_image"></div>
-					<div id="modal_content"></div>
+				 <font color="red">Event Title</font> <div id="modal_title"></div>
+				<font color="red">Event Image</font><div id="modal_image"></div>
+					<font color="red">Event Content</font><div id="modal_content"></div>
 				  </div>
 				  <div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
