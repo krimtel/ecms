@@ -176,20 +176,10 @@
 			<div class="modal fade" id="event_instance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
 				<div class="modal-content">
-				  <div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Event Detail</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					  <span aria-hidden="true">&times;</span>
-					</button>
-				  </div>
-				  <div class="modal-body">
-				 <font color="red">Event Title</font> <div id="modal_title"></div>
-				<font color="red">Event Image</font><div id="modal_image"></div>
-					<font color="red">Event Content</font><div id="modal_content"></div>
-				  </div>
-				  <div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					
+				  <div class="modal-body" >
+					<button style="position:absolute;top:0px;right:0;" type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i></button>
+					<div id="modal_image"></div>
+					<div id="modal_content" class="events-description"></div>
 				  </div>
 				</div>
 			  </div>

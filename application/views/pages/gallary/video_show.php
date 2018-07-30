@@ -31,7 +31,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="col-md-6 video-g-details" style="padding-left:0px;" >
+						<div class="col-md-6 video-g-details side-video-list" style="padding-left:0px;" >
 						<h5><b><?php echo $video['v_title']; ?></b></h5>
 						<!--<div class="discrip"><?php //echo substr($video['v_content'],0,150); ?></div>-->
 						<p>1025 Views - <?php echo $video['created_at']; ?></p></div>

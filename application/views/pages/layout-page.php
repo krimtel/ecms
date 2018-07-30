@@ -1,12 +1,25 @@
 <div class="main-content-section" style="padding-top:1px;">
-		<!--<div class="page-title" style="padding:0 4%;"> -->
+		<!--<div class="page-title" style="padding:0 4%;"> 
 		<h3><?php //echo $page_title; ?></h3>
-	<!--</div> -->
+	</div> -->
 <?php
 	//echo "hello"; die;
 // echo $this->uri->segment(1); die;
  ?>
-<div class="container-fuild" style="padding-left:4%;padding-right:4%;">
+ <section class="title-header-bg">
+	<div class="text-center">
+		<h3><?php echo $page_title; ?></h3>
+		<div class="bredcrum-list">
+			<ul>
+				<li><a href="<?php echo base_url(); ?>" title=""><img style="margin-top:-6px;" alt="" src="<?php echo base_url(); ?>assest/images/home-ico.png" /></a> / </li>
+				<li><a href="" title="">NAM</a> / </li>
+				<li><a href="" title=""><?php echo $page_title; ?></a></li>
+			</ul>
+		</div>
+	</div>
+</section>
+ 
+<div class="container-fuild" style="padding-left:4%;padding-right:4%;min-height:400px;padding-top:20px;padding-bottom:15px;float:left;width:100%;">
 	 <?php /* 3 column layout ============================*/?>
 	 <?php if($page_layout == 3){ ?>
 	<div class="row">

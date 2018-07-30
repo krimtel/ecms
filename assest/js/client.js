@@ -151,7 +151,7 @@ $(document).on('click','.play-img',function(){
 	});
 	
 	
-	 $(document).on('click','.event_inst',function(){
+	 $(document).on('click','.enent_inst',function(){
 						
 						var e_id = $(this).data('id');
 						var e_title = $(this).data('title');
@@ -159,7 +159,7 @@ $(document).on('click','.play-img',function(){
 						var e_image = $(this).data('image');
 						$('#modal_title').html(e_title);
 						$('#modal_content').html(e_content);
-						$('#modal_image').html('<img height="100" width="100" src="'+baseUrl+'/Event_gallary/'+e_image+'">');
+						$('#modal_image').html('<img style="width:100%;" src="'+baseUrl+'/Event_gallary/'+e_image+'">');
 						$('#event_instance').modal({'show':true,'backdrop':false});
 					 });
 });
