@@ -16,6 +16,11 @@ class Url_ctrl extends CI_Controller {
 			);
 			$this->session->set_userdata($newdata);
 		}
+		//////////////temp/////////////////////////
+		if($this->session->userdata('client_language') == 1)
+			$this->lang->load('client_lang', 'english');
+			else
+				$this->lang->load('client_lang', 'hindi');
 	}
 	
 	function index(){

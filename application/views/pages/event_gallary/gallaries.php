@@ -134,28 +134,30 @@
 						<?php
 						
 						$c = count($events);
-						$counter = 1;
-						for($i = $counter; $i<$c; $i++){
-							if($i == 1){
+						
+						for($i = 0 ; $i <= $c ; $i = $i+4){
+							if($i == 0){
 								echo '<div class="item active">';
 							}
 							else{
 								echo '<div class="item">';
 							}
 						
-							for($j=$i;$j<$i+4;$j++){
-							if($c > $j){
-								
-							?>
+							for($j = $i; $j < $i+4; $j++){ 
+								if($j < $c) { ?>
 							<div class="col-md-3 events-de">
 								<img class="event_inst" data-id="<?php echo $events[$j]['event_id']; ?>" data-title="<?php echo $events[$j]['title']; ?>" data-content="<?php echo $events[$j]['event_content']; ?>" data-image="<?php echo $events[$j]['event_image']; ?>" style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
 								<div class="register-user-box">
-									<h5><?php echo 'event_content'; ?></h5>
+									<h5><?php echo $events[$j]['title']; ?></h5>
 									<?php echo $events[$j]['event_content'];?>
 								</div>
 							</div>	
 					  <?php
-					  $counter++; } }
+								}
+								else{
+									break;
+								}
+					   		}
 					  	echo '</div>';		
 						}
 						?>

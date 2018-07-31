@@ -8,7 +8,7 @@ $lang['elearningvideos'] = ' VIDEOS';
 $lang['viewall'] = 'VIEW ALL';
 $lang['news&events'] = 'NEWS & EVENTS';
 $lang['latest'] = 'LATEST';
-$lang['announcements'] = 'WHAT’s NEW';
+$lang['announcements'] = "WHAT's NEW";
 $lang['important_link'] = 'COVERAGE';
 
 $lang['download'] = 'Download';

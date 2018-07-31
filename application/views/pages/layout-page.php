@@ -8,12 +8,12 @@
  ?>
  <section class="title-header-bg">
 	<div class="text-center">
-		<h3><?php echo $page_title; ?></h3>
+		<h3><?php echo $title; ?></h3>
 		<div class="bredcrum-list">
 			<ul>
 				<li><a href="<?php echo base_url(); ?>" title=""><img style="margin-top:-6px;" alt="" src="<?php echo base_url(); ?>assest/images/home-ico.png" /></a> / </li>
 				<li><a href="" title="">NAM</a> / </li>
-				<li><a href="" title=""><?php echo $page_title; ?></a></li>
+				<li><a href="" title=""><?php echo $title; ?></a></li>
 			</ul>
 		</div>
 	</div>

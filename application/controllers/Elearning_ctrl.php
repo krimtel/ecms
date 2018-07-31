@@ -24,7 +24,7 @@ class Elearning_ctrl extends CI_Controller {
 	}
 
 	public function index($cat	='All'){ 
-		$data['title'] = 'eNam|eLearning';
+		$data['title'] = 'eLEARNING VIDEOS';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
 		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);

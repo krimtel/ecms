@@ -102,7 +102,7 @@
 			  </div>
 			</div>
 
-			<div class="box-body">
+			<div class="box-body" id="welcome">
 				<table class="table events-edit-bg">
 					<tr>
 						<th>Image</th>
