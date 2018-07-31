@@ -130,7 +130,7 @@
 			
 			
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
-					<div class="carousel-inner">
+					<div class="carousel-inner"> 
 						<?php
 						
 						$c = count($events);
@@ -146,7 +146,7 @@
 							for($j = $i; $j < $i+4; $j++){ 
 								if($j < $c) { ?>
 							<div class="col-md-3 events-de">
-								<img class="event_inst" data-id="<?php echo $events[$j]['event_id']; ?>" data-title="<?php echo $events[$j]['title']; ?>" data-content="<?php echo $events[$j]['event_content']; ?>" data-image="<?php echo $events[$j]['event_image']; ?>" style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
+								<img class="event_inst" data-id="<?php echo $events[$j]['event_id']; ?>" data-title="<?php echo $events[$j]['title']; ?>" data-content="<?php echo $events[$j]['event_content']; ?>" data-image="<?php echo $events[$j]['event_image']; ?>" data-e_sort="<?php echo $events[$j]['sort']; ?>" style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
 								<div class="register-user-box">
 									<h5><?php echo $events[$j]['title']; ?></h5>
 									<?php echo $events[$j]['event_content'];?>
@@ -172,19 +172,50 @@
 				  <i class="fa fa-angle-right"></i>
 				  <span class="sr-only">Next</span>
 				</a>
-			  </div>
+			  </div> 
 			
 			
 			<div class="modal fade" id="event_instance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-				<div class="modal-content">
-				  <div class="modal-body" >
-					<button style="position:absolute;top:0px;right:0;" type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i></button>
-					<div id="modal_image"></div>
-					<div id="modal_content" class="events-description"></div>
-				  </div>
-				</div>
-			  </div>
+					  <div class="modal-dialog" role="document">
+						<div class="modal-content">
+						  <div class="modal-body" >
+							<button style="position:absolute;top:0px;right:0;" type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i></button>
+							<!--<div id="eve_id"></div>
+							<div id="modal_image"></div>
+							<div id="modal_content" class="events-description"></div>
+							<div id="eve_category"></div> -->
+							<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+							  <!-- Indicators -->
+							  <ol class="carousel-indicators">
+								<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+								<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+								<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+							  </ol>
+
+							  <!-- Wrapper for slides -->
+							  <div class="carousel-inner" role="listbox">
+								<div class="item active">
+								  <div id="eve_id"></div>
+									<div id="modal_image"></div>
+									<div id="modal_content" class="events-description"></div>
+									<div id="eve_category"></div> 
+								</div>
+							  </div>
+
+							  <!-- Controls -->
+							  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							  </a>
+							  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							  </a>
+							</div>
+							
+						  </div>
+						</div>
+					  </div>
 		</div>
 			
 				<script>

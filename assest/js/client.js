@@ -154,12 +154,36 @@ $(document).on('click','.play-img',function(){
 	 $(document).on('click','.event_inst',function(){
 						
 						var e_id = $(this).data('id');
-						var e_title = $(this).data('title');
-						var e_content = $(this).data('content');
-						var e_image = $(this).data('image');
-						$('#modal_title').html(e_title);
-						$('#modal_content').html(e_content);
-						$('#modal_image').html('<img style="width:100%;" src="'+baseUrl+'/Event_gallary/'+e_image+'">');
-						$('#event_instance').modal({'show':true,'backdrop':false});
+						var e_sort = $(this).data('e_sort');
+						var e_cat = $("#event_category_selector").val();
+							$.ajax({
+								type: 'post',
+								url: baseUrl+'Event_ctrl/event_gallery_data',
+								dataType: "json",
+								data:{
+									'e_id'  :  e_id,
+									'e_sort' : e_sort,
+									'e_cat' :    e_cat
+								},
+								beforeSend: function(){
+									$('#loader').modal({'show': true});
+								},
+								complete: function(){},
+								success: function (response){
+									console.log(response);
+									$('#loader').modal('toggle');
+									if(response.status == 200){
+										
+										$('#event_instance').modal({'show':true,'backdrop':false});
+									}
+									else{
+										
+									}
+								}
+							});
+						// $('#modal_title').html(e_title);
+						// $('#modal_content').html(e_content);
+						// $('#modal_image').html('<img style="width:100%;" src="'+baseUrl+'/Event_gallary/'+e_image+'">');
+						// $('#event_instance').modal({'show':true,'backdrop':false});
 					 });
 });

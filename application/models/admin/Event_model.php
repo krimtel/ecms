@@ -55,7 +55,7 @@ class Event_model extends CI_Model {
 	
 	function event_list($start = 1){
 		$offset = $this->config->item('offset');
-		$this->db->select('ei.*,e.sort,e.event_image,e.publish,e.event_category,e.is_home');
+		$this->db->select('ei.*,e.sort,e.event_image,e.publish,e.is_home');
 		$this->db->join('event_item ei','ei.event_id = e.id','left');
 		$this->db->join('languages l','l.l_id = ei.lang_id','left');
 		$this->db->order_by('e.sort,e.created_at','ASC');
@@ -248,5 +248,7 @@ class Event_model extends CI_Model {
 		
 		return $result;
 	}
+	
+	
 }
 ?>

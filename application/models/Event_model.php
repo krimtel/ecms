@@ -10,7 +10,7 @@ class Event_model extends CI_Model {
 	
 	function event_list($cat){
 		$l_id = $this->session->userdata('client_language');
-			$this->db->select('ei.*,e.sort,e.event_image,e.id as eid,e.publish,e.is_home');
+			$this->db->select('ei.*,e.sort,e.event_image,e.id as eid,e.publish,e.is_home,e.event_category');
 			$this->db->join('events e','e.id = ei.event_id');
 			$this->db->order_by('e.sort','ASC');
 			if($cat != 'All'){
@@ -40,6 +40,13 @@ class Event_model extends CI_Model {
 		else{
 			$result = $this->db->get_where('event_item ei',array('e.status'=>1,'ei.lang_id'=>$l_id ,'ei.status'=>1))->result_array();
 		}
+		return $result;
+	}
+	function event_gallery_content($data){
+		$this->db->select('ei.*,e.sort,e.title');
+		$this->db->join('event_item ei','ei.event_id = e.id');
+		$this->db->order_by('e.sort,e.created_at','ASC');
+		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1,'e.event_category'=>$data['e_cat']))->result_array();
 		return $result;
 	}
 }

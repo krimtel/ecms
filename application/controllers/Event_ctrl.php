@@ -119,4 +119,18 @@ class Event_ctrl extends CI_Controller {
 		$this->load->view('comman/index',$data);
 	}
 	
+	
+	function event_gallery_data(){ 
+		$data['e_d'] = $this->input->post('e_d');
+		$data['e_sort'] = $this->input->post('e_sort');
+		$data['e_cat'] = $this->input->post('e_cat');
+		$result = $this->Event_model->event_gallery_content($data);
+		if($result){ 
+					echo json_encode(array('msg'=>'Event Gallery Data.','status'=>200));
+				}
+				else{
+					echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));
+					}
+	}
+	
 }
