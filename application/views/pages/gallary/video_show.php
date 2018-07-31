@@ -27,6 +27,7 @@
 							<div class="col-md-6">
 							<div class="thum" ><?php $v = explode('/embed/',$video['v_url']); ?>
 								<a href="<?php echo base_url();?>elearning/id/<?php echo $video['video_id'];?>">
+								<img alt="" style="width:32px;"class="play-img-gallery" src="<?php echo base_url();?>assest/images/new-theme/icon/play-ico.png" />
 								<div style="background:url('http://img.youtube.com/vi/<?php echo $v[1];?>/0.jpg') center no-repeat;cursor:pointer;height:74px;width:120px;background-size:cover;"></div>
 								</a>
 							</div>

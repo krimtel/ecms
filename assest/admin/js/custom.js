@@ -1835,14 +1835,17 @@ $(document).ready(function(){
 					$('#loader').modal('show');
 			    },
 			    success:function(response){
-			  	  if(response.status == 200){
-			    	$('#loader').modal('toggle');
-			    	alert(response.msg);
-			    	location.reload();
-			      }
-			      else{
-				    alert(response.msg);
-			      }
+			  	  // if(response.status == 200){
+			    	// $('#loader').modal('toggle');
+			    	// alert(response.msg);
+			    	// location.reload();
+			      // }
+			      // else{
+				    // alert(response.msg);
+			      // }
+				  console.log(response);
+					$('#loader').modal('toggle');
+					location.reload();
 			    }
 		  }).submit();
    		}
@@ -1963,7 +1966,7 @@ $(document).ready(function(){
 				success:function (response) {
 					console.log(response);
 					//$('#loader').modal('toggle');
-					//location.reload();
+					location.reload();
 				}
 			});
 		}
