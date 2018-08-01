@@ -23,7 +23,7 @@ class Event_ctrl extends CI_Controller {
 				$this->lang->load('client_lang', 'hindi');
 	}
 
-	public function index($cat	='All'){
+	public function index($cat	='All'){ 
 		$data['title'] = 'eNam|Events';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);
@@ -41,6 +41,7 @@ class Event_ctrl extends CI_Controller {
 		
 		$data['events_categories'] = $this->Event_model->event_cat_list();	
 		$data['events'] = $this->Event_model->event_list($cat);
+		//$data['event_data'] = $this->Event_model->event_gallery_content($cat);
 		
 		$data['header'] = $this->load->view('comman/header',$data,TRUE);
 		$data['menus'] = $this->Enam_model->all_menus();
@@ -124,7 +125,9 @@ class Event_ctrl extends CI_Controller {
 		$data['e_d'] = $this->input->post('e_d');
 		$data['e_sort'] = $this->input->post('e_sort');
 		$data['e_cat'] = $this->input->post('e_cat');
+	
 		$result = $this->Event_model->event_gallery_content($data);
+		
 		if($result){ 
 					echo json_encode(array('msg'=>'Event Gallery Data.','status'=>200));
 				}

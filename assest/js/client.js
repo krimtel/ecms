@@ -174,6 +174,11 @@ $(document).on('click','.play-img',function(){
 									$('#loader').modal('toggle');
 									if(response.status == 200){
 										
+										
+										// $('#eve_id').val(response.data[0].event_id);
+										// $('#modal_image').val(response.data[0].event_image);
+										// $('#modal_content').val(response.data[0].event_content);
+										// $('#eve_category').val(response.data[0].event_content);
 										$('#event_instance').modal({'show':true,'backdrop':false});
 									}
 									else{

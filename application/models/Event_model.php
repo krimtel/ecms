@@ -43,10 +43,19 @@ class Event_model extends CI_Model {
 		return $result;
 	}
 	function event_gallery_content($data){
-		$this->db->select('ei.*,e.sort,e.title');
-		$this->db->join('event_item ei','ei.event_id = e.id');
-		$this->db->order_by('e.sort,e.created_at','ASC');
-		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1,'e.event_category'=>$data['e_cat']))->result_array();
-		return $result;
+		if($data['e_cat'] == 'All'){
+			$this->db->select('ei.*,e.sort,e.title,e.event_category');
+			$this->db->join('event_item ei','ei.event_id = e.id');
+			$this->db->order_by('e.sort,e.created_at','ASC');
+			$result = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1))->result_array();
+			//print_r($this->db->last_query()); die;
+			return $result;
+		}
+		$this->db->select('ei.*,e.sort,e.title,e.event_category');
+			$this->db->join('event_item ei','ei.event_id = e.id');
+			$this->db->order_by('e.sort,e.created_at','ASC');
+			$result = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1,'e.event_category'=>$data['e_cat']))->result_array();
+			//print_r($this->db->last_query()); die;
+			return $result;
 	}
 }
