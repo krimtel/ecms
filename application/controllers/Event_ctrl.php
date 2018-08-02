@@ -122,14 +122,16 @@ class Event_ctrl extends CI_Controller {
 	
 	
 	function event_gallery_data(){ 
-		$data['e_d'] = $this->input->post('e_d');
-		$data['e_sort'] = $this->input->post('e_sort');
-		$data['e_cat'] = $this->input->post('e_cat');
+		$data['event_id'] = $this->input->post('event_id');
+		$data['sequence_id'] = $this->input->post('sequence_id');
+		$data['event_category'] = $this->input->post('event_category');
+			
+					  
 	
 		$result = $this->Event_model->event_gallery_content($data);
 		
 		if($result){ 
-					echo json_encode(array('msg'=>'Event Gallery Data.','status'=>200));
+					echo json_encode(array('data'=>$result,'msg'=>'Event Gallery Data.','status'=>200));
 				}
 				else{
 					echo json_encode(array('msg'=>'Something gone wrong.','status'=>500));

@@ -134,7 +134,7 @@
 						<?php
 						
 						$c = count($events);
-						
+						$event_seq = 1;
 						for($i = 0 ; $i <= $c ; $i = $i+4){
 							if($i == 0){
 								echo '<div class="item active">';
@@ -142,11 +142,13 @@
 							else{
 								echo '<div class="item">';
 							}
-						
+							
 							for($j = $i; $j < $i+4; $j++){ 
-								if($j < $c) { ?>
+								if($j < $c) { 
+								$event_seq = $event_seq + 1;
+								?>
 							<div class="col-md-3 events-de">
-								<img class="event_inst" data-id="<?php echo $events[$j]['event_id']; ?>" data-title="<?php echo $events[$j]['title']; ?>" data-content="<?php echo $events[$j]['event_content']; ?>" data-image="<?php echo $events[$j]['event_image']; ?>" data-e_sort="<?php echo $events[$j]['sort']; ?>" style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
+								<img class="event_inst" data-id="<?php echo $events[$j]['event_id']; ?>" data-content="<?php echo $events[$j]['event_content']; ?>" data-image="<?php echo $events[$j]['event_image']; ?>" data-sequence="<?php echo $event_seq;?>"  style="width:100%;" alt="<?php echo $events[$j]['title']; ?>" src="<?php echo base_url(); ?>/Event_gallary/<?php echo $events[$j]['event_image']; ?>" />
 								<div class="register-user-box">
 									<h5><?php echo $events[$j]['title']; ?></h5>
 									<?php echo $events[$j]['event_content'];?>
@@ -156,7 +158,7 @@
 								}
 								else{
 									break;
-								}
+								} 
 					   		}
 					  	echo '</div>';		
 						}
@@ -193,12 +195,11 @@
 							  </ol>
 										
 							  <!-- Wrapper for slides -->
-							  <div class="carousel-inner" role="listbox">
+							 <div class="carousel-inner" role="listbox">
 								<div class="item active">
-								  <div id="eve_id"></div>
+									<input type="hidden" id="eve_id" value="">
 									<div id="modal_image"></div>
-									<div id="modal_content" class="events-description"></div>
-									<div id="eve_category"></div> 
+									<div id="modal_content" style="background-color:blue"></div>
 								</div>
 							  </div>
 

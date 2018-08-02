@@ -43,11 +43,13 @@
 /*====================================*/
 
 /*comman css*/
+body{font-size:14px;}
 .f-left{float:left;}
 .f-right{float:right;}
 .align-left{text-align:left;}
 .align-right{text-align:right;}
 .align-center{text-align:center;}
+table tr th,table tr td{font-size:14px;}
 
 /*header section*/
 
@@ -152,7 +154,7 @@ iframe body form .TickerBox{background-color:#ececec !important;}
 .quick-link-list{background-color:#f8face;padding:0px;width: 100%;
     float: left;margin-bottom:0;}
 .quick-link-list li p{margin-bottom:0px;}
-.quick-link-list li{padding: 3.5px 6px;border-bottom: 1px solid #c1a3a3;background-color: #ffc000;margin-bottom: 3px;}
+.quick-link-list li{padding: 5.6px 6px;border-bottom: 1px solid #c1a3a3;background-color: #ffc000;margin-bottom: 3px;}
 .quick-link-list li:last-child{border-bottom:0px solid #eee;margin-bottom:0;}
 .quick-link-list li a{color:#545454;display:block;height:27px;font-weight:600;line-height:26px;}
 .quick-link-list li:hover{background-color:#ffc000;}
@@ -418,7 +420,7 @@ iframe body form .TickerBox{background-color:#ececec !important;}
     height: 40px;
     overflow: hidden;}
 .events-point li{list-style:disc;margin-left:15px;font-size:12px;line-height:18px;float:left;width:100%;}
-
+ul li{font-size:14px;}
 .fpo-page{}
 .fpo-page h4{margin-top:30px;}
 .fpo-ul li{margin-left:15px;}
@@ -430,7 +432,7 @@ iframe body form .TickerBox{background-color:#ececec !important;}
 .booklet-section ul li a span{font-size:13px;}
 
 /*about-us*/
-.content-section p{text-align:justify;}
+.content-section p{text-align:justify;font-size:14px;}
 .title-header-bg{background-image:url("../images/title-header-bg.png");float:left;width:100%;height:100px;background-position:center;}
 .title-header-bg h3{font-size:25px;color:#648621;margin-top:23px;font-weight:600;margin-bottom:10px;}
 .title-header-bg ul{    position: absolute;

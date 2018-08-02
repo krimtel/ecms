@@ -68,7 +68,7 @@ class Page_ctrl extends CI_Controller {
 								
 				$data['page_details'] = $result;
 			}
-			
+			//print_r($data['page_details']); die;
 			$data['head'] = $this->load->view('admin/comman/head',$data,TRUE);
 			$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 			$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
