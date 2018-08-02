@@ -10,7 +10,7 @@
 		</div>
 	</div>
 </section>
-<section class="content-section" style="background-color:#fff;padding:20px 0;float:left;width:100%;">
+<section class="content-section">
 	<div class="container-fuild" style="padding-left:4%;padding-right:4%;">
 		<div class="row">
 			<div class="col-md-12 video-gallery">

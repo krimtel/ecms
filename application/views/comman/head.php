@@ -19,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/styles.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/style_white.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/home-style.css"/>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/green-box.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/orange-box.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assest/css/blue-box.css"/>

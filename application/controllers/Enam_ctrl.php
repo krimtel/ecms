@@ -236,6 +236,124 @@ class Enam_ctrl extends CI_Controller {
 		$data['main_contant'] = $this->load->view('pages/farmer/enrolled-mandis',$data,TRUE);
 		$this->load->view('comman/index',$data);
 	}
+	
+	
+	public function apmc()
+	{
+		$data['title'] = 'eNam';
+		$data['keywords'] = 'enam home';
+		$data['head'] = $this->load->view('comman/head',$data,TRUE);
+		
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+		if(count($file_menu)){
+			$data['languages'] = $file_menu;
+		}
+		else{
+			$data['languages'] = $this->Language_model->get_all_language();
+			$json = json_encode($data['languages']);
+			$file = FCPATH . '/software_files/Language.txt';
+			file_put_contents ($file, $json);
+		}
+		
+		$data['header'] = $this->load->view('comman/header',$data,TRUE);
+		$data['menus'] = $this->Enam_model->all_menus();
+		
+		$data['navigation'] = $this->load->view('comman/navigation',$data,TRUE);
+		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
+		$data['footer'] = $this->load->view('comman/footer','',TRUE);
+		
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider_client.txt'),true);
+		if(count($file_menu)){
+			$data['sliders'] = $file_menu;
+		}
+		else{
+			$data['sliders'] = $this->Slider_model->slider_list_client();
+			$json = json_encode($data['sliders']);
+			$file = FCPATH . '/software_files/Slider_client.txt';
+			file_put_contents ($file, $json);
+		}
+		$data['videos'] = $this->Video_model->video_home_page_list();
+		
+		$v = array();
+		foreach($data['videos'] as $ve){
+			$temp = array();
+			$temp = $ve;
+			$temp['created_at'] = $this->time_elapsed_string(strtotime($ve['created_at']));
+			$v[] = $temp;
+		}
+		$data['videos'] = $v;
+		
+		$data['home_body'] = $this->Widget_model->home_content();
+		$data['newses'] = $this->Enam_model->all_news();
+		$data['events'] = $this->Event_model->home_list_events();
+		$data['links'] = $this->Enam_model->all_links();
+		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
+		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		$data['slider'] = $this->load->view('pages/comman/slider',$data,TRUE);
+		$data['links'] = $this->Enam_model->all_links();
+		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		$data['main_contant'] = $this->load->view('pages/apmc/apmc_status',$data,TRUE);
+		$this->load->view('comman/index',$data);
+	}
+	
+	public function contact_us()
+	{
+		$data['title'] = 'eNam';
+		$data['keywords'] = 'enam home';
+		$data['head'] = $this->load->view('comman/head',$data,TRUE);
+		
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Language.txt'),true);
+		if(count($file_menu)){
+			$data['languages'] = $file_menu;
+		}
+		else{
+			$data['languages'] = $this->Language_model->get_all_language();
+			$json = json_encode($data['languages']);
+			$file = FCPATH . '/software_files/Language.txt';
+			file_put_contents ($file, $json);
+		}
+		
+		$data['header'] = $this->load->view('comman/header',$data,TRUE);
+		$data['menus'] = $this->Enam_model->all_menus();
+		
+		$data['navigation'] = $this->load->view('comman/navigation',$data,TRUE);
+		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
+		$data['footer'] = $this->load->view('comman/footer','',TRUE);
+		
+		$file_menu = json_decode(file_get_contents(FCPATH . '/software_files/Slider_client.txt'),true);
+		if(count($file_menu)){
+			$data['sliders'] = $file_menu;
+		}
+		else{
+			$data['sliders'] = $this->Slider_model->slider_list_client();
+			$json = json_encode($data['sliders']);
+			$file = FCPATH . '/software_files/Slider_client.txt';
+			file_put_contents ($file, $json);
+		}
+		$data['videos'] = $this->Video_model->video_home_page_list();
+		
+		$v = array();
+		foreach($data['videos'] as $ve){
+			$temp = array();
+			$temp = $ve;
+			$temp['created_at'] = $this->time_elapsed_string(strtotime($ve['created_at']));
+			$v[] = $temp;
+		}
+		$data['videos'] = $v;
+		
+		$data['home_body'] = $this->Widget_model->home_content();
+		$data['newses'] = $this->Enam_model->all_news();
+		$data['events'] = $this->Event_model->home_list_events();
+		$data['links'] = $this->Enam_model->all_links();
+		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks',$data,TRUE);
+		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		$data['slider'] = $this->load->view('pages/comman/slider',$data,TRUE);
+		$data['links'] = $this->Enam_model->all_links();
+		$data['home_notice'] = $this->load->view('comman/home_notice',$data,TRUE);
+		$data['main_contant'] = $this->load->view('pages/contactus/contact-us',$data,TRUE);
+		$this->load->view('comman/index',$data);
+	}
+	
 
 	/*traders*/
 
@@ -470,19 +588,19 @@ class Enam_ctrl extends CI_Controller {
 		$this->load->view('comman/index',$data);
 	}
 	/*contact us*/
-	public function contact_us()
-	{
-		$data['title'] = 'Contact Us';
-		$data['head'] = $this->load->view('comman/head','',TRUE);
-		$data['header'] = $this->load->view('comman/header','',TRUE);
-		$data['navigation'] = $this->load->view('comman/navigation','',TRUE);
-		$data['footer'] = $this->load->view('comman/footer','',TRUE);
-		$data['quickLinks'] = $this->load->view('pages/comman/quickLinks','',TRUE);
-		$data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
-		$data['banner'] = $this->load->view('pages/comman/banner','',TRUE);
-		$data['main_contant'] = $this->load->view('pages/contactus/contact-us',$data,TRUE);
-		$this->load->view('comman/index',$data);
-	}
+	// public function contact_us()
+	// {
+		// $data['title'] = 'Contact Us';
+		// $data['head'] = $this->load->view('comman/head','',TRUE);
+		// $data['header'] = $this->load->view('comman/header','',TRUE);
+		// $data['navigation'] = $this->load->view('comman/navigation','',TRUE);
+		// $data['footer'] = $this->load->view('comman/footer','',TRUE);
+		// $data['quickLinks'] = $this->load->view('pages/comman/quickLinks','',TRUE);
+		// $data['marqueeSection'] = $this->load->view('pages/comman/marqueeSection','',TRUE);
+		// $data['banner'] = $this->load->view('pages/comman/banner','',TRUE);
+		// $data['main_contant'] = $this->load->view('pages/contactus/contact-us',$data,TRUE);
+		// $this->load->view('comman/index',$data);
+	// }
 	public function feedback()
 	{
 		$data['title'] = 'Feedback';

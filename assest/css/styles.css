@@ -363,7 +363,7 @@ iframe body form .TickerBox{background-color:#ececec !important;}
     width: 100%;
     line-height: 21px;margin-bottom:0;}
 .green-theme .enam-events-box p.p-date{color:#456a00 !important;}
-.map-detail-btn{background-color:#162152;padding:6px 10px;color:#fff;float:left;margin-top:2px;}
+.map-detail-btn{background-color:#41791e;padding:6px 10px;color:#fff;float:left;margin-top:2px;}
 .map-detail-btn:hover{background-color:#111a44;color:#fff;}
 .show-more{float:left;width:100%;margin-top:20px;margin-bottom:10px;}
 
@@ -432,6 +432,7 @@ ul li{font-size:14px;}
 .booklet-section ul li a span{font-size:13px;}
 
 /*about-us*/
+.content-section{min-height:400px;background-color:#fff;padding:20px 0;float:left;width:100%;}
 .content-section p{text-align:justify;font-size:14px;}
 .title-header-bg{background-image:url("../images/title-header-bg.png");float:left;width:100%;height:100px;background-position:center;}
 .title-header-bg h3{font-size:25px;color:#648621;margin-top:23px;font-weight:600;margin-bottom:10px;}
@@ -504,3 +505,5 @@ body.hindi .navigation li a{font-size:14px !important;}
     overflow: auto;
     margin-top: 10px;
 }
+table tr th{background-color:#063479;color:#fff;font-weight:normal;}
+.table-bordered>tbody>tr>td, .table-bordered>thead>tr>th{border:1px solid #d2cfcf;}
