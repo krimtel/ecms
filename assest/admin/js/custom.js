@@ -1144,8 +1144,8 @@ $(document).ready(function(){
 		if(layout_id == 1){
 			$('#1coumn').hide();
 			$('#2coumn').hide();
+			$('#2coumn_right').hide();
 			$('#3coumn').hide();
-			
 			var page_id = $('#page_id').val();	
 			$.ajax({
 		        type: 'POST',
@@ -1184,6 +1184,7 @@ $(document).ready(function(){
 		else if(layout_id == 2){
 			$('#1coumn').hide();
 			$('#2coumn').show();
+			$('#2coumn_right').hide();
 			$('#3coumn').hide();
 			
 			var page_id = $('#page_id').val();	
@@ -1229,10 +1230,137 @@ $(document).ready(function(){
 		        }
 			});
 		}
+		
+		/////////////////////////////////////////
+		
 		else if(layout_id == 3){
 			$('#1coumn').hide();
 			$('#2coumn').hide();
+			$('#3coumn').hide();
+			$('#2coumn_right').show();
+			
+			var page_id = $('#page_id').val();	
+			$.ajax({
+		        type: 'POST',
+		        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+		        dataType: "json",
+		        data: {
+			        'page_id' : page_id
+			       },
+		        beforeSend: function(){
+		        	$('#loader').modal({'show':true});	
+		        },
+		        complete: function(){},
+		        success:function (response) {
+		        	console.log(response);
+		        	$('#two_col_right_leftcontent_box').html('');
+		        	$('#two_col_right_rightcontent_box').html('');
+		        	$.each(response.data2,function(k,v){
+		        		var x = '';
+		        		var find = 0;
+		        		$.each(response.data,function(key,value){
+			        		if(value.w_id == v.widget_id){
+			        			x = x + '<option value="'+ value.w_id +'" selected>'+ value.name +'</option>';
+			        			find = 1;
+			        		}
+			        		else{
+			        			x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+			        		}
+			        	});
+			        	
+		        		if(find){
+							x = x + '<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>'+
+		        			'<option value="-6">Contact Us</option>';
+						}
+						else{
+							if(v.widget_id == '-1'){
+			        			x = x + '<option value="-1" selected>News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-5">Videos</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-2'){
+			        			x = x + '<option value="-2" selected>Slider</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-5">Videos</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-3'){
+			        			x = x + '<option value="-3" selected>Quick Link</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-5">Videos</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-4'){
+			        			x = x + '<option value="-4" selected>Event</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-5">Videos</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-5'){
+			        			x = x + '<option value="-5" selected>Videos</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-6">Contact Us</option>';
+			        		}
+			        		else if(v.widget_id == '-6'){
+			        			x = x + '<option value="-6" selected>Contact Us</option>'+
+			        			'<option value="-1">News</option>'+
+			        			'<option value="-2">Slider</option>'+
+			        			'<option value="-3">Quick Link</option>'+
+			        			'<option value="-4">Event</option>'+
+			        			'<option value="-5">Videos</option>';
+			        		}
+						}
+		        		
+		        		
+						if(v.section == 'left_col'){
+							var dropdown = '<select class="form-control col-sm-6" name="three_col_leftcontent[]" id="">'+
+							'<option value="0">select widget</option>'+
+							x +
+							'</select>';
+			        		$('#two_col_right_leftcontent_box').append(dropdown);
+						}
+						else if(v.section == 'main_body'){
+							var dropdown = '<select class="form-control col-sm-6" name="three_col_maincontent[]" id="">'+
+							'<option value="0">select widget</option>'+
+							x +
+							'</select>';
+							$('#three_col_maincontent_box').aooend(dropdown);
+						}
+						else{
+							var dropdown = '<select class="form-control col-sm-6" name="three_col_rightcontent[]" id="">'+
+							'<option value="0">select widget</option>'+
+							x +
+							'</select>';
+							$('#two_col_right_rightcontent_box').append(dropdown);
+						}
+			        });
+		        	$('#loader').modal('toggle');
+		        }
+			});
+		}
+		
+		/////////////////////////////////////////
+		else if(layout_id == 4){
+			$('#1coumn').hide();
+			$('#2coumn').hide();
 			$('#3coumn').show();
+			$('#2coumn_right').hide();
 			
 			var page_id = $('#page_id').val();	
 			$.ajax({
@@ -1450,6 +1578,39 @@ $(document).ready(function(){
 		});
 	});
 	
+	$(document).on('click','#two_col_right_rightcontent_addmore',function(){
+		var that = this;
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+	        dataType: "json",
+	        data: {},
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	$('#loader').modal('toggle');
+	        	var x = '';
+	        	$.each(response.data,function(key,value){
+	        		x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+	        	});
+	        	x = x + '<option value="0">--------------------------------------------------------------------------</option>'+
+	        			'<option value="-1">News</option>'+
+	        			'<option value="-2">Slider</option>'+
+	        			'<option value="-3">Quick Link</option>'+
+	        			'<option value="-4">Event</option>'+
+	        			'<option value="-5">Videos</option>'+
+	        			'<option value="-6">Contact Us</option>';
+	        	var dropdown = '<select class="form-control col-sm-6" name="two_col_right_rightcontent[]" id="">'+
+				'<option value="0">select widget</option>'+
+				x +
+				'</select>';
+	        	$('#two_col_right_rightcontent_box').prepend(dropdown);
+	        }
+		});
+	});
 	
 	$(document).on('click','#three_col_leftcontent_addmore',function(){
 		var that = this;

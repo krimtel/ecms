@@ -42,7 +42,7 @@ class Page_ctrl extends CI_Controller {
 				$file = FCPATH . '/software_files/Widgets.txt';
 				file_put_contents ($file, $json);
 			}
-// 			print_r($data['widgets']); die;
+
 			$Newses = json_decode(file_get_contents(FCPATH . '/software_files/News.txt'),true);
 			if(count($Newses)){
 				$data['News'] = $Newses;
@@ -69,7 +69,7 @@ class Page_ctrl extends CI_Controller {
 								
 				$data['page_details'] = $result;
 			}
-			//print_r($data['page_details']); die;
+// 			print_r($data['page_details']); die;
 			$data['head'] = $this->load->view('admin/comman/head',$data,TRUE);
 			$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 			$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
@@ -114,6 +114,16 @@ class Page_ctrl extends CI_Controller {
 	
 	function page_create(){
 			$data['page_id'] = (int)$this->input->post('page_id');
+			$data['checkbox_control'] = $this->input->post('checkbox_control');
+			$data['checkbox_url'] = $this->input->post('checkbox_url');
+			if($data['checkbox_control']){
+				$data['checkbox_control'] = 1;
+			}
+			else{
+				$data['checkbox_control'] = 0;
+				$data['checkbox_url'] = 'NULL';
+			}
+			
 			if($data['page_id'] == ''){
 				// new page create
 				$this->db->trans_begin();
@@ -121,7 +131,7 @@ class Page_ctrl extends CI_Controller {
 				$data['page_layout'] = $this->input->post('page_layout');
 				$data['meta_tag'] = $this->input->post('meta_tag');
 				$data['keyword'] = $this->input->post('keyword');
-				$data['page_body'] = $this->input->post('page_body');
+				$data['page_body'] = $this->input->post('page_body',false);
 				if($data['page_layout'] == 1){
 					$data['component'] = $this->input->post('one_col_maincontent');
 				}
@@ -138,6 +148,8 @@ class Page_ctrl extends CI_Controller {
 				$this->db->insert('pages',array(
 						'page_name' => $data['page_name'],
 						'page_layout' => $data['page_layout'],
+						'is_static' => $data['checkbox_control'],
+						'url'	=> $data['checkbox_url'],
 						'created_at' => date('y-m-d h:i:s'),
 						'created_by' => $this->session->userdata('user_id')
 				));
@@ -208,14 +220,17 @@ class Page_ctrl extends CI_Controller {
 				$data['page_layout'] = $this->input->post('page_layout');
 				$data['meta_tag'] = $this->input->post('meta_tag');
 				$data['keyword'] = $this->input->post('keyword');
-				$data['page_body'] = $this->input->post('page_body');
-				
+				$data['page_body'] = $this->input->post('page_body',false);
+				$data['checkbox_control'] = $data['checkbox_control'];
+				$data['checkbox_url'] = $data['checkbox_url'];
 				if($data['page_layout'] == 1){
 					$data['component'] = $this->input->post('one_col_maincontent');
 				}
 				else if($data['page_layout'] == 2){
 					$data['left_component'] = $this->input->post('two_col_leftcontent');
-					$data['component'] = $this->input->post('two_col_maincontent');
+				}
+				else if($data['page_layout'] == 3){
+					$data['right_component'] = $this->input->post('two_col_right_rightcontent');
 				}
 				else {
 					$data['left_component'] = $this->input->post('three_col_leftcontent');
@@ -253,7 +268,6 @@ class Page_ctrl extends CI_Controller {
 				$this->db->where('p_id',$data['page_id']);
 				if($this->ion_auth->is_admin()){
 					$this->db->update('pages',array(
-						//'page_name' => $data['page_name'],
 						'page_layout' => $data['page_layout'],
 						'updated_at' => date('y-m-d h:i:s'),
 						'updated_by' => $this->session->userdata('user_id')
@@ -261,8 +275,6 @@ class Page_ctrl extends CI_Controller {
 				}
 				else{
 					$this->db->update('pages',array(
-						//'page_name' => $data['page_name'],
-						//'page_layout' => $data['page_layout'],
 						'updated_at' => date('y-m-d h:i:s'),
 						'updated_by' => $this->session->userdata('user_id')
 					));
@@ -270,7 +282,6 @@ class Page_ctrl extends CI_Controller {
 				
 				if($this->ion_auth->is_admin()){
 					$this->db->update('pages',array(
-							//'page_name' => $data['page_name'],
 							'page_layout' => $data['page_layout'],
 							'updated_at' => date('y-m-d h:i:s'),
 							'updated_by' => $this->session->userdata('user_id')
@@ -278,8 +289,6 @@ class Page_ctrl extends CI_Controller {
 				}
 				else{
 					$this->db->update('pages',array(
-							//'page_name' => $data['page_name'],
-							//'page_layout' => $data['page_layout'],
 							'updated_at' => date('y-m-d h:i:s'),
 							'updated_by' => $this->session->userdata('user_id')
 					));

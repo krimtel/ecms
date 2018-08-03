@@ -1,9 +1,34 @@
 $(document).ready(function(){
 	var baseUrl = $('#base_url').val();
 	
-	$(document).on('change','#event_page_counter',function(){
+	$(document).on('change','#event_page_counter,#event_is_home,#event_is_active',function(){
 		event_page();
 	});
+	
+	
+	$.ajax({
+        type: 'POST',
+        url: baseUrl+'admin/Event_ctrl/get_all_events_count',
+        dataType: "json",
+        data: { },
+        beforeSend: function(){ 
+        	
+        },
+        complete: function(){ },
+        success:function (response){
+        	if(response.status == 200){
+        	var x = '';
+        	var count = response.data[0].total;
+        	
+        	var c = Math.ceil(count/5);
+        		for(var i=0;i < c; i++){
+        			x = x + '<option value="'+ i +'">'+ parseInt(i+1) +'</option>';
+        		}
+        		$('#event_page_counter').html(x);
+        	}
+        }
+	});
+	
 });
 
 function event_page(){
@@ -28,7 +53,7 @@ function event_page(){
         },
         complete: function(){},
         success:function (response){
-        	console.log(response);
+        	if(response.status == 200){
         	var x = '';
         	x = x + '<table class="table events-edit-bg">'+
 						'<tr>'+
@@ -57,23 +82,25 @@ function event_page(){
 							}
 							else{ 
 								x = x + '<tr class="">';
-							}						
-							x = x + '<td><img width="90" src="'+ baseUrl +'"Event_gallary/".'+ value.event_image +'"></td>'+
-								'<td >'+ value.title; +'</td>'+
+							}			
+							
+							x = x + '<td><img width="90" src="'+ baseUrl +'Event_gallary/'+ value.event_image +'"></td>'+
+								'<td>'+ value.title +'</td>'+
 								'<td>'+ value.event_category +'</td>';
 							if(group != 'subadmin'){
 								x = x + '<td>'+ value.sort +'</td>'+
 										'<td>';
-									if(value.publish){ 
+									if(parseInt(value.publish)){ 
 										x = x +'<input class="event_published" data-event_id="'+ value.event_id +'" type="checkbox" checked />';										
 									} else {
 										x = x +'<input class="event_published" data-event_id="'+ value.event_id +'" type="checkbox" />';
 									}
 								x = x +'</td>'+
 								'<td>';
-							    if(value.is_home){
+								
+							    if(parseInt(value.is_home)){
 										x = x + '<input class="is_home" data-event_id="'+ value.event_id +'" type="checkbox" checked />';										
-								} else { 
+								} else {
 										x = x + '<input class="is_home" data-event_id="'+ value.event_id +'" type="checkbox" />';
 								}
 								x = x +'</td>';
@@ -92,7 +119,11 @@ function event_page(){
 					} 
 				x = x +'</tbody>'+
 			'</table>';
-			$('#welcome').html(x);
+			$('#event_box_list').html(x);
+        	}
+        	else{
+        		$('#event_box_list').html('No record found.');	
+        	}
         }
 	});
 }

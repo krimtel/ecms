@@ -53,14 +53,14 @@ class Event_model extends CI_Model {
 		}
 	}
 	
-	function event_list($start = 1){
-		$offset = $this->config->item('offset');
+	function event_list(){
+		$l_id = $this->session->userdata('language');
 		$this->db->select('ei.*,e.sort,e.event_image,e.publish,e.is_home');
 		$this->db->join('event_item ei','ei.event_id = e.id','left');
 		$this->db->join('languages l','l.l_id = ei.lang_id','left');
 		$this->db->order_by('e.sort,e.created_at','ASC');
-		//$this->db->limit($offset,$start);
-		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1))->result_array();
+		$this->db->limit(5);
+		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.lang_id'=>$l_id,'ei.status'=>1))->result_array();
 		return $result;
 	}
 	
@@ -237,13 +237,13 @@ class Event_model extends CI_Model {
 	}
 	
 	function get_events_ajax($data){
-		$l_id = $this->session->userdata('language'); 
+		$l_id = (int)$this->session->userdata('language'); 
 		
-		if($data['is_home']){
-			$this->db->where('e.is_home',1);			
+		if($data['is_home'] != 'NULL'){
+			$this->db->where('e.is_home',(int)$data['is_home']);			
 		}
-		if($data['is_active']){
-			$this->db->where('e.publish',1);
+		if($data['is_active'] != 'NULL'){
+			$this->db->where('e.publish',(int)$data['is_active']);
 		}
 		if($data['search_text']){
 			$this->db->like('ei.title',$data['search_text'],'after');
@@ -256,10 +256,18 @@ class Event_model extends CI_Model {
 		$this->db->order_by('e.sort,e.created_at','ASC');
 		$this->db->limit($offset,($offset * $data['page_count']));
 		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.lang_id'=>$l_id,'ei.status'=>1))->result_array();
-		
+		//print_r($this->db->last_query()); die;
 		return $result;
 	}
 	
-	
+	function get_all_events_count(){
+		$l_id = $this->session->userdata('language');
+		$this->db->select('count(*) as total');
+		$this->db->join('event_item ei','ei.event_id = e.id','left');
+		$this->db->join('languages l','l.l_id = ei.lang_id','left');
+		$this->db->order_by('e.sort,e.created_at','ASC');
+		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.lang_id'=>$l_id,'ei.status'=>1))->result_array();
+		return $result;
+	}
 }
 ?>

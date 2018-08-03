@@ -20,8 +20,51 @@
 </section>
  
 <div class="container-fuild" style="padding-left:4%;padding-right:4%;min-height:400px;padding-top:20px;padding-bottom:15px;float:left;width:100%;">
-	 <?php /* 3 column layout ============================*/?>
-	 <?php if($page_layout == 3){ ?>
+	 <?php /* 2 column right =============================*/?>
+	 	 <?php if($page_layout == 3){ ?>
+	<div class="row">
+	<div class="col-md-9 col-sm-9">
+		<div class="col-md-12 col-sm-12">
+			<?php print_r($output); ?>
+		</div>
+	</div>
+	<div class="col-md-3 col-sm-3">
+		<?php if(isset($page_contents[0]['col'])){ ?>
+			<?php foreach ($page_contents[0]['col'] as $page_content){
+				if($page_content['section'] == 'right_col'){
+					if($page_content['widget_id'] < 0){
+						if($page_content['widget_id'] == -1){
+							print_r($news_page);
+						}
+						else if($page_content['widget_id'] == -2){
+							print_r($slider_page);
+						}
+						else if($page_content['widget_id'] == -3){
+							print_r($quickLinks_page);
+						}
+					}
+					else{
+						if($page_content['section'] == 'right_col'){ ?>
+								<div class="mid-top-space natinal-agricul-market pad"> 
+									<h3 class="events-title"><span><?php echo $page_content['name']; ?></span></h3>
+			 						<div class="commodity-list"> 
+			 							<div class="box_cont">
+											<div style="text-align:justify">
+												<?php echo $page_content['content']; ?>
+			 								</div>
+			 							</div>
+			 						</div> 
+			 					</div>
+						<?php }
+					} 
+				}
+			}
+		} ?>
+		
+	</div>
+	</div> 
+	 <!--  3 column layout ============================*/ -->
+	 <?php } else if($page_layout == 4){?>
 	<div class="row">
 	<div class="col-md-3 col-sm-3">
 		

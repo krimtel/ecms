@@ -47,20 +47,30 @@
 						<select class="form-control" name="page_layout" id="page_layout">
 						<?php if(isset($page_details)){ ?>
 							<option value="0" >Please select layout</option>
-							<option value="1" <?php if($page_details['0']['page_layout'] == 1){ echo "selected"; }?>>1 column</option>
-							<option value="2" <?php if($page_details['0']['page_layout'] == 2){ echo "selected"; }?>>2 columns</option>
-							<option value="3" <?php if($page_details['0']['page_layout'] == 3){ echo "selected"; }?>>3 columns</option>
+							<option value="1" <?php if($page_details['0']['page_layout'] == 1){ echo "selected"; }?>>1 column (No Sidebar)</option>
+							<option value="2" <?php if($page_details['0']['page_layout'] == 2){ echo "selected"; }?>>2 columns (Left Sidebar)</option>
+							<option value="3" <?php if($page_details['0']['page_layout'] == 3){ echo "selected"; }?>>2 columns (Right Sidebar)</option>
+							<option value="4" <?php if($page_details['0']['page_layout'] == 4){ echo "selected"; }?>>3 columns (Both Sidebar)</option>
 						<?php } else { ?>
 							<option value="0" selected>Please select layout</option>
 							<option value="1" >1 column (No Sidebar)</option>
 							<option value="2" >2 columns (Left Sidebar)</option>
-							<option value="3" >3 columns (Both Sidebar)</option>
+							<option value="3" >2 columns (Right Sidebar)</option>
+							<option value="4" >3 columns (Both Sidebar)</option>
 						<?php } ?>
 						</select>
 						<div class="text-danger" id="page_layout_error" style="display: none;"></div>
 					</div>
 				</div>
 				<?php } ?>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Is Static Page</label>
+					<div class="col-sm-9">
+						<input type="checkbox" name="checkbox_control" id="checkbox_control" <?php if(isset($page_details)){if($page_details[0]['is_static']){ echo "checked";}}?> >
+						<input type="text" name="checkbox_url" id="checkbox_url" value="<?php if(isset($page_details)){if($page_details[0]['is_static']){ echo $page_details[0]['url']; }}?>" />
+					</div>
+				</div>
+				
 				<!--  -->
 				<div class="form-group" id="1coumn" style="display: none;">
 					<label class="col-sm-2 control-label">Select Layout</label>
@@ -83,17 +93,29 @@
 						<table class="table table-bordered">
 							<tr>
 								<th>Left</th>
-<!-- 								<th>Main</th> -->
 							</tr>
 							<tr>
 								<td>
 									<div id="two_col_leftcontent_box"></div>
 									<input type="button" id="two_col_leftcontent_addmore" value="Add more" class="btn btn-default">
 								</td>
-<!-- 								<td> -->
-<!-- 									<div id="two_col_maincontent_box"></div> -->
-<!-- 									<input type="button" id="two_col_maincontent_addmore" value="Add more" class="btn btn-default"> -->
-<!-- 								</td> -->
+							</tr>
+						</table>
+					</div>
+				</div>
+				
+				<div class="form-group" id="2coumn_right" style="display: none;">
+					<label class="col-sm-2 control-label">Select Layout</label>
+					<div class="col-sm-9">
+						<table class="table table-bordered">
+							<tr>
+								<th>Right</th>
+							</tr>
+							<tr>
+								<td>
+									<div id="two_col_right_rightcontent_box"></div>
+									<input type="button" id="two_col_right_rightcontent_addmore" value="Add more" class="btn btn-default">
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -105,7 +127,6 @@
 						<table class="table table-bordered">
 							<tr>
 								<th>Left</th>
-<!-- 								<th>Main</th> -->
 								<th>Right</th>
 							</tr>
 							<tr>
@@ -113,10 +134,6 @@
 									<div id="three_col_leftcontent_box"></div>
 									<input type="button" id="three_col_leftcontent_addmore" value="Add more" class="btn btn-default">
 								</td>
-<!-- 								<td> -->
-<!-- 									<div id="three_col_maincontent_box"></div> -->
-<!-- 									<input type="button" id="three_col_maincontent_addmore" value="Add more" class="btn btn-default"> -->
-<!-- 								</td> -->
 								<td>
 									<div id="three_col_rightcontent_box"></div>
 									<input type="button" id="three_col_rightcontent_addmore" value="Add more" class="btn btn-default">
@@ -125,7 +142,7 @@
 						</table>
 					</div>
 				</div>
-				<!--  -->
+				
 				<?php if($group != 'subadmin'){ ?>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Meta tags</label>
@@ -170,7 +187,7 @@
 		
 <div class="sort-code-box">
 	<div class="sort-code-head sort-head-title">Sort Code <span class="pull-right"><i class="fa fa-minus"></i></span></div>
-	<div class="sort-code-body">
+	<div class="sort-code-body" style="display:none;">
 		<ul class="sort-code-body-sec">
 			<li>14</li>
 			<li>12</li>
@@ -199,6 +216,7 @@ $(document).ready(function(){
 		$('#1coumn').hide();
 		$('#2coumn').hide();
 		$('#3coumn').hide();
+		$('#2coumn_right').hide();
 
 		var page_id = $('#page_id').val();	
 		$.ajax({
@@ -240,7 +258,7 @@ $(document).ready(function(){
 		$('#1coumn').hide();
 		$('#2coumn').show();
 		$('#3coumn').hide();
-		
+		$('#2coumn_right').hide();
 		var page_id = $('#page_id').val();	
 		$.ajax({
 	        type: 'POST',
@@ -327,7 +345,6 @@ $(document).ready(function(){
 		        		}
 					}
 		        	
-	        		
 					if(v.section == 'left_col'){
 						var dropdown = '<select class="form-control col-sm-6" name="two_col_leftcontent[]" id="">'+
 						'<option value="0">select widget</option>'+
@@ -335,22 +352,138 @@ $(document).ready(function(){
 						'</select>';
 		        		$('#two_col_leftcontent_box').append(dropdown);
 					}
-// 					else{
-// 						var dropdown = '<select class="form-control col-sm-6" name="two_col_maincontent[]" id="">'+
-// 						'<option value="0">select widget</option>'+
-// 						x +
-// 						'</select>';
-// 						$('#two_col_maincontent_box').prepend(dropdown);
-// 					}
 		        });
-// 	        	$('#loader').modal('toggle');
 	        }
 		});
 	}
+	//////////////////////////////////////
 	else if(x == 3){
 		$('#1coumn').hide();
 		$('#2coumn').hide();
+		$('#3coumn').hide();
+		$('#2coumn_right').show();
+		
+		var page_id = $('#page_id').val();	
+		$.ajax({
+	        type: 'POST',
+	        url: baseUrl+'admin/Ajax_ctrl/get_all_widgets',
+	        dataType: "json",
+	        data: {
+		        'page_id' : page_id
+		       },
+	        beforeSend: function(){
+	        	$('#loader').modal({'show':true});	
+	        },
+	        complete: function(){},
+	        success:function (response) {
+	        	console.log(response);
+	        	$('#two_col_right_leftcontent_box').html('');
+	        	$('#two_col_right_rightcontent_box').html('');
+	        	$.each(response.data2,function(k,v){
+	        		var x = '';
+	        		var find = 0;
+	        		$.each(response.data,function(key,value){
+		        		if(value.w_id == v.widget_id){
+		        			x = x + '<option value="'+ value.w_id +'" selected>'+ value.name +'</option>';
+		        			find = 1;
+		        		}
+		        		else{
+		        			x = x + '<option value="'+ value.w_id +'">'+ value.name +'</option>';
+		        		}
+		        	});
+		        	
+	        		if(find){
+						x = x + '<option value="-1">News</option>'+
+	        			'<option value="-2">Slider</option>'+
+	        			'<option value="-3">Quick Link</option>'+
+	        			'<option value="-4">Event</option>'+
+	        			'<option value="-5">Videos</option>'+
+	        			'<option value="-6">Contact Us</option>';
+					}
+					else{
+						if(v.widget_id == '-1'){
+		        			x = x + '<option value="-1" selected>News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>'+
+		        			'<option value="-6">Contact Us</option>';
+		        		}
+		        		else if(v.widget_id == '-2'){
+		        			x = x + '<option value="-2" selected>Slider</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>'+
+		        			'<option value="-6">Contact Us</option>';
+		        		}
+		        		else if(v.widget_id == '-3'){
+		        			x = x + '<option value="-3" selected>Quick Link</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>'+
+		        			'<option value="-6">Contact Us</option>';
+		        		}
+		        		else if(v.widget_id == '-4'){
+		        			x = x + '<option value="-4" selected>Event</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-5">Videos</option>'+
+		        			'<option value="-6">Contact Us</option>';
+		        		}
+		        		else if(v.widget_id == '-5'){
+		        			x = x + '<option value="-5" selected>Videos</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-6">Contact Us</option>';
+		        		}
+		        		else if(v.widget_id == '-6'){
+		        			x = x + '<option value="-6" selected>Contact Us</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>';
+		        		}
+					}
+	        		
+	        		
+					if(v.section == 'left_col'){
+						var dropdown = '<select class="form-control col-sm-6" name="three_col_leftcontent[]" id="">'+
+						'<option value="0">select widget</option>'+
+						x +
+						'</select>';
+		        		$('#two_col_right_leftcontent_box').append(dropdown);
+					}
+					else if(v.section == 'main_body'){
+						var dropdown = '<select class="form-control col-sm-6" name="three_col_maincontent[]" id="">'+
+						'<option value="0">select widget</option>'+
+						x +
+						'</select>';
+						$('#three_col_maincontent_box').aooend(dropdown);
+					}
+					else{
+						var dropdown = '<select class="form-control col-sm-6" name="three_col_rightcontent[]" id="">'+
+						'<option value="0">select widget</option>'+
+						x +
+						'</select>';
+						$('#two_col_right_rightcontent_box').append(dropdown);
+					}
+		        });
+	        	$('#loader').modal('toggle');
+	        }
+		});
+	}
+	//////////////////////////////////////
+	else if(x == 4){
+		$('#1coumn').hide();
+		$('#2coumn').hide();
 		$('#3coumn').show();
+		$('#2coumn_right').hide();
 
 		var page_id = $('#page_id').val();	
 		$.ajax({

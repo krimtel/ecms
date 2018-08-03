@@ -151,47 +151,45 @@ $(document).on('click','.play-img',function(){
 	});
 	
 	
-	 $(document).on('click','.event_inst',function(){
+	 $(document).on('click','.event_inst',function(){				
+		 var event_id = $(this).data('id');
+		 var event_category = $("#event_category_selector").val();
+		 var sequence_id = $(this).data('sequence');
+			$.ajax({
+				type: 'post',
+				url: baseUrl+'Event_ctrl/event_gallery_data',
+				dataType: "json",
+				data:{
+					'event_id'  :  event_id,
+					'event_category' : event_category,
+					'sequence_id' :    sequence_id
+				},
+				beforeSend: function(){
+					$('#loader').modal({'show': true});
+				},
+				complete: function(){},
+				success: function (response){
+					console.log(response);
+					$('#loader').modal('toggle');
+					if(response.status == 200){
+						  $.each(response.data.result, function(k, v) {
+							$('#modal_image').html('<img style="width:100%;" src="'+baseUrl+'Event_gallary/'+ v.event_image +'">');                                       
+							$('#modal_content').text(v.event_content);                                  
+						  });
 						
-						 var event_id = $(this).data('id');
-						 var event_category = $("#event_category_selector").val();
-						 var sequence_id = $(this).data('sequence');
-						 						 
-							$.ajax({
-								type: 'post',
-								url: baseUrl+'Event_ctrl/event_gallery_data',
-								dataType: "json",
-								data:{
-									'event_id'  :  event_id,
-									'event_category' : event_category,
-									'sequence_id' :    sequence_id
-								},
-								beforeSend: function(){
-									$('#loader').modal({'show': true});
-								},
-								complete: function(){},
-								success: function (response){
-									console.log(response);
-									$('#loader').modal('toggle');
-									if(response.status == 200){
-										  $.each(response.data.result, function(k, v) {
-											$('#modal_image').html('<img style="width:100%;" src="'+baseUrl+'Event_gallary/'+ v.event_image +'">');                                       
-											$('#modal_content').text(v.event_content);                                  
-										  });
-										
-										
-										$('#event_instance').modal({'show':true,'backdrop':false});
-									}
-									else{
-										
-									}
-								}
-							});
 						
-						// $('#modal_title').html(e_title);
-						 // $('#modal_content').html(modal_content);
-						 // $('#modal_image').html('<img style="width:100%;" src="'+baseUrl+'/Event_gallary/'+modal_image+'">');
-						 // $('#event_instance').modal({'show':true,'backdrop':false});
+						$('#event_instance').modal({'show':true,'backdrop':false});
+					}
+					else{
 						
-					 });
+					}
+				}
+			});
+		
+		// $('#modal_title').html(e_title);
+		 // $('#modal_content').html(modal_content);
+		 // $('#modal_image').html('<img style="width:100%;" src="'+baseUrl+'/Event_gallary/'+modal_image+'">');
+		 // $('#event_instance').modal({'show':true,'backdrop':false});
+		
+	 });
 });

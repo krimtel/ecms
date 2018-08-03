@@ -46,7 +46,7 @@ class Event_ctrl extends CI_Controller {
 			$data['events'] = $file_menu;
 		}
 		else{
-			$data['events'] = $this->Event_model->Event_list();
+			$data['events'] = $this->Event_model->event_list();
 			$json = json_encode($data['events']);
 			$file = FCPATH . '/software_files/Event.txt';
 			file_put_contents ($file, $json);
@@ -300,11 +300,21 @@ class Event_ctrl extends CI_Controller {
 	}
 	
 	function get_events_ajax(){
-		$data['page_count'] = $this->input->post('page_count');
+		$data['page_count'] = (int)$this->input->post('page_count');
 		$data['is_home'] = $this->input->post('is_home');
 		$data['is_active'] = $this->input->post('is_active');
 		$data['search_text'] = $this->input->post('search_text');
 		$result = $this->Event_model->get_events_ajax($data);
+		if(count($result)>0){
+			echo json_encode(array('data'=>$result,'msg'=>'All Events.','status'=>200));
+		}
+		else{
+			echo json_encode(array('msg'=>'No Record Found.','status'=>500));
+		}
+	}
+	
+	function get_all_events_count(){
+		$result = $this->Event_model->get_all_events_count();
 		if(count($result)>0){
 			echo json_encode(array('data'=>$result,'msg'=>'All Events.','status'=>200));
 		}

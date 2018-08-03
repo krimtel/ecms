@@ -24,6 +24,29 @@ class Enam_ctrl extends CI_Controller {
 	}
 
 	public function index(){		
+// 		$this->load->library('guzzle');
+// 		$client     = new GuzzleHttp\Client();
+// 		$url        = 'http://enam.gov.in/NamWebSrv/rest/mobile/getEnrolledMandis';
+// 		try {
+// 			# guzzle post request example with form parameter
+// 			$response = $client->request( 'POST',$url);
+// 			#guzzle repose for future use
+// 			//echo $response->getStatusCode(); // 200
+// 			//echo $response->getReasonPhrase(); // OK
+// 			//echo $response->getProtocolVersion(); // 1.1
+// 			header("Content-Type: application/json; charset=UTF-8");
+// 			$responseBodyAsString = $response->getBody();
+// 			$obj = json_decode($responseBodyAsString, true);
+// 			foreach($obj['listEnrolledMandis'] as $mandi){
+// 				print_r($mandi); die;
+// 			}
+			
+// 		} catch (GuzzleHttp\Exception\BadResponseException $e) {
+// 			#guzzle repose for future use
+// 			$response = $e->getResponse();
+// 			$responseBodyAsString = $response->getBody()->getContents();
+// 			print_r($responseBodyAsString);
+// 		}
 		$data['title'] = 'eNam';
 		$data['keywords'] = 'enam home';
 		$data['head'] = $this->load->view('comman/head',$data,TRUE);

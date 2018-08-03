@@ -102,7 +102,7 @@
 			  </div>
 			</div>
 
-			<div class="box-body" id="welcome">
+			<div class="box-body" id="event_box_list">
 				<table class="table events-edit-bg">
 					<tr>
 						<th>Image</th>
@@ -160,29 +160,23 @@
 						<?php } } }?>
 					</tbody>
 				</table>
-				<div class="well">
-					<select class="col-sm-2" id="event_page_counter">
-						<option value="0">1</option>
-						<option value="1">2</option>
-						<option value="2">3</option>
-						<option value="3">4</option>
-					</select>
+            </div>
+			<div class="well">
+					<select class="col-sm-2" id="event_page_counter"></select>
 					
 					<select class="col-sm-2" id="event_is_home">
-						<option value="0">IS HOME</option>
-						<option value="yes">YES</option>
-						<option value="no">NO</option>
+						<option value="NULL">IS HOME</option>
+						<option value="1">YES</option>
+						<option value="0">NO</option>
 					</select>
 					
 					<select class="col-sm-2" id="event_is_active">
-						<option value="0">IS ACTIVE</option>
-						<option value="yes">YES</option>
-						<option value="no">NO</option>
+						<option value="NULL">IS ACTIVE</option>
+						<option value="1">YES</option>
+						<option value="0">NO</option>
 					</select>
 					<input type="text" id="event_search"/>
 				</div>
-            </div>
-
 			
 		</div>
 		</section>

@@ -43,32 +43,30 @@ class Event_model extends CI_Model {
 		return $result;
 	}
 	function event_gallery_content($data){
+		$l_id = $this->session->userdata('client_language');
 		
 		$this->db->select('count(*) as total');
 					$this->db->join('event_item ei','ei.event_id = e.id');
 					$this->db->order_by('e.sort,e.created_at','ASC');
 					if($data['event_category']=='All'){
-						$output['result1'] = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1))->result_array();
+						$output['result1'] = $this->db->get_where('events e',array('e.status' => 1,'ei.lang_id'=>$l_id,'ei.status'=>1))->result_array();
 					}
 					else{
-						$output['result1'] = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1,'e.event_category'=>$data['event_category']))->result_array();
+						$output['result1'] = $this->db->get_where('events e',array('e.status' => 1,'ei.lang_id'=>$l_id,'ei.status'=>1,'e.event_category'=>$data['event_category']))->result_array();
 					}
 		
 		if($data['event_category'] == 'All'){
 			$this->db->select('ei.*,e.sort,e.title,e.event_category,e.event_image');
 			$this->db->join('event_item ei','ei.event_id = e.id');
 			$this->db->order_by('e.sort,e.created_at','ASC');
-			 $this->db->limit(1,($data['sequence_id']+1));
-			$output['result'] = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1))->result_array();
-			 print_r($this->db->last_query()); die;
-			
+			 $this->db->limit(1,$data['sequence_id']);
+			$output['result'] = $this->db->get_where('events e',array('e.status' => 1,'ei.lang_id'=>$l_id,'ei.status'=>1))->result_array();
 		}
 		else{
 				$this->db->select('ei.*,e.sort,e.title,e.event_category,e.event_image');
 				$this->db->join('event_item ei','ei.event_id = e.id');
 				$this->db->order_by('e.sort,e.created_at','ASC');
-				$output['result'] = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1,'e.event_category'=>$data['event_category']))->result_array();
-				//print_r($this->db->last_query()); die;
+				$output['result'] = $this->db->get_where('events e',array('e.status' => 1,'ei.lang_id'=>$l_id,'ei.status'=>1,'e.event_category'=>$data['event_category']))->result_array();
 			
 		}
 		return $output;
