@@ -18,6 +18,7 @@ class Page_ctrl extends CI_Controller {
 	function all_pages(){
 		$data['title'] = ' pages';
 		$data['pages'] = $this->Page_model->get_all_pages();
+		//$data['pages'] = '';
 		//print_r($data['pages']); die;
 		$data['head'] = $this->load->view('admin/comman/head',$data,TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
@@ -353,5 +354,23 @@ class Page_ctrl extends CI_Controller {
 			
 		}
 		
+		
+		function url_check(){
+				$checkbox_url = $this->input->post('checkbox_url');
+				
+				$result = $this->db->get_where('menu',array('cms_url'=>$checkbox_url,'status'=>1))->result_array();
+				if(count($result) > 0){
+					echo json_encode(array('msg'=>'This url already exist.','status'=>500));
+				}
+				elseif(!count($result) > 0){
+					$result1 = $this->db->get_where('pages',array('url'=>$checkbox_url,'status'=>1))->result_array();
+					if(count($result1) > 0){
+					echo json_encode(array('msg'=>'This url already exist.','status'=>500));
+					}
+					else{
+						echo json_encode(array('msg'=>'Congretes.','status'=>200));
+					}
+				}
+		}
 		
 	}
