@@ -37,6 +37,9 @@ August Kranti Marg, Hauz Khas, New Delhi - 110016. <br>
 <div class="form-group">
     <input placeholder="Conatct No." type="email" class="form-control" id="email">
   </div>
+<div class="form-group">
+    <input placeholder="Conatct No." type="email" class="form-control" id="email">
+  </div>
   <div class="checkbox">
     <label><input type="checkbox"> Remember me</label>
   </div>

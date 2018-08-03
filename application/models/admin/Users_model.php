@@ -26,6 +26,14 @@ class Users_model extends CI_Model {
 		$result = $this->db->get_Where('users u',array('ug.group_id'=>3,'u.active'=>1))->result_array();
 		return $result;
 	}
+	function get_all_users_dashboard(){
+		$this->db->select('u.id,u.username,u.first_name,u.last_name');
+		$this->db->join('users_groups ug','ug.user_id = u.id');
+		$this->db->join('groups g','g.id = ug.group_id');
+		$this->db->limit(5,1);
+		$result = $this->db->get_Where('users u',array('ug.group_id'=>3,'u.active'=>1))->result_array();
+		return $result;
+	}
 
 	function get_user_language($u_id){
 		$this->db->select('id,language as lang_id');

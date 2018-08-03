@@ -45,7 +45,20 @@ class Admin_ctrl extends CI_Controller {
 			}
 		}
 		
-		$data['videos'] = $this->Video_model->video_home_page_list();
+		
+		$videos = json_decode(file_get_contents(FCPATH . '/software_files/Video_client.txt'),true);
+		if(count($videos)){
+			$data['videos'] = $videos;
+		}
+		else{
+			$data['videos'] = $this->Video_model->video_home_page_list();
+			$json = json_encode($data['videos']);
+			$file = FCPATH . '/software_files/Video_client.txt';
+			file_put_contents ($file, $json);
+		}
+		
+		
+		
 		$slider = json_decode(file_get_contents(FCPATH . '/software_files/Slider_client.txt'),true);
 		if(count($slider)){
 			$data['sliders'] = $slider;
@@ -62,19 +75,19 @@ class Admin_ctrl extends CI_Controller {
 			$data['newses'] = $news;
 		}
 		else{
-			$data['newses'] = $this->News_model->News_list();
+			$data['newses'] = $this->News_model->news_list_dashboard();
 			$json = json_encode($data['newses']);
 			$file = FCPATH . '/software_files/News.txt';
 			file_put_contents ($file, $json);
 		}
-		$data['pages'] = $this->Page_model->get_all_pages();
+		$data['pages'] = $this->Page_model->get_all_pages_dashboard();
 		
 		$events = json_decode(file_get_contents(FCPATH . '/software_files/Event.txt'),true);
 		if(count($events)){
 			$data['events'] = $events;
 		}
 		else{
-			$data['events'] = $this->Event_model->Event_list();
+			$data['events'] = $this->Event_model->event_list_dashboard();
 			$json = json_encode($data['events']);
 			$file = FCPATH . '/software_files/Event.txt';
 			file_put_contents ($file, $json);
@@ -91,7 +104,7 @@ class Admin_ctrl extends CI_Controller {
 			file_put_contents ($file, $json);
 		}
 		
-		$data['users'] = $result = $this->Users_model->get_all_users();
+		$data['users'] = $result = $this->Users_model->get_all_users_dashboard();
 		
 		$data['head'] = $this->load->view('admin/comman/head','',TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);

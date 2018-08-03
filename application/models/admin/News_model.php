@@ -126,8 +126,16 @@ class News_model extends CI_Model {
 		$this->db->join('languages l','l.l_id = ni.lang_id','left');
 		$this->db->order_by('n.sort,n.created_at,n.updated_at','ASC');
 		$result = $this->db->get_where('news n',array('n.status' => 1,'ni.status'=>1))->result_array();
-		
-		return $result;
+			return $result;
+	}
+	function news_list_dashboard(){
+		$this->db->select('ni.*,n.sort,n.publish');
+		$this->db->join('news_item ni','ni.news_id = n.id','left');
+		$this->db->join('languages l','l.l_id = ni.lang_id','left');
+		$this->db->order_by('n.sort,n.created_at,n.updated_at','ASC');
+		$this->db->limit(5,1);
+		$result = $this->db->get_where('news n',array('n.status' => 1,'ni.status'=>1))->result_array();
+			return $result;
 	}
 	
 	function get_news_content($data){

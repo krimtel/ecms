@@ -64,6 +64,17 @@ class Event_model extends CI_Model {
 		return $result;
 	}
 	
+	function event_list_dashboard(){
+		//$offset = $this->config->item('offset');
+		$this->db->select('ei.*,e.sort,e.event_image,e.publish,e.is_home');
+		$this->db->join('event_item ei','ei.event_id = e.id','left');
+		$this->db->join('languages l','l.l_id = ei.lang_id','left');
+		$this->db->order_by('e.sort,e.created_at','ASC');
+		$this->db->limit(5,1);
+		$result = $this->db->get_where('events e',array('e.status' => 1,'ei.status'=>1))->result_array();
+		return $result;
+	}
+	
 	function get_event_content($data){
 		$this->db->select('ei.*,e.sort,e.event_category');
 		$this->db->join('events e','e.id = ei.event_id');

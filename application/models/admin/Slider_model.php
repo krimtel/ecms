@@ -60,6 +60,7 @@ class Slider_model extends CI_Model {
 		$this->db->select('si.*,s.sort,s.publish');
 		$this->db->join('slider_item si','si.slider_id = s.sid');
 		$this->db->order_by('s.sort,s.created_at');
+		$this->db->limit(5,1);
 		$result=$this->db->get_where('slider s',array('s.status'=>1,'s.publish'=>1,'si.status'=>1))->result_array();
 		return $result;
 	}

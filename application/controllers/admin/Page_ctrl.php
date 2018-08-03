@@ -18,6 +18,7 @@ class Page_ctrl extends CI_Controller {
 	function all_pages(){
 		$data['title'] = ' pages';
 		$data['pages'] = $this->Page_model->get_all_pages();
+		//print_r($data['pages']); die;
 		$data['head'] = $this->load->view('admin/comman/head',$data,TRUE);
 		$data['header'] = $this->load->view('admin/comman/header','',TRUE);
 		$data['navigation'] = $this->load->view('admin/comman/navigation','',TRUE);
