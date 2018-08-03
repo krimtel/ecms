@@ -68,6 +68,7 @@
 					<div class="col-sm-9">
 						<input type="checkbox" name="checkbox_control" id="checkbox_control" <?php if(isset($page_details)){if($page_details[0]['is_static']){ echo "checked";}}?> >
 						<input type="text" name="checkbox_url" id="checkbox_url" value="<?php if(isset($page_details)){if($page_details[0]['is_static']){ echo $page_details[0]['url']; }}?>" />
+						<div id="checkbox_url_response" class="response text-danger"></div></div>
 					</div>
 				</div>
 				
