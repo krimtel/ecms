@@ -167,29 +167,27 @@ $(document).ready(function(){
 			$("#language_create").attr("disabled", "disabled");
 		}
 	    });
-	
-	     
-	////////////////////
-	$(document).on('keyup','#language_name_eng',function(){
-		var language_name_eng = $("#language_name_eng").val().trim();
-		if($("#language_name_eng").val() == ''){
+////////////////////////////////////////////////////////////////
+$(document).on('keyup','#language_name',function(){
+		var language = $("#language_name").val().trim();
+		if($("#language_name").val() == ''){
 			$("#language_response").html('Language name not empty.'); 
 		}
 		var pattern =  new RegExp("^[a-zA-Z]*$");
 		var that = this;
-		if(pattern.test(language_name_eng)) {
-			if(language_name_eng==''){
+		if(pattern.test(language)) {
+			if(language==''){
 				 $("#language_create").attr("disabled", "disabled");
 				 
 			}
-			else if (language_name_eng != ''){
+			else if (language != ''){
 		         $("#language_response").show();
 		         $.ajax({
-		            url: baseUrl +'admin/language_ctrl/language_check_eng',
+		            url: baseUrl +'admin/language_ctrl/language_check',
 		            type: 'POST',
 		            dataType: "json",
 		            data: {
-		            	'language_name_eng' : language_name_eng,
+		            	'language' : language,
 		            },
 		            success: function(response){
 		                if(response.status == 200){
@@ -209,12 +207,45 @@ $(document).ready(function(){
 		         $("#language_response").hide();
 		      }
 		}
-		else if(language_name_eng!=pattern){
+		else if(language!=pattern){
 			$("#language_response").html("<span class='exists'>only char allowed</span>");
 			$(that).addClass('txt_error');
 			$("#language_create").attr("disabled", "disabled");
 		}
 	    });
+///////////////////////////////////////////////////////////////
+		
+	$(document).on('keyup','#checkbox_url',function(){
+		var checkbox_url = $("#checkbox_url").val();
+		if($("#checkbox_url").val() == ''){
+			$("#checkbox_url_response").html('URL name not empty.'); 
+		}
+		
+		else if (checkbox_url != ''){
+		         var that = this;
+		         $.ajax({
+		            url: baseUrl +'admin/Page_ctrl/url_check',
+		            type: 'POST',
+		            dataType: "json",
+		            data: {
+		            	'checkbox_url' : checkbox_url,
+		            },
+		            success: function(response){
+		                if(response.status == 200){
+		                	$(that).removeClass('txt_error');
+		                	$("#checkbox_url_response").html('');
+		                }else {
+		                    $(that).addClass('txt_error');
+		                    $("#checkbox_url_response").html("<span class='exists'>"+ response.msg +"</span>");
+		                }
+		                
+		             }
+		          });
+		      
+		}
+	    });
+	     
+//////////////////////////////////////////////////////
 	
 	///////////////////////Users Language////////////////////////////////////////////////
 	
