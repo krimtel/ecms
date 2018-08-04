@@ -95,7 +95,6 @@ class Url_ctrl extends CI_Controller {
 						$data['output'] = str_replace($matches[0][$i],$this->component_render($x[2]),$data['output']);
 					}
 				}
-				print_r($data['output']); die;
 				////////////////////////////////////
 				//main logic
 				$file_menu = json_decode(file_get_contents(base_url().'software_files/Language.txt'),true);
@@ -221,6 +220,9 @@ class Url_ctrl extends CI_Controller {
 							
 						if($x[1] == 'krimtel'){
 							$data['output'] = str_replace($matches[0][$i],$this->page_render($x[2]),$data['output']);
+						}
+						else if($x[1] == 'imagepath'){
+							$data['output'] = str_replace($matches[0][$i],$this->image_path($x[1]),$data['output']);
 						}
 						else {
 							$data['output'] = str_replace($matches[0][$i],$this->component_render($x[2]),$data['output']);
@@ -352,7 +354,7 @@ class Url_ctrl extends CI_Controller {
 	}
 	
 	function image_path(){
-		return 'rahulsinha'; die;
+		return base_url().'assest/images/';
 	}
 	
 	function page_render($str){
