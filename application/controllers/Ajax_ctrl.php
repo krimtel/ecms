@@ -26,4 +26,14 @@ class Ajax_ctrl extends CI_Controller {
 			echo json_encode(array('msg'=>'Language slected.','status'=>200));
 		die;
 	}
+	
+	function menu_activate($url_array){
+		$result = $this->db->query("SELECT id,p_id FROM `menu` where cms_url = '$url_array'")->result_array();
+		if(count($result)>0){
+			echo json_encode(array('data'=>$result,'status'=>200));
+		}
+		else{
+			echo json_encode(array('status'=>500));
+		}
+	}
 }

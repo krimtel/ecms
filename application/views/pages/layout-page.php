@@ -1,19 +1,11 @@
 <div class="main-content-section" style="padding-top:1px;">
-		<!--<div class="page-title" style="padding:0 4%;"> 
-		<h3><?php //echo $page_title; ?></h3>
-	</div> -->
-<?php
-	//echo "hello"; die;
-// echo $this->uri->segment(1); die;
- ?>
  <section class="title-header-bg">
 	<div class="text-center">
 		<h3><?php echo $title; ?></h3>
 		<div class="bredcrum-list">
 			<ul>
 				<li><a href="<?php echo base_url(); ?>" title=""><img style="margin-top:-6px;" alt="" src="<?php echo base_url(); ?>assest/images/home-ico.png" /></a> / </li>
-				<li><a href="" title="">NAM</a> / </li>
-				<li><a href="" title=""><?php echo $title; ?></a></li>
+				<li><a href="" title=""><?php echo $bredcrum; ?></a></li>
 			</ul>
 		</div>
 	</div>
@@ -215,3 +207,37 @@
 	<?php } ?>
 </div>
 </div>
+
+
+<?php 
+$c = 1;
+		$url_array ='';
+		while($this->uri->segment($c) != ''){
+			$url_array.= $this->uri->segment($c).'/';
+			$c = $c + 1;
+		}
+		$url_array = strtolower(rtrim($url_array,"/ "));
+		?>
+<script>
+var baseUrl = $('#base_url').val();
+$.ajax({
+	type: 'post',
+	url: baseUrl+'Ajax_ctrl/menu_activate/<?php echo $url_array;?>',
+	dataType: "json",
+	data:{},
+	beforeSend: function(){},
+	complete: function(){},
+	success: function (response){
+		if(response.status == 200){
+			console.log(response);
+			if (typeof response.data[0].id !== 'undefined') {
+				$('#menuid_'+response.data[0].id).addClass('active');	
+			}
+			if (typeof response.data[0].p_id !== 'undefined') {
+				$('#menuid_'+response.data[0].p_id).addClass('active');
+			}
+			
+		}
+	}
+});
+</script>

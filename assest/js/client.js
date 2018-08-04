@@ -185,11 +185,5 @@ $(document).on('click','.play-img',function(){
 					}
 				}
 			});
-		
-		// $('#modal_title').html(e_title);
-		 // $('#modal_content').html(modal_content);
-		 // $('#modal_image').html('<img style="width:100%;" src="'+baseUrl+'/Event_gallary/'+modal_image+'">');
-		 // $('#event_instance').modal({'show':true,'backdrop':false});
-		
 	 });
 });

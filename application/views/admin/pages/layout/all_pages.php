@@ -46,7 +46,11 @@
                 		<tr>
                   			<td><?php echo $c;?></td>
                   			<td><?php echo $page['page_name']; ?></td>
-							<td><?php echo $page['cms_url']; ?></td>
+                  			<?php if($page['is_static']){ ?>
+                  				<td><?php echo $page['url']; ?></td>
+                  			<?php } else {?>
+								<td><?php echo $page['cms_url']; ?></td>
+							<?php } ?>
                   			<td>
                   				<a title="Edit" href="<?php echo base_url();?>admin/admin/add_page/<?php echo$page['p_id'];?>" class="page_edit btn btn-info btn-flat"><i class="fa fa-pencil"></i></a>
                   				<a title="Delete" class="class_delete btn btn-info btn-flat"><i class="fa fa-trash"></i></a>

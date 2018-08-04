@@ -24,19 +24,19 @@
 	                			if($f){
 	                				echo '<li class="dropdown">';
 										if($menu['external_link']==0){
-											echo '<a href="'.base_url().$menu['cms_url'].'" class="dropdown-toggle" data-toggle="dropdown" title="'.$menu['menu_name'].'">'.$menu['menu_name'].'<b class="caret"></b></a>';
+											echo '<a id="menuid_'.$menu['id'].'" href="'.base_url().$menu['cms_url'].'" class="dropdown-toggle" data-toggle="dropdown" title="'.$menu['menu_name'].'">'.$menu['menu_name'].'<b class="caret"></b></a>';
 										}
 										else{
-											echo '<a href="'.$menu['cms_url'].'" class="dropdown-toggle" data-toggle="dropdown" title="'.$menu['menu_name'].'">'.$menu['menu_name'].'<b class="caret"></b></a>';
+											echo '<a id="menuid_'.$menu['id'].'" href="'.$menu['cms_url'].'" class="dropdown-toggle" data-toggle="dropdown" title="'.$menu['menu_name'].'">'.$menu['menu_name'].'<b class="caret"></b></a>';
 										}
 	                				echo '<ul class="dropdown-menu">';
 	                					foreach($menus as $innermenu){ 
 	                						if($innermenu['p_id'] == $menu['id']){
 												if($innermenu['external_link']==0){
-													echo '<li><a href="'.base_url().$innermenu['cms_url'].'" title="'.$innermenu['menu_name'].'"> '.$innermenu['menu_name'].'</a></li>';
+													echo '<li><a id="menuid_'.$innermenu['id'].'" class="a1" href="'.base_url().$innermenu['cms_url'].'" title="'.$innermenu['menu_name'].'"> '.$innermenu['menu_name'].'</a></li>';
 												}
 												else{
-													echo '<li><a href="'.$innermenu['cms_url'].'" title="'.$innermenu['menu_name'].'" target="_blank"> '.$innermenu['menu_name'].'</a></li>';
+													echo '<li><a id="menuid_'.$innermenu['id'].'" class="b1" href="'.$innermenu['cms_url'].'" title="'.$innermenu['menu_name'].'" target="_blank"> '.$innermenu['menu_name'].'</a></li>';
 												}
 	                						}
 	                					}
@@ -44,7 +44,7 @@
 	                				echo '</li>';
 	                			}
 	                			else{
-	                				echo '<li><a class="" title="'.$menu['menu_name'].'" href="'.base_url().$menu['cms_url'].'">'.$menu['menu_name'].'</a></li>';
+	                				echo '<li><a id="menuid_'.$menu['id'].'" class="c1" title="'.$menu['menu_name'].'" href="'.base_url().$menu['cms_url'].'">'.$menu['menu_name'].'</a></li>';
 	                			}
                 			}
                 	 } ?>
