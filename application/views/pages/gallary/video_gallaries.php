@@ -45,7 +45,7 @@
 			<?php if(isset($videos) && count($videos)>0){?>
 				<?php $c = 1; foreach($videos as $video){ ?>
 				<div class="col-md-3">
-					<div class="row elearn-v-box">
+					<div class="row elearn-v-box" style="min-height:250px;">
 						<div class="col-md-12">
 							<div class="thum"><?php $v = explode('/embed/',$video['v_url']); ?>
 								<div  data-video_id="<?php echo $video['video_id']; ?>" style="background:url('http://img.youtube.com/vi/<?php echo $v[1];?>/0.jpg') center no-repeat;cursor:pointer;height:172px;width:280px;background-size:cover;"></div>

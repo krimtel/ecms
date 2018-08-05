@@ -294,6 +294,8 @@ $(document).ready(function(){
 	        			'<option value="-4">Event</option>'+
 	        			'<option value="-5">Videos</option>'+
 	        			'<option value="-6">Contact Us</option>';
+	        			'<option value="-7">Search</option>';
+	        			'<option value="-8">Subscribe</option>';
 					}
 					else{
 						if(v.widget_id == '-1'){
@@ -303,6 +305,8 @@ $(document).ready(function(){
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+		        			'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-2'){
 		        			x = x + '<option value="-2" selected>Slider</option>'+
@@ -311,6 +315,8 @@ $(document).ready(function(){
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-3'){
 		        			x = x + '<option value="-3" selected>Quick Link</option>'+
@@ -319,6 +325,8 @@ $(document).ready(function(){
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-4'){
 		        			x = x + '<option value="-4" selected>Event</option>'+
@@ -327,6 +335,8 @@ $(document).ready(function(){
 		        			'<option value="-3">Quick Link</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-5'){
 		        			x = x + '<option value="-5" selected>Videos</option>'+
@@ -335,6 +345,8 @@ $(document).ready(function(){
 		        			'<option value="-3">Quick Link</option>'+
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-6'){
 		        			x = x + '<option value="-6" selected>Contact Us</option>'+
@@ -343,7 +355,30 @@ $(document).ready(function(){
 		        			'<option value="-3">Quick Link</option>'+
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
+						else if(v.widget_id == '-7'){
+		        			x = x + '<option value="-6" selected>Contact Us</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
+		        		}
+						else if(v.widget_id == '-8'){
+		        			x = x + '<option value="-6" selected>Contact Us</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
+		        		}
+						
 					}
 		        	
 					if(v.section == 'left_col'){
@@ -400,6 +435,8 @@ $(document).ready(function(){
 	        			'<option value="-4">Event</option>'+
 	        			'<option value="-5">Videos</option>'+
 	        			'<option value="-6">Contact Us</option>';
+						'<option value="-7">Search</option>';
+		        		'<option value="-8">Subscribe</option>';
 					}
 					else{
 						if(v.widget_id == '-1'){
@@ -409,6 +446,8 @@ $(document).ready(function(){
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-2'){
 		        			x = x + '<option value="-2" selected>Slider</option>'+
@@ -417,6 +456,8 @@ $(document).ready(function(){
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-3'){
 		        			x = x + '<option value="-3" selected>Quick Link</option>'+
@@ -425,6 +466,8 @@ $(document).ready(function(){
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-4'){
 		        			x = x + '<option value="-4" selected>Event</option>'+
@@ -433,6 +476,8 @@ $(document).ready(function(){
 		        			'<option value="-3">Quick Link</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-5'){
 		        			x = x + '<option value="-5" selected>Videos</option>'+
@@ -441,6 +486,8 @@ $(document).ready(function(){
 		        			'<option value="-3">Quick Link</option>'+
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-6'){
 		        			x = x + '<option value="-6" selected>Contact Us</option>'+
@@ -449,6 +496,28 @@ $(document).ready(function(){
 		        			'<option value="-3">Quick Link</option>'+
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
+		        		}
+						else if(v.widget_id == '-7'){
+		        			x = x + '<option value="-6" selected>Contact Us</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
+		        		}
+						else if(v.widget_id == '-8'){
+		        			x = x + '<option value="-6" selected>Contact Us</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 					}
 	        		
@@ -519,6 +588,8 @@ $(document).ready(function(){
 	        			'<option value="-4">Event</option>'+
 	        			'<option value="-5">Videos</option>'+
 	        			'<option value="-6">Contact Us</option>';
+						'<option value="-7">Search</option>';
+		        		'<option value="-8">Subscribe</option>';
 					}
 					else{
 						if(v.widget_id == '-1'){
@@ -528,6 +599,8 @@ $(document).ready(function(){
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-2'){
 		        			x = x + '<option value="-2" selected>Slider</option>'+
@@ -536,6 +609,8 @@ $(document).ready(function(){
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-3'){
 		        			x = x + '<option value="-3" selected>Quick Link</option>'+
@@ -544,6 +619,8 @@ $(document).ready(function(){
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-4'){
 		        			x = x + '<option value="-4" selected>Event</option>'+
@@ -552,6 +629,8 @@ $(document).ready(function(){
 		        			'<option value="-3">Quick Link</option>'+
 		        			'<option value="-5">Videos</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-5'){
 		        			x = x + '<option value="-5" selected>Videos</option>'+
@@ -560,6 +639,8 @@ $(document).ready(function(){
 		        			'<option value="-3">Quick Link</option>'+
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-6">Contact Us</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 		        		else if(v.widget_id == '-6'){
 		        			x = x + '<option value="-6" selected>Contact Us</option>'+
@@ -568,6 +649,28 @@ $(document).ready(function(){
 		        			'<option value="-3">Quick Link</option>'+
 		        			'<option value="-4">Event</option>'+
 		        			'<option value="-5">Videos</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
+		        		}
+						else if(v.widget_id == '-7'){
+		        			x = x + '<option value="-6" selected>Contact Us</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
+		        		}
+						else if(v.widget_id == '-8'){
+		        			x = x + '<option value="-6" selected>Contact Us</option>'+
+		        			'<option value="-1">News</option>'+
+		        			'<option value="-2">Slider</option>'+
+		        			'<option value="-3">Quick Link</option>'+
+		        			'<option value="-4">Event</option>'+
+		        			'<option value="-5">Videos</option>';
+							'<option value="-7">Search</option>';
+		        			'<option value="-8">Subscribe</option>';
 		        		}
 					}
 		        	
