@@ -1,28 +1,12 @@
- <section class="title-header-bg">
+<section class="title-header-bg">
 	<div class="text-center">
-		<h3><?php echo $title; ?></h3>
-		<div class="bredcrum-list">
-			<ul>
-				<li><a href="<?php echo base_url(); ?>" title=""><img style="margin-top:-6px;" alt="" src="<?php echo base_url(); ?>assest/images/home-ico.png" /></a> / </li>
-				<li><a href="" title="">NAM</a> / </li>
-				<li><a href="" title=""><?php echo $title; ?></a></li>
-			</ul>
-		</div>
+		<h3><?php echo $page_title; ?></h3>
+		<div style="margin-top:12px;" class="text-center"><a href="<?php echo base_url(); ?>" title=""><img style="margin-top:-6px;" alt="" src="<?php echo base_url(); ?>assest/images/home-ico.png" /></a> / <span id="bredcrum"></span></div>
 	</div>
 </section>
-<style>
-	.contect-text-msg{    font-size: 14px;
-    text-align: justify;
-    color: #7d7c7c;}
-	.address-sec{}
-	.address-sec img{margin-right:10px;float:left;}
-	.address-sec h4{font-weight: 600;
-    color: #000;
-    margin-top: 0;}
-	.contact-form{}
-	.address-sec span{float:left;margin-bottom:5px;margin-top:5px;width:100%;}
-</style>
-<section class="content-section" style="min-height:300px;">
+ 
+
+<section class="content-section" style="min-height:300px;float:left;width:100%;padding:30px 0;">
 	<div class="container-fuild" style="padding-left:4%;padding-right:4%;">
 		<div class="row">
 			<div class="col-md-4">
@@ -31,8 +15,8 @@
 			<div class="col-md-4">
 				
 				<div class="address-sec"><h4>Small Farmers' Agri-Business Consortium</h4>
-<b>NCUI Auditorium Building, 5th Floor, 3, <br>Siri Institutional Area, <br>
-August Kranti Marg, Hauz Khas, <br>New Delhi - 110016. <br></b>
+<p><b>NCUI Auditorium Building, 5th Floor, 3, <br>Siri Institutional Area, <br>
+August Kranti Marg, Hauz Khas, <br>New Delhi - 110016. <br></b></p>
 <span style="margin-top:10px;"><img alt="Phone" src="<?php echo base_url(); ?>assest/images/icon1.png" /> 1800 270 0224 </span><br>
 <span><img alt="Fax" src="<?php echo base_url(); ?>assest/images/icon2.png" /> +91-11- 26862367 </span><br>
 <span><img alt="Email" src="<?php echo base_url(); ?>assest/images/icon3.png" /> nam@sfac.in<br></span>
@@ -43,10 +27,7 @@ August Kranti Marg, Hauz Khas, <br>New Delhi - 110016. <br></b>
 			<div class="form-group">
 				<label for="usr">Purpose to Contact Us</label>
 				<div class="radio">
-				  <label><input type="radio" name="optradio" checked>Generals</label>
-				</div>
-				<div class="radio">
-				  <label><input type="radio" name="optradio">Grievance</label>
+				  <label><input type="radio" name="optradio" checked>Generals</label>&nbsp;&nbsp;&nbsp;<label><input type="radio" name="optradio">Grievance</label>
 				</div>
 			</div>
 				<div class="form-group">
@@ -59,25 +40,19 @@ August Kranti Marg, Hauz Khas, <br>New Delhi - 110016. <br></b>
     <textarea placeholder="Tyle your Address" class="form-control" rows="5" ></textarea>
   </div>
   <div class="form-group">
-  <label for="sel1">Stakeholders</label>
   <select class="form-control" id="sel1">
-    <option>Farmer</option>
+<option>Select Stakeholders</option>
+<option>Farmer</option>
     <option>Traders</option>
   </select>
 </div>
    <div class="form-group">
-    <label for="sel1">Discription</label>
     <textarea placeholder="Discription..." class="form-control" rows="5" ></textarea>
   </div>
   <div class="form-group">
     <input placeholder="Email Id" type="email" class="form-control" id="email">
   </div>
-
-
-  <div class="checkbox">
-    <label><input type="checkbox"> Remember me</label>
-  </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="btn btn-success">Submit</button>
   </form>
 			</div>
 			

@@ -517,3 +517,14 @@ table tr th{background-color:#063479;color:#fff;font-weight:normal;}
 
 .e-commodity-list img{width:100px;height:100px;margin-right:10px;margin-bottom:5px;margin-top:5px;border:1px solid #ddd;float:left;}
 .v-g-imag{cursor:pointer;height:180px;width:320px;background-size:cover;}
+
+.contect-text-msg{    font-size: 14px;
+    text-align: justify;
+    color: #7d7c7c;}
+	.address-sec{}
+	.address-sec img{margin-right:10px;float:left;}
+	.address-sec h4{font-weight: 600;
+    color: #000;
+    margin-top: 0;}
+	.contact-form{}
+	.address-sec span{float:left;margin-bottom:5px;margin-top:5px;width:100%;}
