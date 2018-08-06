@@ -41,14 +41,15 @@
 				</h5>
 			</div>
 						
-			<div class="row" id="video_lists">
+			<div class="col-md-12" id="video_lists">
+			<div class="row">
 			<?php if(isset($videos) && count($videos)>0){?>
 				<?php $c = 1; foreach($videos as $video){ ?>
 				<div class="col-md-3">
 					<div class="row elearn-v-box" style="min-height:250px;">
 						<div class="col-md-12">
 							<div class="thum"><?php $v = explode('/embed/',$video['v_url']); ?>
-								<div  data-video_id="<?php echo $video['video_id']; ?>" style="background:url('http://img.youtube.com/vi/<?php echo $v[1];?>/0.jpg') center no-repeat;cursor:pointer;height:172px;width:280px;background-size:cover;"></div>
+								<div class="v-g-imag"  data-video_id="<?php echo $video['video_id']; ?>" style="background:url('http://img.youtube.com/vi/<?php echo $v[1];?>/0.jpg') center no-repeat;"></div>
 								<a href="<?php echo base_url();?>elearning/id/<?php echo $video['video_id'];?>">
 								<img alt="" style="width:64px;"class="play-img-gallery" src="<?php echo base_url();?>assest/images/new-theme/icon/play-ico.png" />
 								</a>
@@ -65,6 +66,7 @@
 			<?php } else{ ?>
 				No Videos.
 			<?php } ?>
+			</div>
 			</div>
 		</div>
 	</div>

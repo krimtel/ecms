@@ -507,3 +507,13 @@ body.hindi .navigation li a{font-size:14px !important;}
 }
 table tr th{background-color:#063479;color:#fff;font-weight:normal;}
 .table-bordered>tbody>tr>td, .table-bordered>thead>tr>th{border:1px solid #d2cfcf;}
+.emandi-select {margin-bottom:20px;}
+.emandi-select select{width:210px;float:left;margin-right:10px;}
+.emandi-list{margin-top:20px;padding:10px;}
+.emandi-list table th{background-color:#70b32d;color:#fff;font-family:'Roboto', sans-serif;}
+.e-commodity-list{float:left;}
+.commodity-img{float:left;}
+.commodity-img span{text-align:center;float:left;width:100%;}
+
+.e-commodity-list img{width:100px;height:100px;margin-right:10px;margin-bottom:5px;margin-top:5px;border:1px solid #ddd;float:left;}
+.v-g-imag{cursor:pointer;height:180px;width:320px;background-size:cover;}

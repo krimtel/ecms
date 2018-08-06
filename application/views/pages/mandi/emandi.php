@@ -1,14 +1,3 @@
-<style>
-.emandi-select select{width:210px;float:left;margin-right:10px;}
-.emandi-list{margin-top:20px;padding:10px;}
-.emandi-list table th{background-color:#70b32d;color:#fff;font-family:'Roboto', sans-serif;}
-.e-commodity-list{float:left;}
-.commodity-img{float:left;}
-.commodity-img span{text-align:center;float:left;width:100%;}
-
-.e-commodity-list img{width:100px;height:100px;margin-right:10px;margin-bottom:5px;margin-top:5px;border:1px solid #ddd;float:left;}
-</style>
-
 <section class="content-section" style="background-color:#fff;padding:20px 0;float:left;width:100%;">
 	<div class="container-fuild" style="padding-left:4%;padding-right:4%;">
 		<div class="row">
@@ -25,7 +14,7 @@
 					<option>Select Commodity</option>
 					<option>Durg</option>
 				</select>
-				<button class="btn primary-info">
+				<button class="btn btn-success">
 					Search
 				</button>
 			</div>
